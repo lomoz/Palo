@@ -36,7 +36,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+
+        /*
+         * Changed code generated method setDrawerListener to addDrawerListener.
+         */
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /*
-     * Add actions to happen after click on a menu point down here!
+     * Add actions to happen after click on a menu point item here!
      */
 
     @SuppressWarnings("StatementWithEmptyBody")
