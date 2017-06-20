@@ -40,7 +40,7 @@ public class OneCheckedFragment extends Fragment {
 
     /*
      * Factory method is created by the first checked option.
-     * This is usefull to pass data from one activity or fragment to another.
+     * This is useful to pass data from one activity or fragment to another.
      */
 
     public static OneCheckedFragment newInstance(String param1, String param2) {
@@ -67,5 +67,4 @@ public class OneCheckedFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_one_checked, container, false);
     }
-
 }

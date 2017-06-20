@@ -108,10 +108,19 @@ public class MainActivity extends AppCompatActivity
                     uncheckedFragment.getTag()
             ).commit();
 
-
         } else if (id == R.id.nav_gallery) {
 
-            Toast.makeText(this, "Gallery", Toast.LENGTH_SHORT).show();
+            /*
+             * Call a Fragment with the newnInstance method like this.
+             */
+
+            OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(
+                    R.id.relativelayout_for_fragments,
+                    oneCheckedFragment,
+                    oneCheckedFragment.getTag()
+            ).commit();
 
         } else if (id == R.id.nav_slideshow) {
 
