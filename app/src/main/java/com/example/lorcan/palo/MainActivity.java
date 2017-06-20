@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity
 
     /*
      * Add actions to happen after click on a menu point item here!
+     *
+     * If menu icons were added or deleted in activity_main_drawer.xml,
+     * the if and else if statements should be added or deleted here as well.
      */
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -102,6 +105,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+
+            Toast.makeText(this, "Gallery", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_send) {
 
