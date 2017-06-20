@@ -37,6 +37,12 @@ public class OneCheckedFragment extends Fragment {
      * @return A new instance of fragment OneCheckedFragment.
      */
     // TODO: Rename and change types and number of parameters
+
+    /*
+     * Factory method is created by the first checked option.
+     * This is usefull to pass data from one activity or fragment to another.
+     */
+
     public static OneCheckedFragment newInstance(String param1, String param2) {
         OneCheckedFragment fragment = new OneCheckedFragment();
         Bundle args = new Bundle();
