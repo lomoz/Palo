@@ -15,8 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+/*
+ * Add the fragment with the OnFragmentInteractionListener
+ * and click on implement method in the error message.
+ */
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +116,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
             /*
-             * Call a Fragment with the newnInstance method like this.
+             * Call a Fragment with the newInstance method like this.
+             * Only to pass data from outside to the fragment.
              */
 
             OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
@@ -128,7 +134,18 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-            Toast.makeText(this, "Gallery", Toast.LENGTH_SHORT).show();
+            /*
+             * Get data from the fragment with an interactionListener to the outside!
+             * Recommended way to use a fragment from android!
+             */
+
+            TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(
+                    R.id.relativelayout_for_fragments,
+                    twoCheckedFragment,
+                    twoCheckedFragment.getTag()
+            ).commit();
 
         } else if (id == R.id.nav_send) {
 
@@ -137,5 +154,20 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /*
+     * Method is implemented automatically,
+     * after clicking on the according solution of the error message.
+     */
+
+    @Override
+    public void onFragmentInteraction(String data) {
+
+        /*
+         * i.e. make a toast to show the data.
+         */
+
+        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
 }
