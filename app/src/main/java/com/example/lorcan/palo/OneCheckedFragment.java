@@ -3,6 +3,7 @@ package com.example.lorcan.palo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class OneCheckedFragment extends Fragment {
+
+    /*
+     * Define a string TAG to pass the data to the log.
+     */
+
+    private final String TAG = this.getClass().getSimpleName();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,6 +73,15 @@ public class OneCheckedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        /*
+         * Display the parameters in the log,
+         * using the string TAG defined above.
+         */
+
+        Log.d(TAG, mParam1);
+        Log.d(TAG, mParam2);
+
         return inflater.inflate(R.layout.fragment_one_checked, container, false);
     }
 }
