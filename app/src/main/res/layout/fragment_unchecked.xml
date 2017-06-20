@@ -1,5 +1,5 @@
 <!--
-    change pre-set FrameLayout to i.e. RelativeLayout here
+    change preset FrameLayout to i.e. RelativeLayout here.
     -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -8,4 +8,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.UncheckedFragment">
 
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 </RelativeLayout>
