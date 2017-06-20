@@ -3,6 +3,7 @@ package com.example.lorcan.palo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -94,7 +95,19 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
 
-            Toast.makeText(this, "Camera", Toast.LENGTH_SHORT).show();
+            /*
+             * Create an object of the fragment,
+             * use the FragmentManager and call beginTransaction to replace a fragment.
+             */
+
+            UncheckedFragment uncheckedFragment = new UncheckedFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(
+                    R.id.relativelayout_for_fragments,
+                    uncheckedFragment,
+                    uncheckedFragment.getTag()
+            ).commit();
+
 
         } else if (id == R.id.nav_gallery) {
 
