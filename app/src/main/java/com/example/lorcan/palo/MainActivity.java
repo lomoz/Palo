@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+     * Add actions to happen after click on a menu point down here!
+     */
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -81,8 +86,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+
+            Toast.makeText(this, "Camera", Toast.LENGTH_SHORT).show();
+
         } else if (id == R.id.nav_gallery) {
+
+            Toast.makeText(this, "Gallery", Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_slideshow) {
 
