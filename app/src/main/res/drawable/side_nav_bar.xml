@@ -2,7 +2,8 @@
     android:shape="rectangle">
 
     <!--
-        change centerColor to change the menu main color.
+        change centerColor, endColor and startColor
+        to change the menu main color.
         -->
     <gradient
         android:angle="135"
