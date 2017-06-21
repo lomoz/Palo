@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println(jsonObject);
                             if(jsonObject.names().get(0).equals("success")){
                                 Toast.makeText(getApplicationContext(),"SUCCESS "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
-                                //startActivity(new Intent(getApplicationContext(), MainActivity.class)); // this doesn't work and has to be fixed
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }else {
                                 Toast.makeText(getApplicationContext(), "Error" +jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                             }
