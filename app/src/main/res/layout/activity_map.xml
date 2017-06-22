@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         mapbox:mapbox_cameraTargetLat="51.1924327"
         mapbox:mapbox_cameraTargetLng="6.7914927"
-        mapbox:mapbox_styleUrl="@string/mapbox_style_mapbox_streets"
+        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9"
         mapbox:mapbox_cameraZoom="15"/>
 
 </android.support.constraint.ConstraintLayout>
