@@ -15,8 +15,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Enter Email" />
+        android:hint="Enter Email"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -25,8 +25,8 @@
         android:layout_below="@+id/etEmail"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Enter Password" />
+        android:hint="Enter Password"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnOK"

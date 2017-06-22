@@ -46,11 +46,24 @@ public class MainActivity extends AppCompatActivity
         /*
          * Changed code generated method setDrawerListener to addDrawerListener.
          */
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*
+         * Set a fragment as the default fragment instead of an empty fragment.
+         */
+
+        TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(
+                R.id.relativelayout_for_fragments,
+                twoCheckedFragment,
+                twoCheckedFragment.getTag()
+        ).commit();
     }
 
     @Override
