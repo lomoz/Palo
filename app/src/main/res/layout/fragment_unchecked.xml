@@ -3,6 +3,7 @@
     -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,28 +13,43 @@
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/etPassword"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="31dp"
         android:ems="10"
-        android:hint="Enter Email"
+        android:hint="Wähle deinen Status"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etEmail"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/btnOK"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp"
         android:ems="10"
-        android:hint="Enter Password"
+        android:hint="Wähle deinen Studiengang"
         android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/btnOK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPassword"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="142dp"
+        android:text="Ändern" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="OK" />
+        android:layout_marginTop="91dp"
+        app:srcCompat="@drawable/ic_launcher" />
 
 </RelativeLayout>

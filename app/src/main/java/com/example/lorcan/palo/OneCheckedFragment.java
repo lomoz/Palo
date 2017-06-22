@@ -103,13 +103,13 @@ public class OneCheckedFragment extends Fragment {
          */
 
         final ArrayList<Product> products = new ArrayList<>();
-        Product product1 = new Product("Water", 100, 0.5);
-        Product product2 = new Product("Juice", 30, 1.5);
-        Product product3 = new Product("Coke", 400, 1.0);
-        Product product4 = new Product("Beer", 65, 2.5);
-        Product product5 = new Product("Wine", 25, 3.0);
-        Product product6 = new Product("Sprite", 165, 1.25);
-        Product product7 = new Product("Milk", 90, 0.75);
+        Product product1 = new Product("Paul", 400, 0.5);
+        Product product2 = new Product("Lorcan", 375, 1.5);
+        Product product3 = new Product("Ragnar", 210, 1.0);
+        Product product4 = new Product("Floki", 195, 2.5);
+        Product product5 = new Product("Rollo", 155, 3.0);
+        Product product6 = new Product("Björn", 130, 1.25);
+        Product product7 = new Product("Athelstan", 90, 0.75);
 
         products.add(product1);
         products.add(product2);
