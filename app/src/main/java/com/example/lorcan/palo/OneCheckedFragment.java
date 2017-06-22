@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -82,6 +86,40 @@ public class OneCheckedFragment extends Fragment {
         Log.d(TAG, mParam1);
         Log.d(TAG, mParam2);
 
-        return inflater.inflate(R.layout.fragment_one_checked, container, false);
+        /*
+         * Create and return view here as well.
+         */
+
+        View view = inflater.inflate(R.layout.fragment_one_checked, container, false);
+
+        /*
+         * Create an ArrayList to set the data for the listView.
+         */
+
+        ArrayList<Product> products = new ArrayList<>();
+        Product product1 = new Product("Water", 100, 0.5);
+        Product product2 = new Product("Juice", 30, 1.5);
+        Product product3 = new Product("Coke", 400, 1.0);
+        Product product4 = new Product("Beer", 65, 2.5);
+
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+        products.add(product4);
+
+        /*
+         * Create an ArrayAdapter to give put the ArrayList items into the ListView.
+         */
+
+        ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(
+                OneCheckedFragment.this.getActivity(),
+                android.R.layout.simple_list_item_1,
+                products);
+
+        ListView lvProduct = (ListView)view.findViewById(R.id.lvProduct);
+        lvProduct.setAdapter(adapter);
+
+
+        return view;
     }
 }
