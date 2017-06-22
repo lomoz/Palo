@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.amigold.fundapter.BindDictionary;
 import com.amigold.fundapter.FunDapter;
@@ -100,7 +102,7 @@ public class OneCheckedFragment extends Fragment {
          * Create an ArrayList to set the data for the listView.
          */
 
-        ArrayList<Product> products = new ArrayList<>();
+        final ArrayList<Product> products = new ArrayList<>();
         Product product1 = new Product("Water", 100, 0.5);
         Product product2 = new Product("Juice", 30, 1.5);
         Product product3 = new Product("Coke", 400, 1.0);
@@ -162,7 +164,14 @@ public class OneCheckedFragment extends Fragment {
 
         ListView lvProduct = (ListView)view.findViewById(R.id.lvProduct);
         lvProduct.setAdapter(adapter);
+        lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
+                Product selectedProduct = products.get(position);
+                Toast.makeText(OneCheckedFragment.this.getActivity(), selectedProduct.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
