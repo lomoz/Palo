@@ -7,8 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.amigold.fundapter.BindDictionary;
+import com.amigold.fundapter.FunDapter;
+import com.amigold.fundapter.extractors.StringExtractor;
 
 import java.util.ArrayList;
 
@@ -96,29 +102,76 @@ public class OneCheckedFragment extends Fragment {
          * Create an ArrayList to set the data for the listView.
          */
 
-        ArrayList<Product> products = new ArrayList<>();
+        final ArrayList<Product> products = new ArrayList<>();
         Product product1 = new Product("Water", 100, 0.5);
         Product product2 = new Product("Juice", 30, 1.5);
         Product product3 = new Product("Coke", 400, 1.0);
         Product product4 = new Product("Beer", 65, 2.5);
+        Product product5 = new Product("Wine", 25, 3.0);
+        Product product6 = new Product("Sprite", 165, 1.25);
+        Product product7 = new Product("Milk", 90, 0.75);
 
         products.add(product1);
         products.add(product2);
         products.add(product3);
         products.add(product4);
+        products.add(product5);
+        products.add(product6);
+        products.add(product7);
+
+        /*
+         * Bind the data to the Fundapter library.
+         */
+
+        BindDictionary<Product> dictionary = new BindDictionary<>();
+        dictionary.addStringField(R.id.tvName, new StringExtractor<Product>() {
+            @Override
+            public String getStringValue(Product product, int position) {
+                return product.getName();
+            }
+        });
+
+        dictionary.addStringField(R.id.tvQty, new StringExtractor<Product>() {
+            @Override
+            public String getStringValue(Product product, int position) {
+                return "" + product.getQty();
+            }
+        });
+
+        dictionary.addStringField(R.id.tvPrice, new StringExtractor<Product>() {
+            @Override
+            public String getStringValue(Product product, int position) {
+                return "" + product.getPrice();
+            }
+        });
 
         /*
          * Create an ArrayAdapter to give put the ArrayList items into the ListView.
-         */
+         * Replace the ArrayAdapter with the Fundapter.
 
         ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(
                 OneCheckedFragment.this.getActivity(),
                 android.R.layout.simple_list_item_1,
                 products);
 
+         */
+
+        FunDapter adapter = new FunDapter(
+                OneCheckedFragment.this.getActivity(),
+                products,
+                R.layout.product_layout,
+                dictionary);
+
         ListView lvProduct = (ListView)view.findViewById(R.id.lvProduct);
         lvProduct.setAdapter(adapter);
+        lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
+                Product selectedProduct = products.get(position);
+                Toast.makeText(OneCheckedFragment.this.getActivity(), selectedProduct.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

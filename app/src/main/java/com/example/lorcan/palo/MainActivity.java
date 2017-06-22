@@ -46,11 +46,25 @@ public class MainActivity extends AppCompatActivity
         /*
          * Changed code generated method setDrawerListener to addDrawerListener.
          */
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        /*
+         * Set a fragment as the default fragment instead of an empty fragment.
+         */
+
+        TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                twoCheckedFragment,
+                twoCheckedFragment.getTag()
+        ).commit();
     }
 
     @Override
@@ -107,8 +121,9 @@ public class MainActivity extends AppCompatActivity
 
             UncheckedFragment uncheckedFragment = new UncheckedFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(
-                    R.id.relativelayout_for_fragments,
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
                     uncheckedFragment,
                     uncheckedFragment.getTag()
             ).commit();
@@ -122,8 +137,9 @@ public class MainActivity extends AppCompatActivity
 
             OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(
-                    R.id.relativelayout_for_fragments,
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
                     oneCheckedFragment,
                     oneCheckedFragment.getTag()
             ).commit();
@@ -141,8 +157,9 @@ public class MainActivity extends AppCompatActivity
 
             TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(
-                    R.id.relativelayout_for_fragments,
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
                     twoCheckedFragment,
                     twoCheckedFragment.getTag()
             ).commit();
