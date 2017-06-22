@@ -101,11 +101,17 @@ public class OneCheckedFragment extends Fragment {
         Product product2 = new Product("Juice", 30, 1.5);
         Product product3 = new Product("Coke", 400, 1.0);
         Product product4 = new Product("Beer", 65, 2.5);
+        Product product5 = new Product("Wine", 25, 3.0);
+        Product product6 = new Product("Sprite", 165, 1.25);
+        Product product7 = new Product("Milk", 90, 0.75);
 
         products.add(product1);
         products.add(product2);
         products.add(product3);
         products.add(product4);
+        products.add(product5);
+        products.add(product6);
+        products.add(product7);
 
         /*
          * Create an ArrayAdapter to give put the ArrayList items into the ListView.
