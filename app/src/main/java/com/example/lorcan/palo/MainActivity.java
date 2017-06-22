@@ -57,13 +57,13 @@ public class MainActivity extends AppCompatActivity
          * Set a fragment as the default fragment instead of an empty fragment.
          */
 
-        TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
+        MapFragment mapFragment = new MapFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                 .replace(R.id.relativelayout_for_fragments,
-                twoCheckedFragment,
-                twoCheckedFragment.getTag()
+                        mapFragment,
+                        mapFragment.getTag()
         ).commit();
     }
 
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_user) {
 
             /*
              * Create an object of the fragment,
@@ -130,7 +130,19 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        else if (id == R.id.nav_gallery) {
+        else if (id == R.id.nav_map) {
+
+            MapFragment mapFragment = new MapFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            mapFragment,
+                            mapFragment.getTag()
+                    ).commit();
+        }
+
+        else if (id == R.id.nav_bestenliste) {
 
             /*
              * Call a Fragment with the newInstance method like this.
@@ -148,17 +160,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        else if (id == R.id.nav_map) {
 
-            MapFragment mapFragment = new MapFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                    mapFragment,
-                    mapFragment.getTag()
-            ).commit();
-        }
 
         else if (id == R.id.nav_manage) {
 
