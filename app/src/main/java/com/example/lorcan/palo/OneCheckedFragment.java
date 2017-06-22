@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.amigold.fundapter.BindDictionary;
+import com.amigold.fundapter.FunDapter;
+import com.amigold.fundapter.extractors.StringExtractor;
+
 import java.util.ArrayList;
 
 
@@ -114,13 +118,47 @@ public class OneCheckedFragment extends Fragment {
         products.add(product7);
 
         /*
-         * Create an ArrayAdapter to give put the ArrayList items into the ListView.
+         * Bind the data to the Fundapter library.
          */
+
+        BindDictionary<Product> dictionary = new BindDictionary<>();
+        dictionary.addStringField(R.id.tvName, new StringExtractor<Product>() {
+            @Override
+            public String getStringValue(Product product, int position) {
+                return product.getName();
+            }
+        });
+
+        dictionary.addStringField(R.id.tvQty, new StringExtractor<Product>() {
+            @Override
+            public String getStringValue(Product product, int position) {
+                return "" + product.getQty();
+            }
+        });
+
+        dictionary.addStringField(R.id.tvPrice, new StringExtractor<Product>() {
+            @Override
+            public String getStringValue(Product product, int position) {
+                return "" + product.getPrice();
+            }
+        });
+
+        /*
+         * Create an ArrayAdapter to give put the ArrayList items into the ListView.
+         * Replace the ArrayAdapter with the Fundapter.
 
         ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(
                 OneCheckedFragment.this.getActivity(),
                 android.R.layout.simple_list_item_1,
                 products);
+
+         */
+
+        FunDapter adapter = new FunDapter(
+                OneCheckedFragment.this.getActivity(),
+                products,
+                R.layout.product_layout,
+                dictionary);
 
         ListView lvProduct = (ListView)view.findViewById(R.id.lvProduct);
         lvProduct.setAdapter(adapter);
