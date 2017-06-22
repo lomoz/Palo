@@ -128,7 +128,9 @@ public class MainActivity extends AppCompatActivity
                     uncheckedFragment.getTag()
             ).commit();
 
-        } else if (id == R.id.nav_gallery) {
+        }
+
+        else if (id == R.id.nav_gallery) {
 
             /*
              * Call a Fragment with the newInstance method like this.
@@ -144,11 +146,25 @@ public class MainActivity extends AppCompatActivity
                     oneCheckedFragment.getTag()
             ).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        }
 
-        } else if (id == R.id.nav_manage) {
+        else if (id == R.id.nav_map) {
 
-        } else if (id == R.id.nav_share) {
+            MapFragment mapFragment = new MapFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                    mapFragment,
+                    mapFragment.getTag()
+            ).commit();
+        }
+
+        else if (id == R.id.nav_manage) {
+
+        }
+
+        else if (id == R.id.nav_share) {
 
             /*
              * Get data from the fragment with an interactionListener to the outside!
