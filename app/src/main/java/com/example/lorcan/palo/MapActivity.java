@@ -27,7 +27,7 @@ public class MapActivity extends AppCompatActivity {
         LocationOfUser currentLocation = new LocationOfUser(this);
         Location location = currentLocation.getLocation();
         if (currentLocation != null) {
-            //final LatLng currLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            //LatLng currLocation = new LatLng(location.getLatitude(), location.getLongitude());
         }
 
         setContentView(R.layout.activity_map);
