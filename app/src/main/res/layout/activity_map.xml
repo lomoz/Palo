@@ -7,13 +7,27 @@
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.MapActivity">
 
+
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         mapbox:mapbox_cameraTargetLat="51.1924327"
         mapbox:mapbox_cameraTargetLng="6.7914927"
+        mapbox:mapbox_cameraZoom="15"
         mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9"
-        mapbox:mapbox_cameraZoom="15"/>
+        tools:ignore="@color/colorPrimaryDark,MissingConstraints"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
+
+    <Button
+        android:id="@+id/positionButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:background="@android:drawable/ic_menu_mylocation"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="318dp"
+        tools:layout_editor_absoluteY="491dp" />
 
 </android.support.constraint.ConstraintLayout>
