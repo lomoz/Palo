@@ -41,6 +41,12 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        getLocFromDB getLocation = new getLocFromDB(this);
+        getLocation.getLocation();
+
         Mapbox.getInstance(this, "pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg");
         setContentView(R.layout.activity_map);
         positionButton = (Button) findViewById(R.id.positionButton);
@@ -76,7 +82,8 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
             }
         });
-
+        SendLocToDB send = new SendLocToDB(this);
+        send.sendLocation("testmail@gmail.com", currLocation); // later insert correct email of user
 
     }
 
@@ -84,6 +91,8 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     public void onLocationChanged(Location location) {
         //set current Location
         currLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        SendLocToDB send = new SendLocToDB(this);
+        send.sendLocation("testmail@gmail.com", currLocation);
     }
 
     @Override
@@ -131,11 +140,8 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         IconFactory iconFactory = IconFactory.getInstance(MapActivity.this);
         Icon icon = iconFactory.fromResource(R.drawable.positionIcon);
 
-        mapBoxGlobal.addMarker(new MarkerViewOptions()
-                    .position(currLocation)
-                    .icon(icon));
-        mapBoxGlobal.animateCamera(CameraUpdateFactory
-                .newCameraPosition(position), 7000);
+        //mapBoxGlobal.addMarker(new MarkerViewOptions().position(currLocation).icon(icon));
+        mapBoxGlobal.animateCamera(CameraUpdateFactory.newCameraPosition(position), 7000);
         mapBoxGlobal.getTrackingSettings();
     }
     @Override
