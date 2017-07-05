@@ -1,5 +1,9 @@
 package com.example.lorcan.palo;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 /**
  * Created by paul on 05.07.17.
  */
@@ -11,6 +15,7 @@ public class User {
     private Double lng;
     private Boolean isOnline;
     private String status;
+    SendLocToDB send = new SendLocToDB(getApplicationContext());
 
     public User(String email, String password, Double lat, Double lng, Boolean isOnline, String status){
         this.email = email;
@@ -77,6 +82,11 @@ public class User {
 
     public String getStatus(){
         return this.status;
+    }
+
+    private void updateDB() {
+
+        send.sendLocation(this.email, this.lat, this.lng); // later insert correct email of user
     }
 
 }

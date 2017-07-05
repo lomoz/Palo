@@ -27,7 +27,8 @@ public class getLocFromDB {
     InputStream is = null;
     StringBuilder sb;
     String nutzerEmail;
-    String nutzerLocation;
+    double nutzerLat;
+    double nutzerLng;
 
     public getLocFromDB(Context context){
 
@@ -74,8 +75,9 @@ public class getLocFromDB {
                             JSONObject jsonObject = new JSONObject(yourArray[i]);
                             System.out.println(jsonObject);
                             nutzerEmail = jsonObject.getString("Email");
-                            nutzerLocation = jsonObject.getString("Location");
-                            System.out.println("LOCATION: " + nutzerLocation);
+                            nutzerLat = jsonObject.getDouble("Lat");
+                            nutzerLng = jsonObject.getDouble("Lng");
+                            System.out.println("LOCATION: " + nutzerLat + " / " + nutzerLng);
 
                         }
                     } catch(JSONException e){

@@ -30,7 +30,8 @@ public class SendLocToDB{
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/setLocation.php";
     private StringRequest request;
-    protected LatLng location;
+    protected Double lat;
+    protected Double lng;
     protected String email;
     private Context context;
 
@@ -40,9 +41,10 @@ public class SendLocToDB{
 
 
 
-    public void sendLocation(final String email, final LatLng locationLatLng) {
+    public void sendLocation(final String email, final Double lat, final Double lng) {
         // using volley lib to create request
-        this.location = locationLatLng;
+        this.lat = lat;
+        this.lng = lng;
         this.email = email;
         this.requestQueue = Volley.newRequestQueue(context);
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -76,8 +78,7 @@ public class SendLocToDB{
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<String, String>();
 
-                Double lng = location.getLongitude();
-                Double lat = location.getLatitude();
+
                 hashMap.put("lng", lng.toString());
                 hashMap.put("lat", lat.toString());
                 hashMap.put("email",email);

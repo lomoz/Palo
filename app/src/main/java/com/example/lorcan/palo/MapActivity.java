@@ -37,11 +37,12 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     private LocationListener locationListener;
     Button positionButton;
     MapboxMap mapBoxGlobal;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        user = new User();
 
 
         getLocFromDB getLocation = new getLocFromDB(this);
@@ -82,8 +83,13 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
             }
         });
-        SendLocToDB send = new SendLocToDB(this);
-        send.sendLocation("testmail@gmail.com", currLocation); // later insert correct email of user
+
+        user.setEmail("testmail@gmail.com");
+        user.setIsOnline(true);
+        user.setLat(currLocation.getLatitude());
+        user.setLng(currLocation.getLongitude());
+
+        user.updateDB();
 
     }
 
@@ -91,8 +97,12 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     public void onLocationChanged(Location location) {
         //set current Location
         currLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        SendLocToDB send = new SendLocToDB(this);
-        send.sendLocation("testmail@gmail.com", currLocation);
+
+
+        user.setEmail("testmail@gmail.com");
+        user.setIsOnline(true);
+        user.setLat(currLocation.getLatitude());
+        user.setLng(currLocation.getLongitude());
     }
 
     @Override
@@ -101,10 +111,12 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         Intent gpsOptionsIntent = new Intent(
                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
+
     }
 
     @Override
     public void onProviderEnabled(String provider) {
+
         Log.d("Latitude", "enable");
     }
 
