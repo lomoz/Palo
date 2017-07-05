@@ -1,6 +1,9 @@
 package com.example.lorcan.palo;
 
-import com.google.android.gms.maps.model.LatLng;
+import android.content.Context;
+
+
+import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
 
@@ -15,7 +18,7 @@ public class User {
     private Double lng;
     private Boolean isOnline;
     private String status;
-    SendLocToDB send = new SendLocToDB(getApplicationContext());
+    private SendLocToDB send;
 
     public User(String email, String password, Double lat, Double lng, Boolean isOnline, String status){
         this.email = email;
@@ -26,13 +29,14 @@ public class User {
         this.status = status;
     }
 
-    public User(){
-
+    public User(Context context){
+        this.send = new SendLocToDB(context);
     }
 
 
 
     // --- setter ---
+    
     public void setEmail(String email){
         this.email = email;
     }
@@ -41,12 +45,13 @@ public class User {
         this.password = password;
     }
 
-    public void setLat(Double lat){
-        this.lat = lat;
-    }
-
-    public void setLng(Double lng){
-        this.lng = lng;
+    public void setLocation(LatLng location){
+        try {
+            this.lat = location.getLatitude();
+            this.lng = location.getLongitude();
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     public void setIsOnline(Boolean isOnline){
@@ -86,7 +91,15 @@ public class User {
 
     public void updateDB() {
 
-        send.sendLocation(this.email, this.lat, this.lng); // later insert correct email of user
+        try {
+            send.sendLocation(this.email, this.lat, this.lng);
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 }
+
+/* TODO:
+Update the Database with a column for isOnline and status. Maybe a new Table?
+*/

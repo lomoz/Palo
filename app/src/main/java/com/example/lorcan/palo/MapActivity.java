@@ -32,17 +32,18 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 public class MapActivity extends AppCompatActivity implements LocationListener {
 
     private MapView mapView;
-    public LatLng currLocation = null;
+    public LatLng currLocation;
     private LocationManager locationManager;
-    private LocationListener locationListener;
+    //private LocationListener locationListener;
     Button positionButton;
     MapboxMap mapBoxGlobal;
     User user;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = new User();
+        user = new User(this);
 
 
         getLocFromDB getLocation = new getLocFromDB(this);
@@ -84,12 +85,6 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
             }
         });
 
-        user.setEmail("testmail@gmail.com");
-        user.setIsOnline(true);
-        user.setLat(currLocation.getLatitude());
-        user.setLng(currLocation.getLongitude());
-
-        user.updateDB();
 
     }
 
@@ -98,11 +93,11 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         //set current Location
         currLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
-        user.setLat(currLocation.getLatitude());
-        user.setLng(currLocation.getLongitude());
+        user.setLocation(currLocation);
+
+        user.updateDB();
     }
 
     @Override
@@ -143,6 +138,14 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
         // location Manager requesting the new position
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+
+
+        user.setEmail("testmail@gmail.com");
+        user.setIsOnline(true);
+        user.setLocation(currLocation);
+
+        user.updateDB();
+
         CameraPosition position = new CameraPosition.Builder()
                 .target(currLocation) // Sets the new camera position
                 .zoom(16) // Sets the zoom
