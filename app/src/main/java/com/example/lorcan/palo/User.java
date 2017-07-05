@@ -84,7 +84,7 @@ public class User {
         return this.status;
     }
 
-    private void updateDB() {
+    public void updateDB() {
 
         send.sendLocation(this.email, this.lat, this.lng); // later insert correct email of user
     }
