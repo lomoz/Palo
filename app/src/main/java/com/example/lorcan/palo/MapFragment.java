@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
 
 
 /**
@@ -33,6 +36,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+
+        Intent intent = new Intent(getActivity(), MapActivity.class);
+        startActivity(intent);
 
         return view;
     }
