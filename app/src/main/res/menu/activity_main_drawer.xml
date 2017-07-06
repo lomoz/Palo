@@ -24,7 +24,6 @@
             android:title="Bestenliste" />
             -->
 
-
     </group>
 
     <item android:title="Options">
@@ -50,8 +49,8 @@
                 android:icon="@android:drawable/ic_dialog_info"
                 android:title="Impressum"/>
 
-
         </menu>
+
     </item>
 
 </menu>

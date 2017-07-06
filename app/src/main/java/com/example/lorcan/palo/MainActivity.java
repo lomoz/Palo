@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity
             /*
              * Get data from the fragment with an interactionListener to the outside!
              * Recommended way to use a fragment from android!
-             */
+
 
             TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -212,7 +212,16 @@ public class MainActivity extends AppCompatActivity
                     twoCheckedFragment,
                     twoCheckedFragment.getTag()
             ).commit();
+            */
 
+            ShareFragment shareFragment = new ShareFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            shareFragment,
+                            shareFragment.getTag()
+                    ).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

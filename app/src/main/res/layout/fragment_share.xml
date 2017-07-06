@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lorcan.palo.ShareFragment">
+
+
+    <TextView
+        android:id="@+id/tv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Teilen"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tv_share_statement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_share"
+        android:layout_marginTop="67dp"
+        android:text="Diese App teilen."
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_share_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_share_statement"
+        android:text="www.example.palo/teilen.de"
+        android:textSize="18sp" />
+
+</RelativeLayout>
