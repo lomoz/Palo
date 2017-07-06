@@ -155,7 +155,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         IconFactory iconFactory = IconFactory.getInstance(MapActivity.this);
         Icon icon = iconFactory.fromResource(R.drawable.positionIcon);
 
-        //mapBoxGlobal.addMarker(new MarkerViewOptions().position(currLocation).icon(icon));
+        mapBoxGlobal.addMarker(new MarkerViewOptions().position(currLocation).icon(icon));
         mapBoxGlobal.animateCamera(CameraUpdateFactory.newCameraPosition(position), 7000);
         mapBoxGlobal.getTrackingSettings();
     }
