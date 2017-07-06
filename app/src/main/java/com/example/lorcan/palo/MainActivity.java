@@ -2,10 +2,7 @@ package com.example.lorcan.palo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -221,6 +218,18 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.relativelayout_for_fragments,
                             shareFragment,
                             shareFragment.getTag()
+                    ).commit();
+        }
+
+        else if (id == R.id.nav_about) {
+
+            AboutFragment aboutFragment = new AboutFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            aboutFragment,
+                            aboutFragment.getTag()
                     ).commit();
         }
 
