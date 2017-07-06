@@ -137,22 +137,26 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_map) {
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
-            /*MapFragment mapFragment = new MapFragment();
+
+            /*
+            MapFragment mapFragment = new MapFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                     .replace(R.id.relativelayout_for_fragments,
                             mapFragment,
                             mapFragment.getTag()
-                    ).commit();*
+                    ).commit();
+            */
         }
 
+        /*
         else if (id == R.id.nav_bestenliste) {
 
             /*
              * Call a Fragment with the newInstance method like this.
              * Only to pass data from outside to the fragment.
-             */
+
 
             OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -162,13 +166,20 @@ public class MainActivity extends AppCompatActivity
                     oneCheckedFragment,
                     oneCheckedFragment.getTag()
             ).commit();
-
         }
+        */
 
 
+        else if (id == R.id.nav_settings) {
 
-        else if (id == R.id.nav_manage) {
-
+            SettingsFragment settingsFragment = new SettingsFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            settingsFragment,
+                            settingsFragment.getTag()
+                    ).commit();
         }
 
         else if (id == R.id.nav_share) {
@@ -187,7 +198,7 @@ public class MainActivity extends AppCompatActivity
                     twoCheckedFragment.getTag()
             ).commit();
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_feedback) {
 
         }
 

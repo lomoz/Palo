@@ -30,6 +30,7 @@ dependencies {
 
 
 
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -38,6 +39,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.0.1'
     compile 'com.github.amigold.fundapter:library:1.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
-
     testCompile 'junit:junit:4.12'
 }
