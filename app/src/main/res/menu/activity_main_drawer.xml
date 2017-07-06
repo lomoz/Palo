@@ -36,9 +36,9 @@
                 android:title="Einstellungen" />
 
             <item
-                android:id="@+id/nav_feedback"
+                android:id="@+id/nav_contact"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Feedback" />
+                android:title="Kontakt" />
 
             <item
                 android:id="@+id/nav_share"

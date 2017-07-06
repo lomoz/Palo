@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
     <TextView
         android:id="@+id/tv_settings"
         android:layout_width="wrap_content"
@@ -15,7 +12,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="Einstellungen"
-        android:textSize="20sp" />
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/tv_nightview"

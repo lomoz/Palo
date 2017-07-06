@@ -182,6 +182,18 @@ public class MainActivity extends AppCompatActivity
                     ).commit();
         }
 
+        else if (id == R.id.nav_contact) {
+
+            ContactFragment contactFragment = new ContactFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            contactFragment,
+                            contactFragment.getTag()
+                    ).commit();
+        }
+
         else if (id == R.id.nav_share) {
 
             /*
@@ -197,8 +209,6 @@ public class MainActivity extends AppCompatActivity
                     twoCheckedFragment,
                     twoCheckedFragment.getTag()
             ).commit();
-
-        } else if (id == R.id.nav_feedback) {
 
         }
 
