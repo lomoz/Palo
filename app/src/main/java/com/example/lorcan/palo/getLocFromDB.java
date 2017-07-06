@@ -1,20 +1,20 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
-import android.util.Log;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by paul on 01.07.17.
@@ -26,65 +26,71 @@ public class getLocFromDB {
     String result = null;
     InputStream is = null;
     StringBuilder sb;
-    String nutzerEmail;
-    double nutzerLat;
-    double nutzerLng;
+    HashMap<String, LatLng> hashMapOtherUsers = new HashMap<>();
+
+    private RequestQueue requestQueue;
+    private static final String URL = "http://palo.square7.ch/getLocation.php";
+    private StringRequest request;
+    private Context context;
 
     public getLocFromDB(Context context){
-
+        this.context = context;
     }
 
     public void getLocation(){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //http post
-                    try{
-                        HttpClient httpclient = new DefaultHttpClient();
-                        HttpPost httppost = new HttpPost("http://palo.square7.de/getLocation.php");
-                        HttpResponse response = httpclient.execute(httppost);
-                        HttpEntity entity = response.getEntity();
-                        is = entity.getContent();
-                    }catch(Exception e){
-                        Log.e("log_tag", "Error in http connection"+e.toString());
+        this.requestQueue = Volley.newRequestQueue(context);
+        this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                /*try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    if(jsonObject.names().get(0).equals("success")){
+                        Toast.makeText(getApplicationContext(),"SUCCESS "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Error" +jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
                     }
-                    //convert response to string
 
-                    try{
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf-8"), 8);
-                        sb = new StringBuilder();
-                        sb.append(reader.readLine() + "\n");
-                        String line = "0";
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line + "\n");
-                        }
-                        is.close();
-                        result = sb.toString();
-                        System.out.println("-----RESULT1------ : " + result);
-                    }catch(Exception e){
-                        Log.e("log_tag", "Error converting result "+e.toString());
-                    }
-                    //paring data
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+                System.out.println("Antwort von PHP File: " + response);
 
-                    String[] resultArray = result.split("#");
-                    String[] yourArray = Arrays.copyOfRange(resultArray, 1, resultArray.length);
+                parseResponse(response);
+            }
 
-                    try{
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
 
-                        for (int i = 0; i < yourArray.length; i++) {
-                            JSONObject jsonObject = new JSONObject(yourArray[i]);
-                            System.out.println(jsonObject);
-                            nutzerEmail = jsonObject.getString("Email");
-                            nutzerLat = jsonObject.getDouble("Lat");
-                            nutzerLng = jsonObject.getDouble("Lng");
-                            System.out.println("LOCATION: " + nutzerLat + " / " + nutzerLng);
+            // set of parameters in a hashmap, which will be send to the php file (server side)
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String,String> hashMap = new HashMap<String, String>();
 
-                        }
-                    } catch(JSONException e){
-                        e.printStackTrace();
-                    }
-                }
+                String zugang = "yep";
+                hashMap.put("zugang",zugang);
 
-            }).start();
+                System.out.println("DAS WAS GESENDET WIRD: " + hashMap);
+
+                return hashMap;
+            }
+        };
+
+        requestQueue.add(request);
+
+    }
+    private void parseResponse(String response){
+        String[] responseSplit = response.split("#"); //split at '#' --> PHP response looks like this: #email@test.com, 53.12, 12.123#email2@test.com, 42.123, 12.124 and so on
+        for (int i = 1; i< responseSplit.length; i++){
+            String[] t = responseSplit[i].split(","); //split the splitted at ","
+            hashMapOtherUsers.put(t[0], new LatLng(Double.parseDouble(t[1]), Double.parseDouble(t[2])));
+
         }
+        System.out.println("HASHMAP OUT: " + hashMapOtherUsers);
+    }
+
 }
