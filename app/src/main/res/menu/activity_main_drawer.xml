@@ -17,10 +17,12 @@
             android:icon="@android:drawable/ic_dialog_map"
             android:title="Map" />
 
+        <!-- Best list out of normal version.
         <item
             android:id="@+id/nav_bestenliste"
             android:icon="@android:drawable/btn_star_big_on"
             android:title="Bestenliste" />
+            -->
 
         <item
             android:id="@+id/nav_manage"
@@ -28,7 +30,7 @@
             android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Options">
         <menu>
             <item
                 android:id="@+id/nav_share"
