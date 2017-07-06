@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -131,15 +132,16 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_map) {
-
-            MapFragment mapFragment = new MapFragment();
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
+            /*MapFragment mapFragment = new MapFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                     .replace(R.id.relativelayout_for_fragments,
                             mapFragment,
                             mapFragment.getTag()
-                    ).commit();
+                    ).commit();*
         }
 
         else if (id == R.id.nav_bestenliste) {
