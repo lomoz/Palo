@@ -1,21 +1,21 @@
 package com.example.lorcan.palo;
 
+
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mapbox.mapboxsdk.Mapbox;
@@ -29,7 +29,15 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
-public class MapActivity extends AppCompatActivity implements LocationListener {
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MapboxFragment extends Fragment {
+
+    public MapboxFragment() {
+        // Required empty public constructor
+    }
 
     private MapView mapView;
     public LatLng currLocation;
@@ -39,34 +47,36 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     MapboxMap mapBoxGlobal;
     User user;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        user = new User(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_mapbox, container, false);
+
+        user = new User(MapboxFragment.this.getActivity());
 
 
-        getLocFromDB getLocation = new getLocFromDB(this);
+        getLocFromDB getLocation = new getLocFromDB(MapboxFragment.this.getActivity());
         getLocation.getLocation();
 
-        Mapbox.getInstance(this, "pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg");
-        setContentView(R.layout.activity_map);
-        positionButton = (Button) findViewById(R.id.positionButton);
+        Mapbox.getInstance(MapboxFragment.this.getActivity(), "pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg");
+        getActivity().setContentView(R.layout.activity_map);
+        positionButton = (Button) getView().findViewById(R.id.positionButton);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         //checks for permission.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(MapboxFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapboxFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.INTERNET}
                         ,10);
             }
-            return;
+            //return;
         }
 
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        mapView = (MapView) findViewById(R.id.mapView);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        mapView = (MapView) getView().findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
 
@@ -85,9 +95,10 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
             }
         });
 
+        return view;
     }
 
-    @Override
+    //@Override
     public void onLocationChanged(Location location) {
         //set current Location
         currLocation = new LatLng(location.getLatitude(), location.getLongitude());
@@ -99,7 +110,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         user.updateDB();
     }
 
-    @Override
+    //@Override
     public void onProviderDisabled(String provider) {
         //starts Settings Activity
         Intent gpsOptionsIntent = new Intent(
@@ -108,26 +119,24 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
 
     }
 
-    @Override
+    //@Override
     public void onProviderEnabled(String provider) {
 
         Log.d("Latitude", "enable");
     }
 
-    @Override
+    //@Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d("Latitude", "status");
     }
 
-
-
     public void buttonClicked() {
         //LocationManager gets the Location Service
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         //what to do if permission is denied
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(MapboxFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(MapboxFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.INTERNET}
                         ,10);
@@ -136,7 +145,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
         }
 
         // location Manager requesting the new position
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, (LocationListener) this);
 
 
         user.setEmail("testmail@gmail.com");
@@ -151,7 +160,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
                 .bearing(359) // Rotate the camera
                 .tilt(30) // Set the camera tilt
                 .build(); // Creates a CameraPosition from the builder
-        IconFactory iconFactory = IconFactory.getInstance(MapActivity.this);
+        IconFactory iconFactory = IconFactory.getInstance(MapboxFragment.this.getActivity());
         Icon icon = iconFactory.fromResource(R.drawable.positionIcon);
 
         mapBoxGlobal.addMarker(new MarkerViewOptions().position(currLocation).icon(icon));
@@ -189,13 +198,13 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
