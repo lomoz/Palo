@@ -23,5 +23,5 @@
         completions."
     </string>
     <string name="title_activity_maps">Map</string>
-    <string name="access_token">\"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg\"</string>
+    <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
 </resources>
