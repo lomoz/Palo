@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+
 /**
  * Created by paul on 28.06.17.
  */
@@ -25,10 +27,10 @@ public class SendLocToDB{
     protected Double lat;
     protected Double lng;
     protected String email;
-    private Context context;
+    //private Context context;
 
-    public SendLocToDB(Context context){
-        this.context=context;
+    public SendLocToDB(){
+
     }
 
 
@@ -38,7 +40,7 @@ public class SendLocToDB{
         this.lat = lat;
         this.lng = lng;
         this.email = email;
-        this.requestQueue = Volley.newRequestQueue(context);
+        this.requestQueue = Volley.newRequestQueue(getApplicationContext());
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
             @Override

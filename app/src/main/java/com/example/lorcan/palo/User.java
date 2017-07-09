@@ -29,8 +29,8 @@ public class User {
         this.status = status;
     }
 
-    public User(Context context){
-        this.send = new SendLocToDB(context);
+    public User(){
+        this.send = new SendLocToDB();
     }
 
 

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
-public class MapActivity extends AppCompatActivity implements LocationListener {
+public class MapActivity extends FragmentActivity implements LocationListener {
 
     private MapView mapView;
     public LatLng currLocation;
@@ -43,7 +44,7 @@ public class MapActivity extends AppCompatActivity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = new User(this);
+        user = new User();
 
 
         getLocFromDB getLocation = new getLocFromDB(this);

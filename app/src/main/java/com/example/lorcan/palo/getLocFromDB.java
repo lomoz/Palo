@@ -14,7 +14,7 @@ import java.util.Map;
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.google.android.gms.maps.model.LatLng;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 
 /**
  * Created by paul on 01.07.17.
@@ -42,18 +42,6 @@ public class getLocFromDB {
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                /*try {
-                    JSONObject jsonObject = new JSONObject(response);
-
-                    if(jsonObject.names().get(0).equals("success")){
-                        Toast.makeText(getApplicationContext(),"SUCCESS "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(), "Error" +jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
                 System.out.println("Antwort von PHP File: " + response);
 
                 parseResponse(response);
@@ -91,6 +79,10 @@ public class getLocFromDB {
 
         }
         System.out.println("HASHMAP OUT: " + hashMapOtherUsers);
+    }
+
+    private HashMap<String, LatLng> getData(){
+        return this.hashMapOtherUsers;
     }
 
 }
