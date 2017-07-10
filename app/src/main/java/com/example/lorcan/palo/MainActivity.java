@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+
 /*
  * Add the fragment with the OnFragmentInteractionListener
  * and click on implement method in the error message.
@@ -136,23 +137,11 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_map) {
 
-
+/*
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
+*/
 
-
-            /*
-            MapboxFragment mapboxFragment = new MapboxFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                            mapboxFragment,
-                            mapboxFragment.getTag()
-                    ).commit();
-            */
-
-            /*
             MapFragment mapFragment = new MapFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
@@ -161,15 +150,15 @@ public class MainActivity extends AppCompatActivity
                             mapFragment,
                             mapFragment.getTag()
                     ).commit();
-            */
+
         }
 
-        /*
-        else if (id == R.id.nav_bestenliste) {
 
-            /*
-             * Call a Fragment with the newInstance method like this.
-             * Only to pass data from outside to the fragment.
+        /*else if (id == R.id.nav_bestenliste) {
+
+
+             Call a Fragment with the newInstance method like this.
+             Only to pass data from outside to the fragment.
 
 
             OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
@@ -180,8 +169,10 @@ public class MainActivity extends AppCompatActivity
                     oneCheckedFragment,
                     oneCheckedFragment.getTag()
             ).commit();
+
         }
         */
+
 
 
         else if (id == R.id.nav_settings) {

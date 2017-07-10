@@ -1,12 +1,7 @@
 package com.example.lorcan.palo;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 
-
-import com.mapbox.mapboxsdk.geometry.LatLng;
-
-import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by paul on 05.07.17.
@@ -30,7 +25,7 @@ public class User {
         this.status = status;
     }
 
-    public User(FragmentActivity activity){
+    public User(){
         this.send = new SendLocToDB();
     }
 
@@ -48,8 +43,8 @@ public class User {
 
     public void setLocation(LatLng location){
         try {
-            this.lat = location.getLatitude();
-            this.lng = location.getLongitude();
+            this.lat = location.latitude;
+            this.lng = location.longitude;
         }catch(NullPointerException e){
             e.printStackTrace();
         }
