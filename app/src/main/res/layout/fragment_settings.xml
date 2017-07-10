@@ -1,70 +1,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.SettingsFragment">
 
-    <TextView
-        android:id="@+id/tv_settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Einstellungen"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/tv_nightview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_settings"
-        android:layout_marginTop="78dp"
-        android:text="Nachtmodus" />
-
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tv_nightview"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="ToggleButton" />
-
-    <TextView
-        android:id="@+id/tv_languages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_nightview"
-        android:layout_marginTop="51dp"
-        android:text="Sprachen" />
-
-    <RadioGroup
-        android:id="@+id/rg_languages"
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_languages">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:id="@+id/linearLayout">
 
-        <RadioButton
-            android:id="@+id/rb_german"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.52"
-            android:checked="true"
-            android:text="Deutsch" />
+        <ImageView
+            android:id="@+id/iv_preferences"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"
+            app:srcCompat="@drawable/ic_menu_manage" />
 
-        <RadioButton
-            android:id="@+id/rb_english"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_preferences"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.50"
-            android:text="Englisch" />
-    </RadioGroup>
+            android:layout_weight="1"
+            android:text="Einstellungen"
+            android:textAlignment="viewStart"
+            android:textAllCaps="true"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 </RelativeLayout>

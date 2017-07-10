@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -29,7 +30,7 @@ public class User {
         this.status = status;
     }
 
-    public User(){
+    public User(FragmentActivity activity){
         this.send = new SendLocToDB();
     }
 

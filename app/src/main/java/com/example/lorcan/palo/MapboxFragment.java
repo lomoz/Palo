@@ -51,7 +51,8 @@ public class MapboxFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mapbox, container, false);
 
-        user = new User(MapboxFragment.this.getActivity());
+        user = new User(MapboxFragment.this
+                .getActivity());
 
 
         getLocFromDB getLocation = new getLocFromDB(MapboxFragment.this.getActivity());

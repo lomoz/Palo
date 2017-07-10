@@ -44,7 +44,7 @@ public class MapActivity extends FragmentActivity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = new User();
+        user = new User(this);
 
 
         getLocFromDB getLocation = new getLocFromDB(this);
