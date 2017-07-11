@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 
 /**
@@ -43,7 +43,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private LocationManager locationManager;
     Button positionButton;
     User user;
-    HashMap<String, LatLng> hashMapOtherUsers = new HashMap<>();
+    ArrayList arrayListOtherUsers;
 
     public MapFragment() {
         // Required empty public constructor
@@ -60,7 +60,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
 
-        hashMapOtherUsers = MainActivity.locationsFromDB.getData();
+        arrayListOtherUsers = MainActivity.locationsFromDB.getData();
 
 
 
@@ -113,12 +113,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         map.moveCamera(CameraUpdateFactory.newLatLng(ersatzLatLng));
         map.setMinZoomPreference(14);
 
-        System.out.println("__________________________________________________" + hashMapOtherUsers);
-        for(int i = 0; i<hashMapOtherUsers.size(); i++){
-            LatLng position = hashMapOtherUsers.get("palo.hhu@gmail.com"); // is only a example -> before getting latlng we have to looking for distanceTo (default Radius?) so we will get a List with Emails(Primary Key) and can use them to get position near the user
-            MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.locations));
-            marker1.position(position);
-            map.addMarker(marker1);
+        for(int i = 0; i< arrayListOtherUsers.size(); i++){
+
+            String[] array = (String[]) arrayListOtherUsers.get(i); // why cast?
+            LatLng locationOther = new LatLng(Double.parseDouble(array[1]), Double.parseDouble(array[2]));
+
+            //---- getting distance -----
+            float[] results = new float[1];
+            Location.distanceBetween(currLocation.latitude, currLocation.longitude, locationOther.latitude, locationOther.longitude, results);
+            float distance = results[0];
+            //----
+
+            if(distance>5){ // here we also need to check "isOnline" and we need to get the Status
+                LatLng position = locationOther;
+                MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.locations));
+                marker1.position(position);
+                map.addMarker(marker1);
+            }
+
         }
 
         try {
