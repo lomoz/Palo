@@ -92,4 +92,38 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/et_message"
         android:layout_alignEnd="@+id/et_message" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:background="@color/colorFooter">
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Palo Version 0.0"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.19"
+            android:text="© Copyright 2017"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
 </RelativeLayout>

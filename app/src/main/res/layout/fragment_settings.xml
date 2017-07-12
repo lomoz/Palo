@@ -6,30 +6,36 @@
     tools:context="com.example.lorcan.palo.SettingsFragment">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:orientation="horizontal"
         android:padding="5dp"
-        android:id="@+id/linearLayout">
-
-        <ImageView
-            android:id="@+id/iv_preferences"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.18"
-            app:srcCompat="@drawable/ic_menu_manage" />
+        android:background="@color/colorFooter">
 
         <TextView
-            android:id="@+id/tv_preferences"
+            android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Einstellungen"
-            android:textAlignment="viewStart"
-            android:textAllCaps="true"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Palo Version 0.0"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tv_copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.19"
+            android:text="© Copyright 2017"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/black" />
+
     </LinearLayout>
 
 </RelativeLayout>
