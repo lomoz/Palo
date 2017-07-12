@@ -29,18 +29,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
+
     GoogleMap map;
     public LatLng currLocation;
     private LocationManager locationManager;
     Button positionButton;
     User user;
-
+    HashMap<String, LatLng> hashMapOtherUsers = new HashMap<>();
 
     public MapFragment() {
         // Required empty public constructor
@@ -56,8 +59,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user = new User();
 
 
-        getLocFromDB getLocation = new getLocFromDB(getContext());
-        getLocation.getLocation();
+
+        hashMapOtherUsers = MainActivity.locationsFromDB.getData();
+
+
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -100,7 +105,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         map = googleMap;
 
-        MarkerOptions marker = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.standort));
+        MarkerOptions marker = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.location));
 
         LatLng ersatzLatLng = new LatLng(51.192429,6.793681);
         marker.position(ersatzLatLng).title("Düsseldorf");
@@ -108,6 +113,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         map.moveCamera(CameraUpdateFactory.newLatLng(ersatzLatLng));
         map.setMinZoomPreference(14);
 
+        System.out.println("__________________________________________________" + hashMapOtherUsers);
+        for(int i = 0; i<hashMapOtherUsers.size(); i++){
+            LatLng position = hashMapOtherUsers.get("palo.hhu@gmail.com"); // is only a example -> before getting latlng we have to looking for distanceTo (default Radius?) so we will get a List with Emails(Primary Key) and can use them to get position near the user
+            MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.locations));
+            marker1.position(position);
+            map.addMarker(marker1);
+        }
 
         try {
             // Customise the styling of the base map using a JSON object defined

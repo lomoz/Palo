@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -14,7 +15,7 @@ import java.util.Map;
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by paul on 01.07.17.
@@ -35,9 +36,12 @@ public class getLocFromDB {
 
     public getLocFromDB(Context context){
         this.context = context;
+        getLocation();
     }
 
+
     public void getLocation(){
+
         this.requestQueue = Volley.newRequestQueue(context);
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -62,7 +66,6 @@ public class getLocFromDB {
                 String zugang = "yep";
                 hashMap.put("zugang",zugang);
 
-                System.out.println("DAS WAS GESENDET WIRD: " + hashMap);
 
                 return hashMap;
             }
@@ -81,8 +84,8 @@ public class getLocFromDB {
         System.out.println("HASHMAP OUT: " + hashMapOtherUsers);
     }
 
-    private HashMap<String, LatLng> getData(){
-        return this.hashMapOtherUsers;
+    protected HashMap<String, LatLng> getData(){
+        return hashMapOtherUsers;
     }
 
 }
