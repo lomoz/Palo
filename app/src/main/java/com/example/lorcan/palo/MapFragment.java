@@ -113,6 +113,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         map.moveCamera(CameraUpdateFactory.newLatLng(ersatzLatLng));
         map.setMinZoomPreference(14);
 
+        System.out.println("__________________________________________________" + hashMapOtherUsers);
+        for(int i = 0; i<hashMapOtherUsers.size(); i++){
+            LatLng position = hashMapOtherUsers.get("palo.hhu@gmail.com"); // is only a example -> before getting latlng we have to looking for distanceTo (default Radius?) so we will get a List with Emails(Primary Key) and can use them to get position near the user
+
+            /*
+            MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.locations));
+            marker1.position(position);
+            map.addMarker(marker1);
+            */
+        }
         for(int i = 0; i< arrayListOtherUsers.size(); i++){
 
             String[] array = (String[]) arrayListOtherUsers.get(i); // why cast?
