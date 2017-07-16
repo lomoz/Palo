@@ -120,7 +120,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             if(distance<100){ // not ready yet!!! at this point we also need to check "isOnline" and we need to get the Status
                 LatLng position = locationOther;
-                MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.locations));
+                MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.location));
                 marker1.position(position);
                 map.addMarker(marker1);
             }
