@@ -81,7 +81,7 @@ public class getLocFromDB {
             arrayListOtherUsers.add(t);
 
         }
-        System.out.println("HASHMAP OUT: " + arrayListOtherUsers);
+        System.out.println("ARRAYLIST OUT: " + arrayListOtherUsers);
     }
 
     protected ArrayList<String[]> getData(){
