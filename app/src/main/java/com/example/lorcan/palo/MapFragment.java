@@ -64,7 +64,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         user = new User();
-        arrayListOtherUsers = MainActivity.locationsFromDB.getData();
+        arrayListOtherUsers = MainActivity.arrayListOtherUsers;
         return view;
     }
 
@@ -105,7 +105,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
 
-        user.updateDB();
+        user.updateLocation();
 
         for(int i = 0; i< arrayListOtherUsers.size(); i++){
 
@@ -149,7 +149,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
 
-        user.updateDB();
+        user.updateLocation();
 
 
     }
@@ -166,7 +166,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
 
-        user.updateDB();
+        user.updateLocation();
     }
 
     @Override

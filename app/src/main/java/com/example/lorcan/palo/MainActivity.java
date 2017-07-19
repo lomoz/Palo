@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 
 
 /*
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener{
 
     static getLocFromDB locationsFromDB;
-
+    protected static ArrayList<String[]> arrayListOtherUsers = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         */
 
         locationsFromDB = new getLocFromDB(this);
-
+        arrayListOtherUsers = locationsFromDB.getData();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
