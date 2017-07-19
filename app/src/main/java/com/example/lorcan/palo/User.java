@@ -85,7 +85,7 @@ public class User {
         return this.status;
     }
 
-    public void updateDB() {
+    public void updateLocation() {
 
         try {
             send.sendLocation(this.email, this.lat, this.lng);
@@ -95,7 +95,3 @@ public class User {
     }
 
 }
-
-/* TODO:
-Update the Database with a column for isOnline and status. Maybe a new Table?
-*/
