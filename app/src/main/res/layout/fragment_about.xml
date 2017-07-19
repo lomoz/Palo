@@ -65,9 +65,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:background="@color/colorFooter"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:background="@color/colorFooter">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tv_version"
