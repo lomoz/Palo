@@ -30,7 +30,7 @@ public class UncheckedFragment extends Fragment {
     EditText etStatus, etStudyCourse;
     Button btnOK;
 
-    String status = "I'm using Palo!";
+    String status;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,31 +71,25 @@ public class UncheckedFragment extends Fragment {
                 }
                 */
 
-                getStatus();
+                if (etStatus.getText().toString().isEmpty()) {
+                    status = "I'm using Palo!";
+                }
+                else {
+                    status = etStatus.getText().toString();
+                }
+
+                MapFragment mapFragment = new MapFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle bundle = new Bundle();
+                bundle.putString("STATUS", status);
+                mapFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.relativelayout_for_fragments, mapFragment);
+                fragmentTransaction.commit();
+
             }
         });
 
         return view;
     }
-
-    public String getStatus() {
-
-        status = etStatus.getText().toString();
-
-        if (status == null || status.isEmpty() ) {
-            status = "I'm using Palo!";
-        }
-
-        MapFragment mapFragment = new MapFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("STATUS", status);
-        mapFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.relativelayout_for_fragments, mapFragment);
-        fragmentTransaction.commit();
-
-        return status;
-    }
-
 }

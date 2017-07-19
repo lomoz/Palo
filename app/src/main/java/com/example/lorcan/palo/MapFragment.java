@@ -72,7 +72,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
          */
 
         //status = getArguments().getString("STATUS");
-        
+
         return view;
     }
 
