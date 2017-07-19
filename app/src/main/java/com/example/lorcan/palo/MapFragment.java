@@ -41,6 +41,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     User user;
     ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
+    String status;
 
     public MapFragment() {
         // Required empty public constructor
@@ -65,6 +66,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         user = new User();
         arrayListOtherUsers = MainActivity.arrayListOtherUsers;
+
+        /*Try to get the changed status from the ProfileFragment.
+         * Still NullPointerException
+         */
+
+        //status = getArguments().getString("STATUS");
+        
         return view;
     }
 
