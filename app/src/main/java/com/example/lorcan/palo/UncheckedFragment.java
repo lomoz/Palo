@@ -3,6 +3,8 @@ package com.example.lorcan.palo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +27,10 @@ public class UncheckedFragment extends Fragment {
      * Declare elements here to handle them in the onCreateView method.
      */
 
-    EditText etEmail, etPassword;
+    EditText etStatus, etStudyCourse;
     Button btnOK;
+
+    String status;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +47,8 @@ public class UncheckedFragment extends Fragment {
          * Use the created view to get the elements from the xml file.
          */
 
-        etEmail = (EditText)view.findViewById(R.id.etEmail);
-        etPassword = (EditText)view.findViewById(R.id.etPassword);
+        etStatus = (EditText)view.findViewById(R.id.etStatus);
+        etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
         btnOK = (Button)view.findViewById(R.id.btnOK);
 
         /*
@@ -58,19 +62,34 @@ public class UncheckedFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (etEmail.getText().toString().equals("palo") && etPassword.getText().toString().equals("palo")) {
+                /*
+                if (etStatus.getText().toString().equals("palo") && etStudyCourse.getText().toString().equals("palo")) {
                     Toast.makeText(UncheckedFragment.this.getActivity(), "Correct", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(UncheckedFragment.this.getActivity(), "Incorrect", Toast.LENGTH_SHORT).show();
-
                 }
+                */
+
+                if (etStatus.getText().toString().isEmpty()) {
+                    status = "I'm using Palo!";
+                }
+                else {
+                    status = etStatus.getText().toString();
+                }
+
+                MapFragment mapFragment = new MapFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Bundle bundle = new Bundle();
+                bundle.putString("STATUS", status);
+                mapFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.relativelayout_for_fragments, mapFragment);
+                fragmentTransaction.commit();
+
             }
         });
 
-
-
         return view;
     }
-
 }

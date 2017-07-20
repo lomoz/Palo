@@ -10,10 +10,10 @@
     tools:context="com.example.lorcan.palo.UncheckedFragment">
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etPassword"
+        android:layout_above="@+id/etStudyCourse"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="31dp"
@@ -22,7 +22,7 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etStudyCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnOK"
@@ -44,12 +44,12 @@
         android:text="Ändern" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        app:srcCompat="@drawable/ic_launcher"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        app:srcCompat="@drawable/ic_launcher" />
 
 </RelativeLayout>
