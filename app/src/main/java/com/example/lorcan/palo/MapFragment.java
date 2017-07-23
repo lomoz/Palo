@@ -33,7 +33,6 @@ import java.util.ArrayList;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
-// test thinkpad
     GoogleMap map;
     public LatLng currLocation = new LatLng(51.6, 6.2);
     private LocationManager locationManager;
@@ -112,7 +111,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
-
+        user.setStatus("Test Status"); // <- insert the real status
         user.updateLocation();
 
         for(int i = 0; i< arrayListOtherUsers.size(); i++){
