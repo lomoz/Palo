@@ -76,12 +76,7 @@ public class getLocFromDB {
     }
     private void parseResponse(String response){
         String[] responseSplit = response.split("#"); //split at '#' --> PHP response looks like this: #email@test.com, 53.12, 12.123#email2@test.com, 42.123, 12.124 and so on
-        for (int i = 1; i< responseSplit.length; i++){
-            String[] t = responseSplit[i].split(","); //split the splitted at ","
-            arrayListOtherUsers.add(t);
-
-        }
-        System.out.println("ARRAYLIST OUT: " + arrayListOtherUsers);
+        System.out.println("RÜCKCGABE VON DB: "+ responseSplit);
     }
 
     protected ArrayList<String[]> getData(){

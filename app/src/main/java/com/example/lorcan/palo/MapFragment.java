@@ -38,7 +38,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     private LocationManager locationManager;
     Button positionButton;
     User user;
-    ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
     String status;
 
@@ -64,7 +63,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         user = new User();
-        arrayListOtherUsers = MainActivity.arrayListOtherUsers;
 
         /*Try to get the changed status from the ProfileFragment.
          * Still NullPointerException
@@ -113,7 +111,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user.setLocation(this.currLocation);
         user.setStatus("Test Status"); // <- insert the real status
         user.updateLocation();
-
+/*
         for(int i = 0; i< arrayListOtherUsers.size(); i++){
 
             String[] array = (String[]) arrayListOtherUsers.get(i);
@@ -132,7 +130,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 map.addMarker(marker1);
             }
 
-        }
+        }*/
 
         try {
             // Customise the styling of the base map using a JSON object defined
