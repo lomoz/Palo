@@ -27,8 +27,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener{
 
-    static getLocFromDB locationsFromDB;
-    protected static ArrayList<String[]> arrayListOtherUsers = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +45,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
         */
-
-        locationsFromDB = new getLocFromDB(this);
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
