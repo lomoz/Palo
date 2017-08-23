@@ -50,9 +50,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        UncheckedFragment uncheckedFragment = new UncheckedFragment();
+        status = uncheckedFragment.getStatus();
+
         this.markerOptions = new MarkerOptions()
                 .position(this.currLocation)
-                .title("Status?");
+                .title(status);
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
@@ -78,14 +81,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
 
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
@@ -102,7 +101,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_SHORT).show();
 
-        markerOptions.position(this.currLocation).title("Status?");
+        markerOptions.position(this.currLocation).title(status);
         map.addMarker(markerOptions);
         map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
 
