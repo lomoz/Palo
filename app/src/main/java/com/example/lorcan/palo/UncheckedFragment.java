@@ -30,7 +30,7 @@ public class UncheckedFragment extends Fragment {
     EditText etStatus, etStudyCourse;
     Button btnOK;
 
-    String status;
+    String status = "default";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +42,6 @@ public class UncheckedFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_unchecked, container, false);
 
-
         /*
          * Use the created view to get the elements from the xml file.
          */
@@ -50,6 +49,8 @@ public class UncheckedFragment extends Fragment {
         etStatus = (EditText)view.findViewById(R.id.etStatus);
         etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
         btnOK = (Button)view.findViewById(R.id.btnOK);
+
+        etStatus.setText(getStatus());
 
         /*
          * Create an onClickListener for the button.
@@ -62,6 +63,15 @@ public class UncheckedFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                if (etStatus.getText().toString().isEmpty()) {
+                    status = "leer";
+                    Toast.makeText(UncheckedFragment.this.getActivity(), "No status", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    status = etStatus.getText().toString();
+                    Toast.makeText(UncheckedFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
+                }
+
                 /*
                 if (etStatus.getText().toString().equals("palo") && etStudyCourse.getText().toString().equals("palo")) {
                     Toast.makeText(UncheckedFragment.this.getActivity(), "Correct", Toast.LENGTH_SHORT).show();
@@ -69,7 +79,7 @@ public class UncheckedFragment extends Fragment {
                 else {
                     Toast.makeText(UncheckedFragment.this.getActivity(), "Incorrect", Toast.LENGTH_SHORT).show();
                 }
-                */
+
 
                 if (etStatus.getText().toString().isEmpty()) {
                     status = "I'm using Palo!";
@@ -87,9 +97,15 @@ public class UncheckedFragment extends Fragment {
                 fragmentTransaction.replace(R.id.relativelayout_for_fragments, mapFragment);
                 fragmentTransaction.commit();
 
+                */
             }
         });
 
         return view;
+    }
+
+    public String getStatus() {
+        
+        return status;
     }
 }
