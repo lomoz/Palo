@@ -65,14 +65,12 @@ public class UncheckedFragment extends Fragment {
 
                 if (etStatus.getText().toString().isEmpty()) {
                     status = "leer";
-                    Toast.makeText(UncheckedFragment.this.getActivity(), "Kein Status", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UncheckedFragment.this.getActivity(), "No status", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     status = etStatus.getText().toString();
                     Toast.makeText(UncheckedFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
                 }
-
-                etStatus.setText(status);
 
                 /*
                 if (etStatus.getText().toString().equals("palo") && etStudyCourse.getText().toString().equals("palo")) {

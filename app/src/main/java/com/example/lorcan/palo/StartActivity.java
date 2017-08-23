@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import static com.mapbox.mapboxsdk.Mapbox.getApplicationContext;
-
 /**
  * Created by paul on 31.07.17.
  */

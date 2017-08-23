@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+import static com.example.lorcan.palo.R.mipmap.location;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +65,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         this.markerOptions = new MarkerOptions()
                 .position(this.currLocation)
                 .title(status);
+        /*
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
@@ -70,12 +73,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         catch(SecurityException e) {
             e.printStackTrace();
         }
+        */
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         user = new User();
 
         //Try to get the changed status from the ProfileFragment.
-         //Still NullPointerException
+        //Still NullPointerException
 
 
         //status = getArguments().getString("STATUS");
@@ -89,10 +93,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         mLoadDataActivity = new LoadDataActivity(getContext(), this);
-
-
     }
 
 
@@ -109,10 +110,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
     }
 
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        /*
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
@@ -120,10 +121,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         catch(SecurityException e) {
             e.printStackTrace();
         }
+        */
 
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
-        map.setMinZoomPreference(14);
+        //map.setMinZoomPreference(14);
 
 
         Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_SHORT).show();
@@ -140,7 +142,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         user.updateLocation();
 
 
-
         ArrayList<String[]> arrayListOtherUsers = null;
         String[] arrayString = new String[3];
         arrayString[0] = "PAUL";
@@ -149,27 +150,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         if (arrayListOtherUsers != null) {
             arrayListOtherUsers.add(arrayString);
 
-        for(int i = 0; i< arrayListOtherUsers.size(); i++) {
+            for (int i = 0; i < arrayListOtherUsers.size(); i++) {
 
-            String[] array = (String[]) arrayListOtherUsers.get(i);
-            LatLng locationOther = new LatLng(Double.parseDouble(array[1]), Double.parseDouble(array[2]));
+                String[] array = (String[]) arrayListOtherUsers.get(i);
+                LatLng locationOther = new LatLng(Double.parseDouble(array[1]), Double.parseDouble(array[2]));
 
-            //---- getting distance between user location-----
-            float[] results = new float[1];
-            Location.distanceBetween(currLocation.latitude, currLocation.longitude, locationOther.latitude, locationOther.longitude, results);
-            float distance = results[0];
-            //---------------------------
+                //---- getting distance between user location-----
+                float[] results = new float[1];
+                Location.distanceBetween(currLocation.latitude, currLocation.longitude, locationOther.latitude, locationOther.longitude, results);
+                float distance = results[0];
+                //---------------------------
 
-            if (distance < 100) { // not ready yet!!! at this point we also need to check "isOnline" and we need to get the Status
-                LatLng position = locationOther;
-                MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.location));
-                marker1.position(position);
-                map.addMarker(marker1);
-            }
+                if (distance < 100) { // not ready yet!!! at this point we also need to check "isOnline" and we need to get the Status
+                    LatLng position = locationOther;
+                    MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(location));
+                    marker1.position(position);
+                    map.addMarker(marker1);
+                }
 
-       // try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
+                // try {
+                // Customise the styling of the base map using a JSON object defined
+                // in a raw resource file.
         /*
             boolean success = map.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
@@ -181,14 +182,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivityRaw", "Can't find style.", e);
         }*/
+            }
+        }
     }
 
 
-    public void buttonClicked(){
+    public void buttonClicked() {
 
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
+    }
 
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
@@ -201,7 +205,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
     }
 
 
-    }
     @Override
     public void handleNewLocation(Location location) {
 
@@ -221,6 +224,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
         user.updateLocation();
     }
 
+    /*
     @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(getContext(), "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
@@ -228,19 +232,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, LoadDat
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-
-
-
-    public void buttonClicked(){
-        //handleNewLocation();
     }
-
-
-
-
+    */
 }
