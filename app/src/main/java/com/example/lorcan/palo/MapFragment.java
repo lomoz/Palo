@@ -41,7 +41,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     User user;
     ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
-    String status;
 
     public MapFragment() {
         // Required empty public constructor
@@ -65,6 +64,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         user = new User();
+        MainActivity main = new MainActivity();
+        main.getData();
         arrayListOtherUsers = MainActivity.arrayListOtherUsers;
 
         /*Try to get the changed status from the ProfileFragment.

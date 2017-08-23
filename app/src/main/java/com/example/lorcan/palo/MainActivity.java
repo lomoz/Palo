@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity
 
         locationsFromDB = new getLocFromDB(this);
         arrayListOtherUsers = locationsFromDB.getData();
+
+        System.out.println("DATA FROM DB: " + arrayListOtherUsers);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -265,5 +267,9 @@ public class MainActivity extends AppCompatActivity
          */
 
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+    }
+
+    public ArrayList<String[]> getData(){
+        return this.arrayListOtherUsers;
     }
 }
