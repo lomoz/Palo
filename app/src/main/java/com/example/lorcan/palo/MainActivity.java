@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener{
 
     static getLocFromDB locationsFromDB;
-    protected static ArrayList<String[]> arrayListOtherUsers = new ArrayList<>();
+    protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
 
-    public ArrayList<String[]> getData(){
+    public ArrayList<String> getData(){
         return this.arrayListOtherUsers;
     }
 }
