@@ -33,7 +33,6 @@ import java.util.ArrayList;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
-// test thinkpad
     GoogleMap map;
     public LatLng currLocation = new LatLng(51.6, 6.2);
     private LocationManager locationManager;
