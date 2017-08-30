@@ -136,7 +136,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         }
         */
-/*
+
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -150,7 +150,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivityRaw", "Can't find style.", e);
         }
-        */
+
     }
 
 
