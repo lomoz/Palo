@@ -25,6 +25,8 @@ public class sendStatusToDB{
     private StringRequest request;
     protected String status;
     protected String email;
+    protected Float lat;
+    protected Float lng;
     //private Context context;
 
     public sendStatusToDB(){
@@ -33,10 +35,12 @@ public class sendStatusToDB{
 
 
 
-    public void sendStatus(final String email, final String status) {
+    public void sendStatus(final String email, final String status, final Float lat, final Float lng) {
         // using volley lib to create request
         this.status = status;
         this.email = email;
+        this.lat = lat;
+        this.lng = lng;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
@@ -71,6 +75,8 @@ public class sendStatusToDB{
 
                 hashMap.put("email",email);
                 hashMap.put("status", status.toString());
+                hashMap.put("lat", String.valueOf(lat));
+                hashMap.put("lng", String.valueOf(lng));
 
                 System.out.println("DAS WAS GESENDET WIRD: " + hashMap);
 
