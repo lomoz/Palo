@@ -24,23 +24,27 @@ public class getStatusFromDB {
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/getStatus.php";
     private StringRequest request;
-    private Context context;
-    private String email;
+    private Double lat;
+    private Double lng;
+    public String responseStatus;
 
-    public getStatusFromDB(Context context, String email){
-        this.context = context;
-        this.email = email;
+
+    //evtl anderer Kontrukstor ohne Parameter um bspw. alle Statusse zu bekommen (hier nur spezieller Status über LAT LNG erreichbar)
+    public getStatusFromDB(Double lat, Double lng){
+        this.lat = lat;
+        this.lng = lng;
         getStatus();
     }
 
 
     public void getStatus() {
 
-        this.requestQueue = Volley.newRequestQueue(context);
+        this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("Antwort von PHP File: " + response);
+                responseStatus = response;
             }
 
         }, new Response.ErrorListener() {
@@ -56,8 +60,8 @@ public class getStatusFromDB {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
                 String zugang = "yep";
-                hashMap.put("zugang", zugang);
-                hashMap.put("email", email);
+                hashMap.put("lat", String.valueOf(lat));
+                hashMap.put("lng", String.valueOf(lng));
 
 
                 return hashMap;
@@ -66,6 +70,10 @@ public class getStatusFromDB {
 
         requestQueue.add(request);
 
+    }
+
+    public String getStatusAsString(){
+        return responseStatus;
     }
 
 }
