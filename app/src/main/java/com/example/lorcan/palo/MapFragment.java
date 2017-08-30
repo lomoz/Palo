@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
-//test
+
     GoogleMap map;
     public LatLng currLocation = new LatLng(51.6, 6.2);
     private LocationManager locationManager;
