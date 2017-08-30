@@ -24,30 +24,36 @@
             android:title="Bestenliste" />
             -->
 
-    </group>
+    </group >
 
     <item android:title="Options">
-        <menu>
 
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Einstellungen" />
+        <menu android:checkableBehavior="single">
 
-            <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Kontakt" />
+            <group android:checkableBehavior="single">
 
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Teilen" />
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Einstellungen" />
 
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@android:drawable/ic_dialog_info"
-                android:title="Impressum"/>
+
+                <item
+                    android:id="@+id/nav_contact"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Kontakt" />
+
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="Teilen" />
+
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@android:drawable/ic_dialog_info"
+                    android:title="Impressum"/>
+
+            </group>
 
         </menu>
 
