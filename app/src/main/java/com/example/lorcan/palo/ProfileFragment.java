@@ -3,8 +3,6 @@ package com.example.lorcan.palo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,10 @@ import android.widget.Toast;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UncheckedFragment extends Fragment {
+public class ProfileFragment extends Fragment {
 
 
-    public UncheckedFragment() {
+    public ProfileFragment() {
         // Required empty public constructor
     }
 
@@ -56,7 +54,7 @@ public class UncheckedFragment extends Fragment {
          * Create an onClickListener for the button.
          *
          * To make i.e. a correct Toast it's important to replace "this"
-         * with "UncheckedFragment.this.getActivity()"!
+         * with "ProfileFragment.this.getActivity()"!
          */
 
         btnOK.setOnClickListener(new View.OnClickListener() {
@@ -65,19 +63,19 @@ public class UncheckedFragment extends Fragment {
 
                 if (etStatus.getText().toString().isEmpty()) {
                     status = "leer";
-                    Toast.makeText(UncheckedFragment.this.getActivity(), "No status", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFragment.this.getActivity(), "No status", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     status = etStatus.getText().toString();
-                    Toast.makeText(UncheckedFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
                 }
 
                 /*
                 if (etStatus.getText().toString().equals("palo") && etStudyCourse.getText().toString().equals("palo")) {
-                    Toast.makeText(UncheckedFragment.this.getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Correct", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(UncheckedFragment.this.getActivity(), "Incorrect", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Incorrect", Toast.LENGTH_SHORT).show();
                 }
 
 

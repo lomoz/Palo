@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity
              * use the FragmentManager and call beginTransaction to replace a fragment.
              */
 
-            UncheckedFragment uncheckedFragment = new UncheckedFragment();
+            ProfileFragment profileFragment = new ProfileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                     .replace(R.id.relativelayout_for_fragments,
-                    uncheckedFragment,
-                    uncheckedFragment.getTag()
+                    profileFragment,
+                    profileFragment.getTag()
             ).commit();
 
         }
