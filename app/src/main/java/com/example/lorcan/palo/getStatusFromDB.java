@@ -58,7 +58,6 @@ public class getStatusFromDB {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                String zugang = "yep";
                 hashMap.put("lat", String.valueOf(lat));
                 hashMap.put("lng", String.valueOf(lng));
 
