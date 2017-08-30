@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
          * Set a fragment as the default fragment instead of an empty fragment.
          */
 
-        NewMapFragment mapFragment = new NewMapFragment();
+        MapFragment mapFragment = new MapFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 */
 
-            NewMapFragment mapFragment = new NewMapFragment();
+            MapFragment mapFragment = new MapFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
