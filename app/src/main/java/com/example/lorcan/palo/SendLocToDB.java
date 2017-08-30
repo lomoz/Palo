@@ -1,4 +1,4 @@
-package com.example.lorcan.palo.DB;
+package com.example.lorcan.palo;
 
 import android.content.Context;
 

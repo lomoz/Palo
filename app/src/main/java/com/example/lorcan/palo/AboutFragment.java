@@ -1,4 +1,4 @@
-package com.example.lorcan.palo.Fragments;
+package com.example.lorcan.palo;
 
 
 import android.os.Bundle;
