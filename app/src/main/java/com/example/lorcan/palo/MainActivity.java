@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity
                     profileFragment,
                     profileFragment.getTag()
             ).commit();
-
         }
 
         else if (id == R.id.nav_map) {
@@ -158,7 +157,6 @@ public class MainActivity extends AppCompatActivity
                             mapFragment,
                             mapFragment.getTag()
                     ).commit();
-
         }
 
 
@@ -177,7 +175,6 @@ public class MainActivity extends AppCompatActivity
                     oneCheckedFragment,
                     oneCheckedFragment.getTag()
             ).commit();
-
         }
         */
 

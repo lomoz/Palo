@@ -41,6 +41,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
 
+    String status;
+    String studyCourse;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -67,11 +70,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         main.getData();
         arrayListOtherUsers = MainActivity.arrayListOtherUsers;
 
-        /*Try to get the changed status from the ProfileFragment.
-         * Still NullPointerException
-         */
 
-        //status = getArguments().getString("STATUS");
+        // Get the data from ProfileFragment.java here
+        Bundle bundle = getArguments();
+                if (bundle != null) {
+                    status = bundle.getString("status");
+                    studyCourse = bundle.getString("study course");
+                }
 
         return view;
     }
@@ -105,7 +110,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_SHORT).show();
 
-        markerOptions.position(this.currLocation).title("Status?");
+        markerOptions.position(this.currLocation).title(status);
         map.addMarker(markerOptions);
         map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
 

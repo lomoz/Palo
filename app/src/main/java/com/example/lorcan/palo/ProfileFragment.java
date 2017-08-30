@@ -3,6 +3,8 @@ package com.example.lorcan.palo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,8 @@ public class ProfileFragment extends Fragment {
     EditText etStatus, etStudyCourse;
     Button btnOK;
 
-    String status = "default";
+    String status = "";
+    String studyCourse = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,8 +51,6 @@ public class ProfileFragment extends Fragment {
         etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
         btnOK = (Button)view.findViewById(R.id.btnOK);
 
-        etStatus.setText(getStatus());
-
         /*
          * Create an onClickListener for the button.
          *
@@ -61,41 +62,41 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundle = new Bundle();
+
+                //check if editText status is empty or not.
                 if (etStatus.getText().toString().isEmpty()) {
-                    status = "leer";
-                    Toast.makeText(ProfileFragment.this.getActivity(), "No status", Toast.LENGTH_SHORT).show();
+                    status = "no status";
+                    Toast.makeText(ProfileFragment.this.getActivity(), "No status.", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     status = etStatus.getText().toString();
                     Toast.makeText(ProfileFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
                 }
 
-                /*
-                if (etStatus.getText().toString().equals("palo") && etStudyCourse.getText().toString().equals("palo")) {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Correct", Toast.LENGTH_SHORT).show();
+                //check if editText studyCourse is empty or not.
+                if (etStudyCourse.getText().toString().isEmpty()) {
+                    studyCourse = "no study course";
+                    Toast.makeText(ProfileFragment.this.getActivity(), "No study course.", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Incorrect", Toast.LENGTH_SHORT).show();
+                    studyCourse = etStudyCourse.getText().toString();
+                    Toast.makeText(ProfileFragment.this.getActivity(), studyCourse, Toast.LENGTH_SHORT).show();
                 }
 
+                //bundle the data from status and study course to "send" them to MapFragment.java
+                bundle.putString("status", status);
+                bundle.putString("study course", studyCourse);
 
-                if (etStatus.getText().toString().isEmpty()) {
-                    status = "I'm using Palo!";
-                }
-                else {
-                    status = etStatus.getText().toString();
-                }
-
-                MapFragment mapFragment = new MapFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Bundle bundle = new Bundle();
-                bundle.putString("STATUS", status);
                 mapFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.relativelayout_for_fragments, mapFragment);
-                fragmentTransaction.commit();
-
-                */
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                        .replace(R.id.relativelayout_for_fragments,
+                                mapFragment,
+                                mapFragment.getTag()
+                        ).commit();
             }
         });
 
