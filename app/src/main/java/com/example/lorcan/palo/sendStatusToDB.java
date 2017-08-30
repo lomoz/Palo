@@ -25,8 +25,8 @@ public class sendStatusToDB{
     private StringRequest request;
     protected String status;
     protected String email;
-    protected Float lat;
-    protected Float lng;
+    protected Double lat;
+    protected Double lng;
     //private Context context;
 
     public sendStatusToDB(){
@@ -35,7 +35,7 @@ public class sendStatusToDB{
 
 
 
-    public void sendStatus(final String email, final String status, final Float lat, final Float lng) {
+    public void sendStatus(final String email, final String status, final Double lat, final Double lng) {
         // using volley lib to create request
         this.status = status;
         this.email = email;
