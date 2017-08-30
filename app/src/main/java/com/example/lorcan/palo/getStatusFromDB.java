@@ -42,7 +42,7 @@ public class getStatusFromDB {
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println("Antwort von PHP File: " + response);
+                System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
                 responseStatus = response;
             }
 
@@ -68,6 +68,7 @@ public class getStatusFromDB {
         };
 
         requestQueue.add(request);
+        System.out.println("---------------" +responseStatus+ "---------------");
         return responseStatus;
     }
 
