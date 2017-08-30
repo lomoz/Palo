@@ -1,4 +1,4 @@
-package com.example.lorcan.palo;
+package com.example.lorcan.palo.DB;
 
 import android.content.Context;
 
@@ -81,7 +81,7 @@ public class getLocFromDB {
         }
     }
 
-    protected ArrayList<String> getData(){
+    public ArrayList<String> getData(){
         if(arrayListOtherUsers.size() > 0){
             return arrayListOtherUsers;
         }else{

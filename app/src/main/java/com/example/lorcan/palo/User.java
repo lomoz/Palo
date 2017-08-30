@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 
+import com.example.lorcan.palo.DB.SendLocToDB;
 import com.google.android.gms.maps.model.LatLng;
 
 /**

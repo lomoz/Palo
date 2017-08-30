@@ -12,6 +12,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.DB.getLocFromDB;
+import com.example.lorcan.palo.Fragments.AboutFragment;
+import com.example.lorcan.palo.Fragments.ContactFragment;
+import com.example.lorcan.palo.Fragments.MapFragment;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
+import com.example.lorcan.palo.Fragments.SettingsFragment;
+import com.example.lorcan.palo.Fragments.ShareFragment;
+import com.example.lorcan.palo.Fragments.TwoCheckedFragment;
+
 import java.util.ArrayList;
 
 
