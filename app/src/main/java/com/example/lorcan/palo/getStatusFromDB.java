@@ -73,6 +73,7 @@ public class getStatusFromDB {
     }
 
     public String getStatusAsString(){
+        System.out.println("STATUS VON DB MIT LAT: " +  lat + " UND LNG: " + lng + " ----> " + responseStatus);
         return responseStatus;
     }
 
