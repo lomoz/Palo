@@ -3,7 +3,6 @@ package com.example.lorcan.palo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +49,8 @@ public class ProfileFragment extends Fragment {
         etStatus = (EditText)view.findViewById(R.id.etStatus);
         etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
         btnOK = (Button)view.findViewById(R.id.btnOK);
+
+
 
         /*
          * Create an onClickListener for the button.
@@ -102,9 +103,5 @@ public class ProfileFragment extends Fragment {
 
         return view;
     }
-
-    public String getStatus() {
-        
-        return status;
-    }
+    
 }
