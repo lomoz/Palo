@@ -89,9 +89,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
     }
 
     @Override
@@ -174,7 +171,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(getContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_SHORT).show();
 
         this.currLocation = new LatLng(location.getLatitude(), location.getLongitude());
         markerOptions.position(this.currLocation).title("Status?");

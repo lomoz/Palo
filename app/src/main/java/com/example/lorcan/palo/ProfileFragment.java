@@ -36,21 +36,20 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /*
-         * Create and return a new View element here.
-         */
+        // get status from database
+        getStatusFromDB getStatusFromDB = new getStatusFromDB(5.33, 334.344);
+        String response = getStatusFromDB.getStatusAsString();
+        status = response;
 
+        // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        /*
-         * Use the created view to get the elements from the xml file.
-         */
-
+        // Use the created view to get the elements from the xml file.
         etStatus = (EditText)view.findViewById(R.id.etStatus);
         etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
         btnOK = (Button)view.findViewById(R.id.btnOK);
 
-
+        etStatus.setText(status);
 
         /*
          * Create an onClickListener for the button.
@@ -89,6 +88,10 @@ public class ProfileFragment extends Fragment {
                 //bundle the data from status and study course to "send" them to MapFragment.java
                 bundle.putString("status", status);
                 bundle.putString("study course", studyCourse);
+
+                //send status to database
+                sendStatusToDB statusToDB = new sendStatusToDB();
+                statusToDB.sendStatus("testmail@gmail.com", status, 5.33, 334.344);
 
                 mapFragment.setArguments(bundle);
                 FragmentManager fragmentManager = getFragmentManager();
