@@ -23,8 +23,9 @@ public class sendStatusToDB{
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/setStatus.php";
     private StringRequest request;
-    protected String status;
+
     protected String email;
+    protected String status;
     protected Double lat;
     protected Double lng;
     //private Context context;
@@ -37,8 +38,9 @@ public class sendStatusToDB{
 
     public void sendStatus(final String email, final String status, final Double lat, final Double lng) {
         // using volley lib to create request
-        this.status = status;
+
         this.email = email;
+        this.status = status;
         this.lat = lat;
         this.lng = lng;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
