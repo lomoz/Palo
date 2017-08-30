@@ -60,7 +60,7 @@ public class sendStatusToDB{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }*/
-                System.out.println("Antwort von PHP File: " + response);
+                System.out.println("Antwort von PHP File über den Status: " + response);
             }
 
         }, new Response.ErrorListener() {
@@ -80,7 +80,7 @@ public class sendStatusToDB{
                 hashMap.put("lat", String.valueOf(lat));
                 hashMap.put("lng", String.valueOf(lng));
 
-                System.out.println("DAS WAS GESENDET WIRD: " + hashMap);
+                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
 
                 return hashMap;
             }
