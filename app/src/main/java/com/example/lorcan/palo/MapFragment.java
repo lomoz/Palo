@@ -115,6 +115,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         user.updateLocation();
 
+        /*
         for(int i = 0; i< arrayListOtherUsers.size(); i++){
 
             String[] array = (String[]) arrayListOtherUsers.get(i);
@@ -134,6 +135,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
 
         }
+        */
 /*
         try {
             // Customise the styling of the base map using a JSON object defined
