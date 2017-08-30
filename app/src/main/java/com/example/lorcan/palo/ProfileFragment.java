@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
          * Create and return a new View element here.
          */
 
-        View view = inflater.inflate(R.layout.fragment_unchecked, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         /*
          * Use the created view to get the elements from the xml file.
