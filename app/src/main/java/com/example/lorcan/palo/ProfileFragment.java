@@ -37,8 +37,9 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // get status from database
-        getStatusFromDB getStatusFromDB = new getStatusFromDB(5.33, 334.344);
-        String response = getStatusFromDB.getStatusAsString();
+        getStatusFromDB getStatusFromDB = new getStatusFromDB();
+
+        String response = getStatusFromDB.getStatus(5.33, 334.344);
         status = response;
 
         // Create and return a new View element here.

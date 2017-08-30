@@ -30,23 +30,20 @@ public class getStatusFromDB {
 
 
     //evtl anderer Kontrukstor ohne Parameter um bspw. alle Statusse zu bekommen (hier nur spezieller Status über LAT LNG erreichbar)
-    public getStatusFromDB(Double lat, Double lng){
-        this.lat = lat;
-        this.lng = lng;
-        getStatus();
+    public getStatusFromDB(){
+
     }
 
 
-    public void getStatus() {
-
+    public String getStatus(final Double lat, final Double lng) {
+        this.lat = lat;
+        this.lng = lng;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("Antwort von PHP File: " + response);
                 responseStatus = response;
-                System.out.println("STATUS VON DB MIT LAT: " +  lat + " UND LNG: " + lng + " ----> " + response);
-
             }
 
         }, new Response.ErrorListener() {
@@ -71,7 +68,7 @@ public class getStatusFromDB {
         };
 
         requestQueue.add(request);
-
+        return responseStatus;
     }
 
     public String getStatusAsString(){
