@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.Fragments.NewMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity
          * Set a fragment as the default fragment instead of an empty fragment.
          */
 
-        MapFragment mapFragment = new MapFragment();
+        NewMapFragment mapFragment = new NewMapFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 */
 
-            MapFragment mapFragment = new MapFragment();
+            NewMapFragment mapFragment = new NewMapFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
