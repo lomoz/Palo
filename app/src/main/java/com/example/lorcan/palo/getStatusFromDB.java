@@ -45,6 +45,8 @@ public class getStatusFromDB {
             public void onResponse(String response) {
                 System.out.println("Antwort von PHP File: " + response);
                 responseStatus = response;
+                System.out.println("STATUS VON DB MIT LAT: " +  lat + " UND LNG: " + lng + " ----> " + response);
+
             }
 
         }, new Response.ErrorListener() {
@@ -73,7 +75,7 @@ public class getStatusFromDB {
     }
 
     public String getStatusAsString(){
-        System.out.println("STATUS VON DB MIT LAT: " +  lat + " UND LNG: " + lng + " ----> " + responseStatus);
+        //System.out.println("STATUS VON DB MIT LAT: " +  lat + " UND LNG: " + lng + " ----> " + responseStatus);
         return responseStatus;
     }
 
