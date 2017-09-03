@@ -36,11 +36,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // get status from database
-        getStatusFromDB getStatusFromDB = new getStatusFromDB();
 
-        String response = getStatusFromDB.getStatus(5.33, 334.344);
-        status = response;
 
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
