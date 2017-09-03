@@ -18,27 +18,31 @@ import java.util.Map;
  * Created by paul on 28.06.17.
  */
 
-public class SendLocToDB{
+public class sendStatusToDB{
 
     private RequestQueue requestQueue;
-    private static final String URL = "http://palo.square7.ch/setLocation.php";
+    private static final String URL = "http://palo.square7.ch/setStatus.php";
     private StringRequest request;
+
+    protected String email;
+    protected String status;
     protected Double lat;
     protected Double lng;
-    protected String email;
     //private Context context;
 
-    public SendLocToDB(){
+    public sendStatusToDB(){
 
     }
 
 
 
-    public void sendLocation(final String email, final Double lat, final Double lng) {
+    public void sendStatus(final String email, final String status, final Double lat, final Double lng) {
         // using volley lib to create request
+
+        this.email = email;
+        this.status = status;
         this.lat = lat;
         this.lng = lng;
-        this.email = email;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
@@ -56,7 +60,7 @@ public class SendLocToDB{
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }*/
-                System.out.println("Antwort von PHP File: " + response);
+                System.out.println("Antwort von PHP File über den Status: " + response);
             }
 
         }, new Response.ErrorListener() {
@@ -71,12 +75,12 @@ public class SendLocToDB{
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<String, String>();
 
-
-                hashMap.put("lng", lng.toString());
-                hashMap.put("lat", lat.toString());
                 hashMap.put("email",email);
+                hashMap.put("status", status.toString());
+                hashMap.put("lat", String.valueOf(lat));
+                hashMap.put("lng", String.valueOf(lng));
 
-                System.out.println("DAS WAS GESENDET WIRD: " + hashMap);
+                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
 
                 return hashMap;
             }
@@ -87,3 +91,4 @@ public class SendLocToDB{
 
     }
 }
+

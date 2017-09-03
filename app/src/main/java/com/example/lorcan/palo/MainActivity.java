@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -12,8 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -135,15 +132,14 @@ public class MainActivity extends AppCompatActivity
              * use the FragmentManager and call beginTransaction to replace a fragment.
              */
 
-            UncheckedFragment uncheckedFragment = new UncheckedFragment();
+            ProfileFragment profileFragment = new ProfileFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                     .replace(R.id.relativelayout_for_fragments,
-                    uncheckedFragment,
-                    uncheckedFragment.getTag()
+                    profileFragment,
+                    profileFragment.getTag()
             ).commit();
-
         }
 
         else if (id == R.id.nav_map) {
@@ -161,7 +157,6 @@ public class MainActivity extends AppCompatActivity
                             mapFragment,
                             mapFragment.getTag()
                     ).commit();
-
         }
 
 
@@ -180,7 +175,6 @@ public class MainActivity extends AppCompatActivity
                     oneCheckedFragment,
                     oneCheckedFragment.getTag()
             ).commit();
-
         }
         */
 

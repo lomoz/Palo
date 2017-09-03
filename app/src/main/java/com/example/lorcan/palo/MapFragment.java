@@ -16,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.MainActivity;
+import com.example.lorcan.palo.R;
+import com.example.lorcan.palo.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +43,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     User user;
     ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
+
+    String status;
+    String studyCourse;
 
     public MapFragment() {
         // Required empty public constructor
@@ -67,11 +73,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         main.getData();
         arrayListOtherUsers = MainActivity.arrayListOtherUsers;
 
-        /*Try to get the changed status from the ProfileFragment.
-         * Still NullPointerException
-         */
 
-        //status = getArguments().getString("STATUS");
+        // Get the data from ProfileFragment.java here
+        Bundle bundle = getArguments();
+                if (bundle != null) {
+                    status = bundle.getString("status");
+                    studyCourse = bundle.getString("study course");
+                }
 
         return view;
     }
@@ -81,9 +89,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-
-
     }
 
     @Override
@@ -105,7 +110,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_SHORT).show();
 
-        markerOptions.position(this.currLocation).title("Status?");
+        markerOptions.position(this.currLocation).title(status);
         map.addMarker(markerOptions);
         map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
 
@@ -115,6 +120,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         user.updateLocation();
 
+        /*
         for(int i = 0; i< arrayListOtherUsers.size(); i++){
 
             String[] array = (String[]) arrayListOtherUsers.get(i);
@@ -134,7 +140,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
 
         }
-/*
+        */
+
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -148,7 +155,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivityRaw", "Can't find style.", e);
         }
-        */
+
     }
 
 
@@ -164,7 +171,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
     @Override
     public void onLocationChanged(Location location) {
-        Toast.makeText(getContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_SHORT).show();
 
         this.currLocation = new LatLng(location.getLatitude(), location.getLongitude());
         markerOptions.position(this.currLocation).title("Status?");
