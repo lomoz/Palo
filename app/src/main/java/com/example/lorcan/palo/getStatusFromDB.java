@@ -36,7 +36,7 @@ public class getStatusFromDB {
     //evtl anderer Kontrukstor ohne Parameter um bspw. alle Statusse zu bekommen (hier nur spezieller Status über LAT LNG erreichbar)
     public getStatusFromDB(){
 
-        new Task().execute();
+
     }
 
 
@@ -109,38 +109,4 @@ public class getStatusFromDB {
         return responseStatus;
     }
 
-
-
-    public class Task extends AsyncTask<String, String, String>{
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL(strUrl);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.connect();
-
-                BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String value = bf.readLine();
-                responseStatus = value;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
-    }
 }
