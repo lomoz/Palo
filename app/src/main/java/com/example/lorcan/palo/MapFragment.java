@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -158,7 +165,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public void buttonClicked(){
+    public void updateMap(){
+       new UpdateTask().execute();
 
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
@@ -200,4 +208,50 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     }
 
-}
+
+    //to get data from DB asynchronously
+    public class UpdateTask extends AsyncTask<String, String, String>  {
+        private String responseStatus;
+        private static final String strUrl = "http://palo.square7.ch/getStatus.php";
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(strUrl);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.connect();
+
+                BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String value = bf.readLine();
+                responseStatus = value;
+
+
+                addingMarkerToMap(responseStatus);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            super.onPostExecute(s);
+        }
+
+    }
+
+
+    public void addingMarkerToMap(String response){
+        System.out.println(response + " = DB");
+    }
+    }
