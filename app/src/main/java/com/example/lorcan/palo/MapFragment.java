@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,8 +69,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-        }
-        catch(SecurityException e) {
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
         // Inflate the layout for this fragment
@@ -82,10 +82,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         // Get the data from ProfileFragment.java here
         Bundle bundle = getArguments();
-                if (bundle != null) {
-                    status = bundle.getString("status");
-                    studyCourse = bundle.getString("study course");
-                }
+        if (bundle != null) {
+            status = bundle.getString("status");
+            studyCourse = bundle.getString("study course");
+        }
 
         return view;
     }
@@ -95,6 +95,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        final Button updateButton = (Button) view.findViewById(R.id.btnUpdate);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateMap();
+            }
+        });
     }
 
     @Override
@@ -104,8 +111,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-        }
-        catch(SecurityException e) {
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
 
@@ -165,9 +171,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public void updateMap(){
-       new UpdateTask().execute();
-
+    public void updateMap() {
+        UpdateTask updateTask = new UpdateTask();
+        ArrayList<JSONObject> upArrayList = updateTask.update();
+        for(int i = 0; i < upArrayList.size(); i++){
+            JSONObject jObjStatus;
+            jObjStatus = upArrayList.get(i);
+            try {
+                String actStatus = jObjStatus.getString("Status");
+                String lat = jObjStatus.getString("Lat");
+                String lng = jObjStatus.getString("Lng");
+                addingMarkerToMap(actStatus, lat, lng);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
@@ -209,49 +227,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    //to get data from DB asynchronously
-    public class UpdateTask extends AsyncTask<String, String, String>  {
-        private String responseStatus;
-        private static final String strUrl = "http://palo.square7.ch/getStatus.php";
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL(strUrl);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.connect();
-
-                BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String value = bf.readLine();
-                responseStatus = value;
-
-
-                addingMarkerToMap(responseStatus);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-
-            super.onPostExecute(s);
-        }
-
+    public void addingMarkerToMap(String status, String lat, String lng) {
+        System.out.println("STATUS: " + status + ", " + lat + ", " + lng);
+        // map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))).title(status));
     }
 
 
-    public void addingMarkerToMap(String response){
-        System.out.println(response + " = DB");
-    }
-    }
+
+}
