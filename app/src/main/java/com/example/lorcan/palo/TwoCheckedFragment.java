@@ -115,5 +115,7 @@ public class TwoCheckedFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String data);
+
+        void onFragmentInteraction();
     }
 }

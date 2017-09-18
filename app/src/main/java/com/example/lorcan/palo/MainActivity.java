@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener{
 
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
@@ -263,7 +264,18 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onFragmentInteraction() {
+        System.out.println("onFragmentInteraction, dass kein Return-Statement besitzt.");
+    }
+
     public ArrayList<String> getData(){
         return this.arrayListOtherUsers;
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        System.out.println("onFragmentInteraction, dass Uri als Return-Statement besitzt.");
     }
 }

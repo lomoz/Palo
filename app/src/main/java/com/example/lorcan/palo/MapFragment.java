@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.internal.IGoogleMapDelegate;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -92,6 +93,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             studyCourse = bundle.getString("study course");
             args = bundle.getStringArrayList("args");
         }
+
+        //map = new GoogleMap(); // this map is actually null -> create new Google Map
         for(int i = 0; i < args.size(); i = i + 3){
             MarkerOptions markerOptions1 = new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i+2))))

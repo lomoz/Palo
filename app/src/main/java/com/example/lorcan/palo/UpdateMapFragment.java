@@ -133,7 +133,9 @@ public class UpdateMapFragment extends Fragment {
         private String responseStatus;
         private static final String strUrl = "http://palo.square7.ch/getStatus.php";
         private Boolean upStarted = false;
-
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        ArrayList<String> args = new ArrayList<>();
         @Override
         protected String doInBackground(String... params) {
             URL url = null;
@@ -150,9 +152,7 @@ public class UpdateMapFragment extends Fragment {
                 System.out.println("RETURN: _--------" + responseStatus + "--------_");
 
 
-                MapFragment mapFragment = new MapFragment();
-                Bundle bundle = new Bundle();
-                ArrayList<String> args = new ArrayList<>();
+
 
                 try {
 
@@ -202,7 +202,16 @@ public class UpdateMapFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-
+            bundle.putStringArrayList("args", args);
+            mapFragment.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            mapFragment,
+                            mapFragment.getTag()
+                    ).commit();
+            System.out.println("FERTIG");
             upStarted = true;
         }
 
