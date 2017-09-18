@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -50,7 +52,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     User user;
     ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
-
+    String lat;
+    String lng;
     String status;
     String studyCourse;
 
@@ -63,15 +66,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        this.markerOptions = new MarkerOptions()
-                .position(this.currLocation)
-                .title("Status?");
+
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+        this.markerOptions = new MarkerOptions()
+                .position(this.currLocation)
+                .title("Status?");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         user = new User();
@@ -82,11 +86,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         // Get the data from ProfileFragment.java here
         Bundle bundle = getArguments();
+        ArrayList<String> args = new ArrayList<>();
         if (bundle != null) {
             status = bundle.getString("status");
             studyCourse = bundle.getString("study course");
+            args = bundle.getStringArrayList("args");
         }
-
+        for(int i = 0; i < args.size(); i = i + 3){
+            MarkerOptions markerOptions1 = new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i+2))))
+                    .title(args.get(i));
+            map.addMarker(markerOptions1);
+        }
         return view;
     }
 
@@ -172,20 +183,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
     public void updateMap() {
-        UpdateTask updateTask = new UpdateTask();
-        ArrayList<JSONObject> upArrayList = updateTask.update();
-        for(int i = 0; i < upArrayList.size(); i++){
-            JSONObject jObjStatus;
-            jObjStatus = upArrayList.get(i);
-            try {
-                String actStatus = jObjStatus.getString("Status");
-                String lat = jObjStatus.getString("Lat");
-                String lng = jObjStatus.getString("Lng");
-                addingMarkerToMap(actStatus, lat, lng);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        UpdateMapFragment upFragment = new UpdateMapFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                        upFragment,
+                        upFragment.getTag()
+                ).commit();
+
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
         user.setLocation(this.currLocation);
