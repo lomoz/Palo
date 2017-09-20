@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.internal.IGoogleMapDelegate;
@@ -93,6 +94,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             studyCourse = bundle.getString("study course");
             args = bundle.getStringArrayList("args");
         }
+
+
+        MapView mapView = new MapView(getContext());
+        mapView.onCreate(bundle);
 
         //map = new GoogleMap(); // this map is actually null -> create new Google Map
         for(int i = 0; i < args.size(); i = i + 3){
