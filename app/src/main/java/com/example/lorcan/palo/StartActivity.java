@@ -1,11 +1,15 @@
 package com.example.lorcan.palo;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
+
 
 import java.util.concurrent.TimeUnit;
-
 /**
  * Created by paul on 31.07.17.
  */
@@ -22,10 +26,16 @@ public class StartActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        start();
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String android_id = telephonyManager.getDeviceId();
+        checkAndroidId(android_id);
     }
 
-    public void start(){
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+    public void checkAndroidId(String android_id){
+
+        GetIDFromDB getIDFromDB = new GetIDFromDB(this, android_id);
+
     }
+
 }

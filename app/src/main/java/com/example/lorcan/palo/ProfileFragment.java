@@ -1,9 +1,13 @@
 package com.example.lorcan.palo;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +36,17 @@ public class ProfileFragment extends Fragment {
     String status = "";
     String studyCourse = "";
 
+    private String android_id;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        String android_id = telephonyManager.getDeviceId();
+
         getStatusFromDB get = new getStatusFromDB();
+        status = get.getStatus(android_id);
 
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);

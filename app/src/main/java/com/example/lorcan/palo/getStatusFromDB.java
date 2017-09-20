@@ -28,8 +28,7 @@ public class getStatusFromDB {
     private RequestQueue requestQueue;
     private static final String strUrl = "http://palo.square7.ch/getStatus.php";
     private StringRequest request;
-    private Double lat;
-    private Double lng;
+    private String android_id;
     public String responseStatus;
 
 
@@ -41,42 +40,9 @@ public class getStatusFromDB {
 
 
 
-    public void getAllStatus() {
-        /*this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-        this.request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println("Antwort von PHP File bei getAllStatusFromDB: " + response);
 
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }) {
-
-            // set of parameters in a hashmap, which will be send to the php file (server side)
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> hashMap = new HashMap<String, String>();
-
-                hashMap.put("zugang", "zugang");
-
-
-                return hashMap;
-            }
-        };
-
-        requestQueue.add(request);*/
-
-    }
-
-
-    public String getStatus(final Double lat, final Double lng) {
-        this.lat = lat;
-        this.lng = lng;
+    public String getStatus(final String android_id) {
+        this.android_id = android_id;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         this.request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
             @Override
@@ -97,8 +63,7 @@ public class getStatusFromDB {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                hashMap.put("lat", String.valueOf(lat));
-                hashMap.put("lng", String.valueOf(lng));
+                hashMap.put("anroid_id", android_id);
 
 
                 return hashMap;
@@ -106,6 +71,9 @@ public class getStatusFromDB {
         };
 
         requestQueue.add(request);
+
+        String status;
+        System.out.println("DIE STATUS RÜCKGABE AUS DER DATENBANK: " + responseStatus);
         return responseStatus;
     }
 

@@ -1,10 +1,12 @@
 package com.example.lorcan.palo;
 
-import android.app.LoaderManager.LoaderCallbacks;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,21 +30,24 @@ import java.util.Map;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-    private EditText email,password;
+    private EditText email,nickname;
     private Button sign_in_register;
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/control_users.php";
     private StringRequest request;
-    private String nickname = "";
-    private String[] nicknameArr;
+
+    private String android_id;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        android_id = telephonyManager.getDeviceId();
+
         email = (EditText) findViewById(R.id.email);
-        password = (EditText) findViewById(R.id.password);
+        nickname = (EditText) findViewById(R.id.nickname);
         sign_in_register = (Button) findViewById(R.id.email_sign_in_button);
 
         // using volley lib to create request
@@ -86,7 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                         HashMap<String,String> hashMap = new HashMap<String, String>();
 
                         hashMap.put("email",email.getText().toString());
-                        hashMap.put("password",password.getText().toString());
+                        hashMap.put("nickname",nickname.getText().toString());
+                        hashMap.put("android_id", android_id);
 
 
                         return hashMap;

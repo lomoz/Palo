@@ -53,7 +53,7 @@ import java.util.ArrayList;
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     GoogleMap map;
-    public LatLng currLocation = new LatLng(51.188443, 6.794877);
+    public LatLng currLocation = new LatLng(51.188443,  6.794877);
     private LocationManager locationManager;
     Button positionButton;
     User user;
