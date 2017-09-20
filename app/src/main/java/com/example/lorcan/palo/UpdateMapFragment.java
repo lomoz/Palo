@@ -177,6 +177,7 @@ public class UpdateMapFragment extends Fragment {
                     }
                     bundle.putStringArrayList("args", args);
                     mapFragment.setArguments(bundle);
+
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)

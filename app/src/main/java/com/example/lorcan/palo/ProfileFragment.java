@@ -101,6 +101,7 @@ public class ProfileFragment extends Fragment {
                 statusToDB.sendStatus("testmail@gmail.com", status, 5.33, 334.344);
 
                 mapFragment.setArguments(bundle);
+
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
