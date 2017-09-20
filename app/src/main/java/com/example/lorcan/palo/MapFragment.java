@@ -2,6 +2,7 @@ package com.example.lorcan.palo;
 
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,6 +10,8 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -20,9 +23,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.internal.IGoogleMapDelegate;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -70,7 +75,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
@@ -108,10 +112,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        final Button updateButton = (Button) view.findViewById(R.id.btnUpdate);
-        updateButton.setOnClickListener(new View.OnClickListener() {
+
+        final FloatingActionButton fabUpdate = (FloatingActionButton) view.findViewById(R.id.fabUpdate);
+        fabUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 updateMap();
             }
         });
@@ -120,6 +125,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        // set individual Controls and Gestures for the Google Map
+        GoogleMapOptions options = new GoogleMapOptions();
+        options.zoomControlsEnabled(false);
+        options.compassEnabled(true);
+        options.mapToolbarEnabled(false);
 
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
@@ -129,12 +139,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
 
 
-
-
-
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
         map.setMinZoomPreference(14);
+        if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        map.setMyLocationEnabled(true);
 
         //only if Bundle is an ArrayList
 
