@@ -130,6 +130,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
 
+
+
+        map = googleMap;
+        map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
+        //map.setMinZoomPreference(14);
+
         //only if Bundle is an ArrayList
 
         for(int i = 0; i < args.size(); i = i + 3){
@@ -139,9 +145,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             map.addMarker(markerOptions1);
         }
 
-        map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
-        //map.setMinZoomPreference(14);
+        //-------------------------------
 
 
         Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_SHORT).show();
