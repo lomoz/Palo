@@ -58,6 +58,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     String lng;
     String status;
     String studyCourse;
+    Bundle bundle;
+    ArrayList<String> args = new ArrayList<>();
 
     public MapFragment() {
         // Required empty public constructor
@@ -87,8 +89,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
         // Get the data from ProfileFragment.java here
-        Bundle bundle = getArguments();
-        ArrayList<String> args = new ArrayList<>();
+        bundle = getArguments();
+
         if (bundle != null) {
             status = bundle.getString("status");
             studyCourse = bundle.getString("study course");
@@ -97,12 +99,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
         //map = new GoogleMap(); // this map is actually null -> create new Google Map
-        for(int i = 0; i < args.size(); i = i + 3){
-            MarkerOptions markerOptions1 = new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i+2))))
-                    .title(args.get(i));
-            map.addMarker(markerOptions1);
-        }
+
         return view;
     }
 
@@ -129,6 +126,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
         } catch (SecurityException e) {
             e.printStackTrace();
+        }
+
+
+
+        //only if Bundle is an ArrayList
+
+        for(int i = 0; i < args.size(); i = i + 3){
+            MarkerOptions markerOptions1 = new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i+2))))
+                    .title(args.get(i));
+            map.addMarker(markerOptions1);
         }
 
         map = googleMap;
