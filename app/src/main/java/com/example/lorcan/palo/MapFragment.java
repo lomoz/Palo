@@ -96,9 +96,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
 
 
-        MapView mapView = new MapView(getContext());
-        mapView.onCreate(bundle);
-
         //map = new GoogleMap(); // this map is actually null -> create new Google Map
         for(int i = 0; i < args.size(); i = i + 3){
             MarkerOptions markerOptions1 = new MarkerOptions()
