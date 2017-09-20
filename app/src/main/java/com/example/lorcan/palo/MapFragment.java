@@ -7,7 +7,6 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,29 +20,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.internal.IGoogleMapDelegate;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -64,8 +50,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     String status;
     String studyCourse;
     Bundle bundle;
+    Bundle bundleLocation;
     ArrayList<String> args = new ArrayList<>();
-
+    
     public MapFragment() {
         // Required empty public constructor
     }
@@ -81,6 +68,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+
         this.markerOptions = new MarkerOptions()
                 .position(this.currLocation)
                 .title("Status?");
@@ -101,6 +89,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             args = bundle.getStringArrayList("args");
         }
 
+        /*
+        bundleLocation = getArguments();
+
+        if (bundleLocation != null) {
+            currLocation = new LatLng(bundleLocation.getDouble("latitude"), bundleLocation.getDouble("longitude"));
+            System.out.println("######################" + currLocation + "####################");
+        }
+        */
 
         //map = new GoogleMap(); // this map is actually null -> create new Google Map
 
@@ -166,7 +162,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //------------------------------- 
 
 
-        Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_LONG).show();
 
         markerOptions.position(this.currLocation).title(status);
         map.addMarker(markerOptions);
@@ -215,7 +211,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
 
     }
-
 
     public void updateMap() {
         UpdateMapFragment upFragment = new UpdateMapFragment();
