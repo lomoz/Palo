@@ -32,7 +32,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="30sp"
@@ -52,7 +52,20 @@
                     android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="TextView" />
+                    android:text="@string/change_language" />
+
+                <Button
+                    android:id="@+id/btn_change_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change" />
+
+                <TextView
+                    android:id="@+id/tv_active_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/language" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -76,7 +89,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="Palo Version 0.0"
+            android:text="@string/palo_version_0_0"
             android:textAlignment="textStart"
             android:textColor="@android:color/black" />
 
@@ -85,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
-            android:text="© Copyright 2017"
+            android:text="@string/copyright_2017"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black" />
 

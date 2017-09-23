@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lorcan.palo.ShareFragment">
+    tools:context="com.example.lorcan.palo.ShareFragment"
+    android:id="@+id/share_fragment">
 
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Teilen"
+        android:text="@string/share"
         android:textSize="30sp" />
 
     <TextView
@@ -23,7 +24,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_share"
         android:layout_marginTop="67dp"
-        android:text="Diese App teilen."
+        android:text="@string/share_app"
         android:textSize="18sp" />
 
     <TextView
@@ -54,7 +55,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="Palo Version 0.0"
+            android:text="@string/palo_version_0_0"
             android:textAlignment="textStart"
             android:textColor="@android:color/black" />
 
@@ -63,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
-            android:text="© Copyright 2017"
+            android:text="@string/copyright_2017"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black" />
 

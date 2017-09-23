@@ -32,7 +32,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Impressum"
+            android:text="@string/about"
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="30sp"

@@ -25,27 +25,27 @@
     <string name="title_activity_maps">Map</string>
 
     <!-- Strings related to activity_main_drawer.xml -->
-    <string name="profile">Profile</string>
-    <string name="map">Map</string>
-    <string name="options">Options</string>
-    <string name="settings">Settings</string>
-    <string name="contact">Contact</string>
-    <string name="share">Share</string>
-    <string name="about">About</string>
+    <string name="profile">Profil</string>
+    <string name="map">Karte</string>
+    <string name="options">Optionen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="contact">Kontakt</string>
+    <string name="share">Teilen</string>
+    <string name="about">Impressum</string>
 
     <!-- Google Maps API access token -->
     <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
 
-    <string name="language">language</string>
-    <string name="title">Title</string>
-    <string name="change_language">Change language</string>
-    <string name="change">Change</string>
+    <string name="language">Sprache</string>
+    <string name="title">Titel</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="change">Ändern</string>
     <string name="palo_version_0_0">Palo Version 0.0</string>
-    <string name="copyright_2017">© Copyright 2017</string>
-    <string name="share_app">Share this app.</string>
+    <string name="share_app">Diese App teilen.</string>
     <string name="name">Name</string>
-    <string name="necessary">necessary</string>
+    <string name="necessary">erforderlich</string>
     <string name="e_mail">E-Mail</string>
-    <string name="message">Message</string>
-    <string name="send">Send</string>
+    <string name="message">Nachricht</string>
+    <string name="send">Absenden</string>
+
 </resources>
