@@ -59,25 +59,25 @@ public class SettingsFragment extends Fragment {
             tv_settings_text.setText(entireFile);
         }
 
+        Locale current = getResources().getConfiguration().locale;
+        final String language = current.getLanguage();
+        System.out.println("******************* Current language: " + language + " *********************");
+
         Button btn_change_language = (Button) view.findViewById(R.id.btn_change_language);
         btn_change_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                setLocal("en");
+                //setLocal("en");
 
-                /*
-                if (german_active) {
+                // doesn't work yet.
 
-                    setLocal("de");
-                    german_active = false;
-                }
-                else {
-
+                if (language.equals("de")) {
                     setLocal("en");
-                    german_active = true;
                 }
-                */
+                if (language.equals("en")) {
+                    setLocal("de");
+                }
             }
         });
 
