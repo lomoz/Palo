@@ -10,6 +10,11 @@ import android.widget.TextView;
 
 import com.example.lorcan.palo.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +34,9 @@ public class AboutFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
-        tv_about_text = (TextView)view.findViewById(R.id.tv_content);
+        tv_about_text = (TextView) view.findViewById(R.id.tv_content);
+
+        /*
         tv_about_text.setText(
                 "Angaben gemäß § 5 TMG\n" +
                         "\n" +
@@ -84,6 +91,7 @@ public class AboutFragment extends Fragment {
                         "\n" +
                         "Website Impressum erstellt durch impressum-generator.de von der Kanzlei Hasselbach, Köln"
         );
+        */
 
         return view;
     }
