@@ -69,6 +69,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             e.printStackTrace();
         }
 
+        // set individual Controls and Gestures for the Google Map
+        GoogleMapOptions options = new GoogleMapOptions();
+        options.zoomControlsEnabled(false);
+        options.compassEnabled(true);
+        options.mapToolbarEnabled(false);
+
         this.markerOptions = new MarkerOptions()
                 .position(this.currLocation)
                 .title("Status?");
@@ -239,6 +245,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //Toast.makeText(getContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_SHORT).show();
 
         this.currLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+        // set individual Controls and Gestures for the Google Map
+        GoogleMapOptions options = new GoogleMapOptions();
+        options.zoomControlsEnabled(false);
+        options.compassEnabled(true);
+        options.mapToolbarEnabled(false);
 
         //this marker is placed at the updated current user location
         markerOptions.position(this.currLocation).title("is the the status?");
