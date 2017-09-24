@@ -105,4 +105,13 @@
         \n
     </string>
 
+    <!-- strings from profile fragment -->
+    <string name="status_empty">no status set</string>
+    <string name="empty_job">no job set</string>
+    <string name="set_status">Set your status</string>
+    <string name="set_job">Set your job</string>
+
+    <!-- strings from map fragment -->
+    <string name="current_location">Current Location:</string>
+
 </resources>

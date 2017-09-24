@@ -105,4 +105,13 @@
         \n
     </string>
 
+    <!-- Strings aus dem Profil Fragment -->
+    <string name="status_empty">kein Status ausgewählt</string>
+    <string name="empty_job">kein Beruf ausgewählt</string>
+    <string name="set_status">Wähle deinen Status</string>
+    <string name="set_job">Wähle deinen Beruf</string>
+
+    <!-- Strigs aus dem Map Fragment -->
+    <string name="current_location">Aktuelle Position:</string>
+
 </resources>

@@ -162,10 +162,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //------------------------------- 
 
 
-        Toast.makeText(getContext(), "Current Location: " + currLocation, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getString(R.string.current_location) + " " + currLocation, Toast.LENGTH_LONG).show();
 
+        //this marker is always placed, regardless of user location. so it's better to not put it.
+        /*
         markerOptions.position(this.currLocation).title(status);
         map.addMarker(markerOptions);
+        */
         map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
 
         user.setEmail("testmail@gmail.com");
@@ -236,7 +239,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //Toast.makeText(getContext(), "Current Location: " + location.getLatitude() + ", " + location.getLongitude(), Toast.LENGTH_SHORT).show();
 
         this.currLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        markerOptions.position(this.currLocation).title("Status?");
+
+        //this marker is placed at the updated current user location
+        markerOptions.position(this.currLocation).title("is the the status?");
         map.addMarker(markerOptions);
         map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
 

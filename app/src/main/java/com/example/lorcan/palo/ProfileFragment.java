@@ -74,8 +74,8 @@ public class ProfileFragment extends Fragment {
 
                 //check if editText status is empty or not.
                 if (etStatus.getText().toString().isEmpty()) {
-                    status = "no status";
-                    Toast.makeText(ProfileFragment.this.getActivity(), "No status.", Toast.LENGTH_SHORT).show();
+                    status = getString(R.string.status_empty);
+                    Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.status_empty), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     status = etStatus.getText().toString();
@@ -84,8 +84,8 @@ public class ProfileFragment extends Fragment {
 
                 //check if editText studyCourse is empty or not.
                 if (etStudyCourse.getText().toString().isEmpty()) {
-                    studyCourse = "no study course";
-                    Toast.makeText(ProfileFragment.this.getActivity(), "No study course.", Toast.LENGTH_SHORT).show();
+                    studyCourse = getString(R.string.empty_job);
+                    Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.empty_job), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     studyCourse = etStudyCourse.getText().toString();

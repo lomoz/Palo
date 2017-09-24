@@ -18,7 +18,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="31dp"
         android:ems="10"
-        android:hint="Wähle deinen Status"
+        android:hint="@string/set_status"
         android:inputType="textPersonName" />
 
     <EditText
@@ -30,7 +30,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="44dp"
         android:ems="10"
-        android:hint="Wähle deinen Studiengang"
+        android:hint="@string/set_job"
         android:inputType="textPersonName" />
 
     <Button
@@ -41,7 +41,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="142dp"
-        android:text="Ändern" />
+        android:text="@string/change" />
 
     <ImageView
         android:id="@+id/ivProfile"
