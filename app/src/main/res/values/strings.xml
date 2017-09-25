@@ -36,7 +36,7 @@
     <!-- Google Maps API access token -->
     <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
 
-    <string name="language">language</string>
+    <string name="language">english</string>
     <string name="title">Title</string>
     <string name="change_language">Change language</string>
     <string name="change">Change</string>
@@ -113,5 +113,21 @@
 
     <!-- strings from map fragment -->
     <string name="current_location">Current Location:</string>
+
+
+    <string name="select_color">Select a marker color</string>
+    <string name="color">Color</string>
+
+    <!-- colors -->
+    <string name="color_azure">Azure</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_green">Green</string>
+    <string name="color_magenta">Magenta</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_red">Red</string>
+    <string name="color_rose">Rose</string>
+    <string name="color_violet">Violet</string>
+    <string name="color_yellow">Yellow</string>
 
 </resources>
