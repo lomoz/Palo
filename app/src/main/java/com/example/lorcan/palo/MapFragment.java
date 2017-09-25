@@ -4,6 +4,7 @@ package com.example.lorcan.palo;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,11 +27,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -52,6 +56,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bundle bundle;
     Bundle bundleLocation;
     ArrayList<String> args = new ArrayList<>();
+
+    String currentTime;
     
     public MapFragment() {
         // Required empty public constructor
@@ -105,6 +111,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         */
 
         //map = new GoogleMap(); // this map is actually null -> create new Google Map
+
+        // This is how to get the current time. Needs to be integrated to the ProfileFragment
+        Date date = Calendar.getInstance().getTime();
+        Integer dateHours = date.getHours();
+        Integer dateMinutes = date.getMinutes();
+        currentTime = dateHours.toString() + ":" + dateMinutes.toString();
 
         return view;
     }
@@ -161,7 +173,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         for(int i = 0; i < args.size(); i = i + 3){
             MarkerOptions markerOptions1 = new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i+2))))
-                    .title(args.get(i));
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .title("Username" + " | " + currentTime)
+                    .snippet(args.get(i));
             map.addMarker(markerOptions1);
         }
 
@@ -253,7 +267,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.mapToolbarEnabled(false);
 
         //this marker is placed at the updated current user location
-        markerOptions.position(this.currLocation).title("is the the status?");
+        markerOptions.position(this.currLocation)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .title("Username" + " | " + currentTime)
+                .snippet("this is the status");
         map.addMarker(markerOptions);
         map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
 
