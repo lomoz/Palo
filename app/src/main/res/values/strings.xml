@@ -36,7 +36,6 @@
     <!-- Google Maps API access token -->
     <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
 
-    <string name="language">english</string>
     <string name="title">Title</string>
     <string name="change_language">Change language</string>
     <string name="change">Change</string>
@@ -129,5 +128,10 @@
     <string name="color_rose">Rose</string>
     <string name="color_violet">Violet</string>
     <string name="color_yellow">Yellow</string>
+
+    <!-- languages -->
+    <string name="language">english</string>
+    <string name="german">German</string>
+    <string name="english">English</string>
 
 </resources>

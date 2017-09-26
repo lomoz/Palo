@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -43,6 +45,7 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        /*
         InputStream inputStream = getResources().openRawResource(R.raw.lorem_ipsum);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
@@ -61,33 +64,38 @@ public class SettingsFragment extends Fragment {
         if (tv_settings_text != null) {
             tv_settings_text.setText(entireFile);
         }
+        */
 
         Locale current = getResources().getConfiguration().locale;
         final String language = current.getLanguage();
         System.out.println("******************* Current language: " + language + " *********************");
+        
+        final RadioButton rb_german = (RadioButton) view.findViewById(R.id.rb_german);
+        final RadioButton rb_english = (RadioButton) view.findViewById(R.id.rb_english);
+
+        if (language.equals("de")) {
+            rb_german.setChecked(true);
+        }
+        if (language.equals("en")) {
+            rb_english.setChecked(true);
+        }
 
         Button btn_change_language = (Button) view.findViewById(R.id.btn_change_language);
         btn_change_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //setLocal("en");
-
-                // doesn't work yet.
-
-                if (language.equals("de")) {
-                    setLocal("en");
-                }
-                if (language.equals("en")) {
+                if (rb_german.isChecked() && language != "de") {
                     setLocal("de");
+                }
+                if (rb_english.isChecked() && language != "en") {
+                    setLocal("en");
                 }
             }
         });
 
 
-        final Intent intent = new Intent(this.getContext(), MainActivity.class);
-
-        SettingsFragment settingsFragment = new SettingsFragment();
+        final SettingsFragment settingsFragment = new SettingsFragment();
         final Bundle bundleColor = new Bundle();
 
         final TextView tv_color = (TextView) view.findViewById(R.id.tv_color);
@@ -99,7 +107,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_azure);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_azure);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -107,10 +115,10 @@ public class SettingsFragment extends Fragment {
         fab_blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_azure);
+                markerColor = getString(R.string.color_blue);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_blue);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -121,7 +129,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_cyan);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_cyan);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -132,7 +140,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_green);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_green);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
         final FloatingActionButton fab_magenta = (FloatingActionButton) view.findViewById(R.id.fab_magenta);
@@ -142,7 +150,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_magenta);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_magenta);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -153,7 +161,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_orange);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_orange);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -164,7 +172,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_red);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_red);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -175,7 +183,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_rose);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_rose);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -186,7 +194,7 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_violet);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_violet);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
@@ -197,11 +205,11 @@ public class SettingsFragment extends Fragment {
                 markerColor = getString(R.string.color_yellow);
                 bundleColor.putString("color", markerColor);
                 tv_color.setText(R.string.color_yellow);
-                startActivity(intent);
+                settingsFragment.setArguments(bundleColor);
             }
         });
 
-        settingsFragment.setArguments(bundleColor);
+
 
         return view;
     }

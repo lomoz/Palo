@@ -36,7 +36,6 @@
     <!-- Google Maps API access token -->
     <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
 
-    <string name="language">Deutsch</string>
     <string name="title">Titel</string>
     <string name="change_language">Sprache ändern</string>
     <string name="change">Ändern</string>
@@ -118,7 +117,7 @@
     <string name="select_color">Wähle eine Marker Farbe</string>
     <string name="color">Farbe</string>
 
-    <!-- colors -->
+    <!-- Farben -->
     <string name="color_azure">Azur</string>
     <string name="color_blue">Blau</string>
     <string name="color_cyan">Cyan</string>
@@ -129,5 +128,10 @@
     <string name="color_rose">Rosa</string>
     <string name="color_violet">Violett</string>
     <string name="color_yellow">Gelb</string>
+
+    <!-- Sprachen -->
+    <string name="language">Deutsch</string>
+    <string name="german">Deutsch</string>
+    <string name="english">Englisch</string>
 
 </resources>
