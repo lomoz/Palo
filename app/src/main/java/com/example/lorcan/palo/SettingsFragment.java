@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,9 +39,9 @@ public class SettingsFragment extends Fragment {
     }
 
     TextView tv_settings_text;
-    boolean german_active = true;
     Locale myLocale;
-    String markerColor;
+    float markerColorFloat;
+    TextView tv_color;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +73,7 @@ public class SettingsFragment extends Fragment {
         Locale current = getResources().getConfiguration().locale;
         final String language = current.getLanguage();
         System.out.println("******************* Current language: " + language + " *********************");
-        
+
         final RadioButton rb_german = (RadioButton) view.findViewById(R.id.rb_german);
         final RadioButton rb_english = (RadioButton) view.findViewById(R.id.rb_english);
 
@@ -94,20 +98,20 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
-        final SettingsFragment settingsFragment = new SettingsFragment();
-        final Bundle bundleColor = new Bundle();
-
-        final TextView tv_color = (TextView) view.findViewById(R.id.tv_color);
+        tv_color = (TextView) view.findViewById(R.id.tv_color);
 
         final FloatingActionButton fab_azure = (FloatingActionButton) view.findViewById(R.id.fab_azure);
         fab_azure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_azure);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_azure);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_AZURE;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -115,10 +119,14 @@ public class SettingsFragment extends Fragment {
         fab_blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_blue);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_blue);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_BLUE;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -126,10 +134,14 @@ public class SettingsFragment extends Fragment {
         fab_cyan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_cyan);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_cyan);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_CYAN;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -137,20 +149,28 @@ public class SettingsFragment extends Fragment {
         fab_green.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_green);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_green);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_GREEN;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
         final FloatingActionButton fab_magenta = (FloatingActionButton) view.findViewById(R.id.fab_magenta);
         fab_magenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_magenta);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_magenta);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_MAGENTA;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -158,10 +178,14 @@ public class SettingsFragment extends Fragment {
         fab_orange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_orange);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_orange);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_ORANGE;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -169,10 +193,14 @@ public class SettingsFragment extends Fragment {
         fab_red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_red);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_red);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_RED;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -180,10 +208,14 @@ public class SettingsFragment extends Fragment {
         fab_rose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_rose);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_rose);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_ROSE;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -191,10 +223,14 @@ public class SettingsFragment extends Fragment {
         fab_violet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_violet);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_violet);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_VIOLET;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -202,14 +238,16 @@ public class SettingsFragment extends Fragment {
         fab_yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                markerColor = getString(R.string.color_yellow);
-                bundleColor.putString("color", markerColor);
+
+                MapFragment mapFragment = new MapFragment();
+                Bundle bundleColor = new Bundle();
+
                 tv_color.setText(R.string.color_yellow);
-                settingsFragment.setArguments(bundleColor);
+                markerColorFloat = BitmapDescriptorFactory.HUE_YELLOW;
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
-
-
 
         return view;
     }

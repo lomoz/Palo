@@ -57,7 +57,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bundle bundle;
     Bundle bundleLocation;
     Bundle bundleColor;
-    String markerColor;
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
 
@@ -105,48 +104,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             args = bundle.getStringArrayList("args");
         }
 
+        // Get the data from SettingsFragment.java here
         bundleColor = getArguments();
 
         if (bundleColor != null) {
-            markerColor = bundleColor.getString("color");
+            markerColorFloat = bundleColor.getFloat("markerColor");
         }
-
-        //set default marker color
-        markerColor = getString(R.string.color_blue);
-
-        System.out.println("************ Marker color from bundle: " + markerColor + " ******");
-
-        //check what marker color was chosen and put the given cover as the float value
-        if (markerColor.equals(getString(R.string.color_azure))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_AZURE;
-        }
-        if (markerColor.equals(getString(R.string.color_blue))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_BLUE;
-        }
-        if (markerColor.equals(getString(R.string.color_cyan))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_CYAN;
-        }
-        if (markerColor.equals(getString(R.string.color_green))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_GREEN;
-        }
-        if (markerColor.equals(getString(R.string.color_magenta))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_MAGENTA;
-        }
-        if (markerColor.equals(getString(R.string.color_orange))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_ORANGE;
-        }
-        if (markerColor.equals(getString(R.string.color_red))) {
+        else {
+            // default marker color
             markerColorFloat = BitmapDescriptorFactory.HUE_RED;
         }
-        if (markerColor.equals(getString(R.string.color_rose))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_ROSE;
-        }
-        if (markerColor.equals(getString(R.string.color_violet))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_VIOLET;
-        }
-        if (markerColor.equals(getString(R.string.color_yellow))) {
-            markerColorFloat = BitmapDescriptorFactory.HUE_YELLOW;
-        }
+
+        System.out.println("************ Marker color from bundle: " + markerColorFloat + " ******");
 
         /*
         bundleLocation = getArguments();
@@ -318,8 +287,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                 .title("Username" + " | " + currentTime)
                 .snippet("this is the status");
-        map.addMarker(markerOptions);
-        map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
+
+        if (currLocation != null) {
+            map.addMarker(markerOptions);
+            map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
+        }
+        else {
+            Toast.makeText(getContext(), "no current location", Toast.LENGTH_SHORT).show();
+        }
 
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
