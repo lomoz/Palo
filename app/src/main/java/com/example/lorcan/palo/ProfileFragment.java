@@ -42,9 +42,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        String android_id = telephonyManager.getDeviceId();
-
+        //TelephonyManager telephonyManager = (TelephonyManager) Context.TELEPHONY_SERVICE.;
+        @SuppressLint("HardwareIds") String android_id = "test"; //telephonyManager.getDeviceId();
         getStatusFromDB get = new getStatusFromDB();
         status = get.getStatus(android_id);
 

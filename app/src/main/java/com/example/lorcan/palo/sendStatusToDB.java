@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -23,6 +24,7 @@ public class sendStatusToDB{
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/setStatus.php";
     private StringRequest request;
+
 
     protected String email;
     protected String status;
@@ -74,6 +76,7 @@ public class sendStatusToDB{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<String, String>();
+
 
                 hashMap.put("email",email);
                 hashMap.put("status", status.toString());

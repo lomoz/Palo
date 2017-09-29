@@ -99,9 +99,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         bundle = getArguments();
 
         if (bundle != null) {
-            status = bundle.getString("status");
-            studyCourse = bundle.getString("study course");
-            args = bundle.getStringArrayList("args");
+
+                status = bundle.getString("status");
+                studyCourse = bundle.getString("study course");
+            if(bundle.getStringArrayList("args") != null){
+                args = bundle.getStringArrayList("args");
+            }
         }
 
         // Get the data from SettingsFragment.java here
@@ -184,15 +187,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         map.setMyLocationEnabled(true);
 
-        //only if Bundle is an ArrayList
-
-        for(int i = 0; i < args.size(); i = i + 3){
-            MarkerOptions markerOptions1 = new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i+2))))
-                    .icon(BitmapDescriptorFactory.defaultMarker(markerColorFloat))
+        if (args == null || args.size() == 0){
+            MarkerOptions markerOptionsOwnStatus = new MarkerOptions()
+                    .position(currLocation)
                     .title("Username" + " | " + currentTime)
-                    .snippet(args.get(i));
-            map.addMarker(markerOptions1);
+                    .snippet(status);
+            map.addMarker(markerOptionsOwnStatus);
+        }else {
+            //only if Bundle is an ArrayList
+
+            for (int i = 0; i < args.size(); i = i + 3) {
+                MarkerOptions markerOptions1 = new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
+                        .icon(BitmapDescriptorFactory.defaultMarker(markerColorFloat))
+                        .title("Username" + " | " + currentTime)
+                        .snippet(args.get(i));
+                map.addMarker(markerOptions1);
+            }
         }
 
         //------------------------------- 
