@@ -43,6 +43,9 @@ public class SettingsFragment extends Fragment {
     float markerColorFloat;
     TextView tv_color;
 
+    MapFragment mapFragment = new MapFragment();
+    Bundle bundleColor = new Bundle();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,42 +98,37 @@ public class SettingsFragment extends Fragment {
                 if (rb_english.isChecked() && language != "en") {
                     setLocal("en");
                 }
+
+                bundleColor.putFloat("markerColor", markerColorFloat);
+                mapFragment.setArguments(bundleColor);
             }
         });
 
         tv_color = (TextView) view.findViewById(R.id.tv_color);
 
-        final FloatingActionButton fab_azure = (FloatingActionButton) view.findViewById(R.id.fab_azure);
+        FloatingActionButton fab_azure = (FloatingActionButton) view.findViewById(R.id.fab_azure);
         fab_azure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                MapFragment mapFragment = new MapFragment();
-                Bundle bundleColor = new Bundle();
-
                 tv_color.setText(R.string.color_azure);
                 markerColorFloat = BitmapDescriptorFactory.HUE_AZURE;
-                bundleColor.putFloat("markerColor", markerColorFloat);
-                mapFragment.setArguments(bundleColor);
+
             }
         });
 
-        final FloatingActionButton fab_blue = (FloatingActionButton) view.findViewById(R.id.fab_blue);
+        FloatingActionButton fab_blue = (FloatingActionButton) view.findViewById(R.id.fab_blue);
         fab_blue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                MapFragment mapFragment = new MapFragment();
-                Bundle bundleColor = new Bundle();
-
                 tv_color.setText(R.string.color_blue);
                 markerColorFloat = BitmapDescriptorFactory.HUE_BLUE;
-                bundleColor.putFloat("markerColor", markerColorFloat);
-                mapFragment.setArguments(bundleColor);
+
             }
         });
 
-        final FloatingActionButton fab_cyan = (FloatingActionButton) view.findViewById(R.id.fab_cyan);
+        FloatingActionButton fab_cyan = (FloatingActionButton) view.findViewById(R.id.fab_cyan);
         fab_cyan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +143,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        final FloatingActionButton fab_green = (FloatingActionButton) view.findViewById(R.id.fab_green);
+        FloatingActionButton fab_green = (FloatingActionButton) view.findViewById(R.id.fab_green);
         fab_green.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,7 +157,8 @@ public class SettingsFragment extends Fragment {
                 mapFragment.setArguments(bundleColor);
             }
         });
-        final FloatingActionButton fab_magenta = (FloatingActionButton) view.findViewById(R.id.fab_magenta);
+
+        FloatingActionButton fab_magenta = (FloatingActionButton) view.findViewById(R.id.fab_magenta);
         fab_magenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,7 +173,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        final FloatingActionButton fab_orange = (FloatingActionButton) view.findViewById(R.id.fab_orange);
+        FloatingActionButton fab_orange = (FloatingActionButton) view.findViewById(R.id.fab_orange);
         fab_orange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,7 +188,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        final FloatingActionButton fab_red = (FloatingActionButton) view.findViewById(R.id.fab_red);
+        FloatingActionButton fab_red = (FloatingActionButton) view.findViewById(R.id.fab_red);
         fab_red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,7 +203,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        final FloatingActionButton fab_rose = (FloatingActionButton) view.findViewById(R.id.fab_rose);
+        FloatingActionButton fab_rose = (FloatingActionButton) view.findViewById(R.id.fab_rose);
         fab_rose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,7 +218,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        final FloatingActionButton fab_violet = (FloatingActionButton) view.findViewById(R.id.fab_violet);
+        FloatingActionButton fab_violet = (FloatingActionButton) view.findViewById(R.id.fab_violet);
         fab_violet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -234,7 +233,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        final FloatingActionButton fab_yellow = (FloatingActionButton) view.findViewById(R.id.fab_yellow);
+        FloatingActionButton fab_yellow = (FloatingActionButton) view.findViewById(R.id.fab_yellow);
         fab_yellow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

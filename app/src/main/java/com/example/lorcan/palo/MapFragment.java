@@ -110,7 +110,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // Get the data from SettingsFragment.java here
         bundleColor = getArguments();
 
-        if (bundleColor != null) {
+        if ((((bundleColor != null
+                && bundleColor.getStringArrayList("args") == null)
+                && bundleColor.getString("status") == null)
+                && bundleColor.getString("study course") == null)) {
             markerColorFloat = bundleColor.getFloat("markerColor");
         }
         else {
@@ -187,7 +190,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         map.setMyLocationEnabled(true);
 
-        if (args == null || args.size() == 0){
+        if ((args == null || args.size() == 0) && bundle != null){
             MarkerOptions markerOptionsOwnStatus = new MarkerOptions()
                     .position(currLocation)
                     .title("Username" + " | " + currentTime)

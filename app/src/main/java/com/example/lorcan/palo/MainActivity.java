@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity
 
     private FusedLocationProviderClient mFusedLocationClient;
 
+    private long start = 0;
+
+    Stopwatch stopwatch = new Stopwatch();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +131,31 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
+        //stopwatch.start();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        /*
+        stopwatch.stop();
+        long millis = stopwatch.getTime();
+
+        stopwatch.toString(millis);
+
+        System.out.println("******** " + stopwatch.toString(millis));
+        */
     }
 
     @Override

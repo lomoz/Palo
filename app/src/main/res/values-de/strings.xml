@@ -39,7 +39,12 @@
     <string name="title">Titel</string>
     <string name="change_language">Sprache ändern</string>
     <string name="change">Ändern</string>
-    <string name="palo_version_0_0">Palo Version 0.0</string>
+    <string name="contact_us">Sende uns eine Nachricht</string>
+    <string name="enter_message">Gib deine Nachricht ein</string>
+    <string name="send_message">Senden</string>
+    <string name="click_to_share">Klicke das Icon zum teilen</string>
+    <string name="palo_version">Palo Version 0.0</string>
+    <string name="copyright">© Copyright 2017</string>
     <string name="share_app">Diese App teilen.</string>
     <string name="name">Name</string>
     <string name="necessary">erforderlich</string>
@@ -133,5 +138,11 @@
     <string name="language">Deutsch</string>
     <string name="german">Deutsch</string>
     <string name="english">Englisch</string>
+
+    <!-- Bild Beschreibungen -->
+    <string name="about_header_image">Impressum Titelbild</string>
+    <string name="settings_header_image">Einstellungen Titelbild</string>
+    <string name="contact_header_image">Kontakt Titelbild</string>
+    <string name="app_icon_share_button">App Icon Share Button</string>
 
 </resources>

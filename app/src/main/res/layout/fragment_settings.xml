@@ -6,15 +6,15 @@
     tools:context="com.example.lorcan.palo.SettingsFragment">
 
     <ImageView
-        android:id="@+id/iv_settings"
+        android:id="@+id/iv_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="1"
         android:background="@android:color/black"
-        app:srcCompat="@drawable/example" />
+        app:srcCompat="@drawable/example"
+        android:contentDescription="@string/settings_header_image" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,14 +22,14 @@
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/iv_settings"
+        android:layout_below="@+id/iv_header"
         android:background="@color/colorScrollview"
         android:baselineAligned="false"
         android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settings"
@@ -45,11 +45,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_content"
+                    android:id="@+id/tv_change_language"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/change_language" />
@@ -92,7 +92,7 @@
                         android:id="@+id/fab_azure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:clickable="true"
                         app:backgroundTint="@color/hue_azure"
@@ -199,7 +199,7 @@
                         android:id="@+id/fab_yellow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_weight="1"
                         android:clickable="true"
                         app:backgroundTint="@color/hue_yellow"
@@ -242,19 +242,16 @@
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:text="@string/palo_version_0_0"
+            android:text="@string/palo_version"
             android:textAlignment="textStart"
             android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_copyright"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
-            android:text="@string/copyright_2017"
+            android:text="@string/copyright"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black" />
 

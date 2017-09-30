@@ -1,41 +1,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.ShareFragment"
     android:id="@+id/share_fragment">
 
-
-    <TextView
-        android:id="@+id/tv_share"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/share"
-        android:textSize="30sp" />
+        android:background="@android:color/black"
+        app:srcCompat="@drawable/example"
+        android:contentDescription="@string/about_header_image" />
 
-    <TextView
-        android:id="@+id/tv_share_statement"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_share"
-        android:layout_marginTop="67dp"
-        android:text="@string/share_app"
-        android:textSize="18sp" />
+        android:layout_below="@+id/iv_header"
+        android:background="@color/colorScrollview"
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
-        android:id="@+id/tv_share_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_share_statement"
-        android:text="www.example.palo/teilen.de"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_share_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/click_to_share" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn_share"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/appicon"
+                    android:contentDescription="@string/app_icon_share_button" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -44,27 +73,24 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:background="@color/colorFooter"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:background="@color/colorFooter">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:text="@string/palo_version_0_0"
+            android:text="@string/palo_version"
             android:textAlignment="textStart"
             android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_copyright"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
-            android:text="@string/copyright_2017"
+            android:text="@string/copyright"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black" />
 
