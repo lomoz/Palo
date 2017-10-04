@@ -59,8 +59,9 @@
                     android:id="@+id/imgBtn_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/appicon"
-                    android:contentDescription="@string/app_icon_share_button" />
+                    android:contentDescription="@string/app_icon_share_button"
+                    app:srcCompat="@mipmap/appicon" />
+
             </LinearLayout>
         </ScrollView>
 
