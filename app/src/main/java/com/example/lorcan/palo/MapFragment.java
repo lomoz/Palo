@@ -334,11 +334,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public void addingMarkerToMap(String status, String lat, String lng) {
-        System.out.println("STATUS: " + status + ", " + lat + ", " + lng);
-        // map.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))).title(status));
-    }
-
-
-
 }

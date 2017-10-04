@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener{b
 
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
