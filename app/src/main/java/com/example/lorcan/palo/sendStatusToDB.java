@@ -1,7 +1,14 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -12,14 +19,20 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lorcan.palo.MyApplicationContext;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.Context.LOCATION_SERVICE;
+import static android.location.LocationManager.GPS_PROVIDER;
 
 /**
  * Created by paul on 28.06.17.
  */
 
-public class sendStatusToDB{
+public class sendStatusToDB {
 
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/setStatus.php";
@@ -30,21 +43,25 @@ public class sendStatusToDB{
     protected String status;
     protected Double lat;
     protected Double lng;
-    //private Context context;
+    protected String time;
+    protected String android_id;
 
-    public sendStatusToDB(){
+
+    public sendStatusToDB() {
 
     }
 
 
+    public void sendStatus(final String email, final String status, final Double lat, final Double lng, final String time, final String android_id, Context context) {
 
-    public void sendStatus(final String email, final String status, final Double lat, final Double lng) {
         // using volley lib to create request
 
+        this.android_id = android_id;
         this.email = email;
         this.status = status;
         this.lat = lat;
         this.lng = lng;
+        this.time = time;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
@@ -76,12 +93,14 @@ public class sendStatusToDB{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<String, String>();
+;
 
-
+                hashMap.put("android_id", android_id);
                 hashMap.put("email",email);
-                hashMap.put("status", status.toString());
+                hashMap.put("status", status);
                 hashMap.put("lat", String.valueOf(lat));
                 hashMap.put("lng", String.valueOf(lng));
+                hashMap.put("time", String.valueOf(time));
 
                 System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
 

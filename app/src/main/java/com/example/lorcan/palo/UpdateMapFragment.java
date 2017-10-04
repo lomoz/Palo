@@ -173,6 +173,8 @@ public class UpdateMapFragment extends Fragment {
                         args.add(jObjStatus.getString("Status"));
                         args.add(jObjStatus.getString("Lat"));
                         args.add(jObjStatus.getString("Lng"));
+                        args.add(jObjStatus.getString("Zeit"));
+                        args.add(jObjStatus.getString("Email"));
 
                     }
                     bundle.putStringArrayList("args", args);

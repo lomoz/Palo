@@ -199,11 +199,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }else {
             //only if Bundle is an ArrayList
 
-            for (int i = 0; i < args.size(); i = i + 3) {
+            for (int i = 0; i < args.size(); i = i + 5) {
+                System.out.println("DIE ZEIT: "+args.get(i+3));
                 MarkerOptions markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.defaultMarker(markerColorFloat))
-                        .title("Username" + " | " + currentTime)
+                        .title("Username" + " | " + args.get(i+3))
                         .snippet(args.get(i));
                 map.addMarker(markerOptions1);
             }
