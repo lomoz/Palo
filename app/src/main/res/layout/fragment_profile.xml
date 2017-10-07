@@ -41,7 +41,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="142dp"
-        android:text="@string/change" />
+        android:text="@string/change"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/ivProfile"
