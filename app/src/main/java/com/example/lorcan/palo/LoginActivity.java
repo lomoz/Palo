@@ -43,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        android_id = telephonyManager.getDeviceId();
+        TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        android_id = tManager.getDeviceId();
 
         email = (EditText) findViewById(R.id.email);
         nickname = (EditText) findViewById(R.id.nickname);
@@ -62,20 +62,15 @@ public class LoginActivity extends AppCompatActivity {
                     // handle the response of the server (success or error)
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            System.out.println(jsonObject);
-                            if(jsonObject.names().get(0).equals("success")){
-                                Toast.makeText(getApplicationContext(),"SUCCESS "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
+                            System.out.println("ANTWORT VOM LOGIN: " + response);
+                            Boolean ok = Boolean.parseBoolean(response);
+                            System.out.println(ok);
+                            if(!ok){
+                                Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            }else {
-                                Toast.makeText(getApplicationContext(), "Error" +jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Error" , Toast.LENGTH_SHORT).show();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
 
                     }
                 }, new Response.ErrorListener() {

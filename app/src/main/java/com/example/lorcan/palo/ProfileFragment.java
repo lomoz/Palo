@@ -183,7 +183,7 @@ public class ProfileFragment extends Fragment {
         //send status to database
         sendStatusToDB statusToDB = new sendStatusToDB();
 
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         time = dateFormat.format(date);
         statusToDB.sendStatus("testmail@gmail.com", status, lat, lng, time, android_id, getContext());
