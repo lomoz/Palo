@@ -28,14 +28,20 @@ public class StartActivity extends AppCompatActivity {
         }
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
         String android_id = telephonyManager.getDeviceId();
-        checkAndroidId(android_id);
+        if(checkAndroidId(android_id)){
+
+        };
     }
 
 
-    public void checkAndroidId(String android_id){
-
+    public boolean checkAndroidId(String android_id){
+        Boolean bool = false;
+        //if not in DB do this:
         GetIDFromDB getIDFromDB = new GetIDFromDB(this, android_id);
+        getIDFromDB.start();
 
+        // if
+        return bool;
     }
 
 }
