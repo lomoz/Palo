@@ -25,7 +25,7 @@
         android:id="@+id/etStudyCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnOK"
+        android:layout_above="@+id/btnChangeInMap"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="44dp"
@@ -34,7 +34,7 @@
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/btnOK"
+        android:id="@+id/btnChangeInMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
