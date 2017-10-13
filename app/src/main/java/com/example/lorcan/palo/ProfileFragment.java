@@ -1,17 +1,10 @@
 package com.example.lorcan.palo;
 
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -29,11 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.Executor;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 
 /**
@@ -57,7 +46,7 @@ public class ProfileFragment extends Fragment {
      */
 
     EditText etStatus, etStudyCourse;
-    Button btnOK;
+    Button btnChange;
 
     String status = "";
     String studyCourse = "";
@@ -80,7 +69,7 @@ public class ProfileFragment extends Fragment {
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText)view.findViewById(R.id.etStatus);
         etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
-        btnOK = (Button)view.findViewById(R.id.btnOK);
+        btnChange = (Button)view.findViewById(R.id.btnChangeInMap);
 
         etStatus.setText(status);
 
@@ -91,10 +80,10 @@ public class ProfileFragment extends Fragment {
          * with "ProfileFragment.this.getActivity()"!
          */
 
-        btnOK.setOnClickListener(new View.OnClickListener() {
+        btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonclick();
+                btnChangeClicked();
             }
         });
 
@@ -103,7 +92,7 @@ public class ProfileFragment extends Fragment {
 
 
 
-    public void buttonclick() {
+    public void btnChangeClicked() {
 
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
@@ -139,13 +128,6 @@ public class ProfileFragment extends Fragment {
                         startMapAndUploadStatus();
                     }
                 });
-
-
-
-
-
-
-
     }
 
     public void startMapAndUploadStatus(){

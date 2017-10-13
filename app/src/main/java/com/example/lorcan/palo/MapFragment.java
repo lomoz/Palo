@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -59,6 +60,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bundle bundleColor;
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
+
+    Button btnChangeInMap;
 
     String currentTime;
     
@@ -140,6 +143,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         Integer dateMinutes = date.getMinutes();
         currentTime = dateHours.toString() + ":" + dateMinutes.toString();
 
+        final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
+
+        btnChangeInMap = (Button)view.findViewById(R.id.btnChangeInMap);
+        btnChangeInMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                ProfileFragment profileFragment = new ProfileFragment();
+                profileFragment.btnChangeClicked();
+                */
+
+                etStatusInMap.getText();
+            }
+        });
+
         return view;
     }
 
@@ -196,7 +214,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     .title("Username" + " | " + currentTime)
                     .snippet(status);
             map.addMarker(markerOptionsOwnStatus);
-        }else {
+        }
+        else {
             //only if Bundle is an ArrayList
 
             for (int i = 0; i < args.size(); i = i + 5) {
