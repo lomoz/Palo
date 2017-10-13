@@ -71,8 +71,6 @@ public class getStatusFromDB {
         };
 
         requestQueue.add(request);
-
-        System.out.println("DIE STATUS RÜCKGABE AUS DER DATENBANK: " + responseStatus);
         return responseStatus;
     }
 
