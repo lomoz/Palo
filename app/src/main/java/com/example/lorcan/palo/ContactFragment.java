@@ -34,7 +34,7 @@ public class ContactFragment extends Fragment {
         int height = displayMetrics.heightPixels;
         //int width = displayMetrics.widthPixels;
 
-        int lines = (int) ((height * 0.35) / 55);
+        int lines = (int) ((height * 0.30) / 55);
 
         EditText et_enter_message = (EditText) view.findViewById(R.id.et_enter_message_multiline);
         et_enter_message.setLines(lines);
