@@ -47,7 +47,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    tools:ignore="Deprecated" />
+                    tools:ignore="Deprecated,UnusedAttribute" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -83,7 +83,8 @@
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
-                android:typeface="sans" />
+                android:typeface="sans"
+                tools:ignore="UnusedAttribute" />
 
         </LinearLayout>
     </ScrollView>

@@ -83,7 +83,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         // set individual Controls and Gestures for the Google Map
         GoogleMapOptions options = new GoogleMapOptions();
-        options.zoomControlsEnabled(false);
         options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
