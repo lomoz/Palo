@@ -9,6 +9,35 @@
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.ProfileFragment">
 
+    <ImageView
+        android:id="@+id/ivGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        app:srcCompat="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/ivCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivGallery"
+        android:layout_toLeftOf="@+id/ivGallery"
+        android:layout_toStartOf="@+id/ivGallery"
+        app:srcCompat="@drawable/ic_launcher" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivGallery"
+        android:layout_toEndOf="@+id/ivGallery"
+        android:layout_toRightOf="@+id/ivGallery"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_upload" />
+
     <EditText
         android:id="@+id/etStatus"
         android:layout_width="match_parent"
@@ -20,6 +49,14 @@
         android:ems="10"
         android:hint="@string/set_status"
         android:inputType="textPersonName" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etStudyCourse"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/etStudyCourse"
@@ -43,33 +80,5 @@
         android:layout_marginBottom="142dp"
         android:text="@string/change"
         android:textSize="18sp" />
-
-    <ImageView
-        android:id="@+id/ivProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
-        app:srcCompat="@drawable/ic_launcher" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivProfile"
-        android:layout_toEndOf="@+id/ivProfile"
-        android:layout_toRightOf="@+id/ivProfile"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_upload" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/etStudyCourse"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
