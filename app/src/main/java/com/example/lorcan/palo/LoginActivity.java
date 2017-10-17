@@ -63,9 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                             System.out.println("ANTWORT VOM LOGIN: " + response);
-                            Boolean ok = Boolean.parseBoolean(response);
-                            System.out.println(ok);
-                            if(!ok){
+                            String res = response.toString().trim();
+                            if(res.equals("0")){
                                 Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }else{
