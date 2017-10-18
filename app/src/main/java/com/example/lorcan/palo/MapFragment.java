@@ -179,7 +179,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
-       // map.setMinZoomPreference(14);
+        //map.setMinZoomPreference(14);
         if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
