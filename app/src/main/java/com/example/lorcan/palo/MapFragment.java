@@ -4,11 +4,10 @@ package com.example.lorcan.palo;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -33,10 +33,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 
 /**
@@ -45,7 +44,7 @@ import java.util.Date;
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     GoogleMap map;
-    public LatLng currLocation = new LatLng(51.188443,  6.794877);
+    public LatLng currLocation = new LatLng(53.2, 6.2);
     private LocationManager locationManager;
     Button positionButton;
     User user;
@@ -64,7 +63,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Button btnChangeInMap;
 
     String currentTime;
-    
+    View view;
     public MapFragment() {
         // Required empty public constructor
     }
@@ -74,23 +73,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        try {
-            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-
+        // Inflate the layout for this fragment
+        this.view = inflater.inflate(R.layout.fragment_map, container, false);
         // set individual Controls and Gestures for the Google Map
         GoogleMapOptions options = new GoogleMapOptions();
-        options.compassEnabled(true);
+        //options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
-        this.markerOptions = new MarkerOptions()
-                .position(this.currLocation)
-                .title("Status?");
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        markerOptions = new MarkerOptions()
+                .position(currLocation);
         user = new User();
         MainActivity main = new MainActivity();
         main.getData();
@@ -102,8 +93,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         if (bundle != null) {
 
-                status = bundle.getString("status");
-                studyCourse = bundle.getString("study course");
+            status = bundle.getString("status");
+            studyCourse = bundle.getString("study course");
             if(bundle.getStringArrayList("args") != null){
                 args = bundle.getStringArrayList("args");
             }
@@ -123,8 +114,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             markerColorFloat = BitmapDescriptorFactory.HUE_RED;
         }
 
-        System.out.println("************ Marker color from bundle: " + markerColorFloat + " ******");
-
         /*
         bundleLocation = getArguments();
 
@@ -134,13 +123,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         */
 
-        //map = new GoogleMap(); // this map is actually null -> create new Google Map
-
-        // This is how to get the current time. Needs to be integrated to the ProfileFragment
-        Date date = Calendar.getInstance().getTime();
-        Integer dateHours = date.getHours();
-        Integer dateMinutes = date.getMinutes();
-        currentTime = dateHours.toString() + ":" + dateMinutes.toString();
 
         final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
 
@@ -159,6 +141,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         return view;
     }
+
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
