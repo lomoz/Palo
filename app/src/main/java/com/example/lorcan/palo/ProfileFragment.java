@@ -2,7 +2,9 @@ package com.example.lorcan.palo;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +27,17 @@ import android.widget.Toast;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.kosalgeek.android.photoutil.CameraPhoto;
+import com.kosalgeek.android.photoutil.ImageLoader;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -55,8 +64,13 @@ public class ProfileFragment extends Fragment {
     Button btnChange;
     Spinner spinner;
 
-    ImageView ivCamera, ivGallery;
+    private final String TAG = getClass().getName();
+
+    ImageView ivCamera, ivGallery, ivImage;
     FloatingActionButton fabUpdate;
+
+    CameraPhoto cameraPhoto;
+    final int CAMERA_REQUEST = 1;
 
     ArrayList<String> spinnerArray = new ArrayList<>();
 
@@ -78,14 +92,23 @@ public class ProfileFragment extends Fragment {
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        cameraPhoto = new CameraPhoto(this.getActivity());
+
         ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
+        ivImage = (ImageView) view.findViewById(R.id.ivImage);
         fabUpdate = (FloatingActionButton) view.findViewById(R.id.fabUpload);
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // go on here
+                try {
+                    startActivityForResult(cameraPhoto.takePhotoIntent(), CAMERA_REQUEST);
+                    cameraPhoto.addToGallery();
+                } catch (IOException e) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while taking photos.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -134,7 +157,20 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST) {
+                String photoPath = cameraPhoto.getPhotoPath();
+                try {
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                    ivImage.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 
     public void btnChangeClicked() {
 

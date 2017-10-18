@@ -10,33 +10,42 @@
     tools:context="com.example.lorcan.palo.ProfileFragment">
 
     <ImageView
-        android:id="@+id/ivGallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
-        app:srcCompat="@drawable/ic_launcher" />
-
-    <ImageView
         android:id="@+id/ivCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ivGallery"
-        android:layout_toLeftOf="@+id/ivGallery"
-        android:layout_toStartOf="@+id/ivGallery"
-        app:srcCompat="@drawable/ic_launcher" />
+        android:layout_alignBottom="@+id/fabUpload"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <ImageView
+        android:id="@+id/ivGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etStatus"
+        android:layout_marginBottom="44dp"
+        android:layout_toEndOf="@+id/ivCamera"
+        android:layout_toRightOf="@+id/ivCamera"
+        app:srcCompat="@drawable/ic_menu_gallery" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_launcher"
+        android:layout_alignBottom="@+id/ivGallery"
+        android:layout_centerHorizontal="true" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivGallery"
-        android:layout_toEndOf="@+id/ivGallery"
-        android:layout_toRightOf="@+id/ivGallery"
         android:clickable="true"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_upload" />
+        app:srcCompat="@android:drawable/ic_menu_upload"
+        android:layout_alignBottom="@+id/ivGallery"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:id="@+id/etStatus"
