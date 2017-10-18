@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +13,12 @@ import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -22,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -47,6 +53,10 @@ public class ProfileFragment extends Fragment {
 
     EditText etStatus, etStudyCourse;
     Button btnChange;
+    Spinner spinner;
+
+    ImageView ivCamera, ivGallery;
+    FloatingActionButton fabUpdate;
 
     String status = "";
     String studyCourse = "";
@@ -66,6 +76,17 @@ public class ProfileFragment extends Fragment {
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
+        ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
+        fabUpdate = (FloatingActionButton) view.findViewById(R.id.fabUpload);
+
+        ivCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText)view.findViewById(R.id.etStatus);
         etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
@@ -84,6 +105,28 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 btnChangeClicked();
+            }
+        });
+
+        ArrayList<String> spinnerArray = new ArrayList<>();
+        spinnerArray.add("Item 1");
+        spinnerArray.add("Item 2");
+        spinnerArray.add("Item 3");
+
+        spinner = (Spinner)view.findViewById(R.id.spinner);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerArrayAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // if any item is selected this one should become the active status
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // if no item is selected the last used status should stay the active status
             }
         });
 
