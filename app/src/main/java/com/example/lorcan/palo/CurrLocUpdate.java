@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,6 +120,9 @@ public class CurrLocUpdate extends Fragment {
 
         private FusedLocationProviderClient mFusedLocationClient;
         private LatLng currLocation;
+        MapFragment mapFragment = new MapFragment();
+        Bundle bundle = new Bundle();
+
         @Override
         protected String doInBackground(String... params) {
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
@@ -161,6 +165,17 @@ public class CurrLocUpdate extends Fragment {
         @Override
         protected void onPostExecute(String s) {
 
+            double[] latlng = new double[2];
+            //bundle.putStringArrayList("args", args);
+            bundle.putDoubleArray("latlng", latlng);
+            mapFragment.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            mapFragment,
+                            mapFragment.getTag()
+                    ).commit();
         }
     }
 }

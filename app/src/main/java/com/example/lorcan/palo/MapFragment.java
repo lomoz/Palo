@@ -57,6 +57,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bundle bundle;
     Bundle bundleLocation;
     Bundle bundleColor;
+    Bundle bundleCurrLoc;
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
 
@@ -92,7 +93,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         bundle = getArguments();
 
         if (bundle != null) {
-
             status = bundle.getString("status");
             studyCourse = bundle.getString("study course");
             if(bundle.getStringArrayList("args") != null){
@@ -122,6 +122,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             System.out.println("######################" + currLocation + "####################");
         }
         */
+
 
 
         final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
@@ -165,8 +166,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         // set individual Controls and Gestures for the Google Map
         GoogleMapOptions options = new GoogleMapOptions();
-        options.zoomControlsEnabled(false);
-        options.compassEnabled(true);
+        //options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
         try {
@@ -179,7 +179,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
-        map.setMinZoomPreference(14);
+       // map.setMinZoomPreference(14);
         if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
