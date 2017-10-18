@@ -58,6 +58,8 @@ public class ProfileFragment extends Fragment {
     ImageView ivCamera, ivGallery;
     FloatingActionButton fabUpdate;
 
+    ArrayList<String> spinnerArray = new ArrayList<>();
+
     String status = "";
     String studyCourse = "";
 
@@ -108,7 +110,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        ArrayList<String> spinnerArray = new ArrayList<>();
         spinnerArray.add("Item 1");
         spinnerArray.add("Item 2");
         spinnerArray.add("Item 3");

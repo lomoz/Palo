@@ -21,11 +21,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     //noinspection GradleCompatible
     //noinspection GradleCompatible
     //noinspection UseOfBundledGooglePlayServices
@@ -39,4 +38,5 @@ dependencies {
     compile 'com.github.amigold.fundapter:library:1.0'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     testCompile 'junit:junit:4.12'
+    compile files('libs/PhotoUtil.jar')
 }
