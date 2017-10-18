@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -28,6 +29,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.kosalgeek.android.photoutil.CameraPhoto;
+import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageLoader;
 
 import java.io.FileNotFoundException;
@@ -70,7 +72,9 @@ public class ProfileFragment extends Fragment {
     FloatingActionButton fabUpdate;
 
     CameraPhoto cameraPhoto;
+    GalleryPhoto galleryPhoto;
     final int CAMERA_REQUEST = 1;
+    final int GALERY_REQUEST = 2;
 
     ArrayList<String> spinnerArray = new ArrayList<>();
 
@@ -93,6 +97,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         cameraPhoto = new CameraPhoto(this.getActivity());
+        galleryPhoto = new GalleryPhoto(this.getActivity());
 
         ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
@@ -109,6 +114,13 @@ public class ProfileFragment extends Fragment {
                 } catch (IOException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while taking photos.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        ivGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(galleryPhoto.openGalleryIntent(), GALERY_REQUEST);
             }
         });
 
@@ -167,6 +179,18 @@ public class ProfileFragment extends Fragment {
                     ivImage.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
+                }
+            } 
+
+            else if (requestCode == GALERY_REQUEST) {
+                Uri uri = data.getData();
+                galleryPhoto.setPhotoUri(uri);
+                String photoPath = galleryPhoto.getPath();
+                try {
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                    ivImage.setImageBitmap(bitmap);
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while choosing photos.", Toast.LENGTH_SHORT).show();
                 }
             }
         }
