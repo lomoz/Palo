@@ -13,7 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +73,7 @@ public class ProfileFragment extends Fragment {
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
     final int CAMERA_REQUEST = 1;
-    final int GALERY_REQUEST = 2;
+    final int GALLERY_REQUEST = 2;
 
     ArrayList<String> spinnerArray = new ArrayList<>();
 
@@ -120,7 +119,7 @@ public class ProfileFragment extends Fragment {
         ivGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(galleryPhoto.openGalleryIntent(), GALERY_REQUEST);
+                startActivityForResult(galleryPhoto.openGalleryIntent(), GALLERY_REQUEST);
             }
         });
 
@@ -180,9 +179,9 @@ public class ProfileFragment extends Fragment {
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
                 }
-            } 
+            }
 
-            else if (requestCode == GALERY_REQUEST) {
+            else if (requestCode == GALLERY_REQUEST) {
                 Uri uri = data.getData();
                 galleryPhoto.setPhotoUri(uri);
                 String photoPath = galleryPhoto.getPath();
