@@ -162,7 +162,6 @@ public class UpdateMapFragment extends Fragment {
 
                 try {
 
-                    String[] arg = new String[3];
                     JSONObject jsonObject = new JSONObject(responseStatus);
 
                     JSONArray jsonArray = jsonObject.getJSONArray("User");
@@ -174,7 +173,7 @@ public class UpdateMapFragment extends Fragment {
                         args.add(jObjStatus.getString("Lat"));
                         args.add(jObjStatus.getString("Lng"));
                         args.add(jObjStatus.getString("Zeit"));
-                        args.add(jObjStatus.getString("Email"));
+                        args.add(jObjStatus.getString("Nickname"));
 
                     }
                     bundle.putStringArrayList("args", args);
