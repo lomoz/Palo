@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
+import com.kosalgeek.android.photoutil.ImageBase64;
 import com.kosalgeek.android.photoutil.ImageLoader;
 
 import java.io.FileNotFoundException;
@@ -68,12 +70,13 @@ public class ProfileFragment extends Fragment {
     private final String TAG = getClass().getName();
 
     ImageView ivCamera, ivGallery, ivImage;
-    FloatingActionButton fabUpdate;
+    FloatingActionButton fabUpload;
 
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
     final int CAMERA_REQUEST = 1;
     final int GALLERY_REQUEST = 2;
+    String selectedPhoto;
 
     ArrayList<String> spinnerArray = new ArrayList<>();
 
@@ -101,7 +104,7 @@ public class ProfileFragment extends Fragment {
         ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
-        fabUpdate = (FloatingActionButton) view.findViewById(R.id.fabUpload);
+        fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +122,19 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivityForResult(galleryPhoto.openGalleryIntent(), GALLERY_REQUEST);
+            }
+        });
+
+        fabUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(1024, 1024).getBitmap();
+                    String encodedImage = ImageBase64.encode(bitmap);
+                    Log.d(TAG, encodedImage);
+                } catch (FileNotFoundException e) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -172,6 +188,7 @@ public class ProfileFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
                 String photoPath = cameraPhoto.getPhotoPath();
+                selectedPhoto = photoPath;
                 try {
                     Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
                     ivImage.setImageBitmap(bitmap);
@@ -184,6 +201,7 @@ public class ProfileFragment extends Fragment {
                 Uri uri = data.getData();
                 galleryPhoto.setPhotoUri(uri);
                 String photoPath = galleryPhoto.getPath();
+                selectedPhoto = photoPath;
                 try {
                     Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
                     ivImage.setImageBitmap(bitmap);
