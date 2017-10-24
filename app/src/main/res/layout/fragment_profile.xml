@@ -9,93 +9,84 @@
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.ProfileFragment">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/ivCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"
+        app:srcCompat="@drawable/ic_menu_camera" />
+
+    <ImageView
+        android:id="@+id/ivGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_toEndOf="@+id/ivCamera"
+        android:layout_toRightOf="@+id/ivCamera"
+        app:srcCompat="@drawable/ic_menu_gallery" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_launcher"
+        android:layout_alignTop="@+id/ivCamera"
+        android:layout_centerHorizontal="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_upload"
+        android:layout_alignTop="@+id/ivImage"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/etStatus"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivImage"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:hint="@string/set_status"
+        android:inputType="textPersonName" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etStudyCourse"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="50dp" />
 
-            <ImageView
-                android:id="@+id/ivCamera"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/ic_menu_camera" />
-
-            <ImageView
-                android:id="@+id/ivGallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="100dp"
-                app:srcCompat="@drawable/ic_menu_gallery" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right">
-
-                <ImageView
-                    android:id="@+id/ivImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_launcher" />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fabUpload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="100dp"
-                    android:clickable="true"
-                    app:fabSize="mini"
-                    app:srcCompat="@android:drawable/ic_menu_upload" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/etStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:ems="10"
-            android:hint="@string/set_status"
-            android:inputType="textPersonName" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp" />
-
-        <EditText
-            android:id="@+id/etStudyCourse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:ems="10"
-            android:hint="@string/set_job"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/etStudyCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnChangeInMap"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="50dp"
+        android:ems="10"
+        android:hint="@string/set_job"
+        android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/btnChangeInMap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:text="@string/change"
-            android:textSize="18sp" />
-
-    </LinearLayout>
+            android:textSize="18sp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 </RelativeLayout>

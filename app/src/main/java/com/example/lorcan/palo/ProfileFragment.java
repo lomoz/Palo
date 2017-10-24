@@ -106,7 +106,6 @@ public class ProfileFragment extends Fragment {
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // go on here
                 try {
                     startActivityForResult(cameraPhoto.takePhotoIntent(), CAMERA_REQUEST);
                     cameraPhoto.addToGallery();
@@ -196,7 +195,6 @@ public class ProfileFragment extends Fragment {
     }
 
     public void btnChangeClicked() {
-
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
