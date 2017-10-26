@@ -32,13 +32,20 @@ import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
 import com.kosalgeek.android.photoutil.ImageLoader;
+import com.kosalgeek.genasync12.AsyncResponse;
+import com.kosalgeek.genasync12.EachExceptionsHandler;
+import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -129,9 +136,47 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(1024, 1024).getBitmap();
+                    Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(128, 128).getBitmap();
                     String encodedImage = ImageBase64.encode(bitmap);
                     Log.d(TAG, encodedImage);
+
+                    /*
+                    HashMap<String, String> postData = new HashMap<>();
+                    postData.put("image", encodedImage);
+
+                    PostResponseAsyncTask task = new PostResponseAsyncTask(ProfileFragment.this.getActivity(), postData, new AsyncResponse() {
+                        @Override
+                        public void processFinish(String s) {
+
+                        }
+                    });
+                    task.execute("http://palo.square7.de/uploadPic.php");
+                    task.setEachExceptionsHandler(new EachExceptionsHandler() {
+                        @Override
+                        public void handleIOException(IOException e) {
+                            Toast.makeText(ProfileFragment.this.getActivity(), "Cannot connect to server.", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void handleMalformedURLException(MalformedURLException e) {
+                            Toast.makeText(ProfileFragment.this.getActivity(), "URL error.", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void handleProtocolException(ProtocolException e) {
+                            Toast.makeText(ProfileFragment.this.getActivity(), "Protocol error.", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                        @Override
+                        public void handleUnsupportedEncodingException(UnsupportedEncodingException e) {
+                            Toast.makeText(ProfileFragment.this.getActivity(), "Encoding Error.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    */
+
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
                 }
@@ -172,6 +217,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // if any item is selected this one should become the active status
+
+
             }
 
             @Override
@@ -190,7 +237,8 @@ public class ProfileFragment extends Fragment {
                 String photoPath = cameraPhoto.getPhotoPath();
                 selectedPhoto = photoPath;
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(128, 128).getBitmap();
+                    ivImage.setRotation(90);
                     ivImage.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
@@ -203,7 +251,7 @@ public class ProfileFragment extends Fragment {
                 String photoPath = galleryPhoto.getPath();
                 selectedPhoto = photoPath;
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(512, 512).getBitmap();
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(128, 128).getBitmap();
                     ivImage.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while choosing photos.", Toast.LENGTH_SHORT).show();
