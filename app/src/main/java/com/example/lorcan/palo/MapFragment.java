@@ -30,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -222,10 +223,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         else {
             //only if Bundle is an ArrayList
 
+            //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.startsymbol4);
+
             for (int i = 0; i < args.size(); i = i + 5) {
                 MarkerOptions markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.defaultMarker(markerColorFloat))
+                        //.icon(icon)
                         .title(args.get(i+4) + " | " + args.get(i+3))
                         .snippet(args.get(i));
                 map.addMarker(markerOptions1);
@@ -320,8 +324,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.mapToolbarEnabled(false);
 
         //this marker is placed at the updated current user location
+
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.startsymbol4);
+
         markerOptions.position(this.currLocation)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                .icon(icon)
                 .title("Username" + " | " + currentTime)
                 .snippet("this is the status");
 
