@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener, CurrLocUpdate.OnFragmentInteractionListener{
 
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         /*
-         * Set a fragment as the default fragment instead of an empty fragment.
-         */
+          Set a fragment as the default fragment instead of an empty fragment.
+
 
         MapFragment mapFragment = new MapFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -124,6 +124,15 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.relativelayout_for_fragments,
                         mapFragment,
                         mapFragment.getTag()
+        ).commit();*/
+
+        CurrLocUpdate currLocUpdate = new CurrLocUpdate();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                        currLocUpdate,
+                        currLocUpdate.getTag()
         ).commit();
     }
 

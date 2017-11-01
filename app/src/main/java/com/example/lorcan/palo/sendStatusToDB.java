@@ -51,7 +51,7 @@ public class sendStatusToDB {
     }
 
 
-    public void sendStatus(final String status, final Double lat, final Double lng, final String time, final String android_id, Context context) {
+    public void sendStatus(final String status, final Double lat, final Double lng, final String time, final String android_id) {
 
         // using volley lib to create request
 
@@ -91,7 +91,7 @@ public class sendStatusToDB {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<String, String>();
-;
+
 
                 hashMap.put("android_id", android_id);
                 hashMap.put("status", status);
