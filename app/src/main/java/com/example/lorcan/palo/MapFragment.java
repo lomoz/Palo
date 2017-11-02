@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,10 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -115,6 +119,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             markerColorFloat = BitmapDescriptorFactory.HUE_RED;
         }
 
+
+        bundleCurrLoc = getArguments();
+        if(bundleCurrLoc.getDoubleArray("latlng") != null){
+            double[] latlng = bundleCurrLoc.getDoubleArray("latlng");
+            LatLng latlng1 = new LatLng(latlng[0], latlng[1]);
+            currLocation = latlng1;
+        }
         /*
         bundleLocation = getArguments();
 
@@ -137,7 +148,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 profileFragment.btnChangeClicked();
                 */
 
-                etStatusInMap.getText();
+                status = String.valueOf(etStatusInMap.getText());
+                TelephonyManager tManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                String android_id = tManager.getDeviceId();
+                sendStatusToDB statusToDB = new sendStatusToDB();
+                DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                Date date = new Date();
+                String time = dateFormat.format(date);
+                Double latitude = 0.0;
+                Double longitude = 0.0;
+                statusToDB.sendStatus(status, latitude, longitude, time, android_id); // lat lng is missing here)
             }
         });
 
@@ -179,8 +199,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
         map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLng(currLocation));
-        //map.setMinZoomPreference(14);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 13));
+
         if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

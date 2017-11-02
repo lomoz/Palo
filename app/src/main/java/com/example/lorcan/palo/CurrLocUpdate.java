@@ -1,22 +1,31 @@
 package com.example.lorcan.palo;
 
+
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.OnSuccessListener;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -74,6 +83,7 @@ public class CurrLocUpdate extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        new MyAsyncTask(getContext()).execute();
         return inflater.inflate(R.layout.fragment_blank, container, false);
     }
 
@@ -114,25 +124,64 @@ public class CurrLocUpdate extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
-    public class LocationTask extends AsyncTask<String, String, String> {
+    public class MyAsyncTask extends AsyncTask<Void, Void, Void> implements LocationListener {
+        private Context ContextAsync;
 
-        private FusedLocationProviderClient mFusedLocationClient;
-        private LatLng currLocation;
-        MapFragment mapFragment = new MapFragment();
-        Bundle bundle = new Bundle();
+        public MyAsyncTask(Context context) {
+            this.ContextAsync = context;
+        }
+
+        Dialog progress;
+        private String providerAsync;
+        private LocationManager locationManagerAsync;
+        double latAsync = 0.0;
+        double lonAsync = 0.0;
+        String thikanaAsync = "Scan sms for location";
+
+        String AddressAsync = "";
+        Geocoder GeocoderAsync;
+
+        Location location;
 
         @Override
-        protected String doInBackground(String... params) {
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-            if (ActivityCompat.checkSelfPermission(
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progress = ProgressDialog.show(ContextAsync, "Loading data", "Please wait...");
 
-                    getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+        }
 
-                    getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
 
-            {
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // TODO Auto-generated method stub
+            locationManagerAsync = (LocationManager) ContextAsync.getSystemService(ContextAsync.LOCATION_SERVICE);
+
+
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            criteria.setCostAllowed(false);
+            criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+            providerAsync = locationManagerAsync.getBestProvider(criteria, false);
+
+
+            if (locationManagerAsync.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                providerAsync = LocationManager.GPS_PROVIDER;
+            } else if (locationManagerAsync.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                providerAsync = LocationManager.NETWORK_PROVIDER;
+            /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("GPS is disabled in the settings!");
+            alert.setMessage("It is recomended that you turn on your device's GPS and restart the app so the app can determine your location more accurately!");
+            alert.setPositiveButton("OK", null);
+            alert.show();*/
+            } else if (locationManagerAsync.isProviderEnabled(LocationManager.PASSIVE_PROVIDER)) {
+                providerAsync = LocationManager.PASSIVE_PROVIDER;
+                //Toast.makeText(ContextAsync, "Switch On Data Connection!!!!", Toast.LENGTH_LONG).show();
+            }
+
+            if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -142,32 +191,50 @@ public class CurrLocUpdate extends Fragment {
                 // for ActivityCompat#requestPermissions for more details.
                 return null;
             }
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>()
+            location = locationManagerAsync.getLastKnownLocation(providerAsync);
+            // Initialize the location fields
+            if (location != null) {
+                //  System.out.println("Provider " + provider + " has been selected.");
+                latAsync = location.getLatitude();
+                lonAsync = location.getLongitude();
 
-            {
-                @Override
-                public void onSuccess(Location location) {
-                    // Got last known location. In some rare situations this can be null.
+            } else {
+                //Toast.makeText(ContextAsync, " Locationnot available", Toast.LENGTH_SHORT).show();
+            }
 
-                    if (location != null) {
-                        currLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    }
-                }
-            });
+
+            List<Address> addresses = null;
+            GeocoderAsync = new Geocoder(ContextAsync, Locale.getDefault());
+            try {
+                addresses = GeocoderAsync.getFromLocation(latAsync, lonAsync, 1);
+
+                String address = addresses.get(0).getAddressLine(0);
+                String city = addresses.get(0).getAddressLine(1);
+                String country = addresses.get(0).getCountryName();
+                AddressAsync = Html.fromHtml(
+                        address + ", " + city + ",<br>" + country).toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                AddressAsync = "Refresh for the address";
+            }
+
+
             return null;
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+        protected void onPostExecute(Void result) {
 
-        @Override
-        protected void onPostExecute(String s) {
-
+            super.onPostExecute(result);
+            progress.dismiss();
+            onLocationChanged(location);
+            System.out.println("latAsync_lonAsync: " + latAsync + "_" + lonAsync);
             double[] latlng = new double[2];
-            //bundle.putStringArrayList("args", args);
+            latlng[0] = latAsync;
+            latlng[1] = lonAsync;
+            Bundle bundle = new Bundle();
             bundle.putDoubleArray("latlng", latlng);
+            MapFragment mapFragment = new MapFragment();
             mapFragment.setArguments(bundle);
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
@@ -176,6 +243,55 @@ public class CurrLocUpdate extends Fragment {
                             mapFragment,
                             mapFragment.getTag()
                     ).commit();
+
+        }
+
+
+        @Override
+        public void onLocationChanged(Location location) {
+            // TODO Auto-generated method stub
+            if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            locationManagerAsync.requestLocationUpdates(providerAsync, 0, 0, this);
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            System.out.println("Mach GPS an!");
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            // TODO Auto-generated method stub
+
         }
     }
+
+    /*
+                bundle.putDoubleArray("latlng", latlng);
+            mapFragment.setArguments(bundle);
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            mapFragment,
+                            mapFragment.getTag()
+                    ).commit();
+     */
 }

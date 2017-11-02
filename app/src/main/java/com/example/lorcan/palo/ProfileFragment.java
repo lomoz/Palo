@@ -335,7 +335,7 @@ public class ProfileFragment extends Fragment {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         time = dateFormat.format(date);
-        statusToDB.sendStatus(status, lat, lng, time, android_id, getContext());
+        statusToDB.sendStatus(status, lat, lng, time, android_id);
 
         mapFragment.setArguments(bundle);
 
