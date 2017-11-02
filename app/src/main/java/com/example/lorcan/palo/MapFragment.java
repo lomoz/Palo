@@ -66,7 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
 
-    Button btnChangeInMap;
+    FloatingActionButton btnChangeInMap;
 
     String currentTime;
     View view;
@@ -126,28 +126,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             LatLng latlng1 = new LatLng(latlng[0], latlng[1]);
             currLocation = latlng1;
         }
-        /*
-        bundleLocation = getArguments();
 
-        if (bundleLocation != null) {
-            currLocation = new LatLng(bundleLocation.getDouble("latitude"), bundleLocation.getDouble("longitude"));
-            System.out.println("######################" + currLocation + "####################");
-        }
-        */
 
 
 
         final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
 
-        btnChangeInMap = (Button)view.findViewById(R.id.btnChangeInMap);
+        btnChangeInMap = (FloatingActionButton)view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                ProfileFragment profileFragment = new ProfileFragment();
-                profileFragment.btnChangeClicked();
-                */
-
                 status = String.valueOf(etStatusInMap.getText());
                 TelephonyManager tManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 String android_id = tManager.getDeviceId();
@@ -155,9 +143,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
                 Date date = new Date();
                 String time = dateFormat.format(date);
-                Double latitude = 0.0;
-                Double longitude = 0.0;
-                statusToDB.sendStatus(status, latitude, longitude, time, android_id); // lat lng is missing here)
+                Double latitude = currLocation.latitude;
+                Double longitude = currLocation.longitude;
+                statusToDB.sendStatus(status, latitude, longitude, time, android_id); // lat lng is missing here
             }
         });
 
@@ -246,7 +234,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         markerOptions.position(this.currLocation).title(status);
         map.addMarker(markerOptions);
         */
-        map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(this.currLocation, 13));
 
         user.setEmail("testmail@gmail.com");
         user.setIsOnline(true);
