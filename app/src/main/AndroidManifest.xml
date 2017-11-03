@@ -19,6 +19,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- To upload an image to the server -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:name=".MyApplicationContext"

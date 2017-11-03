@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -135,18 +136,28 @@ public class ProfileFragment extends Fragment {
         fabUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (selectedPhoto == null || selectedPhoto.equals("")) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "No image selected.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 try {
                     Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(128, 128).getBitmap();
                     String encodedImage = ImageBase64.encode(bitmap);
                     Log.d(TAG, encodedImage);
 
-                    /*
+
                     HashMap<String, String> postData = new HashMap<>();
                     postData.put("image", encodedImage);
 
                     PostResponseAsyncTask task = new PostResponseAsyncTask(ProfileFragment.this.getActivity(), postData, new AsyncResponse() {
                         @Override
                         public void processFinish(String s) {
+                            if (s.contains("uploaded_success")) {
+                                Toast.makeText(ProfileFragment.this.getActivity(), "Image uploaded successfully.", Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(ProfileFragment.this.getActivity(), "Error while uploading.", Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -175,7 +186,7 @@ public class ProfileFragment extends Fragment {
                             Toast.makeText(ProfileFragment.this.getActivity(), "Encoding Error.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    */
+
 
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
@@ -238,8 +249,8 @@ public class ProfileFragment extends Fragment {
                 selectedPhoto = photoPath;
                 try {
                     Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(128, 128).getBitmap();
-                    ivImage.setRotation(90);
-                    ivImage.setImageBitmap(bitmap);
+                    //ivImage.setRotation(90);
+                    ivImage.setImageBitmap(getRotatedBitmap(bitmap, 90));
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
                 }
@@ -346,5 +357,12 @@ public class ProfileFragment extends Fragment {
                         mapFragment,
                         mapFragment.getTag()
                 ).commit();
+    }
+
+    private Bitmap getRotatedBitmap(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        Bitmap bitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+        return bitmap;
     }
 }
