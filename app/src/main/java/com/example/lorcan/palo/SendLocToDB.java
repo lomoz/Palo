@@ -76,7 +76,7 @@ public class SendLocToDB{
                 hashMap.put("lat", lat.toString());
                 hashMap.put("email",email);
 
-                System.out.println("DAS WAS GESENDET WIRD: " + hashMap);
+                System.out.println("DAS WAS GESENDET WIRD1: " + hashMap);
 
                 return hashMap;
             }

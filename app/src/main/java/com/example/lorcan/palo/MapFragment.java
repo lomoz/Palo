@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,7 +51,7 @@ import java.util.Date;
 public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     GoogleMap map;
-    public LatLng currLocation = new LatLng(53.2, 6.2);
+    public LatLng currLocation;
     private LocationManager locationManager;
     Button positionButton;
     User user;
@@ -70,7 +72,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     String currentTime;
     View view;
-
     public MapFragment() {
         // Required empty public constructor
     }
@@ -87,9 +88,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
-        markerOptions = new MarkerOptions()
-                .position(currLocation);
-        user = new User();
+
         MainActivity main = new MainActivity();
         main.getData();
         arrayListOtherUsers = MainActivity.arrayListOtherUsers;
@@ -135,17 +134,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             @Override
             public void onClick(View view) {
                 status = String.valueOf(etStatusInMap.getText());
-                TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-                if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+                InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+                    inputMethodManager.hideSoftInputFromWindow(btnChangeInMap.getWindowToken(), 0);
                 }
+                TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 String android_id = tManager.getDeviceId();
                 sendStatusToDB statusToDB = new sendStatusToDB();
                 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
@@ -153,10 +146,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 String time = dateFormat.format(date);
                 Double latitude = currLocation.latitude;
                 Double longitude = currLocation.longitude;
-                statusToDB.sendStatus(status, latitude, longitude, time, android_id); // lat lng is missing here
+                statusToDB.sendStatus(status, latitude, longitude, time, android_id);
+
+                UpdateMapFragment upFragment = new UpdateMapFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                        .replace(R.id.relativelayout_for_fragments,
+                                upFragment,
+                                upFragment.getTag()
+                        ).commit();// lat lng is missing here
             }
         });
-
+        if (currLocation != null){
+            markerOptions = new MarkerOptions()
+                    .position(currLocation);
+        }
+        user = new User();
         return view;
     }
 
@@ -209,7 +215,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         map.setMyLocationEnabled(true);
 
-        if ((args == null || args.size() == 0) && bundle != null){
+        if (((args == null || args.size() == 0) && bundle != null) && bundleCurrLoc == null ){
             MarkerOptions markerOptionsOwnStatus = new MarkerOptions()
                     .position(currLocation)
                     .title("Username" + " | " + currentTime)

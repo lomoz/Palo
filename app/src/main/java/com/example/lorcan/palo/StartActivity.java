@@ -61,7 +61,7 @@ public class StartActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                restart();
             }
         }) {
 
@@ -89,4 +89,9 @@ public class StartActivity extends AppCompatActivity {
             Intent i = new Intent(MyApplicationContext.getAppContext(), MainActivity.class);
             startActivity(i);
         }
+
+    public void restart(){
+        Intent intent = new Intent(this, StartActivity.class);
+        this.startActivity(intent);
+    }
 }
