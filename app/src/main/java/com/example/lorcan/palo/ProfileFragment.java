@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.location.Location;
 import android.net.Uri;
@@ -33,20 +34,13 @@ import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
 import com.kosalgeek.android.photoutil.ImageLoader;
-import com.kosalgeek.genasync12.AsyncResponse;
-import com.kosalgeek.genasync12.EachExceptionsHandler;
-import com.kosalgeek.genasync12.PostResponseAsyncTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -61,6 +55,7 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
+
     public ProfileFragment(Double lat, Double lng) {
         this.lat = lat;
         this.lng = lng;
@@ -91,6 +86,9 @@ public class ProfileFragment extends Fragment {
     String status = "";
     String studyCourse = "";
 
+    String encodedImageFromDB;
+    Bitmap bitmapProfileImage;
+
     private String android_id;
     public String time;
     public Double lat;
@@ -103,6 +101,16 @@ public class ProfileFragment extends Fragment {
         getStatusFromDB get = new getStatusFromDB();
         status = get.getStatus(android_id);
 
+        GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
+        encodedImageFromDB = getEncodedImageFromDB.getResponseEncodedImage(android_id);
+        if (encodedImageFromDB != null) {
+            bitmapProfileImage = ImageBase64.decode(encodedImageFromDB);
+        }
+        else {
+            bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
+        }
+
+
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -113,6 +121,15 @@ public class ProfileFragment extends Fragment {
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
         fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
+
+        if (bitmapProfileImage != null) {
+
+            ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
+        }
+        else {
+            Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
+        }
+
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,45 +164,10 @@ public class ProfileFragment extends Fragment {
                     String encodedImage = ImageBase64.encode(bitmap);
                     Log.d(TAG, encodedImage);
 
+                    SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
+                    sendEncodedImageToDB.sendEncodedImage(encodedImage);
 
-                    HashMap<String, String> postData = new HashMap<>();
-                    postData.put("image", encodedImage);
-
-                    PostResponseAsyncTask task = new PostResponseAsyncTask(ProfileFragment.this.getActivity(), postData, new AsyncResponse() {
-                        @Override
-                        public void processFinish(String s) {
-                            if (s.contains("uploaded_success")) {
-                                Toast.makeText(ProfileFragment.this.getActivity(), "Image uploaded successfully.", Toast.LENGTH_SHORT).show();
-                            }
-                            Toast.makeText(ProfileFragment.this.getActivity(), "Error while uploading.", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-                    task.execute("http://palo.square7.de/uploadPic.php");
-                    task.setEachExceptionsHandler(new EachExceptionsHandler() {
-                        @Override
-                        public void handleIOException(IOException e) {
-                            Toast.makeText(ProfileFragment.this.getActivity(), "Cannot connect to server.", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        @Override
-                        public void handleMalformedURLException(MalformedURLException e) {
-                            Toast.makeText(ProfileFragment.this.getActivity(), "URL error.", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        @Override
-                        public void handleProtocolException(ProtocolException e) {
-                            Toast.makeText(ProfileFragment.this.getActivity(), "Protocol error.", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        @Override
-                        public void handleUnsupportedEncodingException(UnsupportedEncodingException e) {
-                            Toast.makeText(ProfileFragment.this.getActivity(), "Encoding Error.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
 
 
                 } catch (FileNotFoundException e) {
@@ -195,9 +177,9 @@ public class ProfileFragment extends Fragment {
         });
 
         // Use the created view to get the elements from the xml file.
-        etStatus = (EditText)view.findViewById(R.id.etStatus);
-        etStudyCourse = (EditText)view.findViewById(R.id.etStudyCourse);
-        btnChange = (Button)view.findViewById(R.id.btnChangeInMap);
+        etStatus = (EditText) view.findViewById(R.id.etStatus);
+        etStudyCourse = (EditText) view.findViewById(R.id.etStudyCourse);
+        btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
         etStatus.setText(status);
 
@@ -219,7 +201,7 @@ public class ProfileFragment extends Fragment {
         spinnerArray.add("Item 2");
         spinnerArray.add("Item 3");
 
-        spinner = (Spinner)view.findViewById(R.id.spinner);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerArrayAdapter);
@@ -254,9 +236,7 @@ public class ProfileFragment extends Fragment {
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            else if (requestCode == GALLERY_REQUEST) {
+            } else if (requestCode == GALLERY_REQUEST) {
                 Uri uri = data.getData();
                 galleryPhoto.setPhotoUri(uri);
                 String photoPath = galleryPhoto.getPath();
@@ -308,9 +288,19 @@ public class ProfileFragment extends Fragment {
                 });
     }
 
-    public void startMapAndUploadStatus(){
+    public void startMapAndUploadStatus() {
 
-        TelephonyManager tManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this.getActivity(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         android_id = tManager.getDeviceId();
 
         MapFragment mapFragment = new MapFragment();

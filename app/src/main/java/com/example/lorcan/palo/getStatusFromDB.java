@@ -63,7 +63,7 @@ public class getStatusFromDB {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                hashMap.put("anroid_id", android_id);
+                hashMap.put("android_id", android_id);
 
 
                 return hashMap;
