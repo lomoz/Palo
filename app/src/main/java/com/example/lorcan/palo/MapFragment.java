@@ -70,6 +70,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     String currentTime;
     View view;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -100,7 +101,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (bundle != null) {
             status = bundle.getString("status");
             studyCourse = bundle.getString("study course");
-            if(bundle.getStringArrayList("args") != null){
+            if (bundle.getStringArrayList("args") != null) {
                 args = bundle.getStringArrayList("args");
             }
         }
@@ -113,31 +114,38 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 && bundleColor.getString("status") == null)
                 && bundleColor.getString("study course") == null)) {
             markerColorFloat = bundleColor.getFloat("markerColor");
-        }
-        else {
+        } else {
             // default marker color
             markerColorFloat = BitmapDescriptorFactory.HUE_RED;
         }
 
 
         bundleCurrLoc = getArguments();
-        if(bundleCurrLoc.getDoubleArray("latlng") != null){
+        if (bundleCurrLoc.getDoubleArray("latlng") != null) {
             double[] latlng = bundleCurrLoc.getDoubleArray("latlng");
             LatLng latlng1 = new LatLng(latlng[0], latlng[1]);
             currLocation = latlng1;
         }
 
 
-
-
         final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
 
-        btnChangeInMap = (FloatingActionButton)view.findViewById(R.id.btnChangeInMap);
+        btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 status = String.valueOf(etStatusInMap.getText());
-                TelephonyManager tManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 String android_id = tManager.getDeviceId();
                 sendStatusToDB statusToDB = new sendStatusToDB();
                 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
