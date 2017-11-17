@@ -144,46 +144,48 @@ public class CurrentLoc {
         public abstract void gotLocation(Location location);
     }
 
-    public void getLoc() {
+    public LocationResult getLoc() {
         LocationResult locationResult = new LocationResult() {
 
             @Override
             public void gotLocation(Location location) {
 
 
-
-                MapFragment mapFragment = new MapFragment();
+/*
+                UpdateMapFragment updateMapFragment = new UpdateMapFragment();
                 Bundle bundle = new Bundle();
 
                 if (location != null) {
                     // Logic to handle location object
                     System.out.println("******" + location + "******");
 
-                    double[] latlng = new double[2];
-                    latlng[0] = location.getLatitude();
-                    latlng[1] = location.getLongitude();
-                    bundle.putDoubleArray("latlng", latlng);
+                    double[] currLoc = new double[2];
+                    currLoc[0] = location.getLatitude();
+                    currLoc[1] = location.getLongitude();
+                    bundle.putDoubleArray("currLoc", currLoc);
+                    System.out.println("CURRENT LOCATION CurrentLoc: " + currLoc[0]);
+                    updateMapFragment.setArguments(bundle);
 
-                    mapFragment.setArguments(bundle);
-
-                    FragmentManager fragmentManager = mapFragment.getFragmentManager();
+                    FragmentManager fragmentManager = updateMapFragment.getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                             .replace(R.id.relativelayout_for_fragments,
-                                    mapFragment,
-                                    mapFragment.getTag()
+                                    updateMapFragment,
+                                    updateMapFragment.getTag()
                             ).commit();
 
                 }
 
-
+*/
 
                 }
             };
 
+
             CurrentLoc myLocation = new CurrentLoc();
             myLocation.getLocation(MyApplicationContext.getAppContext(),locationResult);
 
+        return locationResult;
 
         }
 

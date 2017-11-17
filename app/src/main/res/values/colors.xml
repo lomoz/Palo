@@ -17,5 +17,6 @@
     <color name="hue_rose">#ffe4e1</color>
     <color name="hue_violet">#ee82ee</color>
     <color name="hue_yellow">#ffff00</color>
+    <color name="white">#ffffff</color>
 
 </resources>

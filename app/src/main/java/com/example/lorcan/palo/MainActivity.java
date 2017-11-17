@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.relativelayout_for_fragments,
                         mapFragment,
                         mapFragment.getTag()
-        ).commit();*/
+        ).commit();
 
         CurrLocUpdate currLocUpdate = new CurrLocUpdate();
         FragmentManager fm = getSupportFragmentManager();
@@ -139,6 +139,16 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate,
                         currLocUpdate.getTag()
         ).commit();
+        */
+        CurrLocUpdate currLocUpdate = new CurrLocUpdate();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                        currLocUpdate,
+                        currLocUpdate.getTag()
+                ).commit();
+
     }
 
     @Override
@@ -248,13 +258,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 */
 
-            MapFragment mapFragment = new MapFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+            CurrLocUpdate currLocUpdate = new CurrLocUpdate();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
                     .replace(R.id.relativelayout_for_fragments,
-                            mapFragment,
-                            mapFragment.getTag()
+                            currLocUpdate,
+                            currLocUpdate.getTag()
                     ).commit();
         }
 

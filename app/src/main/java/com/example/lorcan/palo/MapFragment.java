@@ -72,6 +72,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     String currentTime;
     View view;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -98,10 +99,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         bundle = getArguments();
 
         if (bundle != null) {
+            System.out.println("DAS BUNDLE: " + bundle);
             status = bundle.getString("status");
             studyCourse = bundle.getString("study course");
             if (bundle.getStringArrayList("args") != null) {
                 args = bundle.getStringArrayList("args");
+                System.out.println(args);
+                currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
             }
         }
 
@@ -120,8 +124,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
         bundleCurrLoc = getArguments();
-        if (bundleCurrLoc.getDoubleArray("latlng") != null) {
-            double[] latlng = bundleCurrLoc.getDoubleArray("latlng");
+        if (bundleCurrLoc.getDoubleArray("currLoc") != null) {
+
+            double[] latlng = bundleCurrLoc.getDoubleArray("currLoc");
             LatLng latlng1 = new LatLng(latlng[0], latlng[1]);
             currLocation = latlng1;
         }
@@ -139,16 +144,26 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     inputMethodManager.hideSoftInputFromWindow(btnChangeInMap.getWindowToken(), 0);
                 }
                 TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 String android_id = tManager.getDeviceId();
                 sendStatusToDB statusToDB = new sendStatusToDB();
                 DateFormat dateFormat = new SimpleDateFormat("HH:mm");
                 Date date = new Date();
                 String time = dateFormat.format(date);
-                Double latitude = currLocation.latitude;
-                Double longitude = currLocation.longitude;
+                double latitude = currLocation.latitude;
+                double longitude = currLocation.longitude;
                 statusToDB.sendStatus(status, latitude, longitude, time, android_id);
 
-                UpdateMapFragment upFragment = new UpdateMapFragment();
+                CurrLocUpdate upFragment = new CurrLocUpdate();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
@@ -199,7 +214,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             e.printStackTrace();
         }
 
-
+        System.out.println("CURRENT LOCATION: " + currLocation);
         map = googleMap;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 13));
 
@@ -215,19 +230,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         map.setMyLocationEnabled(true);
 
-        if (((args == null || args.size() == 0) && bundle != null) && bundleCurrLoc == null ){
-            MarkerOptions markerOptionsOwnStatus = new MarkerOptions()
-                    .position(currLocation)
-                    .title("Username" + " | " + currentTime)
-                    .snippet(status);
-            map.addMarker(markerOptionsOwnStatus);
+        if (((args == null || args.size() == 0) && bundle == null) && bundleCurrLoc == null ){
+            System.out.println("Bundle args ist null");
         }
         else {
             //only if Bundle is an ArrayList
 
             //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.startsymbol4);
 
-            for (int i = 0; i < args.size(); i = i + 5) {
+            for (int i = 2; i < args.size(); i = i + 5) {
                 MarkerOptions markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.defaultMarker(markerColorFloat))
@@ -243,40 +254,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         Toast.makeText(getContext(), getString(R.string.current_location) + " " + currLocation, Toast.LENGTH_LONG).show();
 
-        //this marker is always placed, regardless of user location. so it's better to not put it.
-        /*
-        markerOptions.position(this.currLocation).title(status);
-        map.addMarker(markerOptions);
-        */
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(this.currLocation, 13));
 
-        user.setEmail("testmail@gmail.com");
-        user.setIsOnline(true);
-        user.setLocation(this.currLocation);
 
-        user.updateLocation();
 
-        /*
-        for(int i = 0; i< arrayListOtherUsers.size(); i++){
-
-            String[] array = (String[]) arrayListOtherUsers.get(i);
-            LatLng locationOther = new LatLng(Double.parseDouble(array[1]), Double.parseDouble(array[2]));
-
-            //---- getting distance between user location-----
-            float[] results = new float[1];
-            Location.distanceBetween(currLocation.latitude, currLocation.longitude, locationOther.latitude, locationOther.longitude, results);
-            float distance = results[0];
-            //---------------------------
-
-            if(distance<100){ // not ready yet!!! at this point we also need to check "isOnline" and we need to get the Status
-                LatLng position = locationOther;
-                MarkerOptions marker1 = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.location));
-                marker1.position(position);
-                map.addMarker(marker1);
-            }
-
-        }
-        */
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -295,7 +276,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     public void updateMap() {
-        UpdateMapFragment upFragment = new UpdateMapFragment();
+        CurrLocUpdate upFragment = new CurrLocUpdate();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
@@ -304,11 +285,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         upFragment.getTag()
                 ).commit();
 
-        user.setEmail("testmail@gmail.com");
-        user.setIsOnline(true);
-        user.setLocation(this.currLocation);
-
-        user.updateLocation();
 
 
     }
@@ -325,29 +301,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
-        //this marker is placed at the updated current user location
 
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.startsymbol4);
-
-        markerOptions.position(this.currLocation)
-                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                .icon(icon)
-                .title("Username" + " | " + currentTime)
-                .snippet("this is the status");
-
-        if (currLocation != null) {
-            map.addMarker(markerOptions);
-            map.moveCamera(CameraUpdateFactory.newLatLng(this.currLocation));
-        }
-        else {
-            Toast.makeText(getContext(), "no current location", Toast.LENGTH_SHORT).show();
-        }
-
-        user.setEmail("testmail@gmail.com");
-        user.setIsOnline(true);
-        user.setLocation(this.currLocation);
-
-        user.updateLocation();
     }
 
     @Override

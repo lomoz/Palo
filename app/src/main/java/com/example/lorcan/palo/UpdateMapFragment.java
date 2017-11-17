@@ -1,10 +1,12 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
@@ -79,6 +81,16 @@ public class UpdateMapFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         android_id = telephonyManager.getDeviceId();
     }
 
@@ -141,6 +153,7 @@ public class UpdateMapFragment extends Fragment {
         private Boolean upStarted = false;
         MapFragment mapFragment = new MapFragment();
         Bundle bundle = new Bundle();
+        Bundle bundle1 = new Bundle();
         ArrayList<String> args = new ArrayList<>();
         @Override
         protected String doInBackground(String... params) {
@@ -158,13 +171,17 @@ public class UpdateMapFragment extends Fragment {
                 System.out.println("RETURN: _--------" + responseStatus + "--------_");
 
 
-
-
                 try {
 
                     JSONObject jsonObject = new JSONObject(responseStatus);
 
                     JSONArray jsonArray = jsonObject.getJSONArray("User");
+                    double[] currLoc = bundle1.getDoubleArray("currLoc");
+                    assert currLoc != null;
+
+                    args.add(String.valueOf(currLoc[0]));
+                    args.add(String.valueOf(currLoc[1]));
+                    System.out.println("ArrayList: "+ args);
                     for (int i = 0; i < jsonArray.length(); i++) {
 
                         JSONObject jObjStatus;
@@ -176,8 +193,13 @@ public class UpdateMapFragment extends Fragment {
                         args.add(jObjStatus.getString("Nickname"));
 
                     }
+
+
+
                     bundle.putStringArrayList("args", args);
                     mapFragment.setArguments(bundle);
+
+                    System.out.println("Bundle im UpdateMapFragment: " + bundle.getDoubleArray("currLoc"));
 
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
@@ -206,6 +228,7 @@ public class UpdateMapFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            bundle1 = getArguments();
         }
 
         @Override

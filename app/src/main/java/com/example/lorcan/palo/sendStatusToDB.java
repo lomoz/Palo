@@ -51,7 +51,7 @@ public class sendStatusToDB {
     }
 
 
-    public void sendStatus(final String status, final Double lat, final Double lng, final String time, final String android_id) {
+    public void sendStatus(final String status, final double lat, final double lng, final String time, final String android_id) {
 
         // using volley lib to create request
 
