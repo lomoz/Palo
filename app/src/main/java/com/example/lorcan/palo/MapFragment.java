@@ -4,10 +4,11 @@ package com.example.lorcan.palo;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,8 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -37,7 +36,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -236,19 +234,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         else {
             //only if Bundle is an ArrayList
 
-            //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.startsymbol4);
+            //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.element1hdpi);
+
+            int height = 125;
+            int width = 100;
+            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.mipmap.element1hdpi);
+            Bitmap b=bitmapdraw.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
             for (int i = 2; i < args.size(); i = i + 5) {
                 MarkerOptions markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
-                        .icon(BitmapDescriptorFactory.defaultMarker(markerColorFloat))
-                        //.icon(icon)
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .title(args.get(i+4) + " | " + args.get(i+3))
                         .snippet(args.get(i));
                 map.addMarker(markerOptions1);
             }
         }
-
         //------------------------------- 
 
 
