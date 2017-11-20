@@ -210,8 +210,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // if any item is selected this one should become the active status
-
-
             }
 
             @Override
