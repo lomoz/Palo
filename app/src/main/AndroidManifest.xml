@@ -14,10 +14,13 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- To get access to the external storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!-- To get access to the device camera -->
     <uses-feature android:name="android.hardware.camera2" android:required="true" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- To upload an image to the server -->
     <uses-permission android:name="android.permission.INTERNET" />
