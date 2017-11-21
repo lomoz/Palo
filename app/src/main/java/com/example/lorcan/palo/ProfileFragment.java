@@ -129,6 +129,13 @@ public class ProfileFragment extends Fragment {
             bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
         }
 
+        /*
+         * Read ArrayList from File.
+         */
+
+        String filename = "user_status";
+        FileManager fileManager = new FileManager();
+        spinnerArray = fileManager.readFromFile(getContext(), filename);
 
 
         // Create and return a new View element here.
@@ -366,6 +373,14 @@ public class ProfileFragment extends Fragment {
         time = dateFormat.format(date);
         statusToDB.sendStatus(status, lat, lng, time, android_id);
 
+
+        /*
+         * Write user status to internal storage.
+         */
+
+        String filename = "user_status";
+        FileManager fileManager = new FileManager();
+        fileManager.writeToFile(getContext(), filename, status);
 
 
         FragmentManager fragmentManager = getFragmentManager();
