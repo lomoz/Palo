@@ -168,7 +168,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         .replace(R.id.relativelayout_for_fragments,
                                 upFragment,
                                 upFragment.getTag()
-                        ).commit();// lat lng is missing here
+                        ).commit();
             }
         });
         if (currLocation != null){
@@ -265,8 +265,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
             boolean success = map.setMapStyle(
+
                     MapStyleOptions.loadRawResourceStyle(
-                            getContext(), R.raw.style_json));
+                            getContext(), R.raw.style3));
 
             if (!success) {
                 Log.e("MapsActivityRaw", "Style parsing failed.");

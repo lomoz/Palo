@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -98,6 +99,22 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return null;
+        }
+        android_id = tManager.getDeviceId();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date();
+        time = dateFormat.format(date);
+
         getStatusFromDB get = new getStatusFromDB();
         status = get.getStatus(android_id);
 
@@ -107,8 +124,11 @@ public class ProfileFragment extends Fragment {
             bitmapProfileImage = ImageBase64.decode(encodedImageFromDB);
         }
         else {
+            new BildTask().execute();
+            Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
             bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
         }
+
 
 
         // Create and return a new View element here.
@@ -251,6 +271,22 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    public class BildTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
+            encodedImageFromDB = getEncodedImageFromDB.getResponseEncodedImage(android_id);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+    }
+
     public void btnChangeClicked() {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
@@ -269,21 +305,18 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
+                        sendStatusToDB statusToDB = new sendStatusToDB();
+                        statusToDB.sendStatus(etStatus.getText().toString(), location.getLatitude(), location.getLongitude(), time, android_id);
+                        CurrLocUpdate upFragment = new CurrLocUpdate();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                .replace(R.id.relativelayout_for_fragments,
+                                        upFragment,
+                                        upFragment.getTag()
+                                ).commit();
 
-                        MapFragment mapFragment = new MapFragment();
-                        Bundle bundleLocation = new Bundle();
 
-                        if (location != null) {
-                            // Logic to handle location object
-                            System.out.println("*************************" + location + "*************************");
-
-                            lat = location.getLatitude();
-                            lng = location.getLongitude();
-
-                            mapFragment.setArguments(bundleLocation);
-
-                        }
-                        startMapAndUploadStatus();
                     }
                 });
     }
@@ -303,9 +336,7 @@ public class ProfileFragment extends Fragment {
         }
         android_id = tManager.getDeviceId();
 
-        MapFragment mapFragment = new MapFragment();
-        Bundle bundle = new Bundle();
-
+        CurrLocUpdate mapFragment = new CurrLocUpdate();
         //check if editText status is empty or not.
         if (etStatus.getText().toString().isEmpty()) {
             status = getString(R.string.status_empty);
@@ -327,8 +358,7 @@ public class ProfileFragment extends Fragment {
         }
 
         //bundle the data from status and study course to "send" them to MapFragment.java
-        bundle.putString("status", status);
-        bundle.putString("study course", studyCourse);
+
 
         //send status to database
         sendStatusToDB statusToDB = new sendStatusToDB();
@@ -338,7 +368,7 @@ public class ProfileFragment extends Fragment {
         time = dateFormat.format(date);
         statusToDB.sendStatus(status, lat, lng, time, android_id);
 
-        mapFragment.setArguments(bundle);
+
 
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
