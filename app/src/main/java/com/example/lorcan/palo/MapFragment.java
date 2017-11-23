@@ -39,6 +39,8 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -162,6 +164,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 double latitude = currLocation.latitude;
                 double longitude = currLocation.longitude;
                 statusToDB.sendStatus(status, latitude, longitude, time, android_id);
+
+
+                /*
+                 * Write user status to internal storage.
+                 */
+
+                String filename = "user_status";
+                FileManager fileManager = new FileManager();
+                fileManager.writeToFile(getContext(), filename, status);
+
 
                 CurrLocUpdate upFragment = new CurrLocUpdate();
                 FragmentManager fragmentManager = getFragmentManager();
