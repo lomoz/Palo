@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -294,36 +295,75 @@ public class ProfileFragment extends Fragment {
 
     public void btnChangeClicked() {
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        //check if editText status is empty or not.
+        if (etStatus.getText().toString().isEmpty()) {
+
+            /*
+            status = getString(R.string.status_empty);
+            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.status_empty), Toast.LENGTH_SHORT).show();
+            */
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.alert_empty_status_title);
+            builder.setMessage(R.string.alert_empty_status_message);
+            builder.show();
+
+
         }
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        sendStatusToDB statusToDB = new sendStatusToDB();
-                        statusToDB.sendStatus(etStatus.getText().toString(), location.getLatitude(), location.getLongitude(), time, android_id);
-                        CurrLocUpdate upFragment = new CurrLocUpdate();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                                .replace(R.id.relativelayout_for_fragments,
-                                        upFragment,
-                                        upFragment.getTag()
-                                ).commit();
+        else {
+            status = etStatus.getText().toString();
+            Toast.makeText(ProfileFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
+
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            sendStatusToDB statusToDB = new sendStatusToDB();
+                            statusToDB.sendStatus(etStatus.getText().toString(), location.getLatitude(), location.getLongitude(), time, android_id);
+                            CurrLocUpdate upFragment = new CurrLocUpdate();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                    .replace(R.id.relativelayout_for_fragments,
+                                            upFragment,
+                                            upFragment.getTag()
+                                    ).commit();
+                        }
+                    });
+        }
+
+        //check if editText studyCourse is empty or not.
+        if (etStudyCourse.getText().toString().isEmpty()) {
+
+            /*
+            studyCourse = getString(R.string.empty_job);
+            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.empty_job), Toast.LENGTH_SHORT).show();
+            */
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(R.string.alert_empty_job_title);
+            builder.setMessage(R.string.alert_empty_job_message);
+            builder.show();
+
+        }
+        else {
+            studyCourse = etStudyCourse.getText().toString();
+            Toast.makeText(ProfileFragment.this.getActivity(), studyCourse, Toast.LENGTH_SHORT).show();
+        }
 
 
-                    }
-                });
     }
 
     public void startMapAndUploadStatus() {
@@ -342,25 +382,6 @@ public class ProfileFragment extends Fragment {
         android_id = tManager.getDeviceId();
 
         CurrLocUpdate mapFragment = new CurrLocUpdate();
-        //check if editText status is empty or not.
-        if (etStatus.getText().toString().isEmpty()) {
-            status = getString(R.string.status_empty);
-            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.status_empty), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            status = etStatus.getText().toString();
-            Toast.makeText(ProfileFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
-        }
-
-        //check if editText studyCourse is empty or not.
-        if (etStudyCourse.getText().toString().isEmpty()) {
-            studyCourse = getString(R.string.empty_job);
-            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.empty_job), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            studyCourse = etStudyCourse.getText().toString();
-            Toast.makeText(ProfileFragment.this.getActivity(), studyCourse, Toast.LENGTH_SHORT).show();
-        }
 
         //bundle the data from status and study course to "send" them to MapFragment.java
 

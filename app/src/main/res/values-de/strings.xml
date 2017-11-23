@@ -110,8 +110,8 @@
     </string>
 
     <!-- Strings aus dem Profil Fragment -->
-    <string name="status_empty">kein Status ausgewählt</string>
-    <string name="empty_job">kein Beruf ausgewählt</string>
+    <string name="status_empty">Kein Status ausgewählt</string>
+    <string name="empty_job">Kein Beruf ausgewählt</string>
     <string name="set_status">Wähle deinen Status</string>
     <string name="set_job">Wähle deinen Beruf</string>
 
@@ -143,5 +143,11 @@
     <string name="settings_header_image">Einstellungen Titelbild</string>
     <string name="contact_header_image">Kontakt Titelbild</string>
     <string name="app_icon_share_button">App Icon Share Button</string>
+
+
+    <string name="alert_empty_status_title">Leerer Status</string>
+    <string name="alert_empty_status_message">Es ist nicht möglich einen leeren Status zu posten.</string>
+    <string name="alert_empty_job_title">Leerer Beruf</string>
+    <string name="alert_empty_job_message">Du musst einen Beruf wählen.</string>
 
 </resources>

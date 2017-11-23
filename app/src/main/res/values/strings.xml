@@ -144,4 +144,11 @@
     <string name="contact_header_image">contact header image</string>
     <string name="app_icon_share_button">App icon share button</string>
 
+
+    <string name="alert_empty_status_title">Empty Title</string>
+    <string name="alert_empty_status_message">It\'s not possible to post an empty status.</string>
+    <string name="alert_empty_job_title">Empty job</string>
+    <string name="alert_empty_job_message">You have to chose a job.</string>
+
+
 </resources>
