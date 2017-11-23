@@ -145,9 +145,11 @@
     <string name="app_icon_share_button">App Icon Share Button</string>
 
 
-    <string name="alert_empty_status_title">Leerer Status</string>
-    <string name="alert_empty_status_message">Es ist nicht möglich einen leeren Status zu posten.</string>
-    <string name="alert_empty_job_title">Leerer Beruf</string>
-    <string name="alert_empty_job_message">Du musst einen Beruf wählen.</string>
+    <string name="alert_empty_status_title">Bitte wähle einen Status!</string>
+    <string name="alert_empty_status_message">Es ist nicht möglich einen leeren Status zu speichern. Bitte füge einen Status ein um fortzufahren.</string>
+    <string name="alert_empty_job_title">Bitte wähle einen Beruf!</string>
+    <string name="alert_empty_job_message">Es ist nicht möglich einen leeren Beruf zu speichern. Bitte füge einen Beruf ein um fortzufahren.</string>
+    <string name="alert_empty_status_and_job_title">Bitten wähle einen Status und Beruf!</string>
+    <string name="alert_empty_status_and_job_message">Es ist nicht möglich einen leeren Status und Beruf zu speichern. Bitte füge einen Status und Beruf ein um fortzufahren.</string>
 
 </resources>

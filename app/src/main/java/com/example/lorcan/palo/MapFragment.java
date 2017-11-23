@@ -154,6 +154,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     builder.setMessage(R.string.alert_empty_status_message);
                     builder.show();
                 }
+
                 else {
 
                     status = String.valueOf(etStatusInMap.getText());
@@ -221,7 +222,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user = new User();
         return view;
     }
-    
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

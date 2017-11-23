@@ -145,10 +145,12 @@
     <string name="app_icon_share_button">App icon share button</string>
 
 
-    <string name="alert_empty_status_title">Empty Title</string>
-    <string name="alert_empty_status_message">It\'s not possible to post an empty status.</string>
-    <string name="alert_empty_job_title">Empty job</string>
-    <string name="alert_empty_job_message">You have to chose a job.</string>
+    <string name="alert_empty_status_title">Please set a title!</string>
+    <string name="alert_empty_status_message">It\'s not possible to save an empty status. Please set a status to continue.</string>
+    <string name="alert_empty_job_title">Please set a job!</string>
+    <string name="alert_empty_job_message">It\'s not possible to save an empty job. Please set a job to continue.</string>
+    <string name="alert_empty_status_and_job_title">Please set a status and job!</string>
+    <string name="alert_empty_status_and_job_message">It\'s not possible to save an empty status and job. Please set a status and job to continue.</string>
 
 
 </resources>

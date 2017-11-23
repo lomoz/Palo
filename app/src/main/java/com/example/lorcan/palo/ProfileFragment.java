@@ -295,22 +295,32 @@ public class ProfileFragment extends Fragment {
 
     public void btnChangeClicked() {
 
-        //check if editText status is empty or not.
-        if (etStatus.getText().toString().isEmpty()) {
+        if (etStatus.getText().toString().isEmpty() && etStudyCourse.getText().toString().isEmpty()) {
 
-            /*
-            status = getString(R.string.status_empty);
-            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.status_empty), Toast.LENGTH_SHORT).show();
-            */
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+            builder.setTitle(R.string.alert_empty_status_and_job_title);
+            builder.setMessage(R.string.alert_empty_status_and_job_message);
+            builder.show();
+        }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        else if (etStatus.getText().toString().isEmpty()) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
             builder.setTitle(R.string.alert_empty_status_title);
             builder.setMessage(R.string.alert_empty_status_message);
             builder.show();
-
-
         }
+
+        else if (etStudyCourse.getText().toString().isEmpty()) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+            builder.setTitle(R.string.alert_empty_job_title);
+            builder.setMessage(R.string.alert_empty_job_message);
+            builder.show();
+        }
+
         else {
+
             status = etStatus.getText().toString();
             Toast.makeText(ProfileFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
 
@@ -343,27 +353,6 @@ public class ProfileFragment extends Fragment {
                         }
                     });
         }
-
-        //check if editText studyCourse is empty or not.
-        if (etStudyCourse.getText().toString().isEmpty()) {
-
-            /*
-            studyCourse = getString(R.string.empty_job);
-            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.empty_job), Toast.LENGTH_SHORT).show();
-            */
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.alert_empty_job_title);
-            builder.setMessage(R.string.alert_empty_job_message);
-            builder.show();
-
-        }
-        else {
-            studyCourse = etStudyCourse.getText().toString();
-            Toast.makeText(ProfileFragment.this.getActivity(), studyCourse, Toast.LENGTH_SHORT).show();
-        }
-
-
     }
 
     public void startMapAndUploadStatus() {
