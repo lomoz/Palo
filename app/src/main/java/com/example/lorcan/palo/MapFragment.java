@@ -2,6 +2,7 @@ package com.example.lorcan.palo;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.DateFormat;
@@ -250,6 +252,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         .snippet(args.get(i));
                 map.addMarker(markerOptions1);
             }
+            map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                @Override
+                public void onInfoWindowClick(Marker arg0) {
+                    // TODO Auto-generated method stub
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
         //------------------------------- 
 
