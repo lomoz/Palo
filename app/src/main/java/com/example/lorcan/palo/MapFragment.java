@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -143,69 +144,84 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                status = String.valueOf(etStatusInMap.getText());
-                InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-                    inputMethodManager.hideSoftInputFromWindow(btnChangeInMap.getWindowToken(), 0);
+
+                // check if status is empty
+
+                if (etStatusInMap.getText().toString().isEmpty()) {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle(R.string.alert_empty_status_title);
+                    builder.setMessage(R.string.alert_empty_status_message);
+                    builder.show();
                 }
-                TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-                if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-                    return;
+                else {
+
+                    status = String.valueOf(etStatusInMap.getText());
+                    InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+                        inputMethodManager.hideSoftInputFromWindow(btnChangeInMap.getWindowToken(), 0);
+                    }
+
+                    TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                    if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+
+                    String android_id = tManager.getDeviceId();
+                    sendStatusToDB statusToDB = new sendStatusToDB();
+                    DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                    Date date = new Date();
+                    String time = dateFormat.format(date);
+                    double latitude = currLocation.latitude;
+                    double longitude = currLocation.longitude;
+                    statusToDB.sendStatus(status, latitude, longitude, time, android_id);
+
+
+                    /*
+                     * Write user status to internal storage.
+                     */
+
+                    fileManager.writeToFile(getContext(), filename, status);
+
+                    /*
+                     * Read ArrayList from File.
+                     */
+
+                    ArrayList spinnerArray = fileManager.readFromFile(getContext(), filename);
+
+                    for (int i = 0; i < spinnerArray.size(); i++) {
+                        System.out.println("******************** old status ******************" + spinnerArray.get(i));
+                    }
+
+                    CurrLocUpdate upFragment = new CurrLocUpdate();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                            .replace(R.id.relativelayout_for_fragments,
+                                    upFragment,
+                                    upFragment.getTag()
+                            ).commit();
                 }
-                String android_id = tManager.getDeviceId();
-                sendStatusToDB statusToDB = new sendStatusToDB();
-                DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-                Date date = new Date();
-                String time = dateFormat.format(date);
-                double latitude = currLocation.latitude;
-                double longitude = currLocation.longitude;
-                statusToDB.sendStatus(status, latitude, longitude, time, android_id);
-
-
-                /*
-                 * Write user status to internal storage.
-                 */
-
-                fileManager.writeToFile(getContext(), filename, status);
-
-                /*
-                 * Read ArrayList from File.
-                 */
-
-                ArrayList spinnerArray = fileManager.readFromFile(getContext(), filename);
-
-                for (int i = 0; i < spinnerArray.size(); i++) {
-                    System.out.println("******************** old status ******************" + spinnerArray.get(i));
-                }
-
-                CurrLocUpdate upFragment = new CurrLocUpdate();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                        .replace(R.id.relativelayout_for_fragments,
-                                upFragment,
-                                upFragment.getTag()
-                        ).commit();
             }
         });
+
         if (currLocation != null){
             markerOptions = new MarkerOptions()
                     .position(currLocation);
         }
+
         user = new User();
         return view;
     }
-
-
-
-
+    
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
