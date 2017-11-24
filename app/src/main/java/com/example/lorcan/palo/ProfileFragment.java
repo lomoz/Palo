@@ -305,10 +305,12 @@ public class ProfileFragment extends Fragment {
 
         if (etStatus.getText().toString().isEmpty() && etStudyCourse.getText().toString().isEmpty()) {
 
+
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
             builder.setTitle(R.string.alert_empty_status_and_job_title);
             builder.setMessage(R.string.alert_empty_status_and_job_message);
             builder.show();
+            
         }
 
         else if (etStatus.getText().toString().isEmpty()) {

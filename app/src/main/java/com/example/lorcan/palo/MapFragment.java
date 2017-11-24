@@ -1,6 +1,7 @@
 package com.example.lorcan.palo;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -33,15 +33,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +75,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     String currentTime;
     View view;
+
+    String android_id;
 
     public MapFragment() {
         // Required empty public constructor
@@ -132,9 +131,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         bundleCurrLoc = getArguments();
         if (bundleCurrLoc.getDoubleArray("currLoc") != null) {
 
-            double[] latlng = bundleCurrLoc.getDoubleArray("currLoc");
-            LatLng latlng1 = new LatLng(latlng[0], latlng[1]);
-            currLocation = latlng1;
+            double[] latLng = bundleCurrLoc.getDoubleArray("currLoc");
+            if (latLng != null) {
+                currLocation = new LatLng(latLng[0], latLng[1]);
+            }
         }
 
 
@@ -142,6 +142,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("HardwareIds")
             @Override
             public void onClick(View view) {
 
@@ -158,9 +159,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 else {
 
                     status = String.valueOf(etStatusInMap.getText());
-                    InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                    InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+                    if (inputMethodManager != null) {
                         inputMethodManager.hideSoftInputFromWindow(btnChangeInMap.getWindowToken(), 0);
                     }
 
@@ -176,7 +177,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         return;
                     }
 
-                    String android_id = tManager.getDeviceId();
+                    if (tManager != null) {
+                        android_id = tManager.getDeviceId();
+                    }
+
                     sendStatusToDB statusToDB = new sendStatusToDB();
                     DateFormat dateFormat = new SimpleDateFormat("HH:mm");
                     Date date = new Date();
@@ -248,7 +252,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         try {
             locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+            if (locationManager != null) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+            }
         } catch (SecurityException e) {
             e.printStackTrace();
         }
