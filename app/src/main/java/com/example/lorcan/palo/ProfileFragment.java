@@ -1,6 +1,8 @@
 package com.example.lorcan.palo;
 
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Bitmap.createBitmap;
 
 
 /**
@@ -95,6 +98,7 @@ public class ProfileFragment extends Fragment {
     public Double lat;
     public Double lng;
 
+    @SuppressLint("HardwareIds")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,7 +114,11 @@ public class ProfileFragment extends Fragment {
             // for ActivityCompat#requestPermissions for more details.
             return null;
         }
-        android_id = tManager.getDeviceId();
+
+        if (tManager != null) {
+            android_id = tManager.getDeviceId();
+        }
+
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         time = dateFormat.format(date);
@@ -124,7 +132,7 @@ public class ProfileFragment extends Fragment {
             bitmapProfileImage = ImageBase64.decode(encodedImageFromDB);
         }
         else {
-            new BildTask().execute();
+            new BuildTask().execute();
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
             bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
         }
@@ -257,7 +265,7 @@ public class ProfileFragment extends Fragment {
                 try {
                     Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(128, 128).getBitmap();
                     //ivImage.setRotation(90);
-                    ivImage.setImageBitmap(getRotatedBitmap(bitmap, 90));
+                    ivImage.setImageBitmap(getRotatedBitmap(bitmap));
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
                 }
@@ -276,7 +284,8 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public class BildTask extends AsyncTask<Void, Void, Void> {
+    @SuppressLint("StaticFieldLeak")
+    public class BuildTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -294,38 +303,69 @@ public class ProfileFragment extends Fragment {
 
     public void btnChangeClicked() {
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        if (etStatus.getText().toString().isEmpty() && etStudyCourse.getText().toString().isEmpty()) {
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+            builder.setTitle(R.string.alert_empty_status_and_job_title);
+            builder.setMessage(R.string.alert_empty_status_and_job_message);
+            builder.show();
+            
         }
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        sendStatusToDB statusToDB = new sendStatusToDB();
-                        statusToDB.sendStatus(etStatus.getText().toString(), location.getLatitude(), location.getLongitude(), time, android_id);
-                        CurrLocUpdate upFragment = new CurrLocUpdate();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction()
-                                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                                .replace(R.id.relativelayout_for_fragments,
-                                        upFragment,
-                                        upFragment.getTag()
-                                ).commit();
 
+        else if (etStatus.getText().toString().isEmpty()) {
 
-                    }
-                });
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+            builder.setTitle(R.string.alert_empty_status_title);
+            builder.setMessage(R.string.alert_empty_status_message);
+            builder.show();
+        }
+
+        else if (etStudyCourse.getText().toString().isEmpty()) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+            builder.setTitle(R.string.alert_empty_job_title);
+            builder.setMessage(R.string.alert_empty_job_message);
+            builder.show();
+        }
+
+        else {
+
+            status = etStatus.getText().toString();
+            studyCourse = etStudyCourse.getText().toString();
+
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            sendStatusToDB statusToDB = new sendStatusToDB();
+                            statusToDB.sendStatus(etStatus.getText().toString(), location.getLatitude(), location.getLongitude(), time, android_id);
+                            CurrLocUpdate upFragment = new CurrLocUpdate();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                    .replace(R.id.relativelayout_for_fragments,
+                                            upFragment,
+                                            upFragment.getTag()
+                                    ).commit();
+                        }
+                    });
+        }
     }
 
+    @SuppressLint("HardwareIds")
     public void startMapAndUploadStatus() {
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
@@ -339,28 +379,12 @@ public class ProfileFragment extends Fragment {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        android_id = tManager.getDeviceId();
+
+        if (tManager != null) {
+            android_id = tManager.getDeviceId();
+        }
 
         CurrLocUpdate mapFragment = new CurrLocUpdate();
-        //check if editText status is empty or not.
-        if (etStatus.getText().toString().isEmpty()) {
-            status = getString(R.string.status_empty);
-            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.status_empty), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            status = etStatus.getText().toString();
-            Toast.makeText(ProfileFragment.this.getActivity(), status, Toast.LENGTH_SHORT).show();
-        }
-
-        //check if editText studyCourse is empty or not.
-        if (etStudyCourse.getText().toString().isEmpty()) {
-            studyCourse = getString(R.string.empty_job);
-            Toast.makeText(ProfileFragment.this.getActivity(), getString(R.string.empty_job), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            studyCourse = etStudyCourse.getText().toString();
-            Toast.makeText(ProfileFragment.this.getActivity(), studyCourse, Toast.LENGTH_SHORT).show();
-        }
 
         //bundle the data from status and study course to "send" them to MapFragment.java
 
@@ -392,10 +416,9 @@ public class ProfileFragment extends Fragment {
                 ).commit();
     }
 
-    private Bitmap getRotatedBitmap(Bitmap source, float angle) {
+    private Bitmap getRotatedBitmap(Bitmap source) {
         Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        Bitmap bitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-        return bitmap;
+        matrix.postRotate((float) 90);
+        return createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 }
