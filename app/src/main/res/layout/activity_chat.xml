@@ -76,7 +76,7 @@
                     android:layout_marginRight="-15dp"
                     android:layout_marginTop="6.5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/arrow_bg1" />
+                    android:src="@drawable/arrow_bg2" />
 
                 <TextView
                     android:id="@+id/textView1"
@@ -117,7 +117,7 @@
                     android:layout_marginLeft="-15dp"
                     android:layout_marginTop="6.5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/arrow_bg2" />
+                    android:src="@drawable/arrow_bg1" />
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -150,7 +150,7 @@
                     android:layout_marginRight="-15dp"
                     android:layout_marginTop="6.5dp"
                     android:layout_weight="1"
-                    android:src="@drawable/arrow_bg1" />
+                    android:src="@drawable/arrow_bg2" />
 
                 <TextView
                     android:id="@+id/textView5"

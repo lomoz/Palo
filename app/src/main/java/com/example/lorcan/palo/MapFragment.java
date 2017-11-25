@@ -268,8 +268,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
-                    // TODO Auto-generated method stub
+                    String title = arg0.getTitle();
+                    String[] titleArray = title.split("|");
+                    String name = titleArray[0];
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", name);
+                    intent.putExtra("name", name);
                     startActivity(intent);
                 }
             });
