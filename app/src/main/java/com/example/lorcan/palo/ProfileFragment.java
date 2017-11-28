@@ -103,6 +103,22 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Create and return a new View element here.
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        cameraPhoto = new CameraPhoto(this.getActivity());
+        galleryPhoto = new GalleryPhoto(this.getActivity());
+
+        ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
+        ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
+        ivImage = (ImageView) view.findViewById(R.id.ivImage);
+        fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
+
+        // Use the created view to get the elements from the xml file.
+        etStatus = (EditText) view.findViewById(R.id.etStatus);
+        etStudyCourse = (EditText) view.findViewById(R.id.etStudyCourse);
+        btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
+
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -132,7 +148,7 @@ public class ProfileFragment extends Fragment {
             bitmapProfileImage = ImageBase64.decode(encodedImageFromDB);
         }
         else {
-            new BuildTask().execute();
+            new ImageTask().execute();
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
             bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
         }
@@ -145,17 +161,6 @@ public class ProfileFragment extends Fragment {
         FileManager fileManager = new FileManager();
         spinnerArray = fileManager.readFromFile(getContext(), filename);
 
-
-        // Create and return a new View element here.
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        cameraPhoto = new CameraPhoto(this.getActivity());
-        galleryPhoto = new GalleryPhoto(this.getActivity());
-
-        ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
-        ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
-        ivImage = (ImageView) view.findViewById(R.id.ivImage);
-        fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
 
         if (bitmapProfileImage != null) {
 
@@ -210,13 +215,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
-        // Use the created view to get the elements from the xml file.
-        etStatus = (EditText) view.findViewById(R.id.etStatus);
-        etStudyCourse = (EditText) view.findViewById(R.id.etStudyCourse);
-        btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
-
-
 
         /*
          * Create an onClickListener for the button.
@@ -285,7 +283,7 @@ public class ProfileFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class BuildTask extends AsyncTask<Void, Void, Void> {
+    public class ImageTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
