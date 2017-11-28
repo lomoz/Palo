@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -83,6 +85,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
+    public void setImageViewVisibility(Boolean bool){
+        ImageView imageView = (ImageView) view.findViewById(R.id.message);
+        if(bool == true) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground((getResources().getDrawable(R.drawable.message)));
+            }
+        }else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground((getResources().getDrawable(R.drawable.googleg_disabled_color_18)));
+            }
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,6 +108,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
+
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.isMessage(this);
 
         MainActivity main = new MainActivity();
         main.getData();
@@ -302,10 +319,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
                     String title = arg0.getTitle();
+
                     String[] titleArray = title.split("|");
-                    String name = titleArray[0];
+                    String name = "";
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Bundle bundle = new Bundle();
+
+                    for(int i=0; i<titleArray.length; i++){
+                        System.out.println("Zeichen: " + titleArray[i]);
+                        if(titleArray[i].equals("|")) {
+                            break;
+                        }else{
+                            name = name + titleArray[i];
+                        }
+                    }
+                    //da das letzte Leerzeichen im Namen überflüssig ist, muss dieses noch entfernt werden.
                     bundle.putString("name", name);
                     intent.putExtra("name", name);
                     startActivity(intent);

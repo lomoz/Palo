@@ -69,7 +69,6 @@ public class getStatusFromDB {
                 return hashMap;
             }
         };
-
         requestQueue.add(request);
         return responseStatus;
     }
