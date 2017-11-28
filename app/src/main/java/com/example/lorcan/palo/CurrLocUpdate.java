@@ -7,6 +7,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -87,7 +88,7 @@ public class CurrLocUpdate extends Fragment  {
                                         ).commit();
                             }
                             else{
-                                //öffne Einstellungen um GPS zu aktivieren
+                                //open settings to activate GPS
                                 displayLocationSettingsRequest(MyApplicationContext.getAppContext());
                             }
 
@@ -113,7 +114,7 @@ public class CurrLocUpdate extends Fragment  {
         PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
         result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
-            public void onResult(LocationSettingsResult result) {
+            public void onResult(@NonNull LocationSettingsResult result) {
                 final Status status = result.getStatus();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:

@@ -310,7 +310,7 @@ public class ProfileFragment extends Fragment {
             builder.setTitle(R.string.alert_empty_status_and_job_title);
             builder.setMessage(R.string.alert_empty_status_and_job_message);
             builder.show();
-            
+
         }
 
         else if (etStatus.getText().toString().isEmpty()) {

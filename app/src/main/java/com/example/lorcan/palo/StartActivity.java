@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,6 +35,7 @@ public class StartActivity extends AppCompatActivity {
     private String android_id;
     public String responseStatus;
 
+    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,9 @@ public class StartActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        android_id = telephonyManager.getDeviceId();
+        if (telephonyManager != null) {
+            android_id = telephonyManager.getDeviceId();
+        }
         checkID(android_id);
     }
 
