@@ -10,12 +10,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.json.JSONArray;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,10 +22,11 @@ import java.util.Map;
 public class getStatusFromDB {
 
     private RequestQueue requestQueue;
-    private static final String strUrl = "http://palo.square7.ch/getStatus.php";
+    private static final String strUrl = "http://palo.square7.ch/getOneStatus.php";
     private StringRequest request;
     private String android_id;
     public String responseStatus;
+    public ProfileFragment profileFragment;
 
 
     //evtl anderer Kontrukstor ohne Parameter um bspw. alle Statusse zu bekommen (hier nur spezieller Status über LAT LNG erreichbar)
@@ -41,36 +38,53 @@ public class getStatusFromDB {
 
 
 
-    public String getStatus(final String android_id) {
+    public String getStatus(final String android_id, ProfileFragment profileFragment) {
         this.android_id = android_id;
-        this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-        this.request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-               // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
-                responseStatus = response;
-            }
+        this.profileFragment = profileFragment;
+        AsyncTask<Void, Void, Void> gt = new getStatusTask().execute();
+        return null;
+    }
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }) {
+    public class getStatusTask extends AsyncTask<Void, Void, Void>{
 
-            // set of parameters in a hashmap, which will be send to the php file (server side)
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> hashMap = new HashMap<String, String>();
+        @Override
+        protected Void doInBackground(Void... voids) {
 
-                hashMap.put("android_id", android_id);
+            requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
+                    responseStatus = response;
+                    System.out.println(response);
+                    handleResponse(response);
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            }) {
+
+                // set of parameters in a hashmap, which will be send to the php file (server side)
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> hashMap = new HashMap<String, String>();
+
+                    hashMap.put("android_id", android_id);
 
 
-                return hashMap;
-            }
-        };
-        requestQueue.add(request);
-        return responseStatus;
+                    return hashMap;
+                }
+            };
+            requestQueue.add(request);
+            return null;
+        }
+    }
+
+    public void handleResponse(String response){
+        profileFragment.setStatusToEditText(response);
     }
 
 }

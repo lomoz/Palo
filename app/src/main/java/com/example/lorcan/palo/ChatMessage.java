@@ -180,8 +180,6 @@ public class ChatMessage {
             };
 
             requestQueue1.add(request1);
-
-
             return null;
         }
 

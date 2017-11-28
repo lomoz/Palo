@@ -93,7 +93,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground((getResources().getDrawable(R.drawable.googleg_disabled_color_18)));
+                imageView.setBackground(null);
             }
         }
     }

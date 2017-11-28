@@ -124,7 +124,7 @@ public class ProfileFragment extends Fragment {
         time = dateFormat.format(date);
 
         getStatusFromDB get = new getStatusFromDB();
-        status = get.getStatus(android_id);
+        get.getStatus(android_id, this);
 
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         encodedImageFromDB = getEncodedImageFromDB.getResponseEncodedImage(android_id);
@@ -216,7 +216,7 @@ public class ProfileFragment extends Fragment {
         etStudyCourse = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
-        etStatus.setText(status);
+
 
         /*
          * Create an onClickListener for the button.
@@ -301,6 +301,9 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    public void setStatusToEditText(String status){
+        etStatus.setText(status);
+    }
     public void btnChangeClicked() {
 
         if (etStatus.getText().toString().isEmpty() && etStudyCourse.getText().toString().isEmpty()) {
