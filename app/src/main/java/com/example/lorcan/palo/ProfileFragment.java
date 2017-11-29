@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,15 +129,8 @@ public class ProfileFragment extends Fragment {
         get.getStatus(android_id, this);
 
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
-        encodedImageFromDB = getEncodedImageFromDB.getResponseEncodedImage(android_id);
-        if (encodedImageFromDB != null) {
-            bitmapProfileImage = ImageBase64.decode(encodedImageFromDB);
-        }
-        else {
-            new BuildTask().execute();
-            Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
-            bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
-        }
+        getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
+
 
         /*
          * Read ArrayList from File.
@@ -157,6 +152,7 @@ public class ProfileFragment extends Fragment {
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
         fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
 
+
         if (bitmapProfileImage != null) {
 
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
@@ -164,7 +160,6 @@ public class ProfileFragment extends Fragment {
         else {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
         }
-
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,25 +279,22 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public class BuildTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
-            encodedImageFromDB = getEncodedImageFromDB.getResponseEncodedImage(android_id);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-    }
 
     public void setStatusToEditText(String status){
         etStatus.setText(status);
+    }
+
+    public void setEncodedImageAsImageView(String image){
+
+        System.out.println(image);
+        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        //bitmapProfileImage = ImageBase64.decode(image);
+        //Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
+        //bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
+        ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 256, 256, false));
+
+
     }
     public void btnChangeClicked() {
 
