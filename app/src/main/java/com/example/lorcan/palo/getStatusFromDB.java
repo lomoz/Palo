@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.android.volley.AuthFailureError;
@@ -34,9 +35,6 @@ public class getStatusFromDB {
 
 
     }
-
-
-
 
     public String getStatus(final String android_id, ProfileFragment profileFragment) {
         this.android_id = android_id;

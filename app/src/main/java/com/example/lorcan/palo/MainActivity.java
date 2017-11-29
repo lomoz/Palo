@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.Fragments.TestFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -268,6 +269,17 @@ public class MainActivity extends AppCompatActivity
                     ).commit();
         }
 
+        else if (id == R.id.nav_test) {
+
+            TestFragment testFragment = new TestFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            testFragment,
+                            testFragment.getTag()
+                    ).commit();
+        }
 
         /*else if (id == R.id.nav_bestenliste) {
 
