@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class TestAsyncTask extends AsyncTask<Void, Void, String> {
@@ -19,14 +20,18 @@ public class TestAsyncTask extends AsyncTask<Void, Void, String> {
     @SuppressLint("StaticFieldLeak")
     private TextView textView;
     @SuppressLint("StaticFieldLeak")
+    private EditText editText;
+    @SuppressLint("StaticFieldLeak")
     private Button button;
 
     private String android_id;
     private ProgressDialog progressDialog;
+    private String status;
 
-    public TestAsyncTask(Context context, TextView textView, Button button, String android_id) {
+    public TestAsyncTask(Context context, TextView textView, EditText editText, Button button, String android_id) {
         this.context = context;
         this.textView = textView;
+        this.editText = editText;
         this.button = button;
         this.android_id = android_id;
     }
@@ -61,6 +66,8 @@ public class TestAsyncTask extends AsyncTask<Void, Void, String> {
                     android_id = telephonyManager.getDeviceId();
                 }
 
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -72,6 +79,7 @@ public class TestAsyncTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         textView.setText(result);
+        editText.setText(result);
         button.setEnabled(true);
         progressDialog.dismiss();
     }

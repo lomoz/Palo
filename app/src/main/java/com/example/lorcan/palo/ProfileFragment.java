@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.AsyncTasks.ProfileAsyncTask;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -135,6 +136,12 @@ public class ProfileFragment extends Fragment {
             android_id = tManager.getDeviceId();
         }
 
+        // Start AsyncTask to load profile from database.
+
+        ProfileAsyncTask profileAsyncTask = new ProfileAsyncTask(ProfileFragment.this.getContext(), ivImage, etStatus, etStudyCourse, android_id);
+        profileAsyncTask.execute();
+
+
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         time = dateFormat.format(date);
@@ -144,6 +151,8 @@ public class ProfileFragment extends Fragment {
 
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         encodedImageFromDB = getEncodedImageFromDB.getResponseEncodedImage(android_id);
+
+        // Set Bitmap to ImageView.
         if (encodedImageFromDB != null) {
             bitmapProfileImage = ImageBase64.decode(encodedImageFromDB);
         }
@@ -153,15 +162,6 @@ public class ProfileFragment extends Fragment {
             bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
         }
 
-        /*
-         * Read ArrayList from File.
-         */
-
-        String filename = "user_status";
-        FileManager fileManager = new FileManager();
-        spinnerArray = fileManager.readFromFile(getContext(), filename);
-
-
         if (bitmapProfileImage != null) {
 
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
@@ -169,6 +169,15 @@ public class ProfileFragment extends Fragment {
         else {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
         }
+
+
+        /*
+         * Read ArrayList from File.
+         */
+
+        String filename = "user_status";
+        FileManager fileManager = new FileManager();
+        spinnerArray = fileManager.readFromFile(getContext(), filename);
 
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
@@ -302,6 +311,7 @@ public class ProfileFragment extends Fragment {
     public void setStatusToEditText(String status){
         etStatus.setText(status);
     }
+
     public void btnChangeClicked() {
 
         if (etStatus.getText().toString().isEmpty() && etStudyCourse.getText().toString().isEmpty()) {

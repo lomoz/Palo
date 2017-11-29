@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.lorcan.palo.AsyncTasks.TestAsyncTask;
@@ -25,6 +26,7 @@ public class TestFragment extends Fragment {
 
     Button button;
     TextView textView;
+    EditText editText;
     String android_id;
 
     public TestFragment() {
@@ -40,6 +42,7 @@ public class TestFragment extends Fragment {
 
         button = (Button) view.findViewById(R.id.buttonUser);
         textView = (TextView) view.findViewById(R.id.textViewUser);
+        editText = (EditText) view.findViewById(R.id.editTextUserStatus);
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -60,7 +63,7 @@ public class TestFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TestAsyncTask testAsyncTask = new TestAsyncTask(TestFragment.this.getContext(), textView, button, android_id);
+                TestAsyncTask testAsyncTask = new TestAsyncTask(TestFragment.this.getContext(), textView, editText, button, android_id);
                 testAsyncTask.execute();
                 button.setEnabled(false);
             }

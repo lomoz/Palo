@@ -20,4 +20,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Button" />
+
+    <EditText
+        android:id="@+id/editTextUserStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textViewUser"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:ems="10"
+        android:hint="set status here"
+        android:inputType="textPersonName" />
 </RelativeLayout>
