@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.AsyncTasks.MapAsyncTask;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -97,12 +98,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
         }
     }
+
+    @SuppressLint("HardwareIds")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_map, container, false);
+
+        final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
+
+        TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return null;
+        }
+
+        if (tManager != null) {
+            android_id = tManager.getDeviceId();
+        }
+
+        MapAsyncTask mapAsyncTask = new MapAsyncTask(MapFragment.this.getContext(), etStatusInMap, android_id);
+        mapAsyncTask.execute();
+
         // set individual Controls and Gestures for the Google Map
         GoogleMapOptions options = new GoogleMapOptions();
         //options.compassEnabled(true);
@@ -155,7 +180,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
 
 
-        final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
+
 
         btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
