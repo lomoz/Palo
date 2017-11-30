@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -145,15 +146,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 System.out.println(args);
                 if (currLocation != null) {
                     currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
-                } else {
-                    CurrLocUpdate upFragment = new CurrLocUpdate();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                            .replace(R.id.relativelayout_for_fragments,
-                                    upFragment,
-                                    upFragment.getTag()
-                            ).commit();
+                 }
+                 else{
+                    updateMap();
                 }
             }
         }
@@ -180,6 +175,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 currLocation = new LatLng(latLng[0], latLng[1]);
             }
         }
+
+
 
 
         btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
@@ -406,6 +403,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivityRaw", "Can't find style.", e);
         }
+
     }
 
     public void updateMap() {
@@ -417,6 +415,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         upFragment,
                         upFragment.getTag()
                 ).commit();
+
+
+
     }
 
     @Override
@@ -430,6 +431,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.zoomControlsEnabled(false);
         options.compassEnabled(true);
         options.mapToolbarEnabled(false);
+
+
     }
 
     @Override
@@ -446,4 +449,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onProviderEnabled(String provider) {
 
     }
+
+
 }
