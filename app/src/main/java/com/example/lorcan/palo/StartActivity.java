@@ -58,43 +58,55 @@ public class StartActivity extends AppCompatActivity {
         checkID(android_id);
     }
 
-    public String checkID(final String android_id) {
+    public void checkID(final String android_id) {
         this.android_id = android_id;
-        this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-        this.request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
-                responseStatus = response;
-                String res = response.toString().trim();
+        new isIDTask().execute();
+    }
+        public class isIDTask extends AsyncTask<Void, Void, Void>{
 
-                if(res.equals("1")){
-                    startMain();
-                }else{
-                    start();
-                }
+
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+                request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
+                        responseStatus = response;
+                        String res = response.toString().trim();
+
+                        if(res.equals("1")){
+                            startMain();
+                        }else{
+                            start();
+                        }
+                    }
+
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        restart();
+                    }
+                }) {
+
+                    // set of parameters in a hashmap, which will be send to the php file (server side)
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        HashMap<String, String> hashMap = new HashMap<String, String>();
+
+                        hashMap.put("android_id", android_id);
+                        System.out.println(hashMap);
+                        return hashMap;
+                    }
+                };
+
+                requestQueue.add(request);
+                return null;
             }
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                restart();
-            }
-        }) {
 
-            // set of parameters in a hashmap, which will be send to the php file (server side)
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> hashMap = new HashMap<String, String>();
-
-                hashMap.put("android_id", android_id);
-                System.out.println(hashMap);
-                return hashMap;
-            }
-        };
-
-        requestQueue.add(request);
-        return responseStatus;
     }
 
         public void start(){

@@ -148,7 +148,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             if (bundle.getStringArrayList("args") != null) {
                 args = bundle.getStringArrayList("args");
                 System.out.println(args);
-                currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
+                if(currLocation != null) {
+                    currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
+                }else{
+                    CurrLocUpdate upFragment = new CurrLocUpdate();
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                            .replace(R.id.relativelayout_for_fragments,
+                                    upFragment,
+                                    upFragment.getTag()
+                            ).commit();
+                }
             }
         }
 
@@ -267,6 +278,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
     public void setStatusToEditText(String response){
+        System.out.println("Response in MapFragment: " + response);
         etStatusInMap.setText(response);
     }
 
