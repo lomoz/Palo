@@ -65,7 +65,7 @@ public class CurrLocUpdate extends Fragment  {
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
 
-                        UpdateMapFragment update = new UpdateMapFragment();
+                        UpdateMapFragment update = UpdateMapFragment.newInstance("1", "2");
                         Bundle bundle = new Bundle();
 
                             // Logic to handle location object

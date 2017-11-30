@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -73,6 +74,7 @@ public class UpdateMapFragment extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("HardwareIds")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +93,9 @@ public class UpdateMapFragment extends Fragment {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        android_id = telephonyManager.getDeviceId();
+        if (telephonyManager != null) {
+            android_id = telephonyManager.getDeviceId();
+        }
     }
 
     @Override
@@ -101,10 +105,6 @@ public class UpdateMapFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_update_map, container, false);
     }
-
-
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -145,8 +145,8 @@ public class UpdateMapFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class UpdateTask extends AsyncTask<String, String, String> {
-
 
         private String responseStatus;
         private static final String strUrl = "http://palo.square7.ch/getStatus.php";
@@ -157,7 +157,7 @@ public class UpdateMapFragment extends Fragment {
         ArrayList<String> args = new ArrayList<>();
         @Override
         protected String doInBackground(String... params) {
-            URL url = null;
+            URL url;
             try {
                 url = new URL(strUrl);
 

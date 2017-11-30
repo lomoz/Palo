@@ -142,11 +142,7 @@ public class ProfileFragment extends Fragment {
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
 
-
-        /*
-         * Read ArrayList from File.
-         */
-
+        // Read ArrayList from File.
         String filename = "user_status";
         FileManager fileManager = new FileManager();
         spinnerArray = fileManager.readFromFile(getContext(), filename);
@@ -158,7 +154,6 @@ public class ProfileFragment extends Fragment {
         else {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
         }
-
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,12 +287,10 @@ public class ProfileFragment extends Fragment {
 
         if (etStatus.getText().toString().isEmpty() && etJob.getText().toString().isEmpty()) {
 
-
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
             builder.setTitle(R.string.alert_empty_status_and_job_title);
             builder.setMessage(R.string.alert_empty_status_and_job_message);
             builder.show();
-
         }
 
         else if (etStatus.getText().toString().isEmpty()) {
@@ -371,8 +364,6 @@ public class ProfileFragment extends Fragment {
             android_id = tManager.getDeviceId();
         }
 
-        CurrLocUpdate mapFragment = new CurrLocUpdate();
-
         //bundle the data from status and study course to "send" them to MapFragment.java
 
 
@@ -384,16 +375,12 @@ public class ProfileFragment extends Fragment {
         time = dateFormat.format(date);
         statusToDB.sendStatus(status, lat, lng, time, android_id);
 
-
-        /*
-         * Write user status to internal storage.
-         */
-
+        // Write user status to internal storage.
         String filename = "user_status";
         FileManager fileManager = new FileManager();
         fileManager.writeToFile(getContext(), filename, status);
 
-
+        CurrLocUpdate mapFragment = new CurrLocUpdate();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)

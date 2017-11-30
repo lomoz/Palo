@@ -137,7 +137,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         bundle = getArguments();
 
         if (bundle != null) {
-            System.out.println("DAS BUNDLE: " + bundle);
+            System.out.println("THE BUNDLE: " + bundle);
             status = bundle.getString("status");
             studyCourse = bundle.getString("study course");
             if (bundle.getStringArrayList("args") != null) {
