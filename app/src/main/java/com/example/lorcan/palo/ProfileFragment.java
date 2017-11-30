@@ -54,8 +54,6 @@ import static android.graphics.Bitmap.createBitmap;
  */
 public class ProfileFragment extends Fragment {
 
-    private FusedLocationProviderClient mFusedLocationClient;
-
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -70,7 +68,7 @@ public class ProfileFragment extends Fragment {
      * Declare elements here to handle them in the onCreateView method.
      */
 
-    EditText etStatus, etStudyCourse;
+    EditText etStatus, etJob;
     Button btnChange;
     Spinner spinner;
 
@@ -88,9 +86,8 @@ public class ProfileFragment extends Fragment {
     ArrayList<String> spinnerArray = new ArrayList<>();
 
     String status = "";
-    String studyCourse = "";
+    String job = "";
 
-    String encodedImageFromDB;
     Bitmap bitmapProfileImage;
 
     private String android_id;
@@ -116,7 +113,7 @@ public class ProfileFragment extends Fragment {
 
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
-        etStudyCourse = (EditText) view.findViewById(R.id.etStudyCourse);
+        etJob = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
@@ -293,7 +290,7 @@ public class ProfileFragment extends Fragment {
     }
     public void btnChangeClicked() {
 
-        if (etStatus.getText().toString().isEmpty() && etStudyCourse.getText().toString().isEmpty()) {
+        if (etStatus.getText().toString().isEmpty() && etJob.getText().toString().isEmpty()) {
 
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
@@ -311,7 +308,7 @@ public class ProfileFragment extends Fragment {
             builder.show();
         }
 
-        else if (etStudyCourse.getText().toString().isEmpty()) {
+        else if (etJob.getText().toString().isEmpty()) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
             builder.setTitle(R.string.alert_empty_job_title);
@@ -322,9 +319,9 @@ public class ProfileFragment extends Fragment {
         else {
 
             status = etStatus.getText().toString();
-            studyCourse = etStudyCourse.getText().toString();
+            job = etJob.getText().toString();
 
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+            FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions

@@ -242,7 +242,7 @@ public class UpdateMapFragment extends Fragment {
                             mapFragment,
                             mapFragment.getTag()
                     ).commit();
-            System.out.println("FERTIG");
+            System.out.println("DONE");
             upStarted = true;
         }
 

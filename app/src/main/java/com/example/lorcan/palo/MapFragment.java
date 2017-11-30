@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -54,8 +53,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     GoogleMap map;
     public LatLng currLocation;
-    private LocationManager locationManager;
-    Button positionButton;
     User user;
     ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
@@ -64,7 +61,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     String status;
     String studyCourse;
     Bundle bundle;
-    Bundle bundleLocation;
     Bundle bundleColor;
     Bundle bundleCurrLoc;
     Float markerColorFloat;
@@ -75,7 +71,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     FloatingActionButton btnChangeInMap;
     EditText etStatusInMap;
-    String currentTime;
     View view;
 
     String android_id;
@@ -85,13 +80,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public void setImageViewVisibility(Boolean bool){
+    public void setImageViewVisibility(Boolean isImageVisible) {
         ImageView imageView = (ImageView) view.findViewById(R.id.message);
-        if(bool == true) {
+        if (isImageVisible) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground((getResources().getDrawable(R.drawable.message)));
             }
-        }else{
+        }
+        else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground(null);
             }
@@ -148,9 +144,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             if (bundle.getStringArrayList("args") != null) {
                 args = bundle.getStringArrayList("args");
                 System.out.println(args);
-                if(currLocation != null) {
+                if (currLocation != null) {
                     currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
-                }else{
+                } else {
                     CurrLocUpdate upFragment = new CurrLocUpdate();
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
@@ -187,8 +183,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
 
 
-
-
         btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("HardwareIds")
@@ -203,9 +197,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     builder.setTitle(R.string.alert_empty_status_title);
                     builder.setMessage(R.string.alert_empty_status_message);
                     builder.show();
-                }
-
-                else {
+                } else {
 
                     status = String.valueOf(etStatusInMap.getText());
                     InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -237,18 +229,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     double latitude = currLocation.latitude;
                     double longitude = currLocation.longitude;
                     statusToDB.sendStatus(status, latitude, longitude, time, android_id);
-
-
-                    /*
-                     * Write user status to internal storage.
-                     */
-
+                    
+                    // Write user status to internal storage.
                     fileManager.writeToFile(getContext(), filename, status);
 
-                    /*
-                     * Read ArrayList from File.
-                     */
-
+                    // Read ArrayList from File.
                     ArrayList spinnerArray = fileManager.readFromFile(getContext(), filename);
 
                     for (int i = 0; i < spinnerArray.size(); i++) {
@@ -267,7 +252,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
         });
 
-        if (currLocation != null){
+        if (currLocation != null) {
             markerOptions = new MarkerOptions()
                     .position(currLocation);
         }
@@ -277,7 +262,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public void setStatusToEditText(String response){
+    public void setStatusToEditText(String response) {
         System.out.println("Response in MapFragment: " + response);
         etStatusInMap.setText(response);
     }
@@ -306,7 +291,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.mapToolbarEnabled(false);
 
         try {
-            locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             if (locationManager != null) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
             }
@@ -315,8 +300,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
 
         System.out.println("CURRENT LOCATION: " + currLocation);
+
         map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 13));
+
+        if (currLocation != null) {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 13));
+
+            if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            map.setMyLocationEnabled(true);
+        }
+        else{
+            CurrLocUpdate upFragment = new CurrLocUpdate();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                    .replace(R.id.relativelayout_for_fragments,
+                            upFragment,
+                            upFragment.getTag()
+                    ).commit();
+        }
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -328,7 +339,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        map.setMyLocationEnabled(true);
 
         if (((args == null || args.size() == 0) && bundle == null) && bundleCurrLoc == null ){
             System.out.println("Bundle args ist null");
@@ -340,8 +350,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             int height = 125;
             int width = 100;
-            BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.mipmap.element1hdpi);
-            Bitmap b=bitmapdraw.getBitmap();
+            BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.mipmap.element1hdpi);
+            Bitmap b = bitmapDraw.getBitmap();
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
             for (int i = 2; i < args.size(); i = i + 5) {
@@ -359,21 +369,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     String title = arg0.getTitle();
 
                     String[] titleArray = title.split("|");
-                    String name = "";
+                    StringBuilder name = new StringBuilder();
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Bundle bundle = new Bundle();
 
                     for(int i=0; i<titleArray.length; i++){
-                        System.out.println("Zeichen: " + titleArray[i]);
+                        System.out.println("Char: " + titleArray[i]);
                         if(titleArray[i].equals("|")) {
                             break;
                         }else{
-                            name = name + titleArray[i];
+                            name.append(titleArray[i]);
                         }
                     }
-                    //da das letzte Leerzeichen im Namen überflüssig ist, muss dieses noch entfernt werden.
-                    bundle.putString("name", name);
-                    intent.putExtra("name", name);
+                    // the last whitespace in name is unnecessary, so it has to be removed.
+                    bundle.putString("name", name.toString());
+                    intent.putExtra("name", name.toString());
                     startActivity(intent);
                 }
             });
@@ -382,11 +392,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
         Toast.makeText(getContext(), getString(R.string.current_location) + " " + currLocation, Toast.LENGTH_LONG).show();
-
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(this.currLocation, 13));
-
-
-
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -402,7 +407,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } catch (Resources.NotFoundException e) {
             Log.e("MapsActivityRaw", "Can't find style.", e);
         }
-
     }
 
     public void updateMap() {
@@ -414,9 +418,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         upFragment,
                         upFragment.getTag()
                 ).commit();
-
-
-
     }
 
     @Override
@@ -430,8 +431,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.zoomControlsEnabled(false);
         options.compassEnabled(true);
         options.mapToolbarEnabled(false);
-
-
     }
 
     @Override
@@ -448,6 +447,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void onProviderEnabled(String provider) {
 
     }
-
-
 }
