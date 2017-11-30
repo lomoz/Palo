@@ -30,7 +30,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.lorcan.palo.AsyncTasks.MapAsyncTask;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -124,9 +123,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         if (tManager != null) {
             android_id = tManager.getDeviceId();
         }
-
-        MapAsyncTask mapAsyncTask = new MapAsyncTask(MapFragment.this.getContext(), etStatusInMap, android_id);
-        mapAsyncTask.execute();
 
         // set individual Controls and Gestures for the Google Map
         GoogleMapOptions options = new GoogleMapOptions();

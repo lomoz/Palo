@@ -9,10 +9,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -31,7 +29,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -148,7 +145,6 @@ public class ProfileFragment extends Fragment {
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
 
-
         /*
          * Read ArrayList from File.
          */
@@ -156,19 +152,6 @@ public class ProfileFragment extends Fragment {
         String filename = "user_status";
         FileManager fileManager = new FileManager();
         spinnerArray = fileManager.readFromFile(getContext(), filename);
-
-
-        // Create and return a new View element here.
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        cameraPhoto = new CameraPhoto(this.getActivity());
-        galleryPhoto = new GalleryPhoto(this.getActivity());
-
-        ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
-        ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
-        ivImage = (ImageView) view.findViewById(R.id.ivImage);
-        fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
-
 
         if (bitmapProfileImage != null) {
 
@@ -177,15 +160,6 @@ public class ProfileFragment extends Fragment {
         else {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
         }
-
-
-        /*
-         * Read ArrayList from File.
-         */
-
-        String filename = "user_status";
-        FileManager fileManager = new FileManager();
-        spinnerArray = fileManager.readFromFile(getContext(), filename);
 
 
         ivCamera.setOnClickListener(new View.OnClickListener() {
@@ -232,14 +206,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
-        // Use the created view to get the elements from the xml file.
-        etStatus = (EditText) view.findViewById(R.id.etStatus);
-        etStudyCourse = (EditText) view.findViewById(R.id.etStudyCourse);
-        btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
-
-
-
+        
         /*
          * Create an onClickListener for the button.
          *
