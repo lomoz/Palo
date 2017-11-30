@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/ic_menu_camera" />
+        app:srcCompat="@drawable/ic_menu_camera"
+        android:contentDescription="@string/camera_icon"
+        android:layout_marginStart="10dp" />
 
     <ImageView
         android:id="@+id/ivGallery"
@@ -25,15 +27,19 @@
         android:layout_marginTop="100dp"
         android:layout_toEndOf="@+id/ivCamera"
         android:layout_toRightOf="@+id/ivCamera"
-        app:srcCompat="@drawable/ic_menu_gallery" />
+        app:srcCompat="@drawable/ic_menu_gallery"
+        android:contentDescription="@string/gallery_icon"
+        android:layout_marginStart="10dp" />
 
     <ImageView
         android:id="@+id/ivImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/img"
         app:srcCompat="@drawable/ic_launcher"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/imageView_profile_picture" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabUpload"
@@ -45,7 +51,10 @@
         android:layout_marginRight="10dp"
         android:clickable="true"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_upload" />
+        app:srcCompat="@android:drawable/ic_menu_upload"
+        android:focusable="true"
+        android:layout_marginEnd="10dp"
+        tools:ignore="RelativeOverlap" />
 
     <EditText
         android:id="@+id/etStatus"
