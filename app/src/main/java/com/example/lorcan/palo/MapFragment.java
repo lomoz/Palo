@@ -75,7 +75,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     FileManager fileManager = new FileManager();
 
     FloatingActionButton btnChangeInMap;
-
+    EditText etStatusInMap;
     String currentTime;
     View view;
 
@@ -107,7 +107,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_map, container, false);
 
-        final EditText etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
+        etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -267,6 +267,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         user = new User();
         return view;
+    }
+
+
+    public void setStatusToEditText(String response){
+        etStatusInMap.setText(response);
     }
 
     @Override

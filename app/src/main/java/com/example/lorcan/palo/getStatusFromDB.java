@@ -28,6 +28,7 @@ public class getStatusFromDB {
     private String android_id;
     public String responseStatus;
     public ProfileFragment profileFragment;
+    public MapFragment mapFragment;
 
 
     //evtl anderer Kontrukstor ohne Parameter um bspw. alle Statusse zu bekommen (hier nur spezieller Status über LAT LNG erreichbar)
@@ -39,6 +40,13 @@ public class getStatusFromDB {
     public String getStatus(final String android_id, ProfileFragment profileFragment) {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
+        AsyncTask<Void, Void, Void> gt = new getStatusTask().execute();
+        return null;
+    }
+
+    public String getStatus(final String android_id, MapFragment mapFragment) {
+        this.android_id = android_id;
+        this.mapFragment = mapFragment;
         AsyncTask<Void, Void, Void> gt = new getStatusTask().execute();
         return null;
     }
@@ -55,7 +63,12 @@ public class getStatusFromDB {
                     // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
                     responseStatus = response;
                     System.out.println(response);
-                    handleResponse(response);
+                    if(profileFragment != null) {
+                        handleResponse(response);
+                    }
+                    if(mapFragment != null && profileFragment == null){
+                        handleResponseMap(response);
+                    }
                 }
 
             }, new Response.ErrorListener() {
@@ -83,6 +96,10 @@ public class getStatusFromDB {
 
     public void handleResponse(String response){
         profileFragment.setStatusToEditText(response);
+    }
+
+    public void handleResponseMap(String response){
+        mapFragment.setStatusToEditText(response);
     }
 
 }

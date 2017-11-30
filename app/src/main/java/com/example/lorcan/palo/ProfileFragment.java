@@ -159,7 +159,7 @@ public class ProfileFragment extends Fragment {
 
 
         // Create and return a new View element here.
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        //View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         cameraPhoto = new CameraPhoto(this.getActivity());
         galleryPhoto = new GalleryPhoto(this.getActivity());
@@ -183,8 +183,8 @@ public class ProfileFragment extends Fragment {
          * Read ArrayList from File.
          */
 
-        String filename = "user_status";
-        FileManager fileManager = new FileManager();
+        filename = "user_status";
+        fileManager = new FileManager();
         spinnerArray = fileManager.readFromFile(getContext(), filename);
 
 
