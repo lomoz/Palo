@@ -101,7 +101,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_azure"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_azure" />
+                        app:srcCompat="@color/hue_azure"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_blue"
@@ -113,7 +114,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_blue"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_blue" />
+                        app:srcCompat="@color/hue_blue"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_cyan"
@@ -125,7 +127,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_cyan"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_cyan" />
+                        app:srcCompat="@color/hue_cyan"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_green"
@@ -137,7 +140,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_green"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_green" />
+                        app:srcCompat="@color/hue_green"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_magenta"
@@ -149,7 +153,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_magenta"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_magenta" />
+                        app:srcCompat="@color/hue_magenta"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_orange"
@@ -161,7 +166,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_orange"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_orange" />
+                        app:srcCompat="@color/hue_orange"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_red"
@@ -173,7 +179,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_red"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_red" />
+                        app:srcCompat="@color/hue_red"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_rose"
@@ -185,7 +192,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_rose"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_rose" />
+                        app:srcCompat="@color/hue_rose"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_violet"
@@ -197,7 +205,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_violet"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_violet" />
+                        app:srcCompat="@color/hue_violet"
+                        android:focusable="true" />
 
                     <android.support.design.widget.FloatingActionButton
                         android:id="@+id/fab_yellow"
@@ -208,7 +217,8 @@
                         android:clickable="true"
                         app:backgroundTint="@color/hue_yellow"
                         app:fabSize="mini"
-                        app:srcCompat="@color/hue_yellow" />
+                        app:srcCompat="@color/hue_yellow"
+                        android:focusable="true" />
 
                 </LinearLayout>
 

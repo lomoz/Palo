@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -229,7 +228,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     double latitude = currLocation.latitude;
                     double longitude = currLocation.longitude;
                     statusToDB.sendStatus(status, latitude, longitude, time, android_id);
-                    
+
                     // Write user status to internal storage.
                     fileManager.writeToFile(getContext(), filename, status);
 
@@ -373,12 +372,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
                     Bundle bundle = new Bundle();
 
-                    for(int i=0; i<titleArray.length; i++){
-                        System.out.println("Char: " + titleArray[i]);
-                        if(titleArray[i].equals("|")) {
+                    for (String aTitleArray : titleArray) {
+                        System.out.println("Char: " + aTitleArray);
+                        if (aTitleArray.equals("|")) {
                             break;
-                        }else{
-                            name.append(titleArray[i]);
+                        } else {
+                            name.append(aTitleArray);
                         }
                     }
                     // the last whitespace in name is unnecessary, so it has to be removed.

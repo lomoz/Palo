@@ -156,6 +156,7 @@
     <string name="camera_icon">Camera icon</string>
     <string name="gallery_icon">Gallery icon</string>
     <string name="imageView_profile_picture">ImageView profile picture</string>
+    <string name="message_icon">Message Icon</string>
 
 
 </resources>
