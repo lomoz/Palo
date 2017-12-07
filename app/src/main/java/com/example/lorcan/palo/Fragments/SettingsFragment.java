@@ -1,4 +1,4 @@
-package com.example.lorcan.palo;
+package com.example.lorcan.palo.Fragments;
 
 
 import android.content.Intent;
@@ -8,23 +8,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.example.lorcan.palo.MainActivity;
+import com.example.lorcan.palo.MapFragment;
+import com.example.lorcan.palo.R;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Locale;
 
 
@@ -38,7 +34,6 @@ public class SettingsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    TextView tv_settings_text;
     Locale myLocale;
     float markerColorFloat;
     TextView tv_color;
@@ -51,27 +46,6 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-
-        /*
-        InputStream inputStream = getResources().openRawResource(R.raw.lorem_ipsum);
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String line;
-        String entireFile = "";
-
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                entireFile += (line + "\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        tv_settings_text = (TextView) view.findViewById(R.id.tv_content);
-
-        if (tv_settings_text != null) {
-            tv_settings_text.setText(entireFile);
-        }
-        */
 
         Locale current = getResources().getConfiguration().locale;
         final String language = current.getLanguage();
@@ -92,10 +66,10 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (rb_german.isChecked() && language != "de") {
+                if (rb_german.isChecked() && !language.equals("de")) {
                     setLocal("de");
                 }
-                if (rb_english.isChecked() && language != "en") {
+                if (rb_english.isChecked() && !language.equals("en")) {
                     setLocal("en");
                 }
 

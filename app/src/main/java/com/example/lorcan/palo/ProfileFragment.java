@@ -136,6 +136,7 @@ public class ProfileFragment extends Fragment {
         Date date = new Date();
         time = dateFormat.format(date);
 
+        etStatus.setEnabled(false);
         getStatusFromDB get = new getStatusFromDB();
         get.getStatus(android_id, this);
 
@@ -266,23 +267,19 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-
     public void setStatusToEditText(String status){
         etStatus.setText(status);
+        etStatus.setSelection(etStatus.getText().length());
+        etStatus.setEnabled(true);
     }
 
     public void setEncodedImageAsImageView(String image){
 
-        System.out.println(image);
         byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        //bitmapProfileImage = ImageBase64.decode(image);
-        //Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
-        //bitmapProfileImage = BitmapFactory.decodeResource(getResources(), R.drawable.no_profile_picture);
         ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 256, 256, false));
-
-
     }
+
     public void btnChangeClicked() {
 
         if (etStatus.getText().toString().isEmpty() && etJob.getText().toString().isEmpty()) {

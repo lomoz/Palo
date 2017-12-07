@@ -35,11 +35,11 @@
         android:id="@+id/ivImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/img"
-        app:srcCompat="@drawable/ic_launcher"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/imageView_profile_picture" />
+        android:background="@drawable/img"
+        android:contentDescription="@string/imageView_profile_picture"
+        app:srcCompat="@drawable/ic_launcher" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabUpload"

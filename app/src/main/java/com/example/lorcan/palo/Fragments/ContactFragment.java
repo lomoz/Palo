@@ -1,4 +1,4 @@
-package com.example.lorcan.palo;
+package com.example.lorcan.palo.Fragments;
 
 
 import android.os.Bundle;
@@ -17,11 +17,9 @@ import com.example.lorcan.palo.R;
  */
 public class ContactFragment extends Fragment {
 
-
     public ContactFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,5 +39,4 @@ public class ContactFragment extends Fragment {
 
         return view;
     }
-
 }

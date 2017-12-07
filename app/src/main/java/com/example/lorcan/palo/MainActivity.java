@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.Fragments.AboutFragment;
+import com.example.lorcan.palo.Fragments.ContactFragment;
+import com.example.lorcan.palo.Fragments.SettingsFragment;
+import com.example.lorcan.palo.Fragments.ShareFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.ArrayList;
