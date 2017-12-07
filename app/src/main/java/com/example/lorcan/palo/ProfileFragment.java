@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
         Date date = new Date();
         time = dateFormat.format(date);
 
-        etStatus.setEnabled(false);
+        //etStatus.setEnabled(false);
         getStatusFromDB get = new getStatusFromDB();
         get.getStatus(android_id, this);
 
@@ -269,8 +269,6 @@ public class ProfileFragment extends Fragment {
 
     public void setStatusToEditText(String status){
         etStatus.setText(status);
-        etStatus.setSelection(etStatus.getText().length());
-        etStatus.setEnabled(true);
     }
 
     public void setEncodedImageAsImageView(String image){

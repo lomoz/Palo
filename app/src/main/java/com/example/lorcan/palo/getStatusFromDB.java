@@ -1,6 +1,6 @@
 package com.example.lorcan.palo;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import com.android.volley.AuthFailureError;
@@ -11,29 +11,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by paul on 18.07.17.
- */
-
 public class getStatusFromDB {
 
-    private RequestQueue requestQueue;
     private static final String strUrl = "http://palo.square7.ch/getOneStatus.php";
-    private StringRequest request;
     private String android_id;
     public String responseStatus;
     public ProfileFragment profileFragment;
     public MapFragment mapFragment;
 
-
-    //evtl anderer Kontrukstor ohne Parameter um bspw. alle Statusse zu bekommen (hier nur spezieller Status über LAT LNG erreichbar)
+    // maybe another constructor without parameters to i.e. get all status (here only one specific status is reachable via lat lng)
     public getStatusFromDB(){
-
 
     }
 
@@ -51,22 +41,25 @@ public class getStatusFromDB {
         return null;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class getStatusTask extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-            request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+            RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            StringRequest request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
+                    // System.out.println("Response from PHP File at getStatusFromDB: " + response);
                     responseStatus = response;
                     System.out.println(response);
-                    if(profileFragment != null) {
+
+                    if (profileFragment != null) {
                         handleResponse(response);
                     }
-                    if(mapFragment != null && profileFragment == null){
+
+                    else if (mapFragment != null) {
                         handleResponseMap(response);
                     }
                 }
@@ -78,14 +71,11 @@ public class getStatusFromDB {
                 }
             }) {
 
-                // set of parameters in a hashmap, which will be send to the php file (server side)
+                // set of parameters in a HashMap, which will be send to the php file (server side)
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> hashMap = new HashMap<String, String>();
-
                     hashMap.put("android_id", android_id);
-
-
                     return hashMap;
                 }
             };
@@ -96,10 +86,11 @@ public class getStatusFromDB {
 
     public void handleResponse(String response){
         profileFragment.setStatusToEditText(response);
+        profileFragment.etStatus.setSelection(response.length());
     }
 
     public void handleResponseMap(String response){
         mapFragment.setStatusToEditText(response);
+        mapFragment.etStatusInMap.setSelection(response.length());
     }
-
 }
