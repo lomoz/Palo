@@ -111,7 +111,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         // Receive status from database.
         GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
         getStatusFromDB.getStatus(android_id, this, etStatusInMap);
-
+        //getStatusFromDB.getStatusViaContext(android_id, MapFragment.this.getContext(), etStatusInMap);
 
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.isMessage(this);
