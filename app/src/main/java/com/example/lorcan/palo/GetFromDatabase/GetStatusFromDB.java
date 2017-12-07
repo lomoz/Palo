@@ -15,7 +15,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lorcan.palo.MapFragment;
 import com.example.lorcan.palo.MyApplicationContext;
-import com.example.lorcan.palo.ProfileFragment;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,7 +64,7 @@ public class GetStatusFromDB {
             else if (mapFragment != null) {
                 etStatusInMap.setEnabled(false);
             }
-            
+
             else if (context != null) {
                 etStatus.setEnabled(false);
             }

@@ -1,4 +1,4 @@
-package com.example.lorcan.palo;
+package com.example.lorcan.palo.Fragments;
 
 
 import android.annotation.SuppressLint;
@@ -30,7 +30,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.CurrLocUpdate;
+import com.example.lorcan.palo.FileManager;
+import com.example.lorcan.palo.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
+import com.example.lorcan.palo.MyApplicationContext;
+import com.example.lorcan.palo.R;
+import com.example.lorcan.palo.SendEncodedImageToDB;
+import com.example.lorcan.palo.sendStatusToDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -140,6 +147,7 @@ public class ProfileFragment extends Fragment {
         // Receive status from database.
         GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
         getStatusFromDB.getStatus(android_id, this, etStatus);
+        //getStatusFromDB.getStatusViaContext(android_id, ProfileFragment.this.getActivity().getApplicationContext(), etStatus);
 
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);

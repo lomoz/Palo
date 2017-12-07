@@ -15,10 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.lorcan.palo.Fragments.AboutFragment;
-import com.example.lorcan.palo.Fragments.ContactFragment;
-import com.example.lorcan.palo.Fragments.SettingsFragment;
-import com.example.lorcan.palo.Fragments.ShareFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.AboutFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.SettingsFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.ArrayList;
