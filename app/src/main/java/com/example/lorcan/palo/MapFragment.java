@@ -80,19 +80,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
 
-    public void setImageViewVisibility(Boolean isImageVisible) {
-        ImageView imageView = (ImageView) view.findViewById(R.id.message);
-       /* if (isImageVisible) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground((getResources().getDrawable(R.drawable.message)));
-            }
-        }
-        else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground(null);
-            }
-        }*/
-    }
 
     @SuppressLint("HardwareIds")
     @Override
@@ -235,7 +222,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     for (int i = 0; i < spinnerArray.size(); i++) {
                         System.out.println("******************** old status ******************" + spinnerArray.get(i));
                     }
-
+/*
                     CurrLocUpdate upFragment = new CurrLocUpdate();
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
@@ -243,7 +230,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                             .replace(R.id.relativelayout_for_fragments,
                                     upFragment,
                                     upFragment.getTag()
-                            ).commit();
+                            ).commit();*/
                 }
             }
         });
@@ -314,7 +301,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
             map.setMyLocationEnabled(true);
         }
-        else{
+        else{/*
             CurrLocUpdate upFragment = new CurrLocUpdate();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
@@ -322,7 +309,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     .replace(R.id.relativelayout_for_fragments,
                             upFragment,
                             upFragment.getTag()
-                    ).commit();
+                    ).commit();*/
         }
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -418,6 +405,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
 
 
+    }
+
+
+    public void setImageViewVisibility(Boolean isImageVisible) {
+        ImageView imageView = (ImageView) view.findViewById(R.id.message);
+       /* if (isImageVisible) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground((getResources().getDrawable(R.drawable.message)));
+            }
+        }
+        else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground(null);
+            }
+        }*/
     }
 
     @Override

@@ -85,13 +85,17 @@ public class MainActivity extends AppCompatActivity
 
 
           //Set a fragment as the default fragment instead of an empty fragment.
-
+        ArrayList<String> args = new ArrayList();
+        Bundle bundle = new Bundle();
         double[] currLoc = new double[2];
         currLoc[0] = 51.2;
         currLoc[1] = 6.2;
-
+        args.add(String.valueOf(currLoc[0]));
+        args.add(String.valueOf(currLoc[1]));
         MapFragment mapFragment = new MapFragment();
-        mapFragment.setArguments("currLoc", currLoc);
+        bundle.putStringArrayList("args", args);
+        mapFragment.setArguments(bundle);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
