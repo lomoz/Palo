@@ -82,7 +82,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     public void setImageViewVisibility(Boolean isImageVisible) {
         ImageView imageView = (ImageView) view.findViewById(R.id.message);
-        if (isImageVisible) {
+       /* if (isImageVisible) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground((getResources().getDrawable(R.drawable.message)));
             }
@@ -91,7 +91,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 imageView.setBackground(null);
             }
-        }
+        }*/
     }
 
     @SuppressLint("HardwareIds")

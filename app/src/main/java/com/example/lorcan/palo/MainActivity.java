@@ -83,11 +83,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*
-          Set a fragment as the default fragment instead of an empty fragment.
 
+          //Set a fragment as the default fragment instead of an empty fragment.
+
+        double[] currLoc = new double[2];
+        currLoc[0] = 51.2;
+        currLoc[1] = 6.2;
 
         MapFragment mapFragment = new MapFragment();
+        mapFragment.setArguments("currLoc", currLoc);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
@@ -95,7 +99,7 @@ public class MainActivity extends AppCompatActivity
                         mapFragment,
                         mapFragment.getTag()
         ).commit();
-
+/*
         CurrLocUpdate currLocUpdate = new CurrLocUpdate();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate,
                         currLocUpdate.getTag()
         ).commit();
-        */
+
         CurrLocUpdate currLocUpdate = new CurrLocUpdate();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate,
                         currLocUpdate.getTag()
                 ).commit();
-
+*/
     }
 
     @Override

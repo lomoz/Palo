@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -101,9 +102,15 @@ public class UpdateMapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        new UpdateTask().execute();
+
+        Bundle bundle1 = getArguments();
+        double[] currLoc = bundle1.getDoubleArray("currLoc");
         // Inflate the layout for this fragment
+        UpdateMapFragmentLoadTask up = new UpdateMapFragmentLoadTask();
+        MapFragment mapFragment = new MapFragment();
+        up.loadData(currLoc, this, mapFragment);
         return inflater.inflate(R.layout.fragment_update_map, container, false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -145,108 +152,10 @@ public class UpdateMapFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public class UpdateTask extends AsyncTask<String, String, String> {
-
-        private String responseStatus;
-        private static final String strUrl = "http://palo.square7.ch/getStatus.php";
-        private Boolean upStarted = false;
-        MapFragment mapFragment = new MapFragment();
-        Bundle bundle = new Bundle();
-        Bundle bundle1 = new Bundle();
-        ArrayList<String> args = new ArrayList<>();
-        @Override
-        protected String doInBackground(String... params) {
-            URL url;
-            try {
-                url = new URL(strUrl);
-
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-                con.connect();
-
-                BufferedReader bf = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String value = bf.readLine();
-                responseStatus = value;
-                System.out.println("RETURN: _--------" + responseStatus + "--------_");
-
-
-                try {
-
-                    JSONObject jsonObject = new JSONObject(responseStatus);
-
-                    JSONArray jsonArray = jsonObject.getJSONArray("User");
-                    double[] currLoc = bundle1.getDoubleArray("currLoc");
-                    assert currLoc != null;
-
-                    args.add(String.valueOf(currLoc[0]));
-                    args.add(String.valueOf(currLoc[1]));
-                    System.out.println("ArrayList: "+ args);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject jObjStatus;
-                        jObjStatus = new JSONObject(jsonArray.getString(i));
-                        args.add(jObjStatus.getString("Status"));
-                        args.add(jObjStatus.getString("Lat"));
-                        args.add(jObjStatus.getString("Lng"));
-                        args.add(jObjStatus.getString("Zeit"));
-                        args.add(jObjStatus.getString("Nickname"));
-
-                    }
 
 
 
-                    bundle.putStringArrayList("args", args);
-                    mapFragment.setArguments(bundle);
-
-                    System.out.println("Bundle im UpdateMapFragment: " + bundle.getDoubleArray("currLoc"));
-
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                            .replace(R.id.relativelayout_for_fragments,
-                                    mapFragment,
-                                    mapFragment.getTag()
-                            ).commit();
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            bundle1 = getArguments();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            bundle.putStringArrayList("args", args);
-            mapFragment.setArguments(bundle);
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                            mapFragment,
-                            mapFragment.getTag()
-                    ).commit();
-            System.out.println("DONE");
-            upStarted = true;
-        }
-
-
+/*
         public ArrayList<JSONObject> update() {
             JSONObject jsonObject = null;
             ArrayList<JSONObject> arrayList = new ArrayList<>();
@@ -276,6 +185,11 @@ public class UpdateMapFragment extends Fragment {
             System.out.println("ArrayList Return: " + arrayList);
             return arrayList;
         }
+
+    }*/
+
+    public void setData(Bundle bundle){
+
 
     }
 }
