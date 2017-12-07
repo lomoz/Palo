@@ -2,6 +2,8 @@ package com.example.lorcan.palo;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.android.volley.AuthFailureError;
@@ -24,13 +26,14 @@ import java.util.Map;
  * Created by Win10 Home x64 on 30.11.2017.
  */
 
-public class UpdateMapFragmentLoadTask {
+public class UpdateMapFragmentLoadTask extends Fragment {
 
     private RequestQueue requestQueue;
     private static final String strUrl = "http://palo.square7.ch/getStatus.php";
     private StringRequest request;
     public UpdateMapFragment updateMapFragment;
     MapFragment mapFragment;
+    Bundle bundle1 = new Bundle();
 
     public double[] currLoc;
 
@@ -43,6 +46,9 @@ public class UpdateMapFragmentLoadTask {
 
     public class LoadDataTask extends AsyncTask<Void, Void, Void>{
 
+
+
+
         @Override
         protected Void doInBackground(Void... voids) {
 
@@ -52,11 +58,11 @@ public class UpdateMapFragmentLoadTask {
                 public void onResponse(String response) {
 
                     try {
-                        System.out.println(response);
                         handleResponse(response);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 }
 
             }, new Response.ErrorListener() {
@@ -85,7 +91,7 @@ public class UpdateMapFragmentLoadTask {
 
 
     public void handleResponse(String response) throws JSONException {
-        Bundle bundle1 = new Bundle();
+
         ArrayList<String> args = new ArrayList();/*
 
         JSONObject jsonObject = new JSONObject(response);
@@ -125,13 +131,15 @@ public class UpdateMapFragmentLoadTask {
 
         bundle1.putStringArrayList("args", args);
 
-        mapFragment.setArguments(bundle1);
+        System.out.println("ARGS IN UPDATEMAPFRAGTASK: " + args);
 
 
-        mapFragment.getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.relativelayout_for_fragments, mapFragment,"findThisFragment")
-                .addToBackStack(null)
-                .commit();
+
+
+        updateMapFragment.setData(bundle1);
+
+
+
     }
 
     /*

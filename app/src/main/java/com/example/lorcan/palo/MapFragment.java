@@ -12,7 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -34,6 +33,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -112,14 +112,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         //options.compassEnabled(true);
         options.mapToolbarEnabled(false);
 
-
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.isMessage(this);
-
-        MainActivity main = new MainActivity();
-        main.getData();
-        arrayListOtherUsers = MainActivity.arrayListOtherUsers;
-
 
         // Get the data from ProfileFragment.java here
         bundle = getArguments();
@@ -131,12 +125,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             if (bundle.getStringArrayList("args") != null) {
                 args = bundle.getStringArrayList("args");
                 System.out.println(args);
-                if (currLocation != null) {
-                    currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
-                 }
-                 else{
-                    updateMap();
-                }
+
+                currLocation = new LatLng(Double.parseDouble(args.get(0)), Double.parseDouble(args.get(1)));
+
             }
         }
 
@@ -153,7 +144,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             markerColorFloat = BitmapDescriptorFactory.HUE_RED;
         }
 
-
         bundleCurrLoc = getArguments();
         if (bundleCurrLoc.getDoubleArray("currLoc") != null) {
 
@@ -162,9 +152,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 currLocation = new LatLng(latLng[0], latLng[1]);
             }
         }
-
-
-
 
         btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
@@ -268,11 +255,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        // set individual Controls and Gestures for the Google Map
-        GoogleMapOptions options = new GoogleMapOptions();
-        //options.compassEnabled(true);
-        options.mapToolbarEnabled(false);
-
         try {
             LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
             if (locationManager != null) {
@@ -285,6 +267,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         System.out.println("CURRENT LOCATION: " + currLocation);
 
         map = googleMap;
+        map.getUiSettings().setMapToolbarEnabled(false);
 
         if (currLocation != null) {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 13));

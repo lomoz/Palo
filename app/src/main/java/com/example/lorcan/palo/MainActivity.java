@@ -1,14 +1,12 @@
 package com.example.lorcan.palo;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,8 +17,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 
@@ -34,6 +30,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener{
 
+    @SuppressLint("StaticFieldLeak")
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
 
@@ -85,24 +82,7 @@ public class MainActivity extends AppCompatActivity
 
 
           //Set a fragment as the default fragment instead of an empty fragment.
-        ArrayList<String> args = new ArrayList();
-        Bundle bundle = new Bundle();
-        double[] currLoc = new double[2];
-        currLoc[0] = 51.2;
-        currLoc[1] = 6.2;
-        args.add(String.valueOf(currLoc[0]));
-        args.add(String.valueOf(currLoc[1]));
-        MapFragment mapFragment = new MapFragment();
-        bundle.putStringArrayList("args", args);
-        mapFragment.setArguments(bundle);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                .replace(R.id.relativelayout_for_fragments,
-                        mapFragment,
-                        mapFragment.getTag()
-        ).commit();
 /*
         CurrLocUpdate currLocUpdate = new CurrLocUpdate();
         FragmentManager fm = getSupportFragmentManager();
@@ -112,7 +92,7 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate,
                         currLocUpdate.getTag()
         ).commit();
-
+*/
         CurrLocUpdate currLocUpdate = new CurrLocUpdate();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
@@ -121,7 +101,7 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate,
                         currLocUpdate.getTag()
                 ).commit();
-*/
+
     }
 
     @Override

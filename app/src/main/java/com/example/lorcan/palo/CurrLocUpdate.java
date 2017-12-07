@@ -28,6 +28,8 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
+
 import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 
@@ -91,6 +93,8 @@ public class CurrLocUpdate extends Fragment  {
                                 //open settings to activate GPS
                                 displayLocationSettingsRequest(MyApplicationContext.getAppContext());
                             }
+
+
 
                     }
                 });

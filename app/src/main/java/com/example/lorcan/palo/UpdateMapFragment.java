@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
@@ -38,7 +39,7 @@ import java.util.Arrays;
  * Use the {@link UpdateMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpdateMapFragment extends Fragment {
+public class UpdateMapFragment extends Fragment{
 
 
     private String android_id;
@@ -109,6 +110,7 @@ public class UpdateMapFragment extends Fragment {
         UpdateMapFragmentLoadTask up = new UpdateMapFragmentLoadTask();
         MapFragment mapFragment = new MapFragment();
         up.loadData(currLoc, this, mapFragment);
+
         return inflater.inflate(R.layout.fragment_update_map, container, false);
 
     }
@@ -189,7 +191,16 @@ public class UpdateMapFragment extends Fragment {
     }*/
 
     public void setData(Bundle bundle){
+        MapFragment mapFragment = new MapFragment();
+        mapFragment.setArguments(bundle);
 
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                        mapFragment,
+                        mapFragment.getTag()
+                ).commit();
 
     }
 }
