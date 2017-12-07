@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -136,9 +137,9 @@ public class ProfileFragment extends Fragment {
         Date date = new Date();
         time = dateFormat.format(date);
 
-        //etStatus.setEnabled(false);
-        getStatusFromDB get = new getStatusFromDB();
-        get.getStatus(android_id, this);
+        // Receive status from database.
+        GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
+        getStatusFromDB.getStatus(android_id, this, etStatus);
 
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
@@ -267,9 +268,11 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    /*
     public void setStatusToEditText(String status){
         etStatus.setText(status);
     }
+    */
 
     public void setEncodedImageAsImageView(String image){
 

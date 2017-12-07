@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -107,13 +108,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             android_id = tManager.getDeviceId();
         }
 
-        // set individual Controls and Gestures for the Google Map
-        GoogleMapOptions options = new GoogleMapOptions();
-        //options.compassEnabled(true);
-        options.mapToolbarEnabled(false);
-
-        getStatusFromDB getStatusFromDB = new getStatusFromDB();
-        getStatusFromDB.getStatus(android_id, this);
+        // Receive status from database.
+        GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
+        getStatusFromDB.getStatus(android_id, this, etStatusInMap);
 
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.isMessage(this);
@@ -234,10 +231,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         return view;
     }
 
-
+    /*
     public void setStatusToEditText(String response) {
         etStatusInMap.setText(response);
     }
+    */
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -387,11 +385,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         upFragment,
                         upFragment.getTag()
                 ).commit();
-
-
-
     }
-
 
     public void setImageViewVisibility(Boolean isImageVisible) {
         ImageView imageView = (ImageView) view.findViewById(R.id.message);

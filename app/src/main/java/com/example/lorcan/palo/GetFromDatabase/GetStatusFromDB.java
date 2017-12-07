@@ -1,7 +1,9 @@
-package com.example.lorcan.palo;
+package com.example.lorcan.palo.GetFromDatabase;
+
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.widget.EditText;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -10,48 +12,51 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lorcan.palo.MapFragment;
+import com.example.lorcan.palo.MyApplicationContext;
+import com.example.lorcan.palo.ProfileFragment;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class getStatusFromDB {
+public class GetStatusFromDB {
 
     private static final String strUrl = "http://palo.square7.ch/getOneStatus.php";
     private String android_id;
-    public String responseStatus;
-    public ProfileFragment profileFragment;
-    public MapFragment mapFragment;
+    private String responseStatus;
+    private ProfileFragment profileFragment;
+    private MapFragment mapFragment;
+    private EditText etStatus;
+    private EditText etStatusInMap;
 
-    // maybe another constructor without parameters to i.e. get all status (here only one specific status is reachable via lat lng)
-    public getStatusFromDB(){
-
-    }
-
-    public String getStatus(final String android_id, ProfileFragment profileFragment) {
+    public void getStatus(final String android_id, ProfileFragment profileFragment, EditText etStatus) {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
-        AsyncTask<Void, Void, Void> gt = new getStatusTask().execute();
-        return null;
+        this.etStatus = etStatus;
+        GetStatusAsyncTask getStatusAsyncTask = new GetStatusAsyncTask();
+        getStatusAsyncTask.execute();
     }
 
-    public String getStatus(final String android_id, MapFragment mapFragment) {
+    public void getStatus(final String android_id, MapFragment mapFragment, EditText etStatusInMap) {
         this.android_id = android_id;
         this.mapFragment = mapFragment;
-        AsyncTask<Void, Void, Void> gt = new getStatusTask().execute();
-        return null;
+        this.etStatusInMap = etStatusInMap;
+        GetStatusAsyncTask getStatusAsyncTask = new GetStatusAsyncTask();
+        getStatusAsyncTask.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class getStatusTask extends AsyncTask<Void, Void, Void>{
+    public class GetStatusAsyncTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
 
             RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
             StringRequest request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+
                 @Override
                 public void onResponse(String response) {
-                    // System.out.println("Response from PHP File at getStatusFromDB: " + response);
+
                     responseStatus = response;
                     System.out.println(response);
 
@@ -74,7 +79,7 @@ public class getStatusFromDB {
                 // set of parameters in a HashMap, which will be send to the php file (server side)
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                    HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("android_id", android_id);
                     return hashMap;
                 }
@@ -84,13 +89,13 @@ public class getStatusFromDB {
         }
     }
 
-    public void handleResponse(String response){
-        profileFragment.setStatusToEditText(response);
-        profileFragment.etStatus.setSelection(response.length());
+    private void handleResponse(String response){
+        etStatus.setText(response);
+        etStatus.setSelection(response.length());
     }
 
-    public void handleResponseMap(String response){
-        mapFragment.setStatusToEditText(response);
-        mapFragment.etStatusInMap.setSelection(response.length());
+    private void handleResponseMap(String response){
+        etStatusInMap.setText(response);
+        etStatusInMap.setSelection(response.length());
     }
 }

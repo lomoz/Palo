@@ -73,7 +73,7 @@ public class StartActivity extends AppCompatActivity {
                 request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // System.out.println("Antwort von PHP File bei getStatusFromDB: " + response);
+
                         responseStatus = response;
                         String res = response.toString().trim();
 
