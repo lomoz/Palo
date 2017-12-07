@@ -112,6 +112,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
         getStatusFromDB.getStatus(android_id, this, etStatusInMap);
 
+
         ChatMessage chatMessage = new ChatMessage();
         chatMessage.isMessage(this);
 
@@ -230,12 +231,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         user = new User();
         return view;
     }
-
-    /*
-    public void setStatusToEditText(String response) {
-        etStatusInMap.setText(response);
-    }
-    */
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

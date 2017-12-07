@@ -23,7 +23,6 @@ public class GetStatusFromDB {
 
     private static final String strUrl = "http://palo.square7.ch/getOneStatus.php";
     private String android_id;
-    private String responseStatus;
     private ProfileFragment profileFragment;
     private MapFragment mapFragment;
     private EditText etStatus;
@@ -33,20 +32,30 @@ public class GetStatusFromDB {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
         this.etStatus = etStatus;
-        GetStatusAsyncTask getStatusAsyncTask = new GetStatusAsyncTask();
-        getStatusAsyncTask.execute();
+        new GetStatusAsyncTask().execute();
     }
 
     public void getStatus(final String android_id, MapFragment mapFragment, EditText etStatusInMap) {
         this.android_id = android_id;
         this.mapFragment = mapFragment;
         this.etStatusInMap = etStatusInMap;
-        GetStatusAsyncTask getStatusAsyncTask = new GetStatusAsyncTask();
-        getStatusAsyncTask.execute();
+        new GetStatusAsyncTask().execute();
     }
 
     @SuppressLint("StaticFieldLeak")
     public class GetStatusAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+            if (profileFragment != null) {
+                etStatus.setEnabled(false);
+            }
+
+            else if (mapFragment != null) {
+                etStatusInMap.setEnabled(false);
+            }
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -57,8 +66,7 @@ public class GetStatusFromDB {
                 @Override
                 public void onResponse(String response) {
 
-                    responseStatus = response;
-                    System.out.println(response);
+                    System.out.println("This is what the PHP File responses: " + response);
 
                     if (profileFragment != null) {
                         handleResponse(response);
@@ -86,6 +94,18 @@ public class GetStatusFromDB {
             };
             requestQueue.add(request);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            if (profileFragment != null) {
+                etStatus.setEnabled(true);
+            }
+
+            else if (mapFragment != null) {
+                etStatusInMap.setEnabled(true);
+            }
         }
     }
 

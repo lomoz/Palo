@@ -268,12 +268,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    /*
-    public void setStatusToEditText(String status){
-        etStatus.setText(status);
-    }
-    */
-
     public void setEncodedImageAsImageView(String image){
 
         byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
