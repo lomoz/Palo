@@ -42,14 +42,20 @@ import static org.apache.http.protocol.ExecutionContext.HTTP_REQUEST;
 public class ChatMessage {
 
     public RequestQueue requestQueue;
-    public static final String URL = "http://palo.square7.ch/insertMessage.php";
+    public final String URL = "http://palo.square7.ch/insertMessage.php";
     public StringRequest request;
 
-
-
     public RequestQueue requestQueue1;
-    public static final String URL1 = "http://palo.square7.ch/isMessage.php";
+    public final String URL1 = "http://palo.square7.ch/isMessage.php";
     public StringRequest request1;
+
+    public RequestQueue requestQueue2;
+    public final String URL2 = "http://palo.square7.ch/getMessage.php";
+    public StringRequest request2;
+
+    public RequestQueue requestQueue3;
+    public final String URL3 = "http://palo.square7.ch/getMessagesChatList.php";
+    public StringRequest request3;
 
 
     public String nickname;
@@ -79,7 +85,6 @@ public class ChatMessage {
 
             @Override
             public void onResponse(String response) {
-                System.out.println("RESPONSE CHAT DB:" + response);
             }
 
         }, new Response.ErrorListener() {
@@ -112,12 +117,85 @@ public class ChatMessage {
 
 
 
+    public void getMessageChatList(final String android_id, final ChatListActivity chatListActivity){
 
-    public String getMessage(String android_id){
+        this.requestQueue3 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+        this.request3 = new StringRequest(Request.Method.POST, URL3, new Response.Listener<String>() {
 
-        String message = "";
-        return message;
+            @Override
+            public void onResponse(String response) {
+                if (response.length() > 0) {
+                    chatListActivity.erstelleListe(response);
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+
+            // set of parameters in a hashmap, which will be send to the php file (server side)
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<String, String>();
+
+
+                hashMap.put("android_id", android_id);
+
+                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
+
+                return hashMap;
+            }
+        };
+
+        requestQueue3.add(request3);
+
     }
+
+
+    public String getMessage(final String android_id, final ChatActivity chatActivity, final String nicknameNutzer1){
+
+        final String[] message = {""};
+
+        this.requestQueue2 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+        this.request2 = new StringRequest(Request.Method.POST, URL2, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                if (response.length() > 0) {
+                    chatActivity.erstelleAntwort(response);
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }) {
+
+            // set of parameters in a hashmap, which will be send to the php file (server side)
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<String, String>();
+
+
+                hashMap.put("android_id", android_id);
+                hashMap.put("nickname", nicknameNutzer1);
+
+                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
+
+                return hashMap;
+            }
+        };
+
+        requestQueue2.add(request2);
+        return message[0];
+    }
+
+
 
 
     public void isMessage(MapFragment mapFragment){
@@ -173,6 +251,7 @@ public class ChatMessage {
 
                     hashMap.put("android_id", android_id);
 
+
                     System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
 
                     return hashMap;
@@ -197,6 +276,77 @@ public class ChatMessage {
             System.out.println("SHOW BILDCHEN");
         }else{
             mapFragment.setImageViewVisibility(false);
+        }
+    }
+
+    public void isMessageThere1(ChatActivity chatActivity, String nickname) {
+        TelephonyManager telephonyManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        final String android_id = telephonyManager.getDeviceId();
+        this.android_id = android_id;
+        this.nickname = nickname;
+        new ResponseTask1(chatActivity).execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ResponseTask1 extends AsyncTask<Void, Void, Void> {
+        ChatActivity chatActivity;
+        public ResponseTask1(ChatActivity chatActivity) {
+            this.chatActivity = chatActivity;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            requestQueue1 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            request1 = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    responseIsMessage = response;
+                    System.out.println("RESPONSE CHAT DB:" + response);
+                    handleResponse1(responseIsMessage, chatActivity);
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            }) {
+
+                // set of parameters in a hashmap, which will be send to the php file (server side)
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> hashMap = new HashMap<String, String>();
+
+                    hashMap.put("android_id", android_id);
+
+                    System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
+
+                    return hashMap;
+                }
+            };
+
+            requestQueue1.add(request1);
+            return null;
+        }
+    }
+
+    public void handleResponse1(String response, ChatActivity chatActivity){
+        if(response.contains("tr")) {
+         ChatMessage chatMessage = new ChatMessage();
+         chatMessage.getMessage(android_id, chatActivity, nickname);
+
         }
     }
 }

@@ -87,7 +87,7 @@ public class CurrLocUpdate extends Fragment  {
                                         .replace(R.id.relativelayout_for_fragments,
                                                 update,
                                                 update.getTag()
-                                        ).commit();
+                                        ).commitAllowingStateLoss();
                             }
                             else{
                                 //open settings to activate GPS

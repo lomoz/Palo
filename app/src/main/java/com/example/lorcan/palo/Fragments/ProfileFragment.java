@@ -277,10 +277,11 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setEncodedImageAsImageView(String image){
-
-        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 256, 256, false));
+        if(image.length() > 0){
+            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 256, 256, false));
+        }
     }
 
     public void btnChangeClicked() {
