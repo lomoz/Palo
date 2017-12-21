@@ -22,31 +22,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="6"
-                android:background="@drawable/rounded_corner"
-                android:padding="16dp"
-                android:text="test"
-                android:textAlignment="textStart"
-                android:textColor="#000" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="6"
-                android:background="@drawable/rounded_corner"
-                android:padding="16dp"
-                android:text="test2"
-                android:textAlignment="textEnd"
-                android:textColor="#000" />
         </LinearLayout>
     </ScrollView>
 

@@ -53,10 +53,6 @@ public class ChatMessage {
     public final String URL2 = "http://palo.square7.ch/getMessage.php";
     public StringRequest request2;
 
-    public RequestQueue requestQueue3;
-    public final String URL3 = "http://palo.square7.ch/getMessagesChatList.php";
-    public StringRequest request3;
-
 
     public String nickname;
     public String nachricht;
@@ -117,42 +113,7 @@ public class ChatMessage {
 
 
 
-    public void getMessageChatList(final String android_id, final ChatListActivity chatListActivity){
 
-        this.requestQueue3 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-        this.request3 = new StringRequest(Request.Method.POST, URL3, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                if (response.length() > 0) {
-                    chatListActivity.erstelleListe(response);
-                }
-            }
-
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }) {
-
-            // set of parameters in a hashmap, which will be send to the php file (server side)
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String, String> hashMap = new HashMap<String, String>();
-
-
-                hashMap.put("android_id", android_id);
-
-                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
-
-                return hashMap;
-            }
-        };
-
-        requestQueue3.add(request3);
-
-    }
 
 
     public String getMessage(final String android_id, final ChatActivity chatActivity, final String nicknameNutzer1){

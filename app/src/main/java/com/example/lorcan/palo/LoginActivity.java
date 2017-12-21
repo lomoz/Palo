@@ -3,8 +3,10 @@ package com.example.lorcan.palo;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -23,6 +25,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +34,7 @@ import java.util.Map;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
-    private EditText email,nickname;
+    private EditText email, nickname;
     private Button sign_in_register;
     private RequestQueue requestQueue;
     private static final String URL = "http://palo.square7.ch/control_users.php";
@@ -44,6 +48,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         TelephonyManager tManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         android_id = tManager.getDeviceId();
 
         email = (EditText) findViewById(R.id.email);
@@ -65,6 +79,19 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println("ANTWORT VOM LOGIN: " + response);
                             String res = response.toString().trim();
                             if(res.equals("0")){
+                                FileWriter file = null;
+                                try {
+                                    file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + "chats.json");
+
+                                String nameJSON = "{ \"Users\" : [\"\"]}";
+
+                                file.write(nameJSON);
+                                file.flush();
+                                file.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
                                 Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             }else{

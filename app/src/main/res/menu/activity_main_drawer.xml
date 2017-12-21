@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#006AB3">
 
     <group android:checkableBehavior="single">
 
@@ -11,12 +12,14 @@
         <item
             android:id="@+id/nav_user"
             android:icon="@android:drawable/ic_menu_myplaces"
-            android:title="@string/profile" />
+            android:title=""
+            />
 
         <item
             android:id="@+id/nav_map"
             android:icon="@android:drawable/ic_dialog_map"
-            android:title="@string/map" />
+            android:title=""
+            />
 
 
         <!-- Best list out of normal version.
@@ -28,7 +31,7 @@
 
     </group >
 
-    <item android:title="@string/options">
+    <item android:title="">
 
         <menu android:checkableBehavior="single">
 
@@ -36,25 +39,27 @@
 
                 <item
                     android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_menu_manage"
-                    android:title="@string/settings" />
+                    android:icon="@android:drawable/ic_menu_manage"
+                    android:title=""/>
 
 
                 <item
                     android:id="@+id/nav_contact"
                     android:icon="@drawable/ic_menu_send"
-                    android:title="@string/contact" />
+                    android:title=""
+                    />
 
                 <item
                     android:id="@+id/nav_share"
                     android:icon="@drawable/ic_menu_share"
-                    android:title="@string/share" />
+                    android:title=""
+                    />
 
                 <item
                     android:id="@+id/nav_about"
                     android:icon="@android:drawable/ic_dialog_info"
-                    android:title="@string/about"/>
-
+                    android:title=""
+                    />
             </group>
 
         </menu>

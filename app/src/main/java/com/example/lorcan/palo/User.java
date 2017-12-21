@@ -10,19 +10,21 @@ import com.google.android.gms.maps.model.LatLng;
 public class User {
     private String email;
     private String password;
+    private String name;
     private Double lat;
     private Double lng;
     private Boolean isOnline;
     private String status;
     private SendLocToDB send;
 
-    public User(String email, String password, Double lat, Double lng, Boolean isOnline, String status){
+    public User(String email, String password, Double lat, Double lng, Boolean isOnline, String status, String name){
         this.email = email;
         this.password = password;
         this.lat = lat;
         this.lng = lng;
         this.isOnline = isOnline;
         this.status = status;
+        this.name = name;
     }
 
     public User(){
@@ -58,6 +60,7 @@ public class User {
         this.status = status;
     }
 
+    public void setName(String name){this.name = name;}
 
     // --- getter ---
 
@@ -83,6 +86,10 @@ public class User {
 
     public String getStatus(){
         return this.status;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     public void updateLocation() {

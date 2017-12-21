@@ -336,6 +336,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
                 @Override
                 public void onInfoWindowClick(Marker arg0) {
+
                     String title = arg0.getTitle();
 
                     String[] titleArray = title.split("|");
@@ -352,6 +353,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         }
                     }
                     // the last whitespace in name is unnecessary, so it has to be removed.
+                    JSONChatDB jsonChatDB = new JSONChatDB();
+                    jsonChatDB.addnewChatUser(name.toString());
+                    System.out.println(JSONChatDB.getData(MyApplicationContext.getAppContext()));
+                    user.setName(name.toString());
                     bundle.putString("name", name.toString());
                     intent.putExtra("name", name.toString());
                     startActivity(intent);
@@ -369,7 +374,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             boolean success = map.setMapStyle(
 
                     MapStyleOptions.loadRawResourceStyle(
-                            getContext(), R.raw.style3));
+                            getContext(), R.raw.style_json));
 
             if (!success) {
                 Log.e("MapsActivityRaw", "Style parsing failed.");
