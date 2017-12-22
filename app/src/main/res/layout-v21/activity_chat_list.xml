@@ -27,6 +27,7 @@
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
+
                             <TextView
                                 android:id="@+id/textView"
                                 android:layout_width="482dp"
@@ -38,22 +39,21 @@
                                 android:text="paul"
                                 android:textColor="?android:attr/colorEdgeEffect"
                                 android:textSize="20sp"
-                                android:textStyle="bold"
-                                tools:targetApi="lollipop" />
+                                android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/imageView4"
-                                android:layout_width="30dp"
+                                android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_weight="1"
                                 android:background="@color/hue_red"
                                 app:srcCompat="@drawable/quantum_ic_clear_white_24" />
 
 
-                        </LinearLayout>
-            -->
-                    </LinearLayout>
-
-                </ScrollView>
             </LinearLayout>
+-->
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
 

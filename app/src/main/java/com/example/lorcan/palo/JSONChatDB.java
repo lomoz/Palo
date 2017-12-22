@@ -55,4 +55,8 @@ public class JSONChatDB {
         }
         saveData(newJSON);
     }
+
+    public void deleteUser(String user){
+
+    }
 }
