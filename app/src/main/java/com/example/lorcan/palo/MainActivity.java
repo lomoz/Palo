@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate.getTag()
         ).commit();
 */
+
+        
+
         CurrLocUpdate currLocUpdate = new CurrLocUpdate();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
