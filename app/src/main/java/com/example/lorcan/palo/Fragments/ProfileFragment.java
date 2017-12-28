@@ -13,6 +13,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorcan.palo.CurrLocUpdate;
@@ -82,7 +84,7 @@ public class ProfileFragment extends Fragment {
 
     private final String TAG = getClass().getName();
 
-    ImageView ivCamera, ivGallery, ivImage;
+    ImageView ivCamera, ivGallery, ivImage, navImageViewProfile;
     FloatingActionButton fabUpload;
 
     CameraPhoto cameraPhoto;
@@ -96,6 +98,8 @@ public class ProfileFragment extends Fragment {
     String status = "";
     String job = "";
 
+    NavigationView navigationView;
+    View hView;
     Bitmap bitmapProfileImage;
 
     private String android_id;
@@ -123,6 +127,12 @@ public class ProfileFragment extends Fragment {
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         etJob = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
+
+        /*
+        navigationView = (NavigationView) view.findViewById(R.id.nav_view);
+        hView = navigationView.getHeaderView(0);
+        navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
+        */
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -158,7 +168,6 @@ public class ProfileFragment extends Fragment {
         spinnerArray = fileManager.readFromFile(getContext(), filename);
 
         if (bitmapProfileImage != null) {
-
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
         }
         else {
@@ -250,14 +259,19 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
                 String photoPath = cameraPhoto.getPhotoPath();
                 selectedPhoto = photoPath;
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(128, 128).getBitmap();
-                    //ivImage.setRotation(90);
-                    ivImage.setImageBitmap(getRotatedBitmap(bitmap));
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
+                    //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
+
+                    //ivImage.setImageBitmap(getRotatedBitmap(bitmap));
+                    ivImage.setImageBitmap(bitmap);
+                    //navImageViewProfile.setImageBitmap(getRotatedBitmap(bitmapNav));
+
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
                 }
@@ -267,8 +281,11 @@ public class ProfileFragment extends Fragment {
                 String photoPath = galleryPhoto.getPath();
                 selectedPhoto = photoPath;
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(128, 128).getBitmap();
-                    ivImage.setImageBitmap(bitmap);
+                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
+                    //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
+
+                    //navImageViewProfile.setImageBitmap(bitmapNav);
+
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while choosing photos.", Toast.LENGTH_SHORT).show();
                 }
@@ -280,7 +297,8 @@ public class ProfileFragment extends Fragment {
         if(image.length() > 0){
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 256, 256, false));
+            ivImage.setRotation(90);
+            ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 200, 200, false));
         }
     }
 

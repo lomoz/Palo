@@ -389,6 +389,7 @@ public class MainActivity extends AppCompatActivity
         if(image.length() > 0){
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            navImageViewProfile.setRotation(90);
             navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
         }
     }
