@@ -21,7 +21,6 @@ public class GetEncodedImageFromDB {
 
     private static final String STR_URL = "http://palo.square7.ch/getEncodedImage.php";
     private String android_id;
-    public String responseEncodedImage;
     private ProfileFragment profileFragment;
     private MainActivity mainActivity;
 
@@ -51,7 +50,6 @@ public class GetEncodedImageFromDB {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    responseEncodedImage = response;
 
                     if (profileFragment != null) {
                         handleResponse(response);
@@ -85,11 +83,11 @@ public class GetEncodedImageFromDB {
         }
     }
 
-    public void handleResponse(String response) {
+    private void handleResponse(String response) {
         profileFragment.setEncodedImageAsImageView(response);
     }
 
-    public void handleResponseMain(String response) {
+    private void handleResponseMain(String response) {
         mainActivity.setEncodedImageAsImageView(response);
     }
 }

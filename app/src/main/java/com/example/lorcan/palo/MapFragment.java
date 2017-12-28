@@ -421,8 +421,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.zoomControlsEnabled(false);
         options.compassEnabled(true);
         options.mapToolbarEnabled(false);
-
-
     }
 
     @Override

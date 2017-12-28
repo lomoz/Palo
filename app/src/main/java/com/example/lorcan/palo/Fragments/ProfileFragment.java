@@ -84,7 +84,6 @@ public class ProfileFragment extends Fragment {
     private final String TAG = getClass().getName();
 
     ImageView ivCamera, ivGallery, ivImage, navImageViewProfile;
-    FloatingActionButton fabUpload;
 
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
@@ -120,7 +119,6 @@ public class ProfileFragment extends Fragment {
         ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
-        fabUpload = (FloatingActionButton) view.findViewById(R.id.fabUpload);
 
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
@@ -192,32 +190,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        fabUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (selectedPhoto == null || selectedPhoto.equals("")) {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "No image selected.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                try {
-                    Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(128, 128).getBitmap();
-                    String encodedImage = ImageBase64.encode(bitmap);
-                    Log.d(TAG, encodedImage);
-
-                    SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
-                    sendEncodedImageToDB.sendEncodedImage(encodedImage);
-
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
-
-
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
         /*
          * Create an onClickListener for the button.
          *
@@ -267,14 +239,16 @@ public class ProfileFragment extends Fragment {
                     Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
                     //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
 
-                    //ivImage.setImageBitmap(getRotatedBitmap(bitmap));
                     ivImage.setImageBitmap(bitmap);
+                    //ivImage.setImageBitmap(getRotatedBitmap(bitmap));
                     //navImageViewProfile.setImageBitmap(getRotatedBitmap(bitmapNav));
+
 
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
                 }
-            } else if (requestCode == GALLERY_REQUEST) {
+            }
+            else if (requestCode == GALLERY_REQUEST) {
                 Uri uri = data.getData();
                 galleryPhoto.setPhotoUri(uri);
                 String photoPath = galleryPhoto.getPath();
@@ -283,11 +257,17 @@ public class ProfileFragment extends Fragment {
                     Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
                     //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
 
+                    ivImage.setImageBitmap(getRotatedBitmap(bitmap));
                     //navImageViewProfile.setImageBitmap(bitmapNav);
 
                 } catch (FileNotFoundException e) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while choosing photos.", Toast.LENGTH_SHORT).show();
                 }
+            }
+
+            // check if selectedPhoto not null & upload image
+            if (selectedPhoto != null) {
+                uploadImage(selectedPhoto);
             }
         }
     }
@@ -410,7 +390,30 @@ public class ProfileFragment extends Fragment {
 
     private Bitmap getRotatedBitmap(Bitmap source) {
         Matrix matrix = new Matrix();
-        matrix.postRotate((float) 90);
+        matrix.postRotate((float) -90);
         return createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+
+    private void uploadImage(String selectedPhoto){
+
+        if (selectedPhoto == null || selectedPhoto.equals("")) {
+            Toast.makeText(ProfileFragment.this.getActivity(), "No image selected.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(128, 128).getBitmap();
+            String encodedImage = ImageBase64.encode(bitmap);
+            Log.d(TAG, encodedImage);
+
+            SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
+            sendEncodedImageToDB.sendEncodedImage(encodedImage);
+
+            Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
+
+
+        } catch (FileNotFoundException e) {
+            Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
