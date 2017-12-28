@@ -35,6 +35,7 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.FileManager;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
+import com.example.lorcan.palo.MainActivity;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.R;
 import com.example.lorcan.palo.SendEncodedImageToDB;
@@ -131,6 +132,7 @@ public class ProfileFragment extends Fragment {
         navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
         */
 
+
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -165,7 +167,6 @@ public class ProfileFragment extends Fragment {
         spinnerArray = fileManager.readFromFile(getContext(), filename);
 
         if (bitmapProfileImage != null) {
-
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
         }
         else {
@@ -241,7 +242,6 @@ public class ProfileFragment extends Fragment {
                     //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
 
                     ivImage.setImageBitmap(bitmap);
-                    //ivImage.setImageBitmap(getRotatedBitmap(bitmap));
                     //navImageViewProfile.setImageBitmap(getRotatedBitmap(bitmapNav));
 
 
