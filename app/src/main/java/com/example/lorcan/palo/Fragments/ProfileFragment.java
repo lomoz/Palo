@@ -12,7 +12,6 @@ import android.graphics.Matrix;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -35,8 +34,8 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.FileManager;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
-import com.example.lorcan.palo.MainActivity;
 import com.example.lorcan.palo.MyApplicationContext;
+import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.R;
 import com.example.lorcan.palo.SendEncodedImageToDB;
 import com.example.lorcan.palo.sendStatusToDB;
@@ -47,6 +46,10 @@ import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
 import com.kosalgeek.android.photoutil.ImageLoader;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -161,11 +164,6 @@ public class ProfileFragment extends Fragment {
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
 
-        // Read ArrayList from File.
-        String filename = "user_status";
-        FileManager fileManager = new FileManager();
-        spinnerArray = fileManager.readFromFile(getContext(), filename);
-
         if (bitmapProfileImage != null) {
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
         }
@@ -206,9 +204,26 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        /* Read ArrayList from File.
+        String filename = "user_status";
+        FileManager fileManager = new FileManager();
+        spinnerArray = fileManager.readFromFile(getContext(), filename);
+        */
+
         spinnerArray.add("Item 1");
         spinnerArray.add("Item 2");
         spinnerArray.add("Item 3");
+
+        try {
+            String oldUserStatus = OldStatus.getData(MyApplicationContext.getAppContext());
+            JSONObject jsonObject = new JSONObject(oldUserStatus);
+            JSONArray jsonArray = jsonObject.getJSONArray("Status");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                spinnerArray.add(jsonArray.get(i).toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerArray);

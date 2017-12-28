@@ -59,6 +59,7 @@ public class OldStatus {
             byte[] buffer = new byte[size];
             is.read(buffer);
             is.close();
+            System.out.println("++++++++++++" + new String(buffer));
             return new String(buffer);
         } catch (IOException e) {
             Log.e("TAG", "Error in Reading: " + e.getLocalizedMessage());
