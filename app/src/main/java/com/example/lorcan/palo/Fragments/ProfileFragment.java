@@ -123,7 +123,7 @@ public class ProfileFragment extends Fragment {
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         etJob = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
-
+        //comment
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
