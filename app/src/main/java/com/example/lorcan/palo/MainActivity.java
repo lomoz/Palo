@@ -131,12 +131,16 @@ public class MainActivity extends AppCompatActivity
         }
 
         View hView = navigationView.getHeaderView(0);
+
+
         navTextViewUsername = (TextView)hView.findViewById(R.id.navTextViewUsername);
-        //navTextViewUsername.setText("Your Username!");
+        navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
+
+        // set username to navigation
         GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
         getUsernameFromDB.getResponseUsername(android_id, this);
 
-        navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
+        // set profile image to navigation
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
 
