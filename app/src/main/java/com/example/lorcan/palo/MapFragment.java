@@ -89,7 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        this.view = inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
         imageView = (ImageView) view.findViewById(R.id.message);
@@ -255,6 +255,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             }
         });
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
