@@ -30,7 +30,7 @@ public class ChatActivity extends AppCompatActivity {
     ImageView sendenBtn;
     RelativeLayout relLayoutChat;
     TelephonyManager telephonyManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
-
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
         Serializable k = getIntent().getSerializableExtra("name");
         name = k.toString();
         name = name.substring(0, name.length() - 1);
-        Timer timer = new Timer();
+
         timer.schedule(new checkForMessage(), 0, 5000);
 
         sendenBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +58,37 @@ public class ChatActivity extends AppCompatActivity {
                 erstelleNachricht();
             }
         });
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        timer.cancel();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        timer.schedule(new checkForMessage(), 0, 5000);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        timer.schedule(new checkForMessage(), 0, 5000);
     }
 
     class checkForMessage extends TimerTask {

@@ -35,7 +35,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -354,7 +353,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     }
                     // the last whitespace in name is unnecessary, so it has to be removed.
                     JSONChatDB jsonChatDB = new JSONChatDB();
-                    jsonChatDB.addnewChatUser(name.toString());
+                    jsonChatDB.addNewChatUser(name.toString());
                     System.out.println(JSONChatDB.getData(MyApplicationContext.getAppContext()));
                     user.setName(name.toString());
                     bundle.putString("name", name.toString());

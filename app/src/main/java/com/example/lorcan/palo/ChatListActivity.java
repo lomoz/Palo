@@ -28,7 +28,6 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-        JSONChatDB jsonChatDB = new JSONChatDB();
         erstelleListe(JSONChatDB.getData(this));
 
     }
@@ -45,17 +44,12 @@ public class ChatListActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(list);
             listeNicknames = jsonObject.getJSONArray("Users");
         } catch (JSONException e) {
-            e.printStackTrace();
+            System.out.println(new JSONChatDB().getData(this));
         }
 
         if (listeNicknames != null) {
             for(int i=1; i<listeNicknames.length(); i++) {
 
-                try {
-                    System.out.println("NAMEN: " + listeNicknames.get(i).toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 LinearLayout linearLayout = (LinearLayout) findViewById(R.id.chatList);
                 LinearLayout linearLayout1 = new LinearLayout(ChatListActivity.this);
                 final TextView txt1 = new TextView(ChatListActivity.this);
@@ -82,6 +76,13 @@ public class ChatListActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         JSONChatDB jsonChatDB = new JSONChatDB();
                         jsonChatDB.deleteUser(txt1.getText().toString());
+                        if (Build.VERSION.SDK_INT >= 11) {
+                            ChatListActivity.this.recreate();
+                        } else {
+                            ChatListActivity.this.finish();
+                            ChatListActivity.this.startActivity(ChatListActivity.this.getIntent());
+                        }
+
                     }
                 });
 
