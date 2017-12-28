@@ -222,6 +222,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         System.out.println("******************** old status ******************" + spinnerArray.get(i));
                     }
 
+                    // put status to json file
+                    OldStatus.addNewEntry(status);
+
                     // call method to update map after setting a new status
                     updateMap();
                 }
