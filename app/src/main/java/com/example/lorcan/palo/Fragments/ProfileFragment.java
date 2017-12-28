@@ -29,12 +29,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.FileManager;
-import com.example.lorcan.palo.GetEncodedImageFromDB;
+import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.R;

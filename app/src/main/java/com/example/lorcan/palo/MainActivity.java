@@ -30,6 +30,8 @@ import com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment;
 import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.SettingsFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment;
+import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
+import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.ArrayList;
@@ -129,11 +131,16 @@ public class MainActivity extends AppCompatActivity
         }
 
         View hView = navigationView.getHeaderView(0);
-        navTextViewUsername = (TextView)hView.findViewById(R.id.navTextViewUsername);
-        navTextViewUsername.setText("Your Username!");
 
+
+        navTextViewUsername = (TextView)hView.findViewById(R.id.navTextViewUsername);
         navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
 
+        // set username to navigation
+        GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
+        getUsernameFromDB.getResponseUsername(android_id, this);
+
+        // set profile image to navigation
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
 
@@ -392,5 +399,9 @@ public class MainActivity extends AppCompatActivity
             navImageViewProfile.setRotation(90);
             navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
         }
+    }
+
+    public void setUsernameInNav(String username) {
+        navTextViewUsername.setText(username);
     }
 }
