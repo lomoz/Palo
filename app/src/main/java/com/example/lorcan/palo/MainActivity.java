@@ -30,6 +30,7 @@ import com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment;
 import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.SettingsFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment;
+import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.ArrayList;
