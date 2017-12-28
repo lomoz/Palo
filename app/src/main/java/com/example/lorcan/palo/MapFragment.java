@@ -177,7 +177,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     builder.setTitle(R.string.alert_empty_status_title);
                     builder.setMessage(R.string.alert_empty_status_message);
                     builder.show();
-                } else {
+                }
+
+                else {
 
                     status = String.valueOf(etStatusInMap.getText());
                     InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -219,15 +221,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     for (int i = 0; i < spinnerArray.size(); i++) {
                         System.out.println("******************** old status ******************" + spinnerArray.get(i));
                     }
-/*
-                    CurrLocUpdate upFragment = new CurrLocUpdate();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                            .replace(R.id.relativelayout_for_fragments,
-                                    upFragment,
-                                    upFragment.getTag()
-                            ).commit();*/
+
+                    // call method to update map after setting a new status
+                    updateMap();
                 }
             }
         });
