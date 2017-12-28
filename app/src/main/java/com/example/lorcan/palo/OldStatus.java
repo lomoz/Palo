@@ -51,6 +51,7 @@ public class OldStatus {
 
     public static String getData(Context context) {
 
+
         try {
             File f = new File(context.getFilesDir().getPath() + "/" + fileName);
             //check whether file exists
