@@ -21,6 +21,7 @@ public class GetEncodedImageFromDB {
     private String android_id;
     public String responseEncodedImage;
     private ProfileFragment profileFragment;
+    private MainActivity mainActivity;
 
     public GetEncodedImageFromDB() {
 
@@ -29,6 +30,12 @@ public class GetEncodedImageFromDB {
     public void getResponseEncodedImage(String android_id, ProfileFragment profileFragment) {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
+        new GetImageTask().execute();
+    }
+
+    public void getResponseEncodedImage(String android_id, MainActivity mainActivity) {
+        this.android_id = android_id;
+        this.mainActivity = mainActivity;
         new GetImageTask().execute();
     }
 
@@ -43,7 +50,13 @@ public class GetEncodedImageFromDB {
                 @Override
                 public void onResponse(String response) {
                     responseEncodedImage = response;
-                    handleResponse(response);
+
+                    if (profileFragment != null) {
+                        handleResponse(response);
+                    }
+                    else if (mainActivity != null) {
+                        handleResponseMain(response);
+                    }
                 }
 
             }, new Response.ErrorListener() {
@@ -72,5 +85,9 @@ public class GetEncodedImageFromDB {
 
     public void handleResponse(String response) {
         profileFragment.setEncodedImageAsImageView(response);
+    }
+
+    public void handleResponseMain(String response) {
+        mainActivity.setEncodedImageAsImageView(response);
     }
 }
