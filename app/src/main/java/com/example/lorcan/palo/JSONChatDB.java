@@ -60,11 +60,11 @@ public class JSONChatDB {
             JSONObject jsonObject = new JSONObject(old);
             JSONArray listeNicknames = null;
             listeNicknames = jsonObject.getJSONArray("Users");
+            System.out.println(listeNicknames);
 
             for(int i =1; i<listeNicknames.length(); i++){
                 if(listeNicknames.get(i).toString().equals(newUser)){
                     bool = false;
-                    break;
                 }else{
                     bool = true;
                 }
@@ -75,7 +75,7 @@ public class JSONChatDB {
         }
 
         String newJSON = "";
-        if(bool) {
+        //if(bool) {
             if (old != null && old.length() > 2) {
                 old = old.substring(0, old.length() - 2);
                 newJSON = old + ", \"" + newUser + "\"]}";
@@ -83,7 +83,7 @@ public class JSONChatDB {
                 newJSON = newUser;
             }
             createNewDBDeleteOld(newJSON);
-        }
+        //}
     }
 
     public void deleteUser(String user){

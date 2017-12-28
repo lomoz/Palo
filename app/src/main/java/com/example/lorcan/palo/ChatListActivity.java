@@ -28,6 +28,7 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
+        JSONChatDB jsonChatDB = new JSONChatDB();
         erstelleListe(JSONChatDB.getData(this));
 
     }
@@ -43,8 +44,9 @@ public class ChatListActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(list);
             listeNicknames = jsonObject.getJSONArray("Users");
+            System.out.println("LISTE:" + new JSONChatDB().getData(this));
         } catch (JSONException e) {
-            System.out.println(new JSONChatDB().getData(this));
+            System.out.println("LISTE:" + new JSONChatDB().getData(this));
         }
 
         if (listeNicknames != null) {
