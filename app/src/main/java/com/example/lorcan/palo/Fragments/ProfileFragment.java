@@ -165,6 +165,7 @@ public class ProfileFragment extends Fragment {
         spinnerArray = fileManager.readFromFile(getContext(), filename);
 
         if (bitmapProfileImage != null) {
+
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
         }
         else {
