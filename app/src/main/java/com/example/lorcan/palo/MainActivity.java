@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity
     private FusedLocationProviderClient mFusedLocationClient;
 
     private long start = 0;
-
     Stopwatch stopwatch = new Stopwatch();
 
     private String android_id;

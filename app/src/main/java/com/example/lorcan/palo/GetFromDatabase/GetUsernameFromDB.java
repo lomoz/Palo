@@ -21,7 +21,6 @@ public class GetUsernameFromDB {
 
     private static final String STR_URL = "http://palo.square7.ch/getUsername.php";
     private String android_id;
-    private String responseUsername;
     private MainActivity mainActivity;
 
     public GetUsernameFromDB() {
@@ -44,8 +43,6 @@ public class GetUsernameFromDB {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    responseUsername = response;
-
                     handleResponse(response);
                 }
 
@@ -73,7 +70,7 @@ public class GetUsernameFromDB {
         }
     }
 
-    public void handleResponse(String response) {
+    private void handleResponse(String response) {
         mainActivity.setUsernameInNav(response);
     }
 }
