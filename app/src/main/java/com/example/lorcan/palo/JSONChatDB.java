@@ -21,13 +21,9 @@ public class JSONChatDB {
 
     public static void createNewDBDeleteOld(String nameJSON) {
         try {
-
+            System.out.println("New created DB: " + nameJSON);
             FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
-            if(getData(MyApplicationContext.getAppContext()) == null){
-                nameJSON = "{ \"Users\" : [\"" + nameJSON+ "\"]}";
-                System.out.println(nameJSON);
-            }
-
+            
             file.write(nameJSON);
             file.flush();
             file.close();
@@ -55,36 +51,36 @@ public class JSONChatDB {
 
     public void addNewChatUser(String newUser){
         String old = getData(MyApplicationContext.getAppContext());
-        Boolean bool = false;
+        newUser = newUser.substring(0, newUser.length()-1);
+        int intBool = 0;
+        System.out.println(old);
         try {
             JSONObject jsonObject = new JSONObject(old);
-            JSONArray listeNicknames = null;
-            listeNicknames = jsonObject.getJSONArray("Users");
-            System.out.println(listeNicknames);
-            outerloop:
-            for(int i =1; i<listeNicknames.length(); i++){
-                if(!listeNicknames.get(i).toString().equals(newUser)){
-                    bool = true;
-                }else{
-                    bool = false;
-                    break outerloop;
+            old = old.substring(0, old.length()-2);
+            JSONArray jsonArray = jsonObject.getJSONArray("Users");
+            for(int i=1; i < jsonArray.length(); i++){
+                System.out.println("NEWUSER: " + newUser);
+                System.out.println("JSONList: " + jsonArray.get(i).toString());
+                if(jsonArray.get(i).toString().equals(newUser)){
+                    intBool++;
                 }
             }
 
-        } catch (JSONException e) {
+            if(intBool < 1){
+                old = old + ", \"" + newUser + "\"]}";
+                System.out.println(old);
+                createNewDBDeleteOld(old);
+                intBool = 0;
+            }else{
+                old = old + "]}";
+                System.out.println(old);
+                createNewDBDeleteOld(old);
+            }
+
+        }catch(JSONException e){
             e.printStackTrace();
         }
 
-        String newJSON = "";
-        if(bool) {
-            if (old != null && old.length() > 2) {
-                old = old.substring(0, old.length() - 2);
-                newJSON = old + ", \"" + newUser + "\"]}";
-            } else {
-                newJSON = newUser;
-            }
-            createNewDBDeleteOld(newJSON);
-        }
     }
 
     public void deleteUser(String user){
@@ -101,7 +97,11 @@ public class JSONChatDB {
                     data = data + ", \"" + listeNicknames.get(i).toString() + "\"";
                 }
             }
-            data = "{ \"Users\" : [" + data + "]}";
+            if(data.equals("")){
+                data = "{ \"Users\" : []}";
+            }else {
+                data = "{ \"Users\" : [\"\"," + data + "]}";
+            }
             createNewDBDeleteOld(data);
 
         } catch (JSONException e) {

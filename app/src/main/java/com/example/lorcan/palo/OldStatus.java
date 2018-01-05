@@ -2,6 +2,7 @@ package com.example.lorcan.palo;
 
 import android.content.Context;
 import android.os.Build;
+import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -22,11 +23,17 @@ public class OldStatus {
 
     public static void addNewEntry(String nameJSON) {
         try {
-
+            nameJSON = nameJSON.substring(0, nameJSON.length() - 1);
             FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
-            if(getData(MyApplicationContext.getAppContext()) == null){
-                nameJSON = "{ \"Status\" : [\"" + nameJSON+ "\"]}";
+            String old = getData(MyApplicationContext.getAppContext());
+
+            if(old.length() <= 0) {
+                nameJSON = "{ \"Status\" : [\"" + nameJSON + "\"]}";
+            }else{
+                old = old.substring(0, old.length() - 2);
+                nameJSON = old + ", \"" + nameJSON + "\"]}";
             }
+                System.out.println("NAMEJSON: " + nameJSON);
                 JSONObject jsonObject = new JSONObject(getData(MyApplicationContext.getAppContext()));
                 JSONArray jsonArray = jsonObject.getJSONArray("Status");
 
@@ -54,16 +61,20 @@ public class OldStatus {
 
         try {
             File f = new File(context.getFilesDir().getPath() + "/" + fileName);
-            //check whether file exists
-            FileInputStream is = new FileInputStream(f);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            System.out.println("++++++++++++" + new String(buffer));
+
+                FileInputStream is = new FileInputStream(f);
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+
             return new String(buffer);
         } catch (IOException e) {
-            Log.e("TAG", "Error in Reading: " + e.getLocalizedMessage());
+            System.out.println("IOExceptions");
+            return null;
+        } catch (NullPointerException e1){
+            System.out.println("ERROR STATUS.JSON IST NICHT VORHANDEN");
             return null;
         }
     }

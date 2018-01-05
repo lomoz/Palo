@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,13 +14,6 @@
 
 
     <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -31,40 +25,52 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_marginTop="100dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@mipmap/appicon" />
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center_horizontal">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
-                    android:layout_width="match_parent"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/cast_expanded_controller_text_color"
-                    android:hint="@string/prompt_email"
+                    android:hint="E-Mail (optional)"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:textSize="15sp"
                     tools:ignore="Deprecated,UnusedAttribute" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal">
 
                 <EditText
                     android:id="@+id/nickname"
-                    android:layout_width="match_parent"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:hint="Nickname"
-                    android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:textSize="15sp"
                     tools:ignore="HardcodedText" />
 
             </android.support.design.widget.TextInputLayout>
@@ -72,16 +78,18 @@
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:background="#d2003b8e"
                 android:elevation="0dp"
-                android:text="ANMELDEN   "
-                android:textAlignment="textEnd"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="Anmelden"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
                 android:textColor="#FFFFFF"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:textSize="15sp"
                 android:typeface="sans"
                 tools:ignore="UnusedAttribute" />
 

@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,67 +69,87 @@ public class LoginActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         sign_in_register.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
-                request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+
+                if (isValidEmail(email.getText())) {
+                    request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
 
-                    // handle the response of the server (success or error)
-                    @Override
-                    public void onResponse(String response) {
+                        // handle the response of the server (success or error)
+                        @Override
+                        public void onResponse(String response) {
                             System.out.println("ANTWORT VOM LOGIN: " + response);
                             String res = response.toString().trim();
-                            if(res.equals("0")){
+                            if (res.equals("0")) {
                                 FileWriter file = null;
                                 FileWriter file1 = null;
                                 try {
                                     file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + "chats.json");
                                     file1 = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + "status.json");
 
-                                String nameJSON = "{ \"Users\" : [\"\"]}";
-                                String nameJSON1 = "{ \"Status\" : [\"\"]}";
+                                    String nameJSON = "{ \"Users\" : [\"\"]}";
+                                    String nameJSON1 = "{ \"Status\" : [\"\"]}";
 
-                                file.write(nameJSON);
-                                file.flush();
-                                file.close();
-                                file1.write(nameJSON1);
-                                file1.flush();
-                                file1.close();
+                                    file.write(nameJSON);
+                                    file.flush();
+                                    file.close();
+                                    file1.write(nameJSON1);
+                                    file1.flush();
+                                    file1.close();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
-                                Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Error" , Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "E-Mailadresse oder Nickname schon vorhanden.", Toast.LENGTH_SHORT).show();
                             }
 
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                    }
-                }){
+                        }
+                    }) {
 
-                    // set of parameters in a hashmap, which will be send to the php file (server side)
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String,String> hashMap = new HashMap<String, String>();
+                        // set of parameters in a hashmap, which will be send to the php file (server side)
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                        hashMap.put("email",email.getText().toString());
-                        hashMap.put("nickname",nickname.getText().toString());
-                        hashMap.put("android_id", android_id);
+                            hashMap.put("email", email.getText().toString());
+                            hashMap.put("nickname", nickname.getText().toString());
+                            hashMap.put("android_id", android_id);
 
 
-                        return hashMap;
-                    }
-                };
+                            return hashMap;
+                        }
+                    };
 
-                requestQueue.add(request);
+                    requestQueue.add(request);
+                }else{
+                    Toast.makeText(LoginActivity.this, "keine korrekte E-Mailadresse ;-)",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
+
+
     }
+    public final static boolean isValidEmail(CharSequence target) {
+        System.out.println("TARGET: " + target);
+        Boolean bool = false;
+        if (target == null || target == "" || target.length() == 0) {
+            bool = true;
+        }else {
+            bool = android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
+        return bool;
+    }
+
 }
 
