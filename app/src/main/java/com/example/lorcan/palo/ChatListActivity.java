@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,12 +45,12 @@ public class ChatListActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(list);
             listeNicknames = jsonObject.getJSONArray("Users");
-            System.out.println("LISTE:" + new JSONChatDB().getData(this));
+            String data = new JSONChatDB().getData(this);
         } catch (JSONException e) {
             System.out.println("LISTE:" + new JSONChatDB().getData(this));
         }
 
-        if (listeNicknames != null) {
+        if (listeNicknames.length() > 1) {
             for(int i=1; i<listeNicknames.length(); i++) {
 
                 LinearLayout linearLayout = (LinearLayout) findViewById(R.id.chatList);
@@ -116,6 +117,9 @@ public class ChatListActivity extends AppCompatActivity {
 
 
             }
+        }else{
+            Toast.makeText(ChatListActivity.this, "leider hast du noch keine chats. :-(",
+                    Toast.LENGTH_LONG).show();
         }
     }
 }

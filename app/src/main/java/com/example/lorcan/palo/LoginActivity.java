@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     requestQueue.add(request);
                 }else{
-                    Toast.makeText(LoginActivity.this, "keine korrekte E-Mailadresse ;-)",
+                    Toast.makeText(LoginActivity.this, "keine korrekte e-Mailadresse ;-)",
                             Toast.LENGTH_LONG).show();
                 }
             }

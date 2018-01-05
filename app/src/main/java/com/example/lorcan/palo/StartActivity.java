@@ -123,4 +123,10 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(this, StartActivity.class);
         this.startActivity(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restart();
+    }
 }

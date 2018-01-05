@@ -37,7 +37,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/colorScrollview"
+        android:background="@color/hhu_blue"
         android:orientation="horizontal"
         android:layout_gravity="top|end">
 
@@ -45,15 +45,17 @@
         <EditText
             android:id="@+id/etStatusInMap"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_weight="9.82"
+            android:background="@color/hhu_blue"
             android:ems="10"
-            android:hint="@string/set_status"
+            android:hint="Status"
             android:inputType="textPersonName"
             android:maxLength="50"
+            android:paddingLeft="10dp"
             tools:ignore="ObsoleteLayoutParam" />
 
         <android.support.design.widget.FloatingActionButton
@@ -67,7 +69,7 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1.37"
             android:clickable="true"
-            app:backgroundTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+            app:backgroundTint="@color/hhu_blue"
             app:fabSize="mini"
             app:srcCompat="@android:drawable/ic_menu_edit"
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded"
@@ -85,6 +87,7 @@
             android:layout_weight="1"
             android:clickable="true"
             app:fabSize="mini"
+            app:backgroundTint="@color/hhu_blue"
             app:srcCompat="@drawable/cast_ic_notification_forward"
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded"
             android:focusable="true" />
