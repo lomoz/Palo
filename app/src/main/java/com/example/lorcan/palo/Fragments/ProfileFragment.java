@@ -210,6 +210,7 @@ public class ProfileFragment extends Fragment {
         spinnerArray = fileManager.readFromFile(getContext(), filename);
         */
 
+        spinnerArray.add("Select Option");
         spinnerArray.add("Item 1");
         spinnerArray.add("Item 2");
         spinnerArray.add("Item 3");
@@ -234,6 +235,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // if any item is selected this one should become the active status
+
+                String selectedItemText = (String) adapterView.getItemAtPosition(i);
+                if (!selectedItemText.equals("Select Option")) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), selectedItemText, Toast.LENGTH_SHORT).show();
+                    etStatus.setText(selectedItemText);
+                }
             }
 
             @Override
