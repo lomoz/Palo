@@ -372,13 +372,10 @@ public class MainActivity extends AppCompatActivity
         /*
          * i.e. make a toast to show the data.
          */
-
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFragmentInteraction() {
-        System.out.println("onFragmentInteraction, dass kein Return-Statement besitzt.");
     }
 
     public ArrayList<String> getData(){
@@ -388,14 +385,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        System.out.println("onFragmentInteraction, dass Uri als Return-Statement besitzt.");
     }
 
     public void setEncodedImageAsImageView(String image){
         if(image.length() > 0){
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            navImageViewProfile.setRotation(90);
             navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
         }
     }
