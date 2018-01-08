@@ -200,7 +200,8 @@ public class UpdateMapFragment extends Fragment{
                 .replace(R.id.relativelayout_for_fragments,
                         mapFragment,
                         mapFragment.getTag()
-                ).commit();
+                ).commitAllowingStateLoss();
+//added ...AllowingStateLoss becaus of this exception: java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState
 
     }
 }

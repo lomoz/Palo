@@ -59,6 +59,7 @@ public class ChatMessage {
     public String android_id;
     public MapFragment mapFragment;
     public String responseIsMessage;
+
     public void sendMessage(final String nickname, final String nachricht) {
 
         this.nickname = nickname;
@@ -108,6 +109,7 @@ public class ChatMessage {
 
         requestQueue.add(request);
         System.out.println("NAME IN MESSAGE:" + nickname);
+        
 
     }
 
@@ -154,6 +156,8 @@ public class ChatMessage {
 
         requestQueue2.add(request2);
         return message[0];
+
+
     }
 
 
@@ -220,6 +224,7 @@ public class ChatMessage {
             };
 
             requestQueue1.add(request1);
+
             return null;
         }
 
@@ -232,6 +237,7 @@ public class ChatMessage {
 
     public void handleResponse(String response, MapFragment mapFragment){
         System.out.println("HANDLERESPONSE: " + response);
+
         if(response.contains("tr")) {
             mapFragment.setImageViewVisibility(true);
             System.out.println("SHOW BILDCHEN");
