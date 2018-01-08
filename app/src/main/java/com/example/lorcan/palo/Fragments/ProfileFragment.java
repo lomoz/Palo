@@ -4,6 +4,7 @@ package com.example.lorcan.palo.Fragments;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.graphics.Matrix;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -89,6 +91,8 @@ public class ProfileFragment extends Fragment {
 
     ImageView ivCamera, ivGallery, ivImage, navImageViewProfile;
 
+    FloatingActionButton fabImageDialog;
+
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
     final int CAMERA_REQUEST = 1;
@@ -123,6 +127,8 @@ public class ProfileFragment extends Fragment {
         ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
+
+        fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
 
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
@@ -187,6 +193,37 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivityForResult(galleryPhoto.openGalleryIntent(), GALLERY_REQUEST);
+            }
+        });
+
+        fabImageDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+                builder.setTitle(R.string.alert_upload_image_title);
+                builder.setMessage(R.string.alert_upload_image_message);
+
+                // Select Camera
+                builder.setPositiveButton(R.string.camera, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do something
+                        Toast.makeText(ProfileFragment.this.getActivity(), R.string.camera, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                // Select Gallery
+                builder.setNegativeButton(R.string.gallery, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do something
+                        Toast.makeText(ProfileFragment.this.getActivity(), R.string.gallery, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.show();
+
             }
         });
 

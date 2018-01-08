@@ -151,11 +151,18 @@
     <string name="alert_empty_job_message">Es ist nicht möglich einen leeren Beruf zu speichern. Bitte füge einen Beruf ein um fortzufahren.</string>
     <string name="alert_empty_status_and_job_title">Bitten wähle einen Status und Beruf!</string>
     <string name="alert_empty_status_and_job_message">Es ist nicht möglich einen leeren Status und Beruf zu speichern. Bitte füge einen Status und Beruf ein um fortzufahren.</string>
+    <string name="alert_upload_image_title">Bild hochladen</string>
+    <string name="alert_upload_image_message">Wähle eine Option um ein Bild hochzuladen.</string>
 
     <!-- ImageView Beschreibungen -->
     <string name="camera_icon">Kamera icon</string>
     <string name="gallery_icon">Galerie icon</string>
     <string name="imageView_profile_picture">ImageView Profilbild</string>
     <string name="message_icon">Nachrichten Icon</string>
+
+
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galerie</string>
+
 
 </resources>
