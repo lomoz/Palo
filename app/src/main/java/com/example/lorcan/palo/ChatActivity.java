@@ -45,7 +45,6 @@ public class ChatActivity extends AppCompatActivity {
         sendenBtn = (ImageView) findViewById(R.id.sendenBtn1);
         Serializable k = getIntent().getSerializableExtra("name");
         name = k.toString();
-        name = name.substring(0, name.length() - 1);
 
         timer.schedule(new checkForMessage(), 0, 5000);
 
