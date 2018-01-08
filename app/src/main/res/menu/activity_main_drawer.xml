@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#006AB3">
+    >
 
     <group android:checkableBehavior="single">
 
@@ -11,13 +11,13 @@
 
         <item
             android:id="@+id/nav_user"
-            android:icon="@android:drawable/ic_menu_myplaces"
+            android:icon="@drawable/profil"
             android:title=""
             />
 
         <item
             android:id="@+id/nav_map"
-            android:icon="@android:drawable/ic_dialog_map"
+            android:icon="@drawable/karte"
             android:title=""
             />
 
@@ -26,7 +26,7 @@
         <item
             android:id="@+id/nav_bestenliste"
             android:icon="@android:drawable/btn_star_big_on"
-            android:title="Bestenliste" />
+            android:title="" />
             -->
 
     </group >
@@ -39,25 +39,25 @@
 
                 <item
                     android:id="@+id/nav_settings"
-                    android:icon="@android:drawable/ic_menu_manage"
+                    android:icon="@drawable/einstellungen"
                     android:title=""/>
 
 
                 <item
                     android:id="@+id/nav_contact"
-                    android:icon="@drawable/ic_menu_send"
+                    android:icon="@drawable/kontakt"
                     android:title=""
                     />
 
                 <item
                     android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
+                    android:icon="@drawable/teilen"
                     android:title=""
                     />
 
                 <item
                     android:id="@+id/nav_about"
-                    android:icon="@android:drawable/ic_dialog_info"
+                    android:icon="@drawable/impressum"
                     android:title=""
                     />
             </group>
