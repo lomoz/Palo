@@ -81,12 +81,14 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        timer = new Timer();
         timer.schedule(new checkForMessage(), 0, 5000);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        timer = new Timer();
         timer.schedule(new checkForMessage(), 0, 5000);
     }
 

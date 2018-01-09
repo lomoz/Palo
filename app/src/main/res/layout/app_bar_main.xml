@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="57dp"
         android:background="@drawable/appbar">
 
         <android.support.v7.widget.Toolbar
