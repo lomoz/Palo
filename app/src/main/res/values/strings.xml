@@ -151,12 +151,18 @@
     <string name="alert_empty_job_message">It\'s not possible to save an empty job. Please set a job to continue.</string>
     <string name="alert_empty_status_and_job_title">Please set a status and job!</string>
     <string name="alert_empty_status_and_job_message">It\'s not possible to save an empty status and job. Please set a status and job to continue.</string>
+    <string name="alert_upload_image_title">Upload Image</string>
+    <string name="alert_upload_image_message">Chose an option to upload an image.</string>
 
     <!-- ImageView descriptions -->
     <string name="camera_icon">Camera icon</string>
     <string name="gallery_icon">Gallery icon</string>
     <string name="imageView_profile_picture">ImageView profile picture</string>
     <string name="message_icon">Message Icon</string>
+
+
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 
 
 </resources>

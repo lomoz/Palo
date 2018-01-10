@@ -3,7 +3,9 @@ package com.example.lorcan.palo.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,12 +14,18 @@ import android.graphics.Matrix;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +42,7 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.FileManager;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
+import com.example.lorcan.palo.Manifest;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.R;
@@ -51,6 +60,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -87,7 +97,16 @@ public class ProfileFragment extends Fragment {
 
     private final String TAG = getClass().getName();
 
+    File file;
+    Uri uri;
+    Intent CameraIntent, GalleryIntent, CropIntent;
+    final int RequestPermissionCode = 1;
+    DisplayMetrics displayMetrics;
+    int width, height;
+
     ImageView ivCamera, ivGallery, ivImage, navImageViewProfile;
+
+    FloatingActionButton fabImageDialog;
 
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
@@ -123,6 +142,13 @@ public class ProfileFragment extends Fragment {
         ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
         ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
+
+        fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.CAMERA);
+        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+            RequestRuntimePermission();
+        }
 
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
@@ -190,6 +216,37 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        fabImageDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
+                builder.setTitle(R.string.alert_upload_image_title);
+                builder.setMessage(R.string.alert_upload_image_message);
+
+                // Select Camera
+                builder.setPositiveButton(R.string.camera, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do something
+                        CameraOpen();
+
+                    }
+                });
+
+                // Select Gallery
+                builder.setNegativeButton(R.string.gallery, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // do something
+                        GalleryOpen();
+                    }
+                });
+
+                builder.show();
+
+            }
+        });
+
         /*
          * Create an onClickListener for the button.
          *
@@ -254,7 +311,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        /*
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST) {
                 String photoPath = cameraPhoto.getPhotoPath();
@@ -291,6 +348,26 @@ public class ProfileFragment extends Fragment {
             // check if selectedPhoto not null & upload image
             if (selectedPhoto != null) {
                 uploadImage(selectedPhoto);
+            }
+        }
+        */
+
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            CropImage();
+        }
+
+        else if (requestCode == 2) {
+            if (data != null) {
+                uri = data.getData();
+                CropImage();
+            }
+        }
+
+        else if (requestCode == 1) {
+            if (data != null) {
+                Bundle bundle = data.getExtras();
+                Bitmap bitmap = bundle.getParcelable("data");
+                ivImage.setImageBitmap(bitmap);
             }
         }
     }
@@ -437,6 +514,68 @@ public class ProfileFragment extends Fragment {
 
         } catch (FileNotFoundException e) {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void RequestRuntimePermission() {
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(ProfileFragment.this.getActivity(), android.Manifest.permission.CAMERA)) {
+            Toast.makeText(ProfileFragment.this.getActivity(), "CAMERA permission allows us to access CAMERA app.", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[] {android.Manifest.permission.CAMERA}, RequestPermissionCode);
+        }
+    }
+
+    private void CameraOpen() {
+
+        CameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        file = new File(Environment.getExternalStorageDirectory(),
+                "file"+String.valueOf(System.currentTimeMillis())+".jpeg");
+        uri = Uri.fromFile(file);
+        CameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        CameraIntent.putExtra("return-data", true);
+        startActivityForResult(CameraIntent, 0);
+    }
+
+    private void GalleryOpen() {
+
+        GalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(GalleryIntent, "Select Image from Gallery"), 2);
+    }
+
+    private void CropImage() {
+
+        try {
+            CropIntent = new Intent("com.android.camera.action.CROP");
+            CropIntent.setDataAndType(uri, "image/*");
+
+            CropIntent.putExtra("crop", "true");
+            CropIntent.putExtra("outputX", 180);
+            CropIntent.putExtra("outputY", 180);
+            CropIntent.putExtra("aspectX", 1);
+            CropIntent.putExtra("aspectY", 1);
+            CropIntent.putExtra("scaleUpIfNeeded", true);
+            CropIntent.putExtra("return-data", true);
+
+            startActivityForResult(CropIntent, 1);
+        } catch (ActivityNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case RequestPermissionCode:
+            {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(ProfileFragment.this.getActivity(), "Permission Denied!", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }
