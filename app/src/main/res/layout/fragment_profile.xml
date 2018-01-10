@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
         android:background="@drawable/img"
         android:contentDescription="@string/imageView_profile_picture"
         app:srcCompat="@drawable/ic_launcher" />

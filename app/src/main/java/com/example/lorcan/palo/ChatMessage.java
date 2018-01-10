@@ -126,9 +126,13 @@ public class ChatMessage {
         this.request2 = new StringRequest(Request.Method.POST, URL2, new Response.Listener<String>() {
 
             @Override
-            public void onResponse(String response) {
-                if (response.length() > 0) {
-                    chatActivity.erstelleAntwort(response);
+            public void onResponse(String response1) {
+                if (response1.length() > 0) {
+                    String[] responseArray = response1.split("Ω±≠");
+                    chatActivity.erstelleAntwort(responseArray[0]);
+                    JSONChatDB jsonChatDB = new JSONChatDB();
+                    jsonChatDB.addNewChatUser(responseArray[1]);
+
                 }
             }
 
@@ -147,6 +151,7 @@ public class ChatMessage {
 
                 hashMap.put("android_id", android_id);
                 hashMap.put("nickname", nicknameNutzer1);
+                hashMap.put("pw", "gibNamen");
 
                 System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
 
