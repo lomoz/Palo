@@ -16,9 +16,6 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by lorcan on 09.11.17.
- */
 
 public class SendEncodedImageToDB {
 

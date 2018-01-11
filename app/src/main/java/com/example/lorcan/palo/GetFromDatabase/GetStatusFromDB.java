@@ -2,7 +2,6 @@ package com.example.lorcan.palo.GetFromDatabase;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.EditText;
 
@@ -13,9 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.MapFragment;
 import com.example.lorcan.palo.MyApplicationContext;
-import com.example.lorcan.palo.Fragments.ProfileFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,6 @@ public class GetStatusFromDB {
     private String android_id;
     private ProfileFragment profileFragment;
     private MapFragment mapFragment;
-    private Context context;
     private EditText etStatus;
     private EditText etStatusInMap;
 
@@ -44,13 +42,6 @@ public class GetStatusFromDB {
         new GetStatusAsyncTask().execute();
     }
 
-    // call in MapFragment doesn't work. Looks like context is null.
-    public void getStatusViaContext(final String android_id, Context context, EditText etStatus) {
-        this.android_id = android_id;
-        this.context = context;
-        this.etStatus = etStatus;
-    }
-
     @SuppressLint("StaticFieldLeak")
     public class GetStatusAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -63,10 +54,6 @@ public class GetStatusFromDB {
 
             else if (mapFragment != null) {
                 etStatusInMap.setEnabled(false);
-            }
-
-            else if (context != null) {
-                etStatus.setEnabled(false);
             }
         }
 
@@ -87,10 +74,6 @@ public class GetStatusFromDB {
 
                     else if (mapFragment != null) {
                         handleResponseMap(response);
-                    }
-
-                    else if (context != null) {
-                        handleResponseContext(response);
                     }
                 }
 
@@ -123,10 +106,6 @@ public class GetStatusFromDB {
             else if (mapFragment != null) {
                 etStatusInMap.setEnabled(true);
             }
-
-            else if (context != null) {
-                etStatus.setEnabled(true);
-            }
         }
     }
 
@@ -138,10 +117,5 @@ public class GetStatusFromDB {
     private void handleResponseMap(String response){
         etStatusInMap.setText(response);
         etStatusInMap.setSelection(response.length());
-    }
-
-    private void handleResponseContext(String response) {
-        etStatus.setText(response);
-        etStatus.setSelection(response.length());
     }
 }

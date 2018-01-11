@@ -18,7 +18,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -133,10 +132,6 @@ public class ProfileFragment extends Fragment {
 
     String status = "";
 
-    NavigationView navigationView;
-    View hView;
-    Bitmap bitmapProfileImage;
-
     private String android_id;
     public String time;
     public Double lat;
@@ -190,17 +185,9 @@ public class ProfileFragment extends Fragment {
         // Receive status from database.
         GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
         getStatusFromDB.getStatus(android_id, this, etStatus);
-        //getStatusFromDB.getStatusViaContext(android_id, ProfileFragment.this.getActivity().getApplicationContext(), etStatus);
 
         GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
-
-        if (bitmapProfileImage != null) {
-            ivImage.setImageBitmap(Bitmap.createScaledBitmap(bitmapProfileImage, 256, 256, false));
-        }
-        else {
-            Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
-        }
 
         fabImageDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,12 +233,6 @@ public class ProfileFragment extends Fragment {
                 btnChangeClicked();
             }
         });
-
-        /* Read ArrayList from File.
-        String filename = "user_status";
-        FileManager fileManager = new FileManager();
-        spinnerArray = fileManager.readFromFile(getContext(), filename);
-        */
 
         spinnerArray.add("alter status");
 
@@ -420,12 +401,7 @@ public class ProfileFragment extends Fragment {
         Date date = new Date();
         time = dateFormat.format(date);
         statusToDB.sendStatus(status, lat, lng, time, android_id);
-
-        // Write user status to internal storage.
-        String filename = "user_status";
-        FileManager fileManager = new FileManager();
-        fileManager.writeToFile(getContext(), filename, status);
-
+        
         CurrLocUpdate mapFragment = new CurrLocUpdate();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
