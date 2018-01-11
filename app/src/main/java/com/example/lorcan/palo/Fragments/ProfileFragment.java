@@ -106,7 +106,7 @@ public class ProfileFragment extends Fragment {
      * Declare elements here to handle them in the onCreateView method.
      */
 
-    EditText etStatus, etJob;
+    EditText etStatus;
     Button btnChange;
     Spinner spinner;
 
@@ -132,7 +132,6 @@ public class ProfileFragment extends Fragment {
     ArrayList<String> spinnerArray = new ArrayList<>();
 
     String status = "";
-    String job = "";
 
     NavigationView navigationView;
     View hView;
@@ -166,7 +165,6 @@ public class ProfileFragment extends Fragment {
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         etStatus.setFilters(new InputFilter[] { filter });
-        etJob = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
@@ -255,7 +253,7 @@ public class ProfileFragment extends Fragment {
         spinnerArray = fileManager.readFromFile(getContext(), filename);
         */
 
-        spinnerArray.add("wähle einen alten status.");
+        spinnerArray.add("alter status");
 
         try {
             String oldUserStatus = OldStatus.getData(MyApplicationContext.getAppContext());
@@ -282,7 +280,7 @@ public class ProfileFragment extends Fragment {
                 // if any item is selected this one should become the active status
 
                 String selectedItemText = (String) adapterView.getItemAtPosition(i);
-                if (!selectedItemText.equals("Select Option")) {
+                if (!selectedItemText.equals("alter status")) {
                     Toast.makeText(ProfileFragment.this.getActivity(), selectedItemText, Toast.LENGTH_SHORT).show();
                     etStatus.setText(selectedItemText);
                 }
@@ -349,34 +347,18 @@ public class ProfileFragment extends Fragment {
 
     public void btnChangeClicked() {
 
-        if (etStatus.getText().toString().isEmpty() && etJob.getText().toString().isEmpty()) {
+        if (etStatus.getText().toString().isEmpty()) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
-            builder.setTitle(R.string.alert_empty_status_and_job_title);
-            builder.setMessage(R.string.alert_empty_status_and_job_message);
+            builder.setTitle("bitte wähle einen status.");
             builder.show();
         }
 
-        else if (etStatus.getText().toString().isEmpty()) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
-            builder.setTitle(R.string.alert_empty_status_title);
-            builder.setMessage(R.string.alert_empty_status_message);
-            builder.show();
-        }
-
-        else if (etJob.getText().toString().isEmpty()) {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
-            builder.setTitle(R.string.alert_empty_job_title);
-            builder.setMessage(R.string.alert_empty_job_message);
-            builder.show();
-        }
 
         else {
 
             status = etStatus.getText().toString();
-            job = etJob.getText().toString();
 
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

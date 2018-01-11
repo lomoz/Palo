@@ -7,6 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hhu_blue"
     tools:context="com.example.lorcan.palo.Fragments.ProfileFragment">
 
     <ImageView
@@ -57,9 +58,11 @@
 
         <Button
             android:id="@+id/btnChangeInMap"
+            android:background="#d2003b8e"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/change"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
