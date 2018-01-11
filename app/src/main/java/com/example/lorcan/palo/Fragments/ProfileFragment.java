@@ -39,7 +39,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.lorcan.palo.CurrLocUpdate;
-import com.example.lorcan.palo.FileManager;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.example.lorcan.palo.MainActivity;
@@ -145,11 +144,7 @@ public class ProfileFragment extends Fragment {
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        cameraPhoto = new CameraPhoto(this.getActivity());
-        galleryPhoto = new GalleryPhoto(this.getActivity());
-
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
-
         fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
 
         int permissionCheck = ContextCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.CAMERA);
@@ -200,9 +195,7 @@ public class ProfileFragment extends Fragment {
                 builder.setPositiveButton(R.string.camera, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something
                         CameraOpen();
-
                     }
                 });
 
@@ -210,13 +203,11 @@ public class ProfileFragment extends Fragment {
                 builder.setNegativeButton(R.string.gallery, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        // do something
                         GalleryOpen();
                     }
                 });
 
                 builder.show();
-
             }
         });
 
@@ -258,8 +249,8 @@ public class ProfileFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // if any item is selected this one should become the active status
 
+                // if any item is selected this one should become the active status
                 String selectedItemText = (String) adapterView.getItemAtPosition(i);
                 if (!selectedItemText.equals("alter status")) {
                     Toast.makeText(ProfileFragment.this.getActivity(), selectedItemText, Toast.LENGTH_SHORT).show();
@@ -331,11 +322,10 @@ public class ProfileFragment extends Fragment {
         if (etStatus.getText().toString().isEmpty()) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
-            builder.setTitle("bitte wähle einen status.");
+            builder.setTitle(R.string.alert_empty_status_title);
+            builder.setMessage(R.string.alert_empty_status_message);
             builder.show();
         }
-
-
 
         else {
 
@@ -401,7 +391,7 @@ public class ProfileFragment extends Fragment {
         Date date = new Date();
         time = dateFormat.format(date);
         statusToDB.sendStatus(status, lat, lng, time, android_id);
-        
+
         CurrLocUpdate mapFragment = new CurrLocUpdate();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
