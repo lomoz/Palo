@@ -84,10 +84,10 @@ public class GetEncodedImageFromDB {
     }
 
     private void handleResponse(String response) {
-        profileFragment.setEncodedImageAsImageView(response);
+        profileFragment.setEncodedImageAsProfileImage(response);
     }
 
     private void handleResponseMain(String response) {
-        mainActivity.setEncodedImageAsImageView(response);
+        mainActivity.setEncodedImageAsNavImage(response);
     }
 }

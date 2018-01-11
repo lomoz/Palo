@@ -302,7 +302,7 @@ public class ProfileFragment extends Fragment {
                 croppedBitmap = bundle.getParcelable("data");
                 rotatedBitmap = getRotatedBitmap(croppedBitmap);
 
-                ivImage.setImageBitmap(Bitmap.createScaledBitmap(rotatedBitmap, 256, 256, false));
+                ivImage.setImageBitmap(Bitmap.createScaledBitmap(rotatedBitmap, 200, 200, false));
                 MainActivity mainActivity = new MainActivity();
                 //mainActivity.setBitmapAsImageView(rotatedBitmap);
 
@@ -317,7 +317,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public void setEncodedImageAsImageView(String image){
+    public void setEncodedImageAsProfileImage(String image){
 
         try {
             if(image.length() > 0){
