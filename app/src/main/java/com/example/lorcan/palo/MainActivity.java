@@ -387,12 +387,23 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
     }
 
-    public void setEncodedImageAsImageView(String image){
-        if(image.length() > 0){
-            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
+    public void setEncodedImageAsNavImage(String image){
+
+        try {
+            if(image.length() > 0){
+                byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                navImageViewProfile.setRotation(90);
+                navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public void setBitmapAsImageView(Bitmap bitmap) {
+        navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 64, 64, false));
     }
 
     public void setUsernameInNav(String username) {

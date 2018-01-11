@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorFooter">#c0c0c0</color>
-    <color name="colorScrollview">#e6e6fa</color>
+    <color name="colorScrollview">#74006ab3</color>
 
     <!-- hue colors -->
     <color name="hue_azure">#f0ffff</color>
@@ -13,9 +13,12 @@
     <color name="hue_green">#008000</color>
     <color name="hue_magenta">#ff00ff</color>
     <color name="hue_orange">#ffa500</color>
-    <color name="hue_red">#ff0000</color>
+    <color name="hue_red">#e4393c</color>
     <color name="hue_rose">#ffe4e1</color>
     <color name="hue_violet">#ee82ee</color>
     <color name="hue_yellow">#ffff00</color>
+    <color name="white">#ffffff</color>
+
+    <color name="hhu_blue">#006AB3</color>
 
 </resources>

@@ -43,6 +43,7 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.FileManager;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
+import com.example.lorcan.palo.MainActivity;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.R;
@@ -118,7 +119,7 @@ public class ProfileFragment extends Fragment {
     Bitmap croppedBitmap;
     Bitmap rotatedBitmap;
 
-    ImageView ivCamera, ivGallery, ivImage, navImageViewProfile;
+    ImageView ivImage;
 
     FloatingActionButton fabImageDialog;
 
@@ -153,8 +154,6 @@ public class ProfileFragment extends Fragment {
         cameraPhoto = new CameraPhoto(this.getActivity());
         galleryPhoto = new GalleryPhoto(this.getActivity());
 
-        ivCamera = (ImageView) view.findViewById(R.id.ivCamera);
-        ivGallery = (ImageView) view.findViewById(R.id.ivGallery);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
 
         fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
@@ -169,13 +168,6 @@ public class ProfileFragment extends Fragment {
         etStatus.setFilters(new InputFilter[] { filter });
         etJob = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
-
-        /*
-        navigationView = (NavigationView) view.findViewById(R.id.nav_view);
-        hView = navigationView.getHeaderView(0);
-        navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
-        */
-
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -211,25 +203,6 @@ public class ProfileFragment extends Fragment {
         else {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something went wrong while loading the profile image.", Toast.LENGTH_SHORT).show();
         }
-
-        ivCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    startActivityForResult(cameraPhoto.takePhotoIntent(), CAMERA_REQUEST);
-                    cameraPhoto.addToGallery();
-                } catch (IOException e) {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while taking photos.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        ivGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(galleryPhoto.openGalleryIntent(), GALLERY_REQUEST);
-            }
-        });
 
         fabImageDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,8 +318,9 @@ public class ProfileFragment extends Fragment {
                 croppedBitmap = bundle.getParcelable("data");
                 rotatedBitmap = getRotatedBitmap(croppedBitmap);
 
-                ivImage.setImageBitmap(rotatedBitmap);
-
+                ivImage.setImageBitmap(Bitmap.createScaledBitmap(rotatedBitmap, 200, 200, false));
+                MainActivity mainActivity = new MainActivity();
+                //mainActivity.setBitmapAsImageView(rotatedBitmap);
 
                 // Save cropped image to external storage and get Path afterwards to upload to DB
                 Uri croppedUri = saveOutput(rotatedBitmap);
@@ -359,7 +333,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public void setEncodedImageAsImageView(String image){
+    public void setEncodedImageAsProfileImage(String image){
 
         try {
             if(image.length() > 0){
