@@ -25,7 +25,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +58,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -102,8 +100,6 @@ public class ProfileFragment extends Fragment {
     Uri uri;
     Intent CameraIntent, GalleryIntent, CropIntent;
     final int RequestPermissionCode = 1;
-    DisplayMetrics displayMetrics;
-    int width, height;
     Bitmap croppedBitmap;
     Bitmap rotatedBitmap;
 
@@ -314,7 +310,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        
+
         if (requestCode == 0 && resultCode == RESULT_OK) {
             CropImage();
         }
