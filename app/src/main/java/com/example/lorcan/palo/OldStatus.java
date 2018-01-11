@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,41 +22,85 @@ import java.io.IOException;
 public class OldStatus {
     static String fileName = "status.json";
 
-    public static void addNewEntry(String nameJSON) {
-        try {
-            nameJSON = nameJSON.substring(0, nameJSON.length() - 1);
-            FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
+    public static void addNewEntry(String newStatus) {
+
             String old = getData(MyApplicationContext.getAppContext());
-
-            if(old.length() <= 0) {
-                nameJSON = "{ \"Status\" : [\"" + nameJSON + "\"]}";
-            }else{
+            System.out.println(old);
+        try{
+            if (!old.contains("{ \"Status\" : [\"\"")) {
+                writeNewJSON("{ \"Status\" : [\"\","+newStatus+"]}");
+            } else {
                 old = old.substring(0, old.length() - 2);
-                nameJSON = old + ", \"" + nameJSON + "\"]}";
+                newStatus = old + ", \"" + newStatus + "\"]}";
+                writeNewJSON(newStatus);
             }
-                System.out.println("NAMEJSON: " + nameJSON);
-                JSONObject jsonObject = new JSONObject(getData(MyApplicationContext.getAppContext()));
-                JSONArray jsonArray = jsonObject.getJSONArray("Status");
+        }catch(NullPointerException e){
+            if(old == null) {
+                writeNewJSON("{ \"Status\" : [\"\"," + newStatus + "]}");
+            }
+        }
 
-                if(jsonArray.length() > 5){
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        jsonArray.remove(0);
-                        jsonArray.put(nameJSON);
-                        nameJSON = "{ \"Status\" :" + jsonArray.toString()+ "}";
-                        System.out.println(nameJSON);
-                    }
-                }
 
-            file.write(nameJSON);
+
+
+            System.out.println("NAMEJSON: " + newStatus);
+
+
+
+
+    }
+
+    public static void writeNewJSON(String newJSON){
+
+        try {
+            FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
+            file.write(newJSON);
             file.flush();
             file.close();
-        } catch (IOException e) {
-            Log.e("TAG", "Error in Writing: " + e.getLocalizedMessage());
-        } catch (JSONException e) {
+
+            if (checkLength()) {
+                deleteLastOne();
+            }
+
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
 
+    public static Boolean checkLength(){
+        Boolean bool = false;
+        String jsonString = getData(MyApplicationContext.getAppContext());
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("Status");
+            if(jsonArray.length() > 5){
+                bool = true;
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return bool;
+    }
+
+    public static void deleteLastOne(){
+        String jsonString = getData(MyApplicationContext.getAppContext());
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("Status");
+            System.out.println("JSONARRAY: " + jsonArray.toString());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                jsonArray.remove(1);
+            }else{
+                Toast.makeText(MyApplicationContext.getAppContext(), "deine android-version ist leider zu alt dafür. irgendwann trifft es jeden. man muss ein neues smartphone kaufen.", Toast.LENGTH_LONG);
+            }
+
+            writeNewJSON("{ \"Status\" : "+jsonArray.toString()+"}");
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
     public static String getData(Context context) {
 
 

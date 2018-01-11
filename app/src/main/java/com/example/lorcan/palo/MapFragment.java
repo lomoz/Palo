@@ -20,6 +20,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,12 +78,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     View view;
     ImageView imageView;
     String android_id;
+    private String blockCharacterSet = "\\";
 
     public MapFragment() {
         // Required empty public constructor
     }
 
+    private InputFilter filter = new InputFilter() {
 
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            if (source != null && blockCharacterSet.contains(("" + source))) {
+                return "";
+            }
+            return null;
+        }
+    };
 
     @SuppressLint("HardwareIds")
     @Override
@@ -93,6 +106,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         etStatusInMap = (EditText) view.findViewById(R.id.etStatusInMap);
         imageView = (ImageView) view.findViewById(R.id.message);
+
+
+        etStatusInMap.setFilters(new InputFilter[] { filter });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,9 +237,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     for (int i = 0; i < spinnerArray.size(); i++) {
                         System.out.println("******************** old status ******************" + spinnerArray.get(i));
                     }
-
-                    // put status to json file
-                    OldStatus.addNewEntry(status);
 
                     // call method to update map after setting a new status
                     updateMap();

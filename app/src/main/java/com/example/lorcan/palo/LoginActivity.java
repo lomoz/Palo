@@ -88,17 +88,10 @@ public class LoginActivity extends AppCompatActivity {
                                 FileWriter file1 = null;
                                 try {
                                     file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + "chats.json");
-                                    file1 = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + "status.json");
-
                                     String nameJSON = "{ \"Users\" : [\"\"]}";
-                                    String nameJSON1 = "{ \"Status\" : [\"\"]}";
-
                                     file.write(nameJSON);
                                     file.flush();
                                     file.close();
-                                    file1.write(nameJSON1);
-                                    file1.flush();
-                                    file1.close();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

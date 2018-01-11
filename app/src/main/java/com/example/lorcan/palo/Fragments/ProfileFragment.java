@@ -24,6 +24,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,6 +88,19 @@ public class ProfileFragment extends Fragment {
         startMapAndUploadStatus();
     }
 
+    private String blockCharacterSet = "\\";
+
+    private InputFilter filter = new InputFilter() {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            if (source != null && blockCharacterSet.contains(("" + source))) {
+                return "";
+            }
+            return null;
+        }
+    };
     /*
      * Declare elements here to handle them in the onCreateView method.
      */
@@ -151,6 +166,7 @@ public class ProfileFragment extends Fragment {
 
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
+        etStatus.setFilters(new InputFilter[] { filter });
         etJob = (EditText) view.findViewById(R.id.etStudyCourse);
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
@@ -266,20 +282,20 @@ public class ProfileFragment extends Fragment {
         spinnerArray = fileManager.readFromFile(getContext(), filename);
         */
 
-        spinnerArray.add("Select Option");
-        spinnerArray.add("Item 1");
-        spinnerArray.add("Item 2");
-        spinnerArray.add("Item 3");
+        spinnerArray.add("wähle einen alten status.");
 
         try {
             String oldUserStatus = OldStatus.getData(MyApplicationContext.getAppContext());
+            System.out.println("JSONSTATUS PROFILEFRAGMENT: " + oldUserStatus);
             JSONObject jsonObject = new JSONObject(oldUserStatus);
             JSONArray jsonArray = jsonObject.getJSONArray("Status");
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for (int i = 1; i < jsonArray.length(); i++) {
                 spinnerArray.add(jsonArray.get(i).toString());
             }
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (NullPointerException e1){
+            e1.printStackTrace();
         }
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
