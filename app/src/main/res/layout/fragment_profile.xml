@@ -10,28 +10,6 @@
     tools:context="com.example.lorcan.palo.Fragments.ProfileFragment">
 
     <ImageView
-        android:id="@+id/ivCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/ic_menu_camera"
-        android:contentDescription="@string/camera_icon"
-        android:layout_marginStart="10dp" />
-
-    <ImageView
-        android:id="@+id/ivGallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
-        android:layout_toEndOf="@+id/ivCamera"
-        android:layout_toRightOf="@+id/ivCamera"
-        app:srcCompat="@drawable/ic_menu_gallery"
-        android:contentDescription="@string/gallery_icon"
-        android:layout_marginStart="10dp" />
-
-    <ImageView
         android:id="@+id/ivImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,9 +69,10 @@
         android:id="@+id/fabImageDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivGallery"
-        android:layout_toEndOf="@+id/ivImage"
-        android:layout_toRightOf="@+id/ivImage"
+        android:layout_alignBottom="@+id/ivImage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
         android:clickable="true"
         android:src="@drawable/ic_menu_camera"
         app:backgroundTint="@color/hhu_blue" />
