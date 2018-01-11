@@ -314,47 +314,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        /*
-        if (resultCode == RESULT_OK) {
-            if (requestCode == CAMERA_REQUEST) {
-                String photoPath = cameraPhoto.getPhotoPath();
-                selectedPhoto = photoPath;
-                try {
-                    Bitmap croppedBitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
-                    //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
-
-                    ivImage.setImageBitmap(croppedBitmap);
-                    //navImageViewProfile.setImageBitmap(getRotatedBitmap(bitmapNav));
-
-
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while loading photos.", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else if (requestCode == GALLERY_REQUEST) {
-                Uri uri = data.getData();
-                galleryPhoto.setPhotoUri(uri);
-                String photoPath = galleryPhoto.getPath();
-                selectedPhoto = photoPath;
-                try {
-                    Bitmap croppedBitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
-                    //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
-
-                    ivImage.setImageBitmap(getRotatedBitmap(croppedBitmap));
-                    //navImageViewProfile.setImageBitmap(bitmapNav);
-
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while choosing photos.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            // check if selectedPhoto not null & upload image
-            if (selectedPhoto != null) {
-                uploadImage(selectedPhoto);
-            }
-        }
-        */
-
+        
         if (requestCode == 0 && resultCode == RESULT_OK) {
             CropImage();
         }
