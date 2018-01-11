@@ -42,7 +42,6 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.FileManager;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
-import com.example.lorcan.palo.Manifest;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.R;
@@ -60,9 +59,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -103,6 +104,8 @@ public class ProfileFragment extends Fragment {
     final int RequestPermissionCode = 1;
     DisplayMetrics displayMetrics;
     int width, height;
+    Bitmap croppedBitmap;
+    Bitmap rotatedBitmap;
 
     ImageView ivCamera, ivGallery, ivImage, navImageViewProfile;
 
@@ -317,10 +320,10 @@ public class ProfileFragment extends Fragment {
                 String photoPath = cameraPhoto.getPhotoPath();
                 selectedPhoto = photoPath;
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
+                    Bitmap croppedBitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
                     //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
 
-                    ivImage.setImageBitmap(bitmap);
+                    ivImage.setImageBitmap(croppedBitmap);
                     //navImageViewProfile.setImageBitmap(getRotatedBitmap(bitmapNav));
 
 
@@ -334,10 +337,10 @@ public class ProfileFragment extends Fragment {
                 String photoPath = galleryPhoto.getPath();
                 selectedPhoto = photoPath;
                 try {
-                    Bitmap bitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
+                    Bitmap croppedBitmap = ImageLoader.init().from(photoPath).requestSize(200, 200).getBitmap();
                     //Bitmap bitmapNav = ImageLoader.init().from(photoPath).requestSize(64, 64).getBitmap();
 
-                    ivImage.setImageBitmap(getRotatedBitmap(bitmap));
+                    ivImage.setImageBitmap(getRotatedBitmap(croppedBitmap));
                     //navImageViewProfile.setImageBitmap(bitmapNav);
 
                 } catch (FileNotFoundException e) {
@@ -359,6 +362,7 @@ public class ProfileFragment extends Fragment {
         else if (requestCode == 2) {
             if (data != null) {
                 uri = data.getData();
+                selectedPhoto = uri.getPath();
                 CropImage();
             }
         }
@@ -366,18 +370,35 @@ public class ProfileFragment extends Fragment {
         else if (requestCode == 1) {
             if (data != null) {
                 Bundle bundle = data.getExtras();
-                Bitmap bitmap = bundle.getParcelable("data");
-                ivImage.setImageBitmap(bitmap);
+                croppedBitmap = bundle.getParcelable("data");
+                rotatedBitmap = getRotatedBitmap(croppedBitmap);
+
+                ivImage.setImageBitmap(rotatedBitmap);
+
+
+                // Save cropped image to external storage and get Path afterwards to upload to DB
+                Uri croppedUri = saveOutput(rotatedBitmap);
+                selectedPhoto = croppedUri.getPath();
+
+                //uploadBitmap(rotatedBitmap);
+                if (selectedPhoto != null) {
+                    uploadImage(selectedPhoto);
+                }
             }
         }
     }
 
     public void setEncodedImageAsImageView(String image){
-        if(image.length() > 0){
-            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            ivImage.setRotation(90);
-            ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 200, 200, false));
+
+        try {
+            if(image.length() > 0){
+                byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                ivImage.setRotation(90);
+                ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 200, 200, false));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -494,6 +515,18 @@ public class ProfileFragment extends Fragment {
         return createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
+    private void uploadBitmap(Bitmap bitmap) {
+
+
+        String encodedImage = ImageBase64.encode(bitmap);
+        Log.d(TAG, encodedImage);
+
+        SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
+        sendEncodedImageToDB.sendEncodedImage(encodedImage);
+
+        Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
+    }
+
     private void uploadImage(String selectedPhoto){
 
         if (selectedPhoto == null || selectedPhoto.equals("")) {
@@ -577,5 +610,31 @@ public class ProfileFragment extends Fragment {
                 }
             }
         }
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private Uri saveOutput(Bitmap croppedImage) {
+        Uri saveUri = null;
+        File file = new File(Environment.getExternalStorageDirectory(),"tmp_avatar_" + String.valueOf(System.currentTimeMillis()) + ".jpg");
+        OutputStream outputStream;
+
+        try {
+            file.getParentFile().mkdirs();
+            saveUri = Uri.fromFile(file);
+            outputStream = MyApplicationContext.getAppContext().getContentResolver().openOutputStream(saveUri);
+            if (outputStream != null) {
+                croppedImage.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  saveUri;
     }
 }
