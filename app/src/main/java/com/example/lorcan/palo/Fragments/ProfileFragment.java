@@ -380,7 +380,6 @@ public class ProfileFragment extends Fragment {
                 Uri croppedUri = saveOutput(rotatedBitmap);
                 selectedPhoto = croppedUri.getPath();
 
-                //uploadBitmap(rotatedBitmap);
                 if (selectedPhoto != null) {
                     uploadImage(selectedPhoto);
                 }
@@ -513,18 +512,6 @@ public class ProfileFragment extends Fragment {
         Matrix matrix = new Matrix();
         matrix.postRotate((float) -90);
         return createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
-    }
-
-    private void uploadBitmap(Bitmap bitmap) {
-
-
-        String encodedImage = ImageBase64.encode(bitmap);
-        Log.d(TAG, encodedImage);
-
-        SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
-        sendEncodedImageToDB.sendEncodedImage(encodedImage);
-
-        Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
     }
 
     private void uploadImage(String selectedPhoto){
