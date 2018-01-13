@@ -28,7 +28,7 @@ public class OldStatus {
             System.out.println(old);
         try{
             if (!old.contains("{ \"Status\" : [\"\"")) {
-                writeNewJSON("{ \"Status\" : [\"\","+newStatus+"]}");
+                writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
             } else {
                 old = old.substring(0, old.length() - 2);
                 newStatus = old + ", \"" + newStatus + "\"]}";

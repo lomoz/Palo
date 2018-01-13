@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -333,17 +334,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.element1hdpi);
 
             int height = 125;
-            int width = 100;
-            BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.mipmap.element1hdpi);
+            int width = 170;
+            BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.mipmap.element2mdpi);
             Bitmap b = bitmapDraw.getBitmap();
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
 
             for (int i = 2; i < args.size(); i = i + 5) {
+                String snippet = args.get(i);
+                snippet.replace("\n", "");
                 MarkerOptions markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .title(args.get(i+4) + " | " + args.get(i+3))
-                        .snippet(args.get(i));
+                        .snippet(snippet)
+                        .anchor(1,1);
+
                 map.addMarker(markerOptions1);
             }
             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
