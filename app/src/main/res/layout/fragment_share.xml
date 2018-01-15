@@ -24,7 +24,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/iv_header"
-        android:background="@color/colorScrollview"
+        android:background="@color/white"
         android:baselineAligned="false"
         android:orientation="vertical"
         android:padding="20dp">
@@ -39,32 +39,26 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tv_share_app"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/click_to_share"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/imgBtn_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:contentDescription="@string/app_icon_share_button"
+                app:srcCompat="@mipmap/appicon" />
 
-                <TextView
-                    android:id="@+id/tv_share_app"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/click_to_share"
-                    android:textSize="18sp" />
-
-                <ImageButton
-                    android:id="@+id/imgBtn_share"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_icon_share_button"
-                    app:srcCompat="@mipmap/appicon" />
-
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -75,7 +69,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@color/colorFooter"
+        android:background="@color/hhu_blue"
         android:orientation="horizontal"
         android:padding="5dp">
 
@@ -85,7 +79,7 @@
             android:layout_height="wrap_content"
             android:text="@string/palo_version"
             android:textAlignment="textStart"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_copyright"
@@ -94,7 +88,7 @@
             android:layout_weight="0.19"
             android:text="@string/copyright"
             android:textAlignment="textEnd"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
