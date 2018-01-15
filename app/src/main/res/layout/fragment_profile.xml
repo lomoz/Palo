@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hhu_blue"
+    android:background="@android:color/white"
     tools:context="com.example.lorcan.palo.Fragments.ProfileFragment">
 
     <android.support.design.widget.FloatingActionButton
@@ -19,8 +19,10 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
         android:clickable="true"
-        android:src="@drawable/ic_menu_camera"
-        app:backgroundTint="@color/hhu_blue" />
+        android:src="@android:drawable/ic_menu_camera"
+        app:backgroundTint="@color/hhu_blue"
+        android:focusable="true"
+        android:layout_marginStart="5dp" />
 
     <ImageView
         android:id="@+id/ivImage"
@@ -37,9 +39,12 @@
         android:id="@+id/etStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/fabImageDialog"
-        android:layout_alignStart="@+id/fabImageDialog"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:ems="10"
         android:hint="@string/set_status"
         android:inputType="textPersonName"
@@ -49,21 +54,193 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/tvSelectMarkerColor"
+        android:layout_alignStart="@+id/tvSelectMarkerColor"
         android:layout_below="@+id/etStatus"
-        android:layout_marginTop="90dp" />
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="50dp" />
 
     <Button
         android:id="@+id/btnChangeInMap"
-        android:background="#d2003b8e"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/change"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@color/hhu_blue"
+        android:text="@string/change"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvActiveStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:text="@string/active_status" />
+
+    <TextView
+        android:id="@+id/tvOldStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="5dp"
+        android:text="@string/old_status" />
+
+    <TextView
+        android:id="@+id/tvSelectMarkerColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etStatus"
+        android:layout_alignStart="@+id/etStatus"
+        android:layout_below="@+id/spinner"
+        android:layout_marginBottom="5dp"
+        android:text="@string/select_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvSelectMarkerColor"
+        android:layout_alignStart="@+id/tvSelectMarkerColor"
+        android:layout_below="@+id/tvSelectMarkerColor"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_azure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_azure"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_azure" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_blue"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_blue" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_cyan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_cyan"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_cyan" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_green"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_green" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_magenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_magenta"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_magenta" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_orange"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_orange" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_red"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_red" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_rose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_rose"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_rose" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_violet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_violet"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_violet" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            app:backgroundTint="@color/hue_yellow"
+            app:fabSize="mini"
+            app:srcCompat="@color/hue_yellow" />
+
+    </LinearLayout>
 
 </RelativeLayout>

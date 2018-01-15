@@ -163,5 +163,7 @@
 
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
+    <string name="active_status">Active Status</string>
+    <string name="old_status">Old Status</string>
 
 </resources>
