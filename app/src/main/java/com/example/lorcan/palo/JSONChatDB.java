@@ -55,6 +55,10 @@ public class JSONChatDB {
         int intBool = 0;
         System.out.println(old);
         try {
+            if(old == null){
+                createNewDBDeleteOld("{ \"Users\" : [\"\"]}");
+                old = getData(MyApplicationContext.getAppContext());
+            }
             JSONObject jsonObject = new JSONObject(old);
             old = old.substring(0, old.length()-2);
             JSONArray jsonArray = jsonObject.getJSONArray("Users");
@@ -91,16 +95,17 @@ public class JSONChatDB {
             jsonObject = new JSONObject(list);
             JSONArray listeNicknames = jsonObject.getJSONArray("Users");
             for(int i =1; i<listeNicknames.length(); i++){
+                System.out.println("User der gelöscht werden sollte: " + user);
                 if(!listeNicknames.get(i).toString().equals(user)){
-                    System.out.println("User der gelöscht werden sollte: " + user);
+
                     System.out.println("User die durchgelassen werden: " + listeNicknames.get(i).toString());
-                    data = data + ", \"" + listeNicknames.get(i).toString() + "\"";
+                    data = data + ", \"" + listeNicknames.get(i).toString() + "\" ";
                 }
             }
             if(data.equals("")){
-                data = "{ \"Users\" : []}";
+                data = "{ \"Users\" : [\"\"]}";
             }else {
-                data = "{ \"Users\" : [\"\"," + data + "]}";
+                data = "{ \"Users\" : [\"\"" + data + "]}";
             }
             createNewDBDeleteOld(data);
 

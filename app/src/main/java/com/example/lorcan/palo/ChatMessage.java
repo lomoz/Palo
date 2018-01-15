@@ -61,7 +61,7 @@ public class ChatMessage {
     public String responseIsMessage;
 
     public void sendMessage(final String nickname, final String nachricht) {
-
+System.out.println("NICKNAME CHAT: " + nickname);
         this.nickname = nickname;
         this.nachricht = nachricht;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
@@ -82,6 +82,7 @@ public class ChatMessage {
 
             @Override
             public void onResponse(String response) {
+                System.out.println("ANTWORT VON SEND STATUS: " + response);
             }
 
         }, new Response.ErrorListener() {
@@ -96,12 +97,16 @@ public class ChatMessage {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
-
-                hashMap.put("nickname", nickname);
+                if(nickname.substring(nickname.length() - 1).equals(" ")){
+                    String newnickname = nickname.substring(0, nickname.length() - 1);
+                    hashMap.put("nickname", newnickname);
+                }else {
+                    hashMap.put("nickname", nickname);
+                }
                 hashMap.put("nachricht", nachricht);
                 hashMap.put("android_id", android_id);
 
-                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
+                System.out.println("DAS WAS GESENDET WIRD VOM STATUS1: " + hashMap);
 
                 return hashMap;
             }
@@ -131,6 +136,7 @@ public class ChatMessage {
                     String[] responseArray = response1.split("Ω±≠");
                     chatActivity.erstelleAntwort(responseArray[0]);
                     JSONChatDB jsonChatDB = new JSONChatDB();
+                    System.out.println("RESPONSEARRAY:" +responseArray.toString());
                     jsonChatDB.addNewChatUser(responseArray[1]);
 
                 }
@@ -153,7 +159,6 @@ public class ChatMessage {
                 hashMap.put("nickname", nicknameNutzer1);
                 hashMap.put("pw", "gibNamen");
 
-                System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
 
                 return hashMap;
             }
