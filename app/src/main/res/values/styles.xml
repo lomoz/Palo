@@ -10,6 +10,7 @@
         <item name="windowNoTitle">true</item>
 
     </style>
+
     <style name="AppTheme.WhiteAccent">
         <item name="colorAccent">@color/white</item> <!-- Whatever color you want-->
     </style>
@@ -20,7 +21,9 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
+
+    <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

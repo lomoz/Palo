@@ -132,12 +132,10 @@ System.out.println("NICKNAME CHAT: " + nickname);
 
             @Override
             public void onResponse(String response1) {
+
+                System.out.println("RESPONSE:" +response1);
                 if (response1.length() > 0) {
-                    String[] responseArray = response1.split("Ω±≠");
-                    chatActivity.erstelleAntwort(responseArray[0]);
-                    JSONChatDB jsonChatDB = new JSONChatDB();
-                    System.out.println("RESPONSEARRAY:" +responseArray.toString());
-                    jsonChatDB.addNewChatUser(responseArray[1]);
+                    chatActivity.erstelleAntwort(response1);
 
                 }
             }
