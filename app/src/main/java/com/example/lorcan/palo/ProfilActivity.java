@@ -7,7 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.lorcan.palo.GetFromDatabase.GetProfilInfoFromDB;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ProfilActivity extends AppCompatActivity {
 
@@ -22,6 +25,14 @@ public class ProfilActivity extends AppCompatActivity {
         Serializable k = getIntent().getSerializableExtra("name");
         name = k.toString();
         ProfilActivity.this.setTitle("Profil von " + name);
+
+        GetProfilInfoFromDB getProfilInfoFromDB = new GetProfilInfoFromDB();
+        getProfilInfoFromDB.getInfo(this, name);
+    }
+
+    public void setInfoToScreen(ArrayList<String> list){
+
+
     }
 
 }

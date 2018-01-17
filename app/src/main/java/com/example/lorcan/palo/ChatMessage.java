@@ -152,10 +152,9 @@ System.out.println("NICKNAME CHAT: " + nickname);
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
-
+                System.out.println("DIE PARAMETER: " + android_id +", "+ nicknameNutzer1);
                 hashMap.put("android_id", android_id);
                 hashMap.put("nickname", nicknameNutzer1);
-                hashMap.put("pw", "gibNamen");
 
 
                 return hashMap;
@@ -164,7 +163,6 @@ System.out.println("NICKNAME CHAT: " + nickname);
 
         requestQueue2.add(request2);
         return message[0];
-
 
     }
 
@@ -319,6 +317,8 @@ System.out.println("NICKNAME CHAT: " + nickname);
 
     public void handleResponse1(String response, ChatActivity chatActivity){
         if(response.contains("tr")) {
+         JSONChatDB jsonChatDB = new JSONChatDB();
+         jsonChatDB.addNewChatUser(nickname);
          ChatMessage chatMessage = new ChatMessage();
          chatMessage.getMessage(android_id, chatActivity, nickname);
 
