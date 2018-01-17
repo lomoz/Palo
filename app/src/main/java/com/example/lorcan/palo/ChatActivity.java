@@ -1,12 +1,16 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.Display;
 import android.view.Gravity;
@@ -46,6 +50,19 @@ public class ChatActivity extends AppCompatActivity {
         Serializable k = getIntent().getSerializableExtra("name");
         name = k.toString();
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setTitleTextColor(Color.WHITE);
+        ChatActivity.this.setTitle(name);
+        myToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChatActivity.this, ProfilActivity.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+            }
+        });
+
         timer.schedule(new checkForMessage(), 0, 5000);
 
         sendenBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,26 +89,11 @@ public class ChatActivity extends AppCompatActivity {
         timer.cancel();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        timer.cancel();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        timer = new Timer();
-        timer.schedule(new checkForMessage(), 0, 5000);
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        timer = new Timer();
-        timer.schedule(new checkForMessage(), 0, 5000);
-    }
-
+        @Override
+        protected void onPause() {
+            super.onPause();
+            timer.cancel();
+        }
     class checkForMessage extends TimerTask {
         public void run() {
             if (ActivityCompat.checkSelfPermission(ChatActivity.this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
