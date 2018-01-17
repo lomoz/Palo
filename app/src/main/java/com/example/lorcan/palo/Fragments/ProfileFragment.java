@@ -108,6 +108,8 @@ public class ProfileFragment extends Fragment {
     Button btnChange;
     Spinner spinner;
 
+    FloatingActionButton fab_azure, fab_blue, fab_cyan, fab_green, fab_magenta, fab_orange, fab_red, fab_rose, fab_violet, fab_yellow;
+
     private final String TAG = getClass().getName();
 
     File file;
@@ -121,8 +123,6 @@ public class ProfileFragment extends Fragment {
 
     FloatingActionButton fabImageDialog;
 
-    CameraPhoto cameraPhoto;
-    GalleryPhoto galleryPhoto;
     final int CAMERA_REQUEST = 1;
     final int GALLERY_REQUEST = 2;
     String selectedPhoto;
@@ -147,15 +147,26 @@ public class ProfileFragment extends Fragment {
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
         fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
 
-        int permissionCheck = ContextCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.CAMERA);
-        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-            RequestRuntimePermission();
-        }
-
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         etStatus.setFilters(new InputFilter[] { filter });
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
+
+        fab_azure = (FloatingActionButton) view.findViewById(R.id.fab_azure);
+        fab_blue = (FloatingActionButton) view.findViewById(R.id.fab_blue);
+        fab_cyan = (FloatingActionButton) view.findViewById(R.id.fab_cyan);
+        fab_green = (FloatingActionButton) view.findViewById(R.id.fab_green);
+        fab_magenta = (FloatingActionButton) view.findViewById(R.id.fab_magenta);
+        fab_orange = (FloatingActionButton) view.findViewById(R.id.fab_orange);
+        fab_red = (FloatingActionButton) view.findViewById(R.id.fab_red);
+        fab_rose = (FloatingActionButton) view.findViewById(R.id.fab_rose);
+        fab_violet = (FloatingActionButton) view.findViewById(R.id.fab_violet);
+        fab_yellow = (FloatingActionButton) view.findViewById(R.id.fab_yellow);
+
+        int permissionCheck = ContextCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.CAMERA);
+        if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+            RequestRuntimePermission();
+        }
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -225,11 +236,11 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        spinnerArray.add("alter status");
+        spinnerArray.add("--- select option --");
 
         try {
             String oldUserStatus = OldStatus.getData(MyApplicationContext.getAppContext());
-            System.out.println("JSONSTATUS PROFILEFRAGMENT: " + oldUserStatus);
+            System.out.println("JSON STATUS PROFILE FRAGMENT: " + oldUserStatus);
             JSONObject jsonObject = new JSONObject(oldUserStatus);
             JSONArray jsonArray = jsonObject.getJSONArray("Status");
             for (int i = 1; i < jsonArray.length(); i++) {
@@ -252,7 +263,7 @@ public class ProfileFragment extends Fragment {
 
                 // if any item is selected this one should become the active status
                 String selectedItemText = (String) adapterView.getItemAtPosition(i);
-                if (!selectedItemText.equals("alter status")) {
+                if (!selectedItemText.equals("--- select option --")) {
                     Toast.makeText(ProfileFragment.this.getActivity(), selectedItemText, Toast.LENGTH_SHORT).show();
                     etStatus.setText(selectedItemText);
                 }
@@ -261,6 +272,76 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // if no item is selected the last used status should stay the active status
+            }
+        });
+
+        fab_azure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_azure, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_blue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_blue, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_cyan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_cyan, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_green.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_green, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_magenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_magenta, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_orange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_orange, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_red, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_rose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_rose, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_violet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_violet, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab_yellow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_yellow, Toast.LENGTH_SHORT).show();
             }
         });
 
