@@ -19,4 +19,7 @@ Gamification Elements in Palo:
 •	Es soll eine Bestenliste geben, die einerseits den all time score anzeigt und andererseits eine monatliche Bestenliste der sozusagen „zuletzt am aktivsten Nutzern“
 
 
-•	Ein weiteres Gamification Element
+•	Für jedes weitere Level schaltet der Nutzer eine weitere Marker Farbe frei
+
+
+•	Je höher das Level eines Nutzers, desto länger ist der gepostete Status sichtbar
