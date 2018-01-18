@@ -36,12 +36,12 @@ public class GetProfilInfoFromDB {
     public void getInfo(ProfilActivity profilActivity, String name){
         ArrayList<String> list = new ArrayList<>();
         this.name = name;
-        new ResponseTask1(profilActivity);
+        new ResponseTask1(profilActivity).execute();
     }
 
     public class ResponseTask1 extends AsyncTask<Void, Void, Void> {
         ProfilActivity profilActivity;
-        public ResponseTask1(ProfilActivity activity) {
+        public ResponseTask1(ProfilActivity profilActivity) {
             this.profilActivity = profilActivity;
         }
 
@@ -53,6 +53,7 @@ public class GetProfilInfoFromDB {
 
                 @Override
                 public void onResponse(String response) {
+                    System.out.println("RESPONSE FROM PHP PROFIL: " + response);
                     handleResponse(response, profilActivity);
                 }
 
