@@ -36,7 +36,7 @@ public class OldStatus {
             }
         }catch(NullPointerException e){
             if(old == null) {
-                writeNewJSON("{ \"Status\" : [\"\"," + newStatus + "]}");
+                writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
             }
         }
 

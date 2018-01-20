@@ -33,7 +33,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:srcCompat="@mipmap/appicon" />
+                app:srcCompat="@drawable/appicon" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:elevation="0dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="Anmelden"
+                android:text="@string/anmelden"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
                 android:textColor="#FFFFFF"

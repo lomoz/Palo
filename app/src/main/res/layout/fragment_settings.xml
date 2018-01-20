@@ -13,8 +13,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@android:color/black"
-        app:srcCompat="@drawable/einstellungen"
-        android:contentDescription="@string/settings_header_image" />
+        android:contentDescription="@string/settings_header_image"
+        app:srcCompat="@android:drawable/ic_menu_preferences" />
 
     <LinearLayout
         android:layout_width="match_parent"

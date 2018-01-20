@@ -17,7 +17,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@mipmap/ladegif"
+        android:background="@drawable/ladegif"
         android:contentDescription="AppIcon"
         android:foregroundGravity="center_vertical|center_horizontal"
         android:gravity="center"

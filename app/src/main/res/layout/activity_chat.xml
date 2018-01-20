@@ -18,13 +18,14 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <RelativeLayout android:id="@+id/toolbar_logo"
-            android:layout_width="30dp" android:layout_height="30dp"
-            android:background="@drawable/profil"
+        <RelativeLayout
+            android:id="@+id/toolbar_logo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="right"
             android:layout_marginRight="15dp"
-            android:clickable="true">
-        </RelativeLayout>
+            android:background="@android:drawable/ic_menu_myplaces"
+            android:clickable="true"></RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
     <ScrollView

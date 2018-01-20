@@ -169,5 +169,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="active_status">Active Status</string>
     <string name="old_status">Old Status</string>
+    <string name="anmelden">Anmelden</string>
 
 </resources>
