@@ -18,11 +18,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        app:backgroundTint="@color/hhu_blue"
         android:focusable="true"
-        android:layout_marginStart="5dp" />
+        app:backgroundTint="@color/hhu_blue"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageView
         android:id="@+id/ivImage"
