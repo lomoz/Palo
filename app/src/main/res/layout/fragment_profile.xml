@@ -19,7 +19,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
         android:clickable="true"
-        android:src="@android:drawable/ic_menu_camera"
+        app:srcCompat="@android:drawable/ic_menu_camera"
         app:backgroundTint="@color/hhu_blue"
         android:focusable="true"
         android:layout_marginStart="5dp" />
@@ -80,7 +80,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
-        android:text="@string/active_status" />
+        android:text="@string/active_status"
+        android:layout_marginStart="5dp" />
 
     <TextView
         android:id="@+id/tvOldStatus"
@@ -91,7 +92,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="5dp"
-        android:text="@string/old_status" />
+        android:text="@string/old_status"
+        android:layout_marginStart="5dp" />
 
     <TextView
         android:id="@+id/tvSelectMarkerColor"
@@ -113,19 +115,18 @@
         android:orientation="horizontal">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_azure"
+            android:id="@+id/fab_marker1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_azure"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_azure" />
+            app:backgroundTint="@color/color_marker1"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_blue"
+            android:id="@+id/fab_marker2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -133,12 +134,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_blue"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_blue" />
+            app:backgroundTint="@color/color_marker2"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_cyan"
+            android:id="@+id/fab_marker3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -146,12 +146,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_cyan"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_cyan" />
+            app:backgroundTint="@color/color_marker3"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_green"
+            android:id="@+id/fab_marker4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -159,12 +158,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_green"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_green" />
+            app:backgroundTint="@color/color_marker4"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_magenta"
+            android:id="@+id/fab_marker5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -172,12 +170,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_magenta"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_magenta" />
+            app:backgroundTint="@color/color_marker5"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_orange"
+            android:id="@+id/fab_marker6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -185,12 +182,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_orange"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_orange" />
+            app:backgroundTint="@color/color_marker6"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_red"
+            android:id="@+id/fab_marker7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -198,12 +194,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_red"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_red" />
+            app:backgroundTint="@color/color_marker7"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_rose"
+            android:id="@+id/fab_marker8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -211,12 +206,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_rose"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_rose" />
+            app:backgroundTint="@color/color_marker8"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_violet"
+            android:id="@+id/fab_marker9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -224,12 +218,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_violet"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_violet" />
+            app:backgroundTint="@color/color_marker9"
+            app:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_yellow"
+            android:id="@+id/fab_marker10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -237,9 +230,8 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/hue_yellow"
-            app:fabSize="mini"
-            app:srcCompat="@color/hue_yellow" />
+            app:backgroundTint="@color/color_marker10"
+            app:fabSize="mini" />
 
     </LinearLayout>
 

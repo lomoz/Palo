@@ -41,7 +41,6 @@ import android.widget.Toast;
 import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
-import com.example.lorcan.palo.MainActivity;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.R;
@@ -50,8 +49,6 @@ import com.example.lorcan.palo.sendStatusToDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.kosalgeek.android.photoutil.CameraPhoto;
-import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
 import com.kosalgeek.android.photoutil.ImageLoader;
 
@@ -108,7 +105,7 @@ public class ProfileFragment extends Fragment {
     Button btnChange;
     Spinner spinner;
 
-    FloatingActionButton fab_azure, fab_blue, fab_cyan, fab_green, fab_magenta, fab_orange, fab_red, fab_rose, fab_violet, fab_yellow;
+    FloatingActionButton fab_marker1, fab_marker2, fab_marker3, fab_marker4, fab_marker5, fab_marker6, fab_marker7, fab_marker8, fab_marker9, fab_marker10;
 
     private final String TAG = getClass().getName();
 
@@ -152,16 +149,16 @@ public class ProfileFragment extends Fragment {
         etStatus.setFilters(new InputFilter[] { filter });
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
-        fab_azure = (FloatingActionButton) view.findViewById(R.id.fab_azure);
-        fab_blue = (FloatingActionButton) view.findViewById(R.id.fab_blue);
-        fab_cyan = (FloatingActionButton) view.findViewById(R.id.fab_cyan);
-        fab_green = (FloatingActionButton) view.findViewById(R.id.fab_green);
-        fab_magenta = (FloatingActionButton) view.findViewById(R.id.fab_magenta);
-        fab_orange = (FloatingActionButton) view.findViewById(R.id.fab_orange);
-        fab_red = (FloatingActionButton) view.findViewById(R.id.fab_red);
-        fab_rose = (FloatingActionButton) view.findViewById(R.id.fab_rose);
-        fab_violet = (FloatingActionButton) view.findViewById(R.id.fab_violet);
-        fab_yellow = (FloatingActionButton) view.findViewById(R.id.fab_yellow);
+        fab_marker1 = (FloatingActionButton) view.findViewById(R.id.fab_marker1);
+        fab_marker2 = (FloatingActionButton) view.findViewById(R.id.fab_marker2);
+        fab_marker3 = (FloatingActionButton) view.findViewById(R.id.fab_marker3);
+        fab_marker4 = (FloatingActionButton) view.findViewById(R.id.fab_marker4);
+        fab_marker5 = (FloatingActionButton) view.findViewById(R.id.fab_marker5);
+        fab_marker6 = (FloatingActionButton) view.findViewById(R.id.fab_marker6);
+        fab_marker7 = (FloatingActionButton) view.findViewById(R.id.fab_marker7);
+        fab_marker8 = (FloatingActionButton) view.findViewById(R.id.fab_marker8);
+        fab_marker9 = (FloatingActionButton) view.findViewById(R.id.fab_marker9);
+        fab_marker10 = (FloatingActionButton) view.findViewById(R.id.fab_marker10);
 
         int permissionCheck = ContextCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.CAMERA);
         if (permissionCheck == PackageManager.PERMISSION_DENIED) {
@@ -222,6 +219,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+
         /*
          * Create an onClickListener for the button.
          *
@@ -275,70 +273,70 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        fab_azure.setOnClickListener(new View.OnClickListener() {
+        fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_azure, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_blue.setOnClickListener(new View.OnClickListener() {
+        fab_marker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_blue, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_cyan.setOnClickListener(new View.OnClickListener() {
+        fab_marker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_cyan, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_green.setOnClickListener(new View.OnClickListener() {
+        fab_marker4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_green, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_magenta.setOnClickListener(new View.OnClickListener() {
+        fab_marker5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_magenta, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_orange.setOnClickListener(new View.OnClickListener() {
+        fab_marker6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_orange, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_red.setOnClickListener(new View.OnClickListener() {
+        fab_marker7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_red, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_rose.setOnClickListener(new View.OnClickListener() {
+        fab_marker8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_rose, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_violet.setOnClickListener(new View.OnClickListener() {
+        fab_marker9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_violet, Toast.LENGTH_SHORT).show();
             }
         });
 
-        fab_yellow.setOnClickListener(new View.OnClickListener() {
+        fab_marker10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_yellow, Toast.LENGTH_SHORT).show();
@@ -370,8 +368,6 @@ public class ProfileFragment extends Fragment {
                 rotatedBitmap = getRotatedBitmap(croppedBitmap);
 
                 ivImage.setImageBitmap(Bitmap.createScaledBitmap(rotatedBitmap, 200, 200, false));
-                MainActivity mainActivity = new MainActivity();
-                //mainActivity.setBitmapAsImageView(rotatedBitmap);
 
                 // Save cropped image to external storage and get Path afterwards to upload to DB
                 Uri croppedUri = saveOutput(rotatedBitmap);

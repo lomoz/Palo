@@ -23,13 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lorcan.palo.Fragments.OptionsMenu.AboutFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment;
-import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.SettingsFragment;
 import com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,7 +43,7 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener, UpdateMapFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, UpdateMapFragment.OnFragmentInteractionListener {
 
     @SuppressLint("StaticFieldLeak")
     static getLocFromDB locationsFromDB;
@@ -66,19 +65,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /* Out commented the FloatingActionButton in layout/app_bar_main.xml.
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
-
 
         locationsFromDB = new getLocFromDB(this);
         arrayListOtherUsers = locationsFromDB.getData();
@@ -271,26 +257,6 @@ public class MainActivity extends AppCompatActivity
                     ).commit();
         }
 
-        /*else if (id == R.id.nav_bestenliste) {
-
-
-             Call a Fragment with the newInstance method like this.
-             Only to pass data from outside to the fragment.
-
-
-            OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                    oneCheckedFragment,
-                    oneCheckedFragment.getTag()
-            ).commit();
-        }
-        */
-
-
-
         else if (id == R.id.nav_settings) {
 
             SettingsFragment settingsFragment = new SettingsFragment();
@@ -316,21 +282,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_share) {
-
-            /*
-             * Get data from the fragment with an interactionListener to the outside!
-             * Recommended way to use a fragment from android!
-
-
-            TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                    twoCheckedFragment,
-                    twoCheckedFragment.getTag()
-            ).commit();
-            */
 
             ShareFragment shareFragment = new ShareFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -366,22 +317,9 @@ public class MainActivity extends AppCompatActivity
      * after clicking on the according solution of the error message.
      */
 
-    @Override
-    public void onFragmentInteraction(String data) {
-
-        /*
-         * i.e. make a toast to show the data.
-         */
-    }
-
-    @Override
-    public void onFragmentInteraction() {
-    }
-
     public ArrayList<String> getData(){
         return this.arrayListOtherUsers;
     }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -400,10 +338,6 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void setBitmapAsImageView(Bitmap bitmap) {
-        navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 64, 64, false));
     }
 
     public void setUsernameInNav(String username) {
