@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                             String res = response.toString().trim();
                             if (res.equals("0")) {
                                 FileWriter file = null;
-                                FileWriter file1 = null;
                                 try {
                                     file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + "chats.json");
                                     String nameJSON = "{ \"Users\" : [\"\"]}";

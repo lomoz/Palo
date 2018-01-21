@@ -1,10 +1,14 @@
 package com.example.lorcan.palo;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -33,7 +37,8 @@ public class StartActivity extends AppCompatActivity {
     private static final String strUrl = "http://palo.square7.ch/checkIDIsInDB.php";
     private StringRequest request;
     private String android_id;
-    public String responseStatus;
+    public String[] responseStatus;
+    public boolean antwortbekommen = false;
 
     @SuppressLint("HardwareIds")
     @Override
@@ -68,41 +73,33 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... voids) {
+                    requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+                    request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-                request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        responseStatus = response;
-                        String res = response.toString().trim();
-
-                        if(res.equals("1")){
-                            startMain();
-                        }else{
-                            start();
+                            handleResponse(response);
                         }
-                    }
 
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        restart();
-                    }
-                }) {
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            restart();
+                        }
+                    }) {
 
-                    // set of parameters in a hashmap, which will be send to the php file (server side)
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        HashMap<String, String> hashMap = new HashMap<String, String>();
+                        // set of parameters in a hashmap, which will be send to the php file (server side)
+                        @Override
+                        protected Map<String, String> getParams() throws AuthFailureError {
+                            HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                        hashMap.put("android_id", android_id);
-                        System.out.println(hashMap);
-                        return hashMap;
-                    }
-                };
+                            hashMap.put("android_id", android_id);
+                            System.out.println(hashMap);
+                            return hashMap;
+                        }
+                    };
 
-                requestQueue.add(request);
+                    requestQueue.add(request);
                 return null;
             }
 
@@ -129,4 +126,14 @@ public class StartActivity extends AppCompatActivity {
         super.onResume();
         restart();
     }
+
+    public void handleResponse(String response){
+        String res = response.toString().trim();
+        if(res.equals("1")){
+            startMain();
+        }else{
+            start();
+        }
+    }
+
 }
