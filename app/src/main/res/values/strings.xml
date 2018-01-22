@@ -133,6 +133,17 @@
     <string name="color_violet">Violet</string>
     <string name="color_yellow">Yellow</string>
 
+    <string name="marker1">Green</string>
+    <string name="marker2">Orange</string>
+    <string name="marker3">Dark Blue</string>
+    <string name="marker4">Rose</string>
+    <string name="marker5">Light Blue</string>
+    <string name="marker6">Red</string>
+    <string name="marker7">Light Green</string>
+    <string name="marker8">Yellow</string>
+    <string name="marker9">Dark Green</string>
+    <string name="marker10">Dark Rose</string>
+
     <!-- languages -->
     <string name="language">english</string>
     <string name="german">German</string>

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -67,6 +68,7 @@ import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 import static android.graphics.Bitmap.createBitmap;
+import static android.graphics.Bitmap.createScaledBitmap;
 
 
 /**
@@ -106,6 +108,8 @@ public class ProfileFragment extends Fragment {
     Spinner spinner;
 
     FloatingActionButton fab_marker1, fab_marker2, fab_marker3, fab_marker4, fab_marker5, fab_marker6, fab_marker7, fab_marker8, fab_marker9, fab_marker10;
+    BitmapDrawable bitmapDrawableSelectedMarkerColor;
+    Bitmap bitmapSelectedMarkerColor;
 
     private final String TAG = getClass().getName();
 
@@ -219,7 +223,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
         /*
          * Create an onClickListener for the button.
          *
@@ -273,73 +276,110 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        /*
+         * TODO:
+         * bundle bitmapSelectedMarkerColor and set as marker in MapFragment
+         * Marker color has to be send to database when a status is posted,
+         * so Marker color from user users can be displayed correctly.
+         */
+
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_azure, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker1, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_blue, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker2);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker2, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_cyan, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker3);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker3, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_green, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker4);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker4, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_magenta, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker5);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker5, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_orange, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker6);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker6, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_red, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker7);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker7, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_rose, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker8);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker8, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_violet, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker9);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker9, Toast.LENGTH_SHORT).show();
             }
         });
 
         fab_marker10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileFragment.this.getActivity(), R.string.color_yellow, Toast.LENGTH_SHORT).show();
+
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker10);
+                bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker10, Toast.LENGTH_SHORT).show();
             }
         });
 
