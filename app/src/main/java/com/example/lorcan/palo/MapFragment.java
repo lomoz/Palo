@@ -76,7 +76,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     FloatingActionButton btnChangeInMap;
     EditText etStatusInMap;
-    View view;
     ImageView imageView;
     String android_id;
     private String blockCharacterSet = "\\";

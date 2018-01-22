@@ -223,6 +223,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        /*
+         * TODO:
+         * Check which fragment is currently displayed
+         * Only change fragment if clicked item differs currently active fragment.
+         */
+
         if (id == R.id.nav_user) {
 
             /*
@@ -242,10 +248,10 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_map) {
 
-/*
+            /*
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
-*/
+            */
 
             CurrLocUpdate currLocUpdate = new CurrLocUpdate();
             FragmentManager fm = getSupportFragmentManager();
