@@ -71,9 +71,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
 
-    String filename = "user_status";
-    FileManager fileManager = new FileManager();
-
     FloatingActionButton btnChangeInMap;
     EditText etStatusInMap;
     ImageView imageView;
@@ -227,16 +224,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     double latitude = currLocation.latitude;
                     double longitude = currLocation.longitude;
                     statusToDB.sendStatus(status, latitude, longitude, time, android_id);
-
-                    // Write user status to internal storage.
-                    fileManager.writeToFile(getContext(), filename, status);
-
-                    // Read ArrayList from File.
-                    ArrayList spinnerArray = fileManager.readFromFile(getContext(), filename);
-
-                    for (int i = 0; i < spinnerArray.size(); i++) {
-                        System.out.println("******************** old status ******************" + spinnerArray.get(i));
-                    }
 
                     // call method to update map after setting a new status
                     updateMap();
