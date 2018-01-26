@@ -14,6 +14,7 @@ Gamification Elements in Palo:
 •	Der Nutzer hat die Möglichkeit Achievements zu sammeln:
  - Dabei gibt es einerseits Achievements die man in mehreren Stufen erlangen kann (Bronze, Silber und Gold), wie zum Beispiel für das Posten eines Status, das Einsetzen eines neuen Profilbilds oder dem Chat mit einem neuen Kontakt (1 – Bronze, 5 – Silber und 20 Gold)
  - Zudem gibt es Meilenstein Achievements, beispielsweise: das Posten von 100 Status, das Posten eines Status nach 2 Uhr, eine neue Kontaktaufnahme nach 2 Uhr und ähnliche
+ - Achievements für Achievements (z.B. 50% aller Achievements freigeschaltet oder alle Stufen auf Gold erreicht)
 
 
 •	Es soll eine Bestenliste geben, die einerseits den all time score anzeigt und andererseits eine monatliche Bestenliste der sozusagen „zuletzt am aktivsten Nutzern“
