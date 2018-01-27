@@ -65,10 +65,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bundle bundleCurrLoc;
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
-    BitmapDrawable bitmapDraw;
     MarkerOptions markerOptions1;
     String filename = "user_status";
-    FileManager fileManager = new FileManager();
+
 
     FloatingActionButton btnChangeInMap;
     EditText etStatusInMap;
@@ -215,16 +214,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     double longitude = currLocation.longitude;
                     statusToDB.sendStatus(status, latitude, longitude, time, android_id);
 
-                    // Write user status to internal storage.
-                    fileManager.writeToFile(getContext(), filename, status);
-
-                    // Read ArrayList from File.
-                    ArrayList spinnerArray = fileManager.readFromFile(getContext(), filename);
-
-                    for (int i = 0; i < spinnerArray.size(); i++) {
-                        System.out.println("******************** old status ******************" + spinnerArray.get(i));
-                    }
-
                     // call method to update map after setting a new status
                     updateMap();
                 }
@@ -301,6 +290,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             int width = 170;
             for (int i = 2; i < args.size(); i = i + 5) {
 
+            BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
 
             bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
 
