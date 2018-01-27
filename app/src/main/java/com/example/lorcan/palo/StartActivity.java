@@ -25,11 +25,6 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-/**
- * Created by paul on 31.07.17.
- */
 
 public class StartActivity extends AppCompatActivity {
 
@@ -37,9 +32,6 @@ public class StartActivity extends AppCompatActivity {
     private static final String strUrl = "http://palo.square7.ch/checkIDIsInDB.php";
     private StringRequest request;
     private String android_id;
-    public String[] responseStatus;
-    public boolean antwortbekommen = false;
-
     @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -48,13 +40,7 @@ public class StartActivity extends AppCompatActivity {
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         if (telephonyManager != null) {
@@ -67,54 +53,65 @@ public class StartActivity extends AppCompatActivity {
         this.android_id = android_id;
         new isIDTask().execute();
     }
-        public class isIDTask extends AsyncTask<Void, Void, Void>{
 
+    @SuppressLint("StaticFieldLeak")
+    public class isIDTask extends AsyncTask<Void, Void, Void>{
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
 
-            @Override
-            protected Void doInBackground(Void... voids) {
-                    requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-                    request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
+                    handleResponse(response);
+                }
 
-                            handleResponse(response);
-                        }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    restart();
+                }
+            }) {
 
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            restart();
-                        }
-                    }) {
+                // set of parameters in a hashmap, which will be send to the php file (server side)
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                        // set of parameters in a hashmap, which will be send to the php file (server side)
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            HashMap<String, String> hashMap = new HashMap<String, String>();
+                    hashMap.put("android_id", android_id);
+                    System.out.println(hashMap);
+                    return hashMap;
+                }
+            };
 
-                            hashMap.put("android_id", android_id);
-                            System.out.println(hashMap);
-                            return hashMap;
-                        }
-                    };
+            requestQueue.add(request);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            this.cancel(true);
+        }
 
-                    requestQueue.add(request);
-                return null;
-            }
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            System.out.println("START ACTIVITY CANCELLED");
+        }
 
 
     }
 
-        public void start(){
-            Intent i = new Intent(MyApplicationContext.getAppContext(), LoginActivity.class);
-            startActivity(i);
-        }
+    public void start(){
+        Intent i = new Intent(MyApplicationContext.getAppContext(), LoginActivity.class);
+        startActivity(i);
+    }
 
-        public void startMain() {
-            Intent i = new Intent(MyApplicationContext.getAppContext(), MainActivity.class);
-            startActivity(i);
-        }
+    public void startMain() {
+        Intent i = new Intent(MyApplicationContext.getAppContext(), MainActivity.class);
+        startActivity(i);
+    }
 
     public void restart(){
         Intent intent = new Intent(this, StartActivity.class);
@@ -128,7 +125,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void handleResponse(String response){
-        String res = response.toString().trim();
+        String res = response.trim();
         if(res.equals("1")){
             startMain();
         }else{

@@ -1,5 +1,6 @@
 package com.example.lorcan.palo.GetFromDatabase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
 
@@ -31,14 +32,17 @@ public class GetProfilInfoFromDB {
     public RequestQueue requestQueue;
     public final String URL = "http://palo.square7.ch/getProfilInfo.php";
     public StringRequest request;
+    public ResponseTask1 responseTask1;
     String name;
 
     public void getInfo(ProfilActivity profilActivity, String name){
         ArrayList<String> list = new ArrayList<>();
         this.name = name;
-        new ResponseTask1(profilActivity).execute();
+        responseTask1 = new ResponseTask1(profilActivity);
+        responseTask1.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class ResponseTask1 extends AsyncTask<Void, Void, Void> {
         ProfilActivity profilActivity;
         public ResponseTask1(ProfilActivity profilActivity) {
@@ -82,6 +86,7 @@ public class GetProfilInfoFromDB {
     }
 
     public void handleResponse(String info, ProfilActivity profilActivity){
+        responseTask1.cancel(true);
         ArrayList<String> list = new ArrayList<>(); //[bild, status, name]
         try {
             JSONObject jsonObject = new JSONObject(info);

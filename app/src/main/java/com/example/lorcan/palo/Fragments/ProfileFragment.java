@@ -84,13 +84,14 @@ public class ProfileFragment extends Fragment {
         startMapAndUploadStatus();
     }
 
-    private String blockCharacterSet = "\\";
+    private Bitmap bitmap;
 
     private InputFilter filter = new InputFilter() {
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
+            String blockCharacterSet = "\\";
             if (source != null && blockCharacterSet.contains(("" + source))) {
                 return "";
             }
@@ -115,6 +116,7 @@ public class ProfileFragment extends Fragment {
     final int RequestPermissionCode = 1;
     Bitmap croppedBitmap;
     Bitmap rotatedBitmap;
+    Bitmap decodedByte;
 
     ImageView ivImage;
 
@@ -167,13 +169,7 @@ public class ProfileFragment extends Fragment {
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return null;
         }
 
@@ -364,9 +360,11 @@ public class ProfileFragment extends Fragment {
         else if (requestCode == 1) {
             if (data != null) {
                 Bundle bundle = data.getExtras();
-                croppedBitmap = bundle.getParcelable("data");
+                if (bundle != null) {
+                    croppedBitmap = bundle.getParcelable("data");
+                }
                 rotatedBitmap = getRotatedBitmap(croppedBitmap);
-
+                croppedBitmap.recycle();
                 ivImage.setImageBitmap(Bitmap.createScaledBitmap(rotatedBitmap, 200, 200, false));
 
                 // Save cropped image to external storage and get Path afterwards to upload to DB
@@ -385,9 +383,15 @@ public class ProfileFragment extends Fragment {
         try {
             if(image.length() > 0){
                 byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                if(decodedByte != null){
+                    decodedByte.recycle();
+                    decodedByte = null;
+                }
+                decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 ivImage.setRotation(90);
                 ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 200, 200, false));
+                decodedByte.recycle();
+                decodedByte = null;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -410,13 +414,7 @@ public class ProfileFragment extends Fragment {
 
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+
                 return;
             }
             mFusedLocationClient.getLastLocation()
@@ -444,14 +442,7 @@ public class ProfileFragment extends Fragment {
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this.getActivity(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+                        return;
         }
 
         if (tManager != null) {
@@ -493,12 +484,19 @@ public class ProfileFragment extends Fragment {
         }
 
         try {
-            Bitmap bitmap = ImageLoader.init().from(selectedPhoto).requestSize(128, 128).getBitmap();
+            if(bitmap != null){
+                bitmap.recycle();
+                bitmap = null;
+            }
+            bitmap = ImageLoader.init().from(selectedPhoto).requestSize(128, 128).getBitmap();
             String encodedImage = ImageBase64.encode(bitmap);
+            bitmap.recycle();
+            bitmap = null;
             Log.d(TAG, encodedImage);
 
             SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
             sendEncodedImageToDB.sendEncodedImage(encodedImage);
+
 
             Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
 

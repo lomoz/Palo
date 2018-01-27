@@ -2,8 +2,6 @@ package com.example.lorcan.palo;
 
 import android.content.Context;
 import android.os.Build;
-import android.renderscript.ScriptIntrinsicYuvToRGB;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -15,29 +13,26 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Created by Win10 Home x64 on 28.12.2017.
- */
 
 public class OldStatus {
-    static String fileName = "status.json";
+    private static String fileName = "status.json";
 
-    public static void addNewEntry(String newStatus) {
+    static void addNewEntry(String newStatus) {
 
             String old = getData(MyApplicationContext.getAppContext());
             System.out.println(old);
         try{
-            if (!old.contains("{ \"Status\" : [\"\"")) {
-                writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
-            } else {
-                old = old.substring(0, old.length() - 2);
-                newStatus = old + ", \"" + newStatus + "\"]}";
-                writeNewJSON(newStatus);
+            if (old != null) {
+                if (!old.contains("{ \"Status\" : [\"\"")) {
+                    writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
+                } else {
+                    old = old.substring(0, old.length() - 2);
+                    newStatus = old + ", \"" + newStatus + "\"]}";
+                    writeNewJSON(newStatus);
+                }
             }
         }catch(NullPointerException e){
-            if(old == null) {
-                writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
-            }
+            writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
         }
 
 
@@ -50,7 +45,7 @@ public class OldStatus {
 
     }
 
-    public static void writeNewJSON(String newJSON){
+    private static void writeNewJSON(String newJSON){
 
         try {
             FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
@@ -67,7 +62,7 @@ public class OldStatus {
         }
     }
 
-    public static Boolean checkLength(){
+    private static Boolean checkLength(){
         Boolean bool = false;
         String jsonString = getData(MyApplicationContext.getAppContext());
         try {
@@ -83,7 +78,7 @@ public class OldStatus {
         return bool;
     }
 
-    public static void deleteLastOne(){
+    private static void deleteLastOne(){
         String jsonString = getData(MyApplicationContext.getAppContext());
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -92,7 +87,7 @@ public class OldStatus {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 jsonArray.remove(1);
             }else{
-                Toast.makeText(MyApplicationContext.getAppContext(), "deine android-version ist leider zu alt dafür. irgendwann trifft es jeden. man muss ein neues smartphone kaufen.", Toast.LENGTH_LONG);
+                Toast.makeText(MyApplicationContext.getAppContext(), "deine android-version ist leider zu alt dafür. irgendwann trifft es jeden. man muss ein neues smartphone kaufen.", Toast.LENGTH_LONG).show();
             }
 
             writeNewJSON("{ \"Status\" : "+jsonArray.toString()+"}");

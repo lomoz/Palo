@@ -6,8 +6,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -31,7 +31,7 @@ import com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment;
 import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
-import com.google.android.gms.location.FusedLocationProviderClient;
+
 
 import java.util.ArrayList;
 
@@ -49,10 +49,6 @@ public class MainActivity extends AppCompatActivity
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
 
-    private FusedLocationProviderClient mFusedLocationClient;
-
-    private long start = 0;
-    Stopwatch stopwatch = new Stopwatch();
 
     private String android_id;
     ImageView navImageViewProfile;
@@ -62,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -78,9 +76,7 @@ public class MainActivity extends AppCompatActivity
          * Changed code generated method setDrawerListener to addDrawerListener.
          */
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            drawer.addDrawerListener(toggle);
-        }
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -102,13 +98,7 @@ public class MainActivity extends AppCompatActivity
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            System.out.println("nothing");
         }
 
         if (telephonyManager != null) {
@@ -174,14 +164,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                    drawer.closeDrawer(GravityCompat.START);
-                }
-            } else {
-                super.onBackPressed();
-            }
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -197,7 +183,6 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
 
         //noinspection SimplifiableIfStatement
@@ -219,7 +204,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -312,9 +297,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -324,7 +307,7 @@ public class MainActivity extends AppCompatActivity
      */
 
     public ArrayList<String> getData(){
-        return this.arrayListOtherUsers;
+        return arrayListOtherUsers;
     }
 
     @Override
@@ -339,7 +322,7 @@ public class MainActivity extends AppCompatActivity
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 navImageViewProfile.setRotation(90);
                 navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
-
+                decodedByte.recycle();
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -44,4 +44,5 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     testCompile 'junit:junit:4.12'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
 }

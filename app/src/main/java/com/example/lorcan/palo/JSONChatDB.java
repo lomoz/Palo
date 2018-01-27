@@ -1,7 +1,6 @@
 package com.example.lorcan.palo;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -12,14 +11,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
-public class JSONChatDB {
+class JSONChatDB {
 
-    static String fileName = "chats.json";
+    private static String fileName = "chats.json";
 
-    public static void createNewDBDeleteOld(String nameJSON) {
+    static void createNewDBDeleteOld(String nameJSON) {
         try {
             System.out.println("New created DB: " + nameJSON);
             FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
@@ -32,7 +30,7 @@ public class JSONChatDB {
         }
     }
 
-    public static String getData(Context context) {
+    static String getData(Context context) {
 
         try {
             File f = new File(context.getFilesDir().getPath() + "/" + fileName);
@@ -49,7 +47,7 @@ public class JSONChatDB {
         }
     }
 
-    public void addNewChatUser(String newUser){
+    void addNewChatUser(String newUser){
         String old = getData(MyApplicationContext.getAppContext());
         newUser = newUser.substring(0, newUser.length()-1);
         int intBool = 0;
@@ -60,7 +58,9 @@ public class JSONChatDB {
                 old = getData(MyApplicationContext.getAppContext());
             }
             JSONObject jsonObject = new JSONObject(old);
-            old = old.substring(0, old.length()-2);
+            if (old != null) {
+                old = old.substring(0, old.length()-2);
+            }
             JSONArray jsonArray = jsonObject.getJSONArray("Users");
             for(int i=1; i < jsonArray.length(); i++){
                 System.out.println("NEWUSER: " + newUser);
@@ -73,8 +73,8 @@ public class JSONChatDB {
             if(intBool < 1){
                 old = old + ", \"" + newUser + "\"]}";
                 System.out.println(old);
-                createNewDBDeleteOld(old);
                 intBool = 0;
+                createNewDBDeleteOld(old);
             }else{
                 old = old + "]}";
                 System.out.println(old);
@@ -87,9 +87,9 @@ public class JSONChatDB {
 
     }
 
-    public void deleteUser(String user){
+    void deleteUser(String user){
         String list = JSONChatDB.getData(MyApplicationContext.getAppContext());
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         String data = "";
         try {
             jsonObject = new JSONObject(list);

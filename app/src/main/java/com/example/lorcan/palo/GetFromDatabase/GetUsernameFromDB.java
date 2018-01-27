@@ -22,6 +22,7 @@ public class GetUsernameFromDB {
     private static final String STR_URL = "http://palo.square7.ch/getUsername.php";
     private String android_id;
     private MainActivity mainActivity;
+    public GetUsernameTask getusername;
 
     public GetUsernameFromDB() {
 
@@ -30,7 +31,9 @@ public class GetUsernameFromDB {
     public void getResponseUsername(String android_id, MainActivity mainActivity) {
         this.android_id = android_id;
         this.mainActivity = mainActivity;
-        new GetUsernameTask().execute();
+        getusername = new GetUsernameTask();
+        getusername.execute();
+
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -71,6 +74,7 @@ public class GetUsernameFromDB {
     }
 
     private void handleResponse(String response) {
+        getusername.cancel(true);
         mainActivity.setUsernameInNav(response);
     }
 }

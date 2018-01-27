@@ -1,9 +1,9 @@
 package com.example.lorcan.palo;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 import com.android.volley.AuthFailureError;
@@ -14,7 +14,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,16 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Win10 Home x64 on 30.11.2017.
- */
-
 public class UpdateMapFragmentLoadTask extends Fragment {
 
-    private RequestQueue requestQueue;
     private static final String strUrl = "http://palo.square7.ch/getStatus.php";
-    private StringRequest request;
     public UpdateMapFragment updateMapFragment;
+    public LoadDataTask loadData;
     MapFragment mapFragment;
     Bundle bundle1 = new Bundle();
 
@@ -41,19 +35,18 @@ public class UpdateMapFragmentLoadTask extends Fragment {
         this.currLoc = currLoc;
         this.updateMapFragment = updateMapFragment;
         this.mapFragment = mapFragment;
-        new LoadDataTask().execute();
+        loadData = new LoadDataTask();
+        loadData.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class LoadDataTask extends AsyncTask<Void, Void, Void>{
-
-
-
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-            requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-            request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+            RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            StringRequest request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
@@ -68,14 +61,21 @@ public class UpdateMapFragmentLoadTask extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
+                    UpdateMapFragment updateMapFragment = new UpdateMapFragment();
+                    FragmentManager fragmentManager = updateMapFragment.getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                            .replace(R.id.relativelayout_for_fragments,
+                                    updateMapFragment,
+                                    updateMapFragment.getTag()
+                            ).commit();
                 }
             }) {
 
                 // set of parameters in a hashmap, which will be send to the php file (server side)
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                    HashMap<String, String> hashMap = new HashMap<>();
 
                     hashMap.put("zugang", "zugang");
 
@@ -87,35 +87,27 @@ public class UpdateMapFragmentLoadTask extends Fragment {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            this.cancel(true);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
     }
 
 
     public void handleResponse(String response) throws JSONException {
 
-        ArrayList<String> args = new ArrayList();/*
+        ArrayList<String> args = new ArrayList<>();
 
-        JSONObject jsonObject = new JSONObject(response);
-        JSONArray jsonArray = jsonObject.getJSONArray("User");
-        args.add(String.valueOf(currLoc[0]));
-        args.add(String.valueOf(currLoc[1]));
-        System.out.println("RESPONSE: " + response);
-        for (int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject jObjStatus;
-            jObjStatus = new JSONObject(jsonArray.getString(i));
-            args.add(jObjStatus.getString("Status"));
-            args.add(jObjStatus.getString("Lat"));
-            args.add(jObjStatus.getString("Lng"));
-            args.add(jObjStatus.getString("Zeit"));
-            args.add(jObjStatus.getString("Nickname"));
-
-        }
-
-        */
 
         String[] newString = response.split("#");
-        args.add(String.valueOf(currLoc[0]));
-        args.add(String.valueOf(currLoc[1]));
+        args.add(String.valueOf(this.currLoc[0]));
+        args.add(String.valueOf(this.currLoc[1]));
 
         for (int i = 0; i < newString.length -1; i++) {
             System.out.println(newString[i]);

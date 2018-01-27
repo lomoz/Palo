@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -30,7 +29,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
@@ -59,10 +57,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     GoogleMap map;
     public LatLng currLocation;
     User user;
-    ArrayList arrayListOtherUsers;
     MarkerOptions markerOptions;
-    String lat;
-    String lng;
     String status;
     String studyCourse;
     Bundle bundle;
@@ -70,7 +65,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bundle bundleCurrLoc;
     Float markerColorFloat;
     ArrayList<String> args = new ArrayList<>();
-
+    BitmapDrawable bitmapDraw;
+    MarkerOptions markerOptions1;
     String filename = "user_status";
     FileManager fileManager = new FileManager();
 
@@ -78,7 +74,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     EditText etStatusInMap;
     ImageView imageView;
     String android_id;
-    private String blockCharacterSet = "\\";
+
+    Bitmap b;
+    Bitmap smallMarker;
 
     public MapFragment() {
         // Required empty public constructor
@@ -89,6 +87,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
+            String blockCharacterSet = "\\";
             if (source != null && blockCharacterSet.contains(("" + source))) {
                 return "";
             }
@@ -119,13 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         });
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return null;
         }
 
@@ -206,13 +199,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
                     TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                     if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
+
                         return;
                     }
 
@@ -291,36 +278,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 13));
 
             if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+
                 return;
             }
             map.setMyLocationEnabled(true);
         }
-        else{/*
-            CurrLocUpdate upFragment = new CurrLocUpdate();
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                            upFragment,
-                            upFragment.getTag()
-                    ).commit();*/
-        }
 
         if (ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
 
@@ -334,14 +299,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             int height = 125;
             int width = 170;
-            BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
-            Bitmap b = bitmapDraw.getBitmap();
-            Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-
             for (int i = 2; i < args.size(); i = i + 5) {
+
+
+            bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
+
+            b = bitmapDraw.getBitmap();
+            smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+            bitmapDraw = null;
+
+
                 String snippet = args.get(i);
                 snippet.replace("\n", "");
-                MarkerOptions markerOptions1 = new MarkerOptions()
+                markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .title(args.get(i+4) + " | " + args.get(i+3))
@@ -349,6 +319,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         .anchor(1,1);
 
                 map.addMarker(markerOptions1);
+
             }
             map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
@@ -425,6 +396,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 imageView.setBackground((getResources().getDrawable(R.drawable.nomessage)));
             }
         }
+
     }
 
     @Override

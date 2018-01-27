@@ -23,6 +23,7 @@ public class GetEncodedImageFromDB {
     private String android_id;
     private ProfileFragment profileFragment;
     private MainActivity mainActivity;
+    public GetImageTask getImgTask;
 
     public GetEncodedImageFromDB() {
 
@@ -31,13 +32,15 @@ public class GetEncodedImageFromDB {
     public void getResponseEncodedImage(String android_id, ProfileFragment profileFragment) {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
-        new GetImageTask().execute();
+        getImgTask = new GetImageTask();
+        getImgTask.execute();
     }
 
     public void getResponseEncodedImage(String android_id, MainActivity mainActivity) {
         this.android_id = android_id;
         this.mainActivity = mainActivity;
-        new GetImageTask().execute();
+        getImgTask = new GetImageTask();
+                getImgTask.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -84,10 +87,12 @@ public class GetEncodedImageFromDB {
     }
 
     private void handleResponse(String response) {
+        getImgTask.cancel(true);
         profileFragment.setEncodedImageAsProfileImage(response);
     }
 
     private void handleResponseMain(String response) {
+        getImgTask.cancel(true);
         mainActivity.setEncodedImageAsNavImage(response);
     }
 }

@@ -17,8 +17,6 @@ public class sendStatusToDB {
     private static final String URL = "http://palo.square7.ch/setStatus.php";
 
     protected String status;
-    protected Double lat;
-    protected Double lng;
     protected String time;
     protected String android_id;
 
@@ -33,8 +31,6 @@ public class sendStatusToDB {
 
         this.android_id = android_id;
         this.status = status;
-        this.lat = lat;
-        this.lng = lng;
         this.time = time;
         RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

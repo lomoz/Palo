@@ -27,12 +27,15 @@ public class GetStatusFromDB {
     private MapFragment mapFragment;
     private EditText etStatus;
     private EditText etStatusInMap;
+    public GetStatusAsyncTask getStatusAsyncTask;
 
     public void getStatus(final String android_id, ProfileFragment profileFragment, EditText etStatus) {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
         this.etStatus = etStatus;
-        new GetStatusAsyncTask().execute();
+        getStatusAsyncTask = new GetStatusAsyncTask();
+        getStatusAsyncTask.execute();
+
     }
 
     public void getStatus(final String android_id, MapFragment mapFragment, EditText etStatusInMap) {
@@ -70,10 +73,12 @@ public class GetStatusFromDB {
 
                     if (profileFragment != null) {
                         handleResponse(response);
+                        onPostExecute(null);
                     }
 
                     else if (mapFragment != null) {
                         handleResponseMap(response);
+                        onPostExecute(null);
                     }
                 }
 
@@ -106,6 +111,13 @@ public class GetStatusFromDB {
             else if (mapFragment != null) {
                 etStatusInMap.setEnabled(true);
             }
+            this.cancel(true);
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            System.out.println("GET STATUS FROM DB IS CANCELLED");
         }
     }
 

@@ -19,11 +19,7 @@ import java.util.Map;
 
 public class SendEncodedImageToDB {
 
-    private RequestQueue requestQueue;
     private static final String STR_URL = "http://palo.square7.ch/setEncodedImage.php";
-    private StringRequest stringRequest;
-
-    protected String encodedImage;
 
 
     public SendEncodedImageToDB() {
@@ -36,20 +32,13 @@ public class SendEncodedImageToDB {
 
         TelephonyManager tManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         final String android_id = tManager.getDeviceId();
 
-        this.encodedImage = encodedImage;
-        this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-        this.stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
+        RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -62,12 +51,12 @@ public class SendEncodedImageToDB {
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             // set of parameters in a HashMap, which will be send to the php file (server side)
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> hashMap = new HashMap<>();
+                HashMap<String, String> hashMap = new HashMap<>();
 
                 hashMap.put("encodedImage", encodedImage);
                 hashMap.put("android_id", android_id);
