@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class OldStatus {
@@ -22,14 +23,13 @@ public class OldStatus {
             String old = getData(MyApplicationContext.getAppContext());
             System.out.println(old);
         try{
-            if (old != null) {
-                if (!old.contains("{ \"Status\" : [\"\"")) {
-                    writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
-                } else {
+            if (old == null || old.equals("")) {
+                writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
+            }else {
+
                     old = old.substring(0, old.length() - 2);
                     newStatus = old + ", \"" + newStatus + "\"]}";
                     writeNewJSON(newStatus);
-                }
             }
         }catch(NullPointerException e){
             writeNewJSON("{ \"Status\" : [\"\",\""+newStatus+"\"]}");
