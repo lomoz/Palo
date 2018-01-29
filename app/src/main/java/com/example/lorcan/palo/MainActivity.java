@@ -1,16 +1,37 @@
 package com.example.lorcan.palo;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.lorcan.palo.Fragments.OptionsMenu.AboutFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.SettingsFragment;
+import com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
+import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
+import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
+
 
 import java.util.ArrayList;
 
@@ -22,28 +43,26 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TwoCheckedFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, UpdateMapFragment.OnFragmentInteractionListener {
 
+    @SuppressLint("StaticFieldLeak")
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
+
+
+    private String android_id;
+    ImageView navImageViewProfile;
+    TextView navTextViewUsername;
+
+    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /* Out commented the FloatingActionButton in layout/app_bar_main.xml.
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        */
 
         locationsFromDB = new getLocFromDB(this);
         arrayListOtherUsers = locationsFromDB.getData();
@@ -63,18 +82,83 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*
-         * Set a fragment as the default fragment instead of an empty fragment.
-         */
 
-        MapFragment mapFragment = new MapFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+        //Set a fragment as the default fragment instead of an empty fragment.
+
+        /*
+        CurrLocUpdate currLocUpdate = new CurrLocUpdate();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
                 .replace(R.id.relativelayout_for_fragments,
-                        mapFragment,
-                        mapFragment.getTag()
+                        currLocUpdate,
+                        currLocUpdate.getTag()
         ).commit();
+        */
+
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("nothing");
+        }
+
+        if (telephonyManager != null) {
+            android_id = telephonyManager.getDeviceId();
+        }
+
+        View hView = navigationView.getHeaderView(0);
+
+
+        navTextViewUsername = (TextView)hView.findViewById(R.id.navTextViewUsername);
+        navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
+
+        // set username to navigation
+        GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
+        getUsernameFromDB.getResponseUsername(android_id, this);
+
+        // set profile image to navigation
+        GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
+        getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
+
+        CurrLocUpdate currLocUpdate = new CurrLocUpdate();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                        currLocUpdate,
+                        currLocUpdate.getTag()
+                ).commit();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //stopwatch.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        /*
+        stopwatch.stop();
+        long millis = stopwatch.getTime();
+
+        stopwatch.toString(millis);
+
+        System.out.println("******** " + stopwatch.toString(millis));
+        */
     }
 
     @Override
@@ -99,7 +183,6 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
 
         //noinspection SimplifiableIfStatement
@@ -121,9 +204,15 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        /*
+         * TODO:
+         * Check which fragment is currently displayed
+         * Only change fragment if clicked item differs currently active fragment.
+         */
 
         if (id == R.id.nav_user) {
 
@@ -144,41 +233,20 @@ public class MainActivity extends AppCompatActivity
 
         else if (id == R.id.nav_map) {
 
-/*
+            /*
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
-*/
+            */
 
-            MapFragment mapFragment = new MapFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+            CurrLocUpdate currLocUpdate = new CurrLocUpdate();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction()
+                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
                     .replace(R.id.relativelayout_for_fragments,
-                            mapFragment,
-                            mapFragment.getTag()
+                            currLocUpdate,
+                            currLocUpdate.getTag()
                     ).commit();
         }
-
-
-        /*else if (id == R.id.nav_bestenliste) {
-
-
-             Call a Fragment with the newInstance method like this.
-             Only to pass data from outside to the fragment.
-
-
-            OneCheckedFragment oneCheckedFragment = OneCheckedFragment.newInstance("some1", "some2");
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                    oneCheckedFragment,
-                    oneCheckedFragment.getTag()
-            ).commit();
-        }
-        */
-
-
 
         else if (id == R.id.nav_settings) {
 
@@ -205,21 +273,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         else if (id == R.id.nav_share) {
-
-            /*
-             * Get data from the fragment with an interactionListener to the outside!
-             * Recommended way to use a fragment from android!
-
-
-            TwoCheckedFragment twoCheckedFragment = TwoCheckedFragment.newInstance(10);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                    .replace(R.id.relativelayout_for_fragments,
-                    twoCheckedFragment,
-                    twoCheckedFragment.getTag()
-            ).commit();
-            */
 
             ShareFragment shareFragment = new ShareFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -253,17 +306,30 @@ public class MainActivity extends AppCompatActivity
      * after clicking on the according solution of the error message.
      */
 
-    @Override
-    public void onFragmentInteraction(String data) {
-
-        /*
-         * i.e. make a toast to show the data.
-         */
-
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+    public ArrayList<String> getData(){
+        return arrayListOtherUsers;
     }
 
-    public ArrayList<String> getData(){
-        return this.arrayListOtherUsers;
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+    }
+
+    public void setEncodedImageAsNavImage(String image){
+
+        try {
+            if(image.length() > 0){
+                byte[] decodedString = Base64.decode(image, 0);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                navImageViewProfile.setRotation(90);
+                navImageViewProfile.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 64, 64, false));
+                decodedByte.recycle();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setUsernameInNav(String username) {
+        navTextViewUsername.setText(username);
     }
 }

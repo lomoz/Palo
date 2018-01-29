@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linlayoutChatList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context="com.example.lorcan.palo.ChatListActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/chatList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/hue_red"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="482dp"
+                                android:layout_height="100dp"
+                                android:background="@color/cast_intro_overlay_button_background_color"
+                                android:clickable="true"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="40dp"
+                                android:text="paul"
+                                android:textColor="?android:attr/colorEdgeEffect"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:background="@color/hue_red"
+                                app:srcCompat="@drawable/quantum_ic_clear_white_24" />
+
+
+            </LinearLayout>
+-->
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+

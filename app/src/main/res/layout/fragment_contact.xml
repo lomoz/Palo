@@ -1,97 +1,69 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lorcan.palo.ContactFragment">
+    tools:context="com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_contact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Kontakt"
-        android:textSize="30sp" />
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:contentDescription="@string/contact_header_image"
+                app:srcCompat="@android:color/black" />
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_contact"
-        android:layout_marginTop="42dp"
-        android:text="Name"
-        android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:baselineAligned="false"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tv_name"
-        android:ems="10"
-        android:hint="erforderlich"
-        android:inputType="textPersonName" />
+                <TextView
+                    android:id="@+id/tv_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/et_name"
-        android:layout_marginTop="64dp"
-        android:text="E-Mail"
-        android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_send_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_us"
+                    android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/et_name"
-        android:layout_alignRight="@+id/et_name"
-        android:layout_below="@+id/tv_email"
-        android:ems="10"
-        android:hint="erforderlich"
-        android:inputType="textEmailAddress" />
+                <EditText
+                    android:id="@+id/et_enter_message_multiline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="@string/enter_message"
+                    android:inputType="textMultiLine" />
 
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/et_email"
-        android:layout_marginTop="56dp"
-        android:text="Nachricht"
-        android:textSize="18sp" />
+                <Button
+                    android:id="@+id/btn_send_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/hhu_blue"
+                    android:text="@string/send_message"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/et_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/et_email"
-        android:layout_alignRight="@+id/et_email"
-        android:layout_below="@+id/tv_message"
-        android:ems="10"
-        android:hint="erforderlich"
-        android:inputType="textMultiLine" />
+            </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Absenden"
-        android:layout_below="@+id/et_message"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/et_message"
-        android:layout_alignEnd="@+id/et_message" />
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -100,29 +72,26 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:background="@color/hhu_blue"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:background="@color/colorFooter">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:text="Palo Version 0.0"
+            android:text="@string/palo_version"
             android:textAlignment="textStart"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_copyright"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.19"
-            android:text="© Copyright 2017"
+            android:text="@string/copyright"
             android:textAlignment="textEnd"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
