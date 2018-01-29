@@ -28,7 +28,6 @@
     <!-- To upload an image to the server -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:name=".MyApplicationContext"
         android:allowBackup="true"

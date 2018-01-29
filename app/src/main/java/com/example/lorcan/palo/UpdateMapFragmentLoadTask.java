@@ -62,7 +62,7 @@ public class UpdateMapFragmentLoadTask extends Fragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     UpdateMapFragment updateMapFragment = new UpdateMapFragment();
-                    FragmentManager fragmentManager = updateMapFragment.getFragmentManager();
+                    FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
                             .replace(R.id.relativelayout_for_fragments,
@@ -134,24 +134,4 @@ public class UpdateMapFragmentLoadTask extends Fragment {
 
     }
 
-    /*
-                    JSONObject jsonObject = new JSONObject(responseStatus);
-                    JSONArray jsonArray = jsonObject.getJSONArray("User");
-                    double[] currLoc = bundle1.getDoubleArray("currLoc");
-
-                    args.add(String.valueOf(currLoc[0]));
-                    args.add(String.valueOf(currLoc[1]));
-                    System.out.println("ArrayList: "+ args);
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject jObjStatus;
-                        jObjStatus = new JSONObject(jsonArray.getString(i));
-                        args.add(jObjStatus.getString("Status"));
-                        args.add(jObjStatus.getString("Lat"));
-                        args.add(jObjStatus.getString("Lng"));
-                        args.add(jObjStatus.getString("Zeit"));
-                        args.add(jObjStatus.getString("Nickname"));
-
-                    }
-     */
 }

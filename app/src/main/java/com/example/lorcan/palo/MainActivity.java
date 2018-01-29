@@ -11,9 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
@@ -43,13 +45,13 @@ import java.util.ArrayList;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, UpdateMapFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, UpdateMapFragment.OnFragmentInteractionListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     @SuppressLint("StaticFieldLeak")
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
-
-
+    public final int REQUEST_READ_PHONE_STATE = 1;
+    public TelephonyManager telephonyManager;
     private String android_id;
     ImageView navImageViewProfile;
     TextView navTextViewUsername;
@@ -72,44 +74,29 @@ public class MainActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        /*
-         * Changed code generated method setDrawerListener to addDrawerListener.
-         */
-
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-        //Set a fragment as the default fragment instead of an empty fragment.
-
-        /*
-        CurrLocUpdate currLocUpdate = new CurrLocUpdate();
-        FragmentManager fm = getSupportFragmentManager();
-        fm.beginTransaction()
-                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_in_from_left)
-                .replace(R.id.relativelayout_for_fragments,
-                        currLocUpdate,
-                        currLocUpdate.getTag()
-        ).commit();
-        */
-
-        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            System.out.println("nothing");
-        }
-
-        if (telephonyManager != null) {
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            // check whether "READ_PHONE_STATE" permission is granted or not
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // we do not have the permissions, we need to request permission from user
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
+                return;
+        }else{
             android_id = telephonyManager.getDeviceId();
         }
+
+
+
 
         View hView = navigationView.getHeaderView(0);
 
 
-        navTextViewUsername = (TextView)hView.findViewById(R.id.navTextViewUsername);
-        navImageViewProfile = (ImageView)hView.findViewById(R.id.navImageViewProfile);
+        navTextViewUsername = (TextView) hView.findViewById(R.id.navTextViewUsername);
+        navImageViewProfile = (ImageView) hView.findViewById(R.id.navImageViewProfile);
 
         // set username to navigation
         GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
@@ -128,6 +115,33 @@ public class MainActivity extends AppCompatActivity
                         currLocUpdate.getTag()
                 ).commit();
 
+    }
+
+
+    @SuppressLint("HardwareIds")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_READ_PHONE_STATE:
+                // if request is cancelled, the result arrays are empty
+                if (grantResults.length == 0 || grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    // permissions denied. Show message to user with explanations
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setMessage("Für deine Android Version ist die Zustimmung für 'PHONE_STATE' nötig. Bei einer Ablehnung wird sich die App leider beenden.");
+                    alert.setPositiveButton("Ok", null);
+                    alert.show();
+                }
+
+                // if we get permissions from user, proceed to
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+
+                    }
+                    android_id = telephonyManager.getDeviceId();
+                    // continue with proceed to checkout
+                }
+                return;
+        }
     }
 
     @Override

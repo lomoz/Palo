@@ -292,8 +292,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
 
-            bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
-
             b = bitmapDraw.getBitmap();
             smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
             bitmapDraw = null;
