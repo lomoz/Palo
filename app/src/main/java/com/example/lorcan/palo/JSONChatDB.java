@@ -17,7 +17,7 @@ class JSONChatDB {
 
     private static String fileName = "chats.json";
 
-    static void createNewDBDeleteOld(String nameJSON) {
+    private static void createNewDBDeleteOld(String nameJSON) {
         try {
             System.out.println("New created DB: " + nameJSON);
             FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);
@@ -49,7 +49,10 @@ class JSONChatDB {
 
     void addNewChatUser(String newUser){
         String old = getData(MyApplicationContext.getAppContext());
-        newUser = newUser.substring(0, newUser.length()-1);
+        if(newUser.substring(0, newUser.length()-1).equals(" ")){
+            newUser = newUser.substring(0, newUser.length()-1);
+        }
+
         int intBool = 0;
         System.out.println(old);
         try {
