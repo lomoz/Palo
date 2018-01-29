@@ -213,6 +213,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     double latitude = currLocation.latitude;
                     double longitude = currLocation.longitude;
                     statusToDB.sendStatus(status, latitude, longitude, time, android_id);
+                    OldStatus oldList = new OldStatus();
+                    oldList.addNewEntry(status);
 
                     // call method to update map after setting a new status
                     updateMap();

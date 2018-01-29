@@ -17,7 +17,7 @@ import java.io.IOException;
 public class OldStatus {
     private static String fileName = "status.json";
 
-    static void addNewEntry(String newStatus) {
+    public static void addNewEntry(String newStatus) {
 
             String old = getData(MyApplicationContext.getAppContext());
             System.out.println(old);
@@ -45,7 +45,7 @@ public class OldStatus {
 
     }
 
-    private static void writeNewJSON(String newJSON){
+    public static void writeNewJSON(String newJSON){
 
         try {
             FileWriter file = new FileWriter(MyApplicationContext.getAppContext().getFilesDir().getPath() + "/" + fileName);

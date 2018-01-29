@@ -233,7 +233,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        spinnerArray.add("--- select option --");
+        spinnerArray.add("--- wähle Status --");
 
         try {
             String oldUserStatus = OldStatus.getData(MyApplicationContext.getAppContext());
@@ -247,6 +247,7 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         } catch (NullPointerException e1){
             e1.printStackTrace();
+
         }
 
         spinner = (Spinner) view.findViewById(R.id.spinner);
@@ -260,7 +261,7 @@ public class ProfileFragment extends Fragment {
 
                 // if any item is selected this one should become the active status
                 String selectedItemText = (String) adapterView.getItemAtPosition(i);
-                if (!selectedItemText.equals("--- select option --")) {
+                if (!selectedItemText.equals("--- wähle Status --")) {
                     Toast.makeText(ProfileFragment.this.getActivity(), selectedItemText, Toast.LENGTH_SHORT).show();
                     etStatus.setText(selectedItemText);
                 }
@@ -490,8 +491,8 @@ public class ProfileFragment extends Fragment {
         }
 
         //bundle the data from status and study course to "send" them to MapFragment.java
-
-
+        OldStatus oldList = new OldStatus();
+        oldList.addNewEntry(status);
         //send status to database
         sendStatusToDB statusToDB = new sendStatusToDB();
 

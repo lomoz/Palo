@@ -47,7 +47,6 @@ public class ChatListActivity extends AppCompatActivity {
             listeNicknames = jsonObject.getJSONArray("Users");
             String data = new JSONChatDB().getData(this);
         } catch (JSONException e) {
-            JSONChatDB.createNewDBDeleteOld("{\"Users\":[\"Paul\"]}");
             System.out.println("LISTE:" + new JSONChatDB().getData(this));
         } catch (NullPointerException ne){
             ne.printStackTrace();
