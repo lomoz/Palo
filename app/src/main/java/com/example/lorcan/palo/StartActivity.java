@@ -38,6 +38,8 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+
+
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -50,6 +52,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void checkID(final String android_id) {
+
+        System.out.println("HELLO CHECK ID");
         this.android_id = android_id;
         new isIDTask().execute();
     }
@@ -64,6 +68,7 @@ public class StartActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
 
+                    System.out.println("RESPONSE START:" + response);
                     handleResponse(response);
                 }
 
@@ -121,10 +126,11 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        restart();
+        new isIDTask().execute();
     }
 
     public void handleResponse(String response){
+        System.out.println("RESPONSE START:" + response);
         String res = response.trim();
         if(res.equals("1")){
             startMain();
@@ -133,4 +139,19 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("onDestroy Start");
+
+        finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("onStop Start");
+
+        finish();
+    }
 }
