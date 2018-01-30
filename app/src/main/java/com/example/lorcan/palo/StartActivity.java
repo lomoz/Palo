@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 
@@ -25,7 +24,6 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class StartActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
@@ -131,12 +129,31 @@ public class StartActivity extends AppCompatActivity {
 
     public void handleResponse(String response){
         System.out.println("RESPONSE START:" + response);
-        String res = response.trim();
-        if(res.equals("1")){
-            startMain();
-        }else{
-            start();
+        String[] responseArr = response.split("§%");
+        final String res = responseArr[0].trim();
+
+        if(responseArr[1].length() > 0 && !responseArr[1].equals(" ")){
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+            builder.setTitle("Info")
+                    .setMessage(responseArr[1])
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(res.equals("1")){
+                                startMain();
+                            }else{
+                                start();
+                            }
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
+
     }
 
     @Override
