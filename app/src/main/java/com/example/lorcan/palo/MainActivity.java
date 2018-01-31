@@ -152,30 +152,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        /*
-        stopwatch.stop();
-        long millis = stopwatch.getTime();
-
-        stopwatch.toString(millis);
-
-        System.out.println("******** " + stopwatch.toString(millis));
-        */
-    }
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {

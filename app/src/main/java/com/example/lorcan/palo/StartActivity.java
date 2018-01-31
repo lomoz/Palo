@@ -10,7 +10,9 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 
@@ -24,12 +26,15 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+
 public class StartActivity extends AppCompatActivity {
 
     private RequestQueue requestQueue;
     private static final String strUrl = "http://palo.square7.ch/checkIDIsInDB.php";
     private StringRequest request;
     private String android_id;
+    public final int  PERMISSION_READ_PHONE_STATE = 1;
+
     @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -37,16 +42,27 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
 
-
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
-            return;
-        }
+
         if (telephonyManager != null) {
+
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, PERMISSION_READ_PHONE_STATE);
+
+
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             android_id = telephonyManager.getDeviceId();
         }
-        checkID(android_id);
+
     }
 
     public void checkID(final String android_id) {
@@ -54,6 +70,24 @@ public class StartActivity extends AppCompatActivity {
         System.out.println("HELLO CHECK ID");
         this.android_id = android_id;
         new isIDTask().execute();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_READ_PHONE_STATE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    checkID(android_id);
+
+                } else {
+
+                   restart();
+                }
+            }
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -73,7 +107,7 @@ public class StartActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    restart();
+                    error.printStackTrace();
                 }
             }) {
 
@@ -100,7 +134,6 @@ public class StartActivity extends AppCompatActivity {
         @Override
         protected void onCancelled() {
             super.onCancelled();
-            System.out.println("START ACTIVITY CANCELLED");
         }
 
 
@@ -141,7 +174,7 @@ public class StartActivity extends AppCompatActivity {
             }
             builder.setTitle("Info")
                     .setMessage(responseArr[1])
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             if(res.equals("1")){
                                 startMain();
@@ -159,16 +192,12 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("onDestroy Start");
-
         finish();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        System.out.println("onStop Start");
-
         finish();
     }
 }

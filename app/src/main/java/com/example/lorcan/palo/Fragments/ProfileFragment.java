@@ -1,6 +1,7 @@
 package com.example.lorcan.palo.Fragments;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -86,6 +87,9 @@ public class ProfileFragment extends Fragment {
         startMapAndUploadStatus();
     }
 
+
+    public final int PERMISSION_ACCESS_FINE_LOCATION = 2;
+    public final int PERMISSION_ACCESS_COARSE_LOCATION = 3;
     private Bitmap bitmap;
 
     private InputFilter filter = new InputFilter() {
@@ -100,6 +104,7 @@ public class ProfileFragment extends Fragment {
             return null;
         }
     };
+
     /*
      * Declare elements here to handle them in the onCreateView method.
      */
@@ -117,7 +122,7 @@ public class ProfileFragment extends Fragment {
     File file;
     Uri uri;
     Intent CameraIntent, GalleryIntent, CropIntent;
-    final int RequestPermissionCode = 1;
+    final int PERMISSION_CAMERA_CODE = 1;
     Bitmap croppedBitmap;
     Bitmap rotatedBitmap;
     Bitmap decodedByte;
@@ -152,7 +157,7 @@ public class ProfileFragment extends Fragment {
 
         // Use the created view to get the elements from the xml file.
         etStatus = (EditText) view.findViewById(R.id.etStatus);
-        etStatus.setFilters(new InputFilter[] { filter });
+        etStatus.setFilters(new InputFilter[]{filter});
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
         fab_marker1 = (FloatingActionButton) view.findViewById(R.id.fab_marker1);
@@ -245,7 +250,7 @@ public class ProfileFragment extends Fragment {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        } catch (NullPointerException e1){
+        } catch (NullPointerException e1) {
             e1.printStackTrace();
 
         }
@@ -284,7 +289,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker1, Toast.LENGTH_SHORT).show();
             }
@@ -294,7 +299,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker2);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker2);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker2, Toast.LENGTH_SHORT).show();
             }
@@ -304,7 +309,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker3);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker3, Toast.LENGTH_SHORT).show();
             }
@@ -314,7 +319,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker4);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker4, Toast.LENGTH_SHORT).show();
             }
@@ -324,7 +329,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker5);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker5);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker5, Toast.LENGTH_SHORT).show();
             }
@@ -334,7 +339,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker6);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker6);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker6, Toast.LENGTH_SHORT).show();
             }
@@ -344,7 +349,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker7);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker7);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker7, Toast.LENGTH_SHORT).show();
             }
@@ -354,7 +359,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker8);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker8);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker8, Toast.LENGTH_SHORT).show();
             }
@@ -364,7 +369,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker9);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker9);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker9, Toast.LENGTH_SHORT).show();
             }
@@ -374,7 +379,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bitmapDrawableSelectedMarkerColor = (BitmapDrawable)getResources().getDrawable(R.drawable.marker10);
+                bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker10);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker10, Toast.LENGTH_SHORT).show();
             }
@@ -388,17 +393,13 @@ public class ProfileFragment extends Fragment {
 
         if (requestCode == 0 && resultCode == RESULT_OK) {
             CropImage();
-        }
-
-        else if (requestCode == 2) {
+        } else if (requestCode == 2) {
             if (data != null) {
                 uri = data.getData();
                 selectedPhoto = uri.getPath();
                 CropImage();
             }
-        }
-
-        else if (requestCode == 1) {
+        } else if (requestCode == 1) {
             if (data != null) {
                 Bundle bundle = data.getExtras();
                 if (bundle != null) {
@@ -419,12 +420,12 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public void setEncodedImageAsProfileImage(String image){
+    public void setEncodedImageAsProfileImage(String image) {
 
         try {
-            if(image.length() > 0){
+            if (image.length() > 0) {
                 byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-                if(decodedByte != null){
+                if (decodedByte != null) {
                     decodedByte.recycle();
                     decodedByte = null;
                 }
@@ -441,30 +442,36 @@ public class ProfileFragment extends Fragment {
 
     public void btnChangeClicked() {
 
+        System.out.println("btnChange Clicked");
+
         if (etStatus.getText().toString().isEmpty()) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ProfileFragment.this.getActivity());
             builder.setTitle(R.string.alert_empty_status_title);
             builder.setMessage(R.string.alert_empty_status_message);
             builder.show();
-        }
+        } else {
 
-        else {
-
-            status = etStatus.getText().toString();
 
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
+                ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
 
+
+                status = etStatus.getText().toString();
                 return;
             }
+            status = etStatus.getText().toString();
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
+                            lat = location.getLatitude();
+                            lng = location.getLongitude();
                             // Got last known location. In some rare situations this can be null.
                             sendStatusToDB statusToDB = new sendStatusToDB();
-                            statusToDB.sendStatus(etStatus.getText().toString(), location.getLatitude(), location.getLongitude(), time, android_id);
+                            statusToDB.sendStatus(etStatus.getText().toString(), lat, lng, time, android_id);
                             CurrLocUpdate upFragment = new CurrLocUpdate();
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction()
@@ -483,7 +490,7 @@ public class ProfileFragment extends Fragment {
 
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this.getActivity(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+            return;
         }
 
         if (tManager != null) {
@@ -517,7 +524,7 @@ public class ProfileFragment extends Fragment {
         return createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
 
-    private void uploadImage(String selectedPhoto){
+    private void uploadImage(String selectedPhoto) {
 
         if (selectedPhoto == null || selectedPhoto.equals("")) {
             Toast.makeText(ProfileFragment.this.getActivity(), "No image selected.", Toast.LENGTH_SHORT).show();
@@ -525,7 +532,7 @@ public class ProfileFragment extends Fragment {
         }
 
         try {
-            if(bitmap != null){
+            if (bitmap != null) {
                 bitmap.recycle();
                 bitmap = null;
             }
@@ -551,9 +558,8 @@ public class ProfileFragment extends Fragment {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(ProfileFragment.this.getActivity(), android.Manifest.permission.CAMERA)) {
             Toast.makeText(ProfileFragment.this.getActivity(), "CAMERA permission allows us to access CAMERA app.", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[] {android.Manifest.permission.CAMERA}, RequestPermissionCode);
+        } else {
+            ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{android.Manifest.permission.CAMERA}, PERMISSION_CAMERA_CODE);
         }
     }
 
@@ -561,7 +567,7 @@ public class ProfileFragment extends Fragment {
 
         CameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file = new File(Environment.getExternalStorageDirectory(),
-                "file"+String.valueOf(System.currentTimeMillis())+".jpeg");
+                "file" + String.valueOf(System.currentTimeMillis()) + ".jpeg");
         uri = Uri.fromFile(file);
         CameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         CameraIntent.putExtra("return-data", true);
@@ -597,14 +603,49 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case RequestPermissionCode:
-            {
+            case PERMISSION_CAMERA_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Permission Granted!", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(ProfileFragment.this.getActivity(), "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
+            }
+            case PERMISSION_ACCESS_COARSE_LOCATION: {
+
+                FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+                if (ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                }
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                lat = location.getLatitude();
+                                lng = location.getLongitude();
+
+                            }
+                        });
+            }
+
+            case PERMISSION_ACCESS_FINE_LOCATION:
+            {
+
+                FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+                if (ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                }
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                lat = location.getLatitude();
+                                lng = location.getLongitude();
+
+                            }
+                        });
+
             }
         }
     }
