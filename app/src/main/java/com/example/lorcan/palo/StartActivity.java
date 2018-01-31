@@ -1,5 +1,7 @@
 package com.example.lorcan.palo;
 
+import android.*;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,6 +36,7 @@ public class StartActivity extends AppCompatActivity {
     private StringRequest request;
     private String android_id;
     public final int  PERMISSION_READ_PHONE_STATE = 1;
+    public final int PERMISSION_INTERNET_STATE = 2;
 
     @SuppressLint("HardwareIds")
     @Override
@@ -79,12 +82,21 @@ public class StartActivity extends AppCompatActivity {
             case PERMISSION_READ_PHONE_STATE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSION_INTERNET_STATE);
 
-                    checkID(android_id);
 
                 } else {
 
                    restart();
+                }
+            }
+            case PERMISSION_INTERNET_STATE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    checkID(android_id);
+                } else {
+
+                    restart();
                 }
             }
         }

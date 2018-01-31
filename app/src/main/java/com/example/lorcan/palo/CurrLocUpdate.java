@@ -58,13 +58,28 @@ public class CurrLocUpdate extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MyApplicationContext.getAppContext());
-
         if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
 
             return null;
+        }else{
+            locate();
+        }
+
+
+        return inflater.inflate(R.layout.fragment_curr_loc_update, container, false);
+    }
+
+
+    private void locate() {
+
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MyApplicationContext.getAppContext());
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
+
         }
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this.getActivity(), new OnSuccessListener<Location>() {
@@ -75,42 +90,37 @@ public class CurrLocUpdate extends Fragment  {
                         UpdateMapFragment update = UpdateMapFragment.newInstance("1", "2");
                         Bundle bundle = new Bundle();
 
-                            // Logic to handle location object
-                            System.out.println("*************************" + location + "*************************");
+                        // Logic to handle location object
+                        System.out.println("*************************" + location + "*************************");
 
-                            double[] currLoc = new double[2];
-                            if (location != null) {
-                                lat = location.getLatitude();
-                                lng = location.getLongitude();
+                        double[] currLoc = new double[2];
+                        if (location != null) {
+                            lat = location.getLatitude();
+                            lng = location.getLongitude();
 
 
-                                currLoc[0] = lat;
-                                currLoc[1] = lng;
-                                bundle.putDoubleArray("currLoc", currLoc);
-                                System.out.println("CURRENT LOCATION CurrLocUpdate: " + currLoc[0]);
-                                update.setArguments(bundle);
+                            currLoc[0] = lat;
+                            currLoc[1] = lng;
+                            bundle.putDoubleArray("currLoc", currLoc);
+                            System.out.println("CURRENT LOCATION CurrLocUpdate: " + currLoc[0]);
+                            update.setArguments(bundle);
 
-                                FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction()
-                                        .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                                        .replace(R.id.relativelayout_for_fragments,
-                                                update,
-                                                update.getTag()
-                                        ).commitAllowingStateLoss();
-                            }
-                            else{
-                                //open settings to activate GPS
-                                displayLocationSettingsRequest(MyApplicationContext.getAppContext());
-                            }
-
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                    .replace(R.id.relativelayout_for_fragments,
+                                            update,
+                                            update.getTag()
+                                    ).commitAllowingStateLoss();
+                        } else {
+                            //open settings to activate GPS
+                            displayLocationSettingsRequest(MyApplicationContext.getAppContext());
+                        }
 
 
                     }
                 });
-
-        return inflater.inflate(R.layout.fragment_curr_loc_update, container, false);
     }
-
     private void displayLocationSettingsRequest(Context context) {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API).build();
@@ -160,39 +170,14 @@ public class CurrLocUpdate extends Fragment  {
 
             case PERMISSION_ACCESS_COARSE_LOCATION: {
 
-                FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
-                if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                }
-                mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                lat = location.getLatitude();
-                                lng = location.getLongitude();
-
-                            }
-                        });
+                locate();
             }
 
             case PERMISSION_ACCESS_FINE_LOCATION: {
 
-                FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
 
-                if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                }
-                mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                lat = location.getLatitude();
-                                lng = location.getLongitude();
-
-                            }
-                        });
-
+                locate();
             }
         }
     }

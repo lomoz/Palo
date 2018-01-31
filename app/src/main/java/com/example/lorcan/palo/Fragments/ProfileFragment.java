@@ -463,6 +463,10 @@ public class ProfileFragment extends Fragment {
                 return;
             }
             status = etStatus.getText().toString();
+
+
+
+
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
@@ -612,39 +616,13 @@ public class ProfileFragment extends Fragment {
             }
             case PERMISSION_ACCESS_COARSE_LOCATION: {
 
-                FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
-                if (ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                }
-                mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                lat = location.getLatitude();
-                                lng = location.getLongitude();
-
-                            }
-                        });
+                btnChangeClicked();
             }
 
             case PERMISSION_ACCESS_FINE_LOCATION:
             {
+                btnChangeClicked();
 
-                FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
-                if (ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ProfileFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                }
-                mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                lat = location.getLatitude();
-                                lng = location.getLongitude();
-
-                            }
-                        });
 
             }
         }
