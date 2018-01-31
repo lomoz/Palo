@@ -471,6 +471,7 @@ public class ProfileFragment extends Fragment {
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
+                            System.out.println(location.toString());
                             lat = location.getLatitude();
                             lng = location.getLongitude();
                             // Got last known location. In some rare situations this can be null.

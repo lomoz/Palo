@@ -402,6 +402,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         options.mapToolbarEnabled(false);
     }
 
+
+
     @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(getContext(), "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.example.lorcan.palo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lorcan.palo.GetFromDatabase.GetProfilInfoFromDB;
 
@@ -50,12 +52,18 @@ public class ProfilActivity extends AppCompatActivity {
         layoutImageView.addRule(RelativeLayout.CENTER_HORIZONTAL);
         ivImage.setLayoutParams(layoutImageView);
         String image = list.get(0);
+        if(image != null && image.length() > 0) {
 
-        byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        ivImage.setRotation(90);
-        ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 400, 400, false));
 
+            byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            ivImage.setRotation(90);
+            ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 400, 400, false));
+        }else{
+            Toast.makeText(MyApplicationContext.getAppContext(), "Es ist leider kein Profilbild vorhanden.", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(MyApplicationContext.getAppContext(), ChatListActivity.class);
+            startActivity(i);
+        }
 
         TextView statusTextView = new TextView(this);
         RelativeLayout.LayoutParams layoutTextView = new RelativeLayout.LayoutParams(

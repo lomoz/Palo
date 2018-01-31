@@ -58,6 +58,7 @@ public class GetProfilInfoFromDB {
                 @Override
                 public void onResponse(String response) {
                     System.out.println("RESPONSE FROM PHP PROFIL: " + response);
+                    System.out.println(name);
                     handleResponse(response, profilActivity);
                 }
 
@@ -72,7 +73,9 @@ public class GetProfilInfoFromDB {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> hashMap = new HashMap<String, String>();
-
+                    while(name.substring(name.length() - 1).equals(" ")){
+                        name = name.substring(0, name.length() - 1);
+                    }
                     hashMap.put("nickname", name);
 
 
