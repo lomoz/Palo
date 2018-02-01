@@ -135,12 +135,12 @@ public class MainActivity extends AppCompatActivity
                 // if we get permissions from user, proceed to
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_READ_PHONE_STATE);
 
                     }
                     android_id = telephonyManager.getDeviceId();
                     // continue with proceed to checkout
                 }
-                return;
         }
     }
 
