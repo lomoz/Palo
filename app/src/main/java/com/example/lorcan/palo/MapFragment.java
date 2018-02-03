@@ -343,7 +343,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
         //------------------------------- 
 
-
         Toast.makeText(getContext(), getString(R.string.current_location) + " " + currLocation, Toast.LENGTH_LONG).show();
 
         try {

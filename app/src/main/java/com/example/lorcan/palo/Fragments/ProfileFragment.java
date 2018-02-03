@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,6 +37,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -113,7 +115,8 @@ public class ProfileFragment extends Fragment {
     Button btnChange;
     Spinner spinner;
 
-    FloatingActionButton fab_marker1, fab_marker2, fab_marker3, fab_marker4, fab_marker5, fab_marker6, fab_marker7, fab_marker8, fab_marker9, fab_marker10;
+    ImageButton fab_marker1;
+    ImageButton fab_marker2, fab_marker3, fab_marker4, fab_marker5, fab_marker6, fab_marker7, fab_marker8, fab_marker9, fab_marker10;
     BitmapDrawable bitmapDrawableSelectedMarkerColor;
     Bitmap bitmapSelectedMarkerColor;
 
@@ -160,16 +163,17 @@ public class ProfileFragment extends Fragment {
         etStatus.setFilters(new InputFilter[]{filter});
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
 
-        fab_marker1 = (FloatingActionButton) view.findViewById(R.id.fab_marker1);
-        fab_marker2 = (FloatingActionButton) view.findViewById(R.id.fab_marker2);
-        fab_marker3 = (FloatingActionButton) view.findViewById(R.id.fab_marker3);
-        fab_marker4 = (FloatingActionButton) view.findViewById(R.id.fab_marker4);
-        fab_marker5 = (FloatingActionButton) view.findViewById(R.id.fab_marker5);
-        fab_marker6 = (FloatingActionButton) view.findViewById(R.id.fab_marker6);
-        fab_marker7 = (FloatingActionButton) view.findViewById(R.id.fab_marker7);
-        fab_marker8 = (FloatingActionButton) view.findViewById(R.id.fab_marker8);
-        fab_marker9 = (FloatingActionButton) view.findViewById(R.id.fab_marker9);
-        fab_marker10 = (FloatingActionButton) view.findViewById(R.id.fab_marker10);
+
+        fab_marker1 = (ImageButton) view.findViewById(R.id.fab_marker1);
+        fab_marker2 = (ImageButton) view.findViewById(R.id.fab_marker2);
+        fab_marker3 = (ImageButton) view.findViewById(R.id.fab_marker3);
+        fab_marker4 = (ImageButton) view.findViewById(R.id.fab_marker4);
+        fab_marker5 = (ImageButton) view.findViewById(R.id.fab_marker5);
+        fab_marker6 = (ImageButton) view.findViewById(R.id.fab_marker6);
+        fab_marker7 = (ImageButton) view.findViewById(R.id.fab_marker7);
+        fab_marker8 = (ImageButton) view.findViewById(R.id.fab_marker8);
+        fab_marker9 = (ImageButton) view.findViewById(R.id.fab_marker9);
+        fab_marker10 = (ImageButton) view.findViewById(R.id.fab_marker10);
 
         int permissionCheck = ContextCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.CAMERA);
         if (permissionCheck == PackageManager.PERMISSION_DENIED) {

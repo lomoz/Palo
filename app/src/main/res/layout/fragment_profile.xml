@@ -108,131 +108,114 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvSelectMarkerColor"
-        android:layout_alignStart="@+id/tvSelectMarkerColor"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/tvSelectMarkerColor"
         android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="50dp">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker1"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker2"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker3"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker4"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker5"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker6"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            app:backgroundTint="@color/color_marker7"
-            app:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
+        <ImageButton
             android:id="@+id/fab_marker8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
             android:layout_weight="1"
+            android:background="@color/color_marker8"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/color_marker8"
-            app:fabSize="mini" />
+            android:src="@drawable/markerauswahl" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_marker9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+        <ImageButton
+            android:id="@+id/fab_marker2"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
             android:layout_weight="1"
+            android:background="@color/color_marker2"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/color_marker9"
-            app:fabSize="mini" />
+            android:src="@drawable/markerauswahl" />
 
-        <android.support.design.widget.FloatingActionButton
+        <ImageButton
+            android:id="@+id/fab_marker6"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker6"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
             android:id="@+id/fab_marker10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
             android:layout_weight="1"
+            android:background="@color/color_marker10"
             android:clickable="true"
             android:focusable="true"
-            app:backgroundTint="@color/color_marker10"
-            app:fabSize="mini" />
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
+            android:id="@+id/fab_marker4"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker4"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
+            android:id="@+id/fab_marker7"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker7"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
+            android:id="@+id/fab_marker5"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker5"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
+            android:id="@+id/fab_marker3"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker3"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
+            android:id="@+id/fab_marker1"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker1"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
+        <ImageButton
+            android:id="@+id/fab_marker9"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker9"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/markerauswahl" />
+
 
     </LinearLayout>
 

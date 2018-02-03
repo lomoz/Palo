@@ -4,7 +4,6 @@ import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 
@@ -52,15 +50,6 @@ public class StartActivity extends AppCompatActivity {
 
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, PERMISSION_READ_PHONE_STATE);
-
-
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             android_id = telephonyManager.getDeviceId();
@@ -126,7 +115,7 @@ public class StartActivity extends AppCompatActivity {
                 // set of parameters in a hashmap, which will be send to the php file (server side)
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
-                    HashMap<String, String> hashMap = new HashMap<String, String>();
+                    HashMap<String, String> hashMap = new HashMap<>();
 
                     hashMap.put("android_id", android_id);
                     System.out.println(hashMap);
@@ -174,7 +163,7 @@ public class StartActivity extends AppCompatActivity {
 
     public void handleResponse(String response){
         System.out.println("RESPONSE START:" + response);
-        String[] responseArr = response.split("§%");
+        String[] responseArr = response.split("eee");
         final String res = responseArr[0].trim();
 
         if(responseArr[1].length() > 0 && !responseArr[1].equals(" ")){
