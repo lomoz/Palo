@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +32,7 @@ import android.text.Spanned;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -39,6 +41,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -50,8 +53,16 @@ import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.R;
 import com.example.lorcan.palo.SendEncodedImageToDB;
 import com.example.lorcan.palo.sendStatusToDB;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.kosalgeek.android.photoutil.ImageBase64;
 import com.kosalgeek.android.photoutil.ImageLoader;
@@ -72,6 +83,7 @@ import java.util.Date;
 import static android.app.Activity.RESULT_OK;
 import static android.graphics.Bitmap.createBitmap;
 import static android.graphics.Bitmap.createScaledBitmap;
+import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 
 /**
@@ -89,11 +101,11 @@ public class ProfileFragment extends Fragment {
         startMapAndUploadStatus();
     }
 
-
+    public int REQUEST_CHECK_SETTINGS = 0x1;
     public final int PERMISSION_ACCESS_FINE_LOCATION = 2;
     public final int PERMISSION_ACCESS_COARSE_LOCATION = 3;
     private Bitmap bitmap;
-
+    public int marker;
     private InputFilter filter = new InputFilter() {
 
         @Override
@@ -147,7 +159,7 @@ public class ProfileFragment extends Fragment {
     public Double lat;
     public Double lng;
 
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "ClickableViewAccessibility"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -289,20 +301,21 @@ public class ProfileFragment extends Fragment {
          * so Marker color from user users can be displayed correctly.
          */
 
+
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker1, Toast.LENGTH_SHORT).show();
+                marker = 1;
             }
         });
 
         fab_marker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 2;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker2);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker2, Toast.LENGTH_SHORT).show();
@@ -312,7 +325,7 @@ public class ProfileFragment extends Fragment {
         fab_marker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 3;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker3, Toast.LENGTH_SHORT).show();
@@ -322,7 +335,7 @@ public class ProfileFragment extends Fragment {
         fab_marker4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 4;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker4, Toast.LENGTH_SHORT).show();
@@ -332,7 +345,7 @@ public class ProfileFragment extends Fragment {
         fab_marker5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 5;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker5);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker5, Toast.LENGTH_SHORT).show();
@@ -342,7 +355,7 @@ public class ProfileFragment extends Fragment {
         fab_marker6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 6;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker6);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker6, Toast.LENGTH_SHORT).show();
@@ -352,7 +365,7 @@ public class ProfileFragment extends Fragment {
         fab_marker7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 7;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker7);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker7, Toast.LENGTH_SHORT).show();
@@ -362,7 +375,7 @@ public class ProfileFragment extends Fragment {
         fab_marker8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 8;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker8);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker8, Toast.LENGTH_SHORT).show();
@@ -372,7 +385,7 @@ public class ProfileFragment extends Fragment {
         fab_marker9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 9;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker9);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker9, Toast.LENGTH_SHORT).show();
@@ -382,7 +395,7 @@ public class ProfileFragment extends Fragment {
         fab_marker10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                marker = 10;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker10);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker10, Toast.LENGTH_SHORT).show();
@@ -454,7 +467,7 @@ public class ProfileFragment extends Fragment {
             builder.setTitle(R.string.alert_empty_status_title);
             builder.setMessage(R.string.alert_empty_status_message);
             builder.show();
-        } else {
+        }
 
 
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
@@ -475,23 +488,25 @@ public class ProfileFragment extends Fragment {
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            System.out.println(location.toString());
-                            lat = location.getLatitude();
-                            lng = location.getLongitude();
-                            // Got last known location. In some rare situations this can be null.
-                            sendStatusToDB statusToDB = new sendStatusToDB();
-                            statusToDB.sendStatus(etStatus.getText().toString(), lat, lng, time, android_id);
-                            CurrLocUpdate upFragment = new CurrLocUpdate();
-                            FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                                    .replace(R.id.relativelayout_for_fragments,
-                                            upFragment,
-                                            upFragment.getTag()
-                                    ).commit();
+                            if(location != null){
+                                System.out.println("LOCATION IN PROFILEFRAGMENT:" + location.toString());
+                                lat = location.getLatitude();
+                                lng = location.getLongitude();
+                                sendStatusToDB statusToDB = new sendStatusToDB();
+                                statusToDB.sendStatus(etStatus.getText().toString(), lat, lng, time, android_id, marker);
+                                CurrLocUpdate upFragment = new CurrLocUpdate();
+                                FragmentManager fragmentManager = getFragmentManager();
+                                fragmentManager.beginTransaction()
+                                        .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                        .replace(R.id.relativelayout_for_fragments,
+                                                upFragment,
+                                                upFragment.getTag()
+                                        ).commit();
+                            }else{
+                                displayLocationSettingsRequest(MyApplicationContext.getAppContext());
+                            }
                         }
                     });
-        }
     }
 
     @SuppressLint("HardwareIds")
@@ -515,7 +530,7 @@ public class ProfileFragment extends Fragment {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         time = dateFormat.format(date);
-        statusToDB.sendStatus(status, lat, lng, time, android_id);
+        statusToDB.sendStatus(status, lat, lng, time, android_id, marker);
 
         CurrLocUpdate mapFragment = new CurrLocUpdate();
         FragmentManager fragmentManager = getFragmentManager();
@@ -650,5 +665,48 @@ public class ProfileFragment extends Fragment {
         }
 
         return  saveUri;
+    }
+
+
+    private void displayLocationSettingsRequest(Context context) {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(@NonNull LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        Log.i(TAG, "All location settings are satisfied.");
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+
+                        try {
+                            // Show the dialog by calling startResolutionForResult(), and check the result
+                            // in onActivityResult().
+                            status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.i(TAG, "PendingIntent unable to execute request.");
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+                        break;
+                }
+            }
+        });
     }
 }

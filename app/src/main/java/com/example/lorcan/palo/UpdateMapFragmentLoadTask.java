@@ -118,6 +118,8 @@ public class UpdateMapFragmentLoadTask extends Fragment {
             args.add(jObjStatus.getString("Lng"));
             args.add(jObjStatus.getString("Zeit"));
             args.add(jObjStatus.getString("Nickname"));
+            args.add(jObjStatus.getString("Marker"));
+
 
         }
 

@@ -42,11 +42,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.haha.perflib.Type;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -212,7 +214,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     String time = dateFormat.format(date);
                     double latitude = currLocation.latitude;
                     double longitude = currLocation.longitude;
-                    statusToDB.sendStatus(status, latitude, longitude, time, android_id);
+                    statusToDB.sendStatus(status, latitude, longitude, time, android_id, 1);
                     OldStatus oldList = new OldStatus();
                     oldList.addNewEntry(status);
 
@@ -290,19 +292,72 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             int height = 125;
             int width = 170;
-            for (int i = 2; i < args.size(); i = i + 5) {
+            for (int i = 2; i < args.size(); i = i + 6) {
+            if(args.get(i+5).equals("1")) {
+                BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
 
-            BitmapDrawable bitmapDraw = (BitmapDrawable)getResources().getDrawable(R.drawable.element2mdpi);
+                b = bitmapDraw.getBitmap();
+                smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+            }
+            else if(args.get(i+5).equals("2")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker2);
 
-            b = bitmapDraw.getBitmap();
-            smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-            bitmapDraw = null;
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+            }
+            else if(args.get(i+5).equals("3")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
 
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+            }
+            else if(args.get(i+5).equals("4")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
 
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+            }
+                else if(args.get(i+5).equals("5")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker5);
+
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                else if(args.get(i+5).equals("6")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker6);
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                else if(args.get(i+5).equals("7")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker7);
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                else if(args.get(i+5).equals("8")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker8);
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                else if(args.get(i+5).equals("9")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker9);
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+                else if(args.get(i+5).equals("10")) {
+                    BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker10);
+                    b = bitmapDraw.getBitmap();
+                    smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }else{
+                BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.element2mdpi);
+                b = bitmapDraw.getBitmap();
+                smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                }
+
+                System.out.println("MARKER:" + args.get(i+5));
                 String snippet = args.get(i);
                 snippet.replace("\n", "");
                 markerOptions1 = new MarkerOptions()
-                        .position(new LatLng(Double.parseDouble(args.get(i + 1)), Double.parseDouble(args.get(i + 2))))
+                        .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
                         .title(args.get(i+4) + " | " + args.get(i+3))
                         .snippet(snippet)

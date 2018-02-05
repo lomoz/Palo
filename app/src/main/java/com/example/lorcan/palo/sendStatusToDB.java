@@ -19,12 +19,13 @@ public class sendStatusToDB {
     protected String status;
     protected String time;
     protected String android_id;
+    protected int marker;
 
     public sendStatusToDB() {
 
     }
 
-    public void sendStatus(final String status, final double lat, final double lng, final String time, final String android_id) {
+    public void sendStatus(final String status, final double lat, final double lng, final String time, final String android_id, final int marker) {
 
         OldStatus.addNewEntry(status);
         // using volley lib to create request
@@ -32,26 +33,13 @@ public class sendStatusToDB {
         this.android_id = android_id;
         this.status = status;
         this.time = time;
+        this.marker = marker;
         RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
 
-                /*
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-
-                    if(jsonObject.names().get(0).equals("success")){
-                        Toast.makeText(getApplicationContext(),"SUCCESS "+jsonObject.getString("success"),Toast.LENGTH_SHORT).show();
-                    }else {
-                        Toast.makeText(getApplicationContext(), "Error" +jsonObject.getString("error"), Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                */
                 System.out.println("Response from PHP file about the status: " + response);
             }
 
@@ -73,6 +61,7 @@ public class sendStatusToDB {
                 hashMap.put("lat", String.valueOf(lat));
                 hashMap.put("lng", String.valueOf(lng));
                 hashMap.put("time", String.valueOf(time));
+                hashMap.put("marker", String.valueOf(marker));
 
                 System.out.println("WHAT IS SEND FROM THE STATUS: " + hashMap);
                 return hashMap;
