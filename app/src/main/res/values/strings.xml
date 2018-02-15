@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Palo</string>
 
+    <!-- Google Maps API access token -->
+    <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -19,9 +22,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>
     <string name="title_activity_maps">Map</string>
 
     <!-- Strings related to activity_main_drawer.xml -->
@@ -33,9 +34,6 @@
     <string name="share">Share</string>
     <string name="about">About</string>
 
-    <!-- Google Maps API access token -->
-    <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
-
     <string name="title">Title</string>
     <string name="change_language">Change language</string>
     <string name="change">Change</string>
@@ -43,8 +41,8 @@
     <string name="enter_message">enter your message</string>
     <string name="send_message">Send</string>
     <string name="click_to_share">Click icon to share</string>
-    <string name="palo_version">Palo Version 0.0</string>
-    <string name="copyright">© Copyright 2017</string>
+    <string name="palo_version">Palo Version 1.0</string>
+    <string name="copyright">© Copyright 2018</string>
     <string name="share_app">Share this app.</string>
     <string name="name">Name</string>
     <string name="necessary">necessary</string>
@@ -110,8 +108,8 @@
     </string>
 
     <!-- strings from profile fragment -->
-    <string name="status_empty">no status set</string>
-    <string name="empty_job">no job set</string>
+    <string name="status_empty">No status set</string>
+    <string name="empty_job">No job set</string>
     <string name="set_status">Set your status</string>
     <string name="set_job">Set your job</string>
 
@@ -145,7 +143,7 @@
     <string name="marker10">Dark Rose</string>
 
     <!-- languages -->
-    <string name="language">english</string>
+    <string name="language">English</string>
     <string name="german">German</string>
     <string name="english">English</string>
 
@@ -171,18 +169,15 @@
     <string name="imageView_profile_picture">ImageView profile picture</string>
     <string name="message_icon">Message Icon</string>
 
-
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
-    <string name="title_activity_profil">ProfilActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="active_status">Active Status</string>
     <string name="old_status">Old Status</string>
-    <string name="anmelden">Anmelden</string>
-
-
+    <string name="login">Login</string>
     <string name="share_subject">Try Palo: The new Social Network</string>
 
 </resources>

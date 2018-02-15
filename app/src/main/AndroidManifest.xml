@@ -83,7 +83,7 @@
         <activity android:name=".ChatListActivity" />
         <activity
             android:name=".ProfilActivity"
-            android:label="@string/title_activity_profil"
+            android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme" />
 
         <service android:name="com.google.android.gms.measurement.AppMeasurementService"

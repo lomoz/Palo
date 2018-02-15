@@ -85,7 +85,7 @@
                 android:elevation="0dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="@string/anmelden"
+                android:text="@string/login"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
                 android:textColor="#FFFFFF"
