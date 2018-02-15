@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- App Name -->
     <string name="app_name">Palo</string>
 
     <!-- Google Maps API access token -->
@@ -34,21 +36,14 @@
     <string name="share">Teilen</string>
     <string name="about">Impressum</string>
 
-    <string name="title">Titel</string>
-    <string name="change_language">Sprache ändern</string>
-    <string name="change">Ändern</string>
-    <string name="contact_us">Sende uns eine Nachricht</string>
-    <string name="enter_message">Gib deine Nachricht ein</string>
-    <string name="send_message">Senden</string>
-    <string name="click_to_share">Klicke das Icon zum teilen</string>
-    <string name="palo_version">Palo Version 1.0</string>
-    <string name="copyright">© Copyright 2018</string>
-    <string name="share_app">Diese App teilen.</string>
-    <string name="name">Name</string>
-    <string name="necessary">erforderlich</string>
-    <string name="e_mail">E-Mail</string>
-    <string name="message">Nachricht</string>
-    <string name="send">Absenden</string>
+    <!-- Strings aus dem Profil Fragment -->
+    <string name="status_empty">Kein Status ausgewählt</string>
+    <string name="empty_job">Kein Beruf ausgewählt</string>
+    <string name="set_status">Wähle deinen Status</string>
+    <string name="set_job">Wähle deinen Beruf</string>
+
+    <!-- Strigs aus dem Map Fragment -->
+    <string name="current_location">Aktuelle Position:</string>
 
     <!-- Impressum -->
     <string name="about_text">
@@ -107,19 +102,10 @@
         \n
     </string>
 
-    <!-- Strings aus dem Profil Fragment -->
-    <string name="status_empty">Kein Status ausgewählt</string>
-    <string name="empty_job">Kein Beruf ausgewählt</string>
-    <string name="set_status">Wähle deinen Status</string>
-    <string name="set_job">Wähle deinen Beruf</string>
-
-    <!-- Strigs aus dem Map Fragment -->
-    <string name="current_location">Aktuelle Position:</string>
-
+    <!-- Farben -->
     <string name="select_color">Wähle eine Marker Farbe</string>
     <string name="color">Farbe</string>
 
-    <!-- Farben -->
     <string name="color_azure">Azur</string>
     <string name="color_blue">Blau</string>
     <string name="color_cyan">Cyan</string>
@@ -176,16 +162,34 @@
     <string name="imageView_profile_picture">ImageView Profilbild</string>
     <string name="message_icon">Nachrichten Icon</string>
 
-    <string name="camera">Kamera</string>
-    <string name="gallery">Gallerie</string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <!-- Fußzeile -->
+    <string name="palo_version">Palo Version 1.0</string>
+    <string name="copyright">© Copyright 2018</string>
+
+    <!-- Verschiedenes -->
     <string name="active_status">Aktiver Status</string>
-    <string name="old_status">Alter Status</string>
+    <string name="camera">Kamera</string>
+    <string name="change">Ändern</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="click_to_share">Klicke das Icon zum teilen</string>
+    <string name="contact_us">Sende uns eine Nachricht</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="enter_message">Gib deine Nachricht ein</string>
+    <string name="enter_topic">Wähle ein Thema</string>
+    <string name="gallery">Galerie</string>
     <string name="login">Login</string>
+    <string name="message">Nachricht</string>
+    <string name="name">Name</string>
+    <string name="necessary">erforderlich</string>
+    <string name="old_status">Alter Status</string>
+    <string name="send">Absenden</string>
+    <string name="send_message">Senden</string>
+    <string name="share_app">Diese App teilen.</string>
     <string name="share_subject">Try Palo: Das neue soziale Netzwerk</string>
-    <string name="enter_topic">enter a topic</string>
+    <string name="title">Titel</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

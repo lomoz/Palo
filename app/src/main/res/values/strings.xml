@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- App name -->
     <string name="app_name">Palo</string>
 
     <!-- Google Maps API access token -->
@@ -34,23 +36,16 @@
     <string name="share">Share</string>
     <string name="about">About</string>
 
-    <string name="title">Title</string>
-    <string name="change_language">Change language</string>
-    <string name="change">Change</string>
-    <string name="contact_us">Send us a message</string>
-    <string name="enter_message">enter your message</string>
-    <string name="send_message">Send</string>
-    <string name="click_to_share">Click icon to share</string>
-    <string name="palo_version">Palo Version 1.0</string>
-    <string name="copyright">© Copyright 2018</string>
-    <string name="share_app">Share this app.</string>
-    <string name="name">Name</string>
-    <string name="necessary">necessary</string>
-    <string name="e_mail">E-Mail</string>
-    <string name="message">Message</string>
-    <string name="send">Send</string>
+    <!-- Strings from profile fragment -->
+    <string name="status_empty">No status set</string>
+    <string name="empty_job">No job set</string>
+    <string name="set_status">Set your status</string>
+    <string name="set_job">Set your job</string>
 
-    <!-- about text -->
+    <!-- Strings from map fragment -->
+    <string name="current_location">Current Location:</string>
+
+    <!-- About text -->
     <string name="about_text">
         According to § 5 TMG\n
         \n
@@ -107,19 +102,10 @@
         \n
     </string>
 
-    <!-- strings from profile fragment -->
-    <string name="status_empty">No status set</string>
-    <string name="empty_job">No job set</string>
-    <string name="set_status">Set your status</string>
-    <string name="set_job">Set your job</string>
-
-    <!-- strings from map fragment -->
-    <string name="current_location">Current Location:</string>
-
+    <!-- Colors -->
     <string name="select_color">Select a marker color</string>
     <string name="color">Color</string>
 
-    <!-- colors -->
     <string name="color_azure">Azure</string>
     <string name="color_blue">Blue</string>
     <string name="color_cyan">Cyan</string>
@@ -142,19 +128,19 @@
     <string name="marker9">Dark Green</string>
     <string name="marker10">Dark Rose</string>
 
-    <!-- languages -->
+    <!-- Languages -->
     <string name="language">English</string>
     <string name="german">German</string>
     <string name="english">English</string>
     <string name="french">French</string>
 
-    <!-- image descriptions -->
+    <!-- Image descriptions -->
     <string name="about_header_image">about header image</string>
     <string name="settings_header_image">settings header image</string>
     <string name="contact_header_image">contact header image</string>
     <string name="app_icon_share_button">App icon share button</string>
 
-    <!-- alerts -->
+    <!-- Alerts -->
     <string name="alert_empty_status_title">Please set a title!</string>
     <string name="alert_empty_status_message">It\'s not possible to save an empty status. Please set a status to continue.</string>
     <string name="alert_empty_job_title">Please set a job!</string>
@@ -176,16 +162,34 @@
     <string name="imageView_profile_picture">ImageView profile picture</string>
     <string name="message_icon">Message Icon</string>
 
-    <string name="camera">Camera</string>
-    <string name="gallery">Gallery</string>
-    <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <!-- Footer -->
+    <string name="palo_version">Palo Version 1.0</string>
+    <string name="copyright">© Copyright 2018</string>
+
+    <!-- Various -->
     <string name="active_status">Active Status</string>
-    <string name="old_status">Old Status</string>
-    <string name="login">Login</string>
-    <string name="share_subject">Try Palo: The new Social Network</string>
+    <string name="camera">Camera</string>
+    <string name="change">Change</string>
+    <string name="change_language">Change language</string>
+    <string name="click_to_share">Click icon to share</string>
+    <string name="contact_us">Send us a message</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="enter_message">enter your message</string>
     <string name="enter_topic">enter a topic</string>
+    <string name="gallery">Gallery</string>
+    <string name="login">Login</string>
+    <string name="message">Message</string>
+    <string name="name">Name</string>
+    <string name="necessary">necessary</string>
+    <string name="old_status">Old Status</string>
+    <string name="send">Send</string>
+    <string name="send_message">Send</string>
+    <string name="share_app">Share this app.</string>
+    <string name="share_subject">Try Palo: The new Social Network</string>
+    <string name="title">Title</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Home</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>
