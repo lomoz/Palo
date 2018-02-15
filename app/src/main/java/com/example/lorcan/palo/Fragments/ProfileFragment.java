@@ -15,7 +15,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,7 +31,6 @@ import android.text.Spanned;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,7 +39,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -79,11 +76,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static android.graphics.Bitmap.createBitmap;
 import static android.graphics.Bitmap.createScaledBitmap;
-import static com.google.android.gms.plus.PlusOneDummyView.TAG;
 
 
 /**
@@ -151,6 +148,7 @@ public class ProfileFragment extends Fragment {
     String selectedPhoto;
 
     ArrayList<String> spinnerArray = new ArrayList<>();
+    String chose_status = "";
 
     String status = "";
 
@@ -254,7 +252,24 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        spinnerArray.add("--- wähle Status --");
+        Locale current = getResources().getConfiguration().locale;
+        final String language = current.getLanguage();
+
+        switch (language) {
+            case "de":
+                chose_status = "--- Wähle Status ---";
+                break;
+
+            case "en":
+                chose_status = "--- Chose Status --- ";
+                break;
+
+            case "fr":
+                chose_status = "--- Chose Status ---";
+                break;
+        }
+
+        spinnerArray.add(chose_status);
 
         try {
             String oldUserStatus = OldStatus.getData(MyApplicationContext.getAppContext());
@@ -282,7 +297,7 @@ public class ProfileFragment extends Fragment {
 
                 // if any item is selected this one should become the active status
                 String selectedItemText = (String) adapterView.getItemAtPosition(i);
-                if (!selectedItemText.equals("--- wähle Status --")) {
+                if (!selectedItemText.equals(chose_status)) {
                     Toast.makeText(ProfileFragment.this.getActivity(), selectedItemText, Toast.LENGTH_SHORT).show();
                     etStatus.setText(selectedItemText);
                 }
@@ -469,12 +484,10 @@ public class ProfileFragment extends Fragment {
             builder.show();
         }
 
-
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
                 ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
-
 
                 status = etStatus.getText().toString();
                 return;
@@ -485,8 +498,9 @@ public class ProfileFragment extends Fragment {
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
+
                             if(location != null){
-                                System.out.println("LOCATION IN PROFILEFRAGMENT:" + location.toString());
+                                System.out.println("Location in ProfileFragment: " + location.toString());
                                 lat = location.getLatitude();
                                 lng = location.getLongitude();
                                 sendStatusToDB statusToDB = new sendStatusToDB();
@@ -499,7 +513,9 @@ public class ProfileFragment extends Fragment {
                                                 upFragment,
                                                 upFragment.getTag()
                                         ).commit();
-                            }else{
+                            }
+
+                            else {
                                 displayLocationSettingsRequest(MyApplicationContext.getAppContext());
                             }
                         }
@@ -566,9 +582,7 @@ public class ProfileFragment extends Fragment {
             SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
             sendEncodedImageToDB.sendEncodedImage(encodedImage);
 
-
             Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
-
 
         } catch (FileNotFoundException e) {
             Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
@@ -579,7 +593,9 @@ public class ProfileFragment extends Fragment {
 
         if (ActivityCompat.shouldShowRequestPermissionRationale(ProfileFragment.this.getActivity(), android.Manifest.permission.CAMERA)) {
             Toast.makeText(ProfileFragment.this.getActivity(), "CAMERA permission allows us to access CAMERA app.", Toast.LENGTH_SHORT).show();
-        } else {
+        }
+
+        else {
             ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{android.Manifest.permission.CAMERA}, PERMISSION_CAMERA_CODE);
         }
     }
@@ -663,7 +679,6 @@ public class ProfileFragment extends Fragment {
 
         return  saveUri;
     }
-
 
     private void displayLocationSettingsRequest(Context context) {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)

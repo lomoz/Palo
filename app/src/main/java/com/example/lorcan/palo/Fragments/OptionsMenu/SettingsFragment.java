@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 
 import com.example.lorcan.palo.MainActivity;
-import com.example.lorcan.palo.MapFragment;
 import com.example.lorcan.palo.R;
 
 import java.util.Locale;
@@ -27,16 +26,11 @@ import java.util.Locale;
 public class SettingsFragment extends Fragment {
 
     RadioButton rb_german, rb_english, rb_french;
+    Locale myLocale;
 
     public SettingsFragment() {
         // Required empty public constructor
     }
-
-    Locale myLocale;
-    float markerColorFloat;
-
-    MapFragment mapFragment = new MapFragment();
-    Bundle bundleColor = new Bundle();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,9 +75,6 @@ public class SettingsFragment extends Fragment {
                 else if (rb_french.isChecked() && !language.equals("fr")) {
                     setLocal("fr");
                 }
-
-                bundleColor.putFloat("markerColor", markerColorFloat);
-                mapFragment.setArguments(bundleColor);
             }
         });
 
@@ -106,7 +97,5 @@ public class SettingsFragment extends Fragment {
         resources.updateConfiguration(configuration, displayMetrics);
         Intent intent = new Intent(this.getContext(), MainActivity.class);
         startActivity(intent);
-
     }
-
 }
