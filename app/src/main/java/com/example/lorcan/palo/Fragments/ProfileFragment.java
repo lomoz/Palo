@@ -481,9 +481,6 @@ public class ProfileFragment extends Fragment {
             }
             status = etStatus.getText().toString();
 
-
-
-
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
                         @Override

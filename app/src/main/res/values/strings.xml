@@ -146,6 +146,7 @@
     <string name="language">English</string>
     <string name="german">German</string>
     <string name="english">English</string>
+    <string name="french">French</string>
 
     <!-- image descriptions -->
     <string name="about_header_image">about header image</string>

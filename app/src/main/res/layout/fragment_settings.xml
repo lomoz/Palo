@@ -71,6 +71,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/english"
                         android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rb_french"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/french"
+                        android:textSize="18sp"/>
+
                 </RadioGroup>
 
             </LinearLayout>

@@ -26,6 +26,7 @@ import java.util.Locale;
  */
 public class SettingsFragment extends Fragment {
 
+    RadioButton rb_german, rb_english, rb_french;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -43,21 +44,29 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        rb_german = (RadioButton) view.findViewById(R.id.rb_german);
+        rb_english = (RadioButton) view.findViewById(R.id.rb_english);
+        rb_french = (RadioButton) view.findViewById(R.id.rb_french);
+        Button btn_change_language = (Button) view.findViewById(R.id.btn_change_language);
+
         Locale current = getResources().getConfiguration().locale;
         final String language = current.getLanguage();
         System.out.println("******************* Current language: " + language + " *********************");
 
-        final RadioButton rb_german = (RadioButton) view.findViewById(R.id.rb_german);
-        final RadioButton rb_english = (RadioButton) view.findViewById(R.id.rb_english);
+        switch (language) {
+            case "de":
+                rb_german.setChecked(true);
+                break;
 
-        if (language.equals("de")) {
-            rb_german.setChecked(true);
-        }
-        if (language.equals("en")) {
-            rb_english.setChecked(true);
+            case "en":
+                rb_english.setChecked(true);
+                break;
+
+            case "fr":
+                rb_french.setChecked(true);
+                break;
         }
 
-        Button btn_change_language = (Button) view.findViewById(R.id.btn_change_language);
         btn_change_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,8 +74,12 @@ public class SettingsFragment extends Fragment {
                 if (rb_german.isChecked() && !language.equals("de")) {
                     setLocal("de");
                 }
-                if (rb_english.isChecked() && !language.equals("en")) {
+                else if (rb_english.isChecked() && !language.equals("en")) {
                     setLocal("en");
+                }
+
+                else if (rb_french.isChecked() && !language.equals("fr")) {
+                    setLocal("fr");
                 }
 
                 bundleColor.putFloat("markerColor", markerColorFloat);
@@ -86,11 +99,11 @@ public class SettingsFragment extends Fragment {
     private void setLocal(String string) {
 
         myLocale = new Locale(string);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
+        Resources resources = getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        Configuration configuration = resources.getConfiguration();
+        configuration.locale = myLocale;
+        resources.updateConfiguration(configuration, displayMetrics);
         Intent intent = new Intent(this.getContext(), MainActivity.class);
         startActivity(intent);
 

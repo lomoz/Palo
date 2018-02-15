@@ -146,6 +146,7 @@
     <string name="language">Deutsch</string>
     <string name="german">Deutsch</string>
     <string name="english">Englisch</string>
+    <string name="french">French</string>
 
     <!-- Bild Beschreibungen -->
     <string name="about_header_image">Impressum Titelbild</string>
