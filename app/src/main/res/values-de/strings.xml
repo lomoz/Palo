@@ -162,6 +162,12 @@
     <string name="alert_empty_status_and_job_message">Es ist nicht möglich einen leeren Status und Beruf zu speichern. Bitte füge einen Status und Beruf ein um fortzufahren.</string>
     <string name="alert_upload_image_title">Bild hochladen</string>
     <string name="alert_upload_image_message">Wähle eine Option um ein Bild hochzuladen.</string>
+    <string name="alert_empty_contact_title">Bitte wähle ein Thema und verfasse eine Nachricht.</string>
+    <string name="alert_empty_contact_message">Es ist nicht möglich eine Kontakt Nachricht ohne Thema und Inhalt abzuschicken.</string>
+    <string name="alert_empty_contact_topic_title">Bitte wähle ein Thema!</string>
+    <string name="alert_empty_contact_topic_message">Es ist nicht möglich eine Kontakt Nachricht ohne Thema abzuschicken.</string>
+    <string name="alert_empty_contact_body_title">Bitte verfasse eine Nachricht!</string>
+    <string name="alert_empty_contact_body_message">Es ist nicht möglich eine Kontakt Nachricht ohne Inhalt abzuschicken.</string>
 
     <!-- ImageView Beschreibungen -->
     <string name="camera_icon">Kamera icon</string>
@@ -179,5 +185,6 @@
     <string name="old_status">Alter Status</string>
     <string name="login">Login</string>
     <string name="share_subject">Try Palo: Das neue soziale Netzwerk</string>
+    <string name="enter_topic">Wähle ein Thema</string>
 
 </resources>

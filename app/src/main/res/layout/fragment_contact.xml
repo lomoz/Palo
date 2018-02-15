@@ -44,7 +44,15 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/et_enter_message_multiline"
+                    android:id="@+id/et_enter_topic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:hint="@string/enter_topic"
+                    android:inputType="text" />
+
+                <EditText
+                    android:id="@+id/et_enter_message_multiline2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"

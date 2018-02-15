@@ -162,6 +162,12 @@
     <string name="alert_empty_status_and_job_message">It\'s not possible to save an empty status and job. Please set a status and job to continue.</string>
     <string name="alert_upload_image_title">Upload Image</string>
     <string name="alert_upload_image_message">Chose an option to upload an image.</string>
+    <string name="alert_empty_contact_title">Please set a topic and message!</string>
+    <string name="alert_empty_contact_message">It\'s not possible to send a contact message with empty topic and message.</string>
+    <string name="alert_empty_contact_topic_title">Please set a topic!</string>
+    <string name="alert_empty_contact_topic_message">It\'s not possible to send a contact message with an empty topic.</string>
+    <string name="alert_empty_contact_body_title">Please set a message!</string>
+    <string name="alert_empty_contact_body_message">It\'s not possible to send a contact message with an empty message.</string>
 
     <!-- ImageView descriptions -->
     <string name="camera_icon">Camera icon</string>
@@ -179,5 +185,6 @@
     <string name="old_status">Old Status</string>
     <string name="login">Login</string>
     <string name="share_subject">Try Palo: The new Social Network</string>
+    <string name="enter_topic">enter a topic</string>
 
 </resources>
