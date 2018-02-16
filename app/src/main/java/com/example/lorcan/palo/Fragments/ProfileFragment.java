@@ -157,6 +157,10 @@ public class ProfileFragment extends Fragment {
     public Double lat;
     public Double lng;
 
+    int cnt_profile_image;
+    int cnt_status_profile;
+    int cnt_marker_color;
+
     @SuppressLint({"HardwareIds", "ClickableViewAccessibility"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -320,10 +324,11 @@ public class ProfileFragment extends Fragment {
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                marker = 1;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker1, Toast.LENGTH_SHORT).show();
-                marker = 1;
             }
         });
 
@@ -333,6 +338,7 @@ public class ProfileFragment extends Fragment {
                 marker = 2;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker2);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker2, Toast.LENGTH_SHORT).show();
             }
         });
@@ -343,6 +349,7 @@ public class ProfileFragment extends Fragment {
                 marker = 3;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker3, Toast.LENGTH_SHORT).show();
             }
         });
@@ -353,6 +360,7 @@ public class ProfileFragment extends Fragment {
                 marker = 4;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker4, Toast.LENGTH_SHORT).show();
             }
         });
@@ -363,6 +371,7 @@ public class ProfileFragment extends Fragment {
                 marker = 5;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker5);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker5, Toast.LENGTH_SHORT).show();
             }
         });
@@ -373,6 +382,7 @@ public class ProfileFragment extends Fragment {
                 marker = 6;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker6);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker6, Toast.LENGTH_SHORT).show();
             }
         });
@@ -383,6 +393,7 @@ public class ProfileFragment extends Fragment {
                 marker = 7;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker7);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker7, Toast.LENGTH_SHORT).show();
             }
         });
@@ -393,6 +404,7 @@ public class ProfileFragment extends Fragment {
                 marker = 8;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker8);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker8, Toast.LENGTH_SHORT).show();
             }
         });
@@ -403,6 +415,7 @@ public class ProfileFragment extends Fragment {
                 marker = 9;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker9);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker9, Toast.LENGTH_SHORT).show();
             }
         });
@@ -413,6 +426,7 @@ public class ProfileFragment extends Fragment {
                 marker = 10;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker10);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
+                cnt_marker_color += 1;
                 Toast.makeText(ProfileFragment.this.getActivity(), R.string.marker10, Toast.LENGTH_SHORT).show();
             }
         });
@@ -492,6 +506,7 @@ public class ProfileFragment extends Fragment {
                 status = etStatus.getText().toString();
                 return;
             }
+
             status = etStatus.getText().toString();
 
             mFusedLocationClient.getLastLocation()
@@ -539,6 +554,7 @@ public class ProfileFragment extends Fragment {
         oldList.addNewEntry(status);
         //send status to database
         sendStatusToDB statusToDB = new sendStatusToDB();
+        cnt_status_profile += 1;
 
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
@@ -581,6 +597,8 @@ public class ProfileFragment extends Fragment {
 
             SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
             sendEncodedImageToDB.sendEncodedImage(encodedImage);
+
+            cnt_profile_image += 1;
 
             Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
 

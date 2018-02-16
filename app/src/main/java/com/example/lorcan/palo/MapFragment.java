@@ -79,6 +79,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     Bitmap b;
     Bitmap smallMarker;
 
+    int cnt_status_map;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -192,6 +194,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 else {
 
                     status = String.valueOf(etStatusInMap.getText());
+                    cnt_status_map += 1;
+
                     InputMethodManager inputMethodManager = (InputMethodManager) MyApplicationContext.getAppContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
                     if (inputMethodManager != null) {
