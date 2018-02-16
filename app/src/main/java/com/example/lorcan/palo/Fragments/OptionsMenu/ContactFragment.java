@@ -93,7 +93,9 @@ public class ContactFragment extends Fragment {
                     contact_topic = et_topic.getText().toString();
                     contact_message = et_message.getText().toString();
 
-                    System.out.println("Contact Message: " + android_id + et_topic + contact_message);
+                    System.out.println("Contact Message ANDROID ID: " + android_id);
+                    System.out.println("Contact Message TOPIC: " + contact_topic);
+                    System.out.println("Contact Message MESSAGE: " + contact_message);
                 }
             }
         });
