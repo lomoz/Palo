@@ -44,7 +44,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/et_enter_topic"
+                    android:id="@+id/et_topic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"

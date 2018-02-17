@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.lorcan.palo.ContactSendToDB;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.R;
 
@@ -42,7 +43,7 @@ public class ContactFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
 
-        et_topic = (EditText) view.findViewById(R.id.et_enter_topic);
+        et_topic = (EditText) view.findViewById(R.id.et_topic);
         et_message = (EditText) view.findViewById(R.id.et_enter_message_multiline2);
         btn_contact = (Button) view.findViewById(R.id.btn_send_message);
 
@@ -96,6 +97,8 @@ public class ContactFragment extends Fragment {
                     System.out.println("Contact Message ANDROID ID: " + android_id);
                     System.out.println("Contact Message TOPIC: " + contact_topic);
                     System.out.println("Contact Message MESSAGE: " + contact_message);
+                    ContactSendToDB contactSendToDB = new ContactSendToDB();
+                    contactSendToDB.sendContact(android_id, contact_message, contact_topic);
                 }
             }
         });

@@ -313,13 +313,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        /*
-         * TODO:
-         * bundle bitmapSelectedMarkerColor and set as marker in MapFragment
-         * Marker color has to be send to database when a status is posted,
-         * so Marker color from user users can be displayed correctly.
-         */
-
 
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
