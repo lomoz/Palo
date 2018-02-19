@@ -4,10 +4,12 @@ package com.example.lorcan.palo.Fragments.OptionsMenu;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.lorcan.palo.ContactSendToDB;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.R;
 
@@ -94,11 +97,28 @@ public class ContactFragment extends Fragment {
                     contact_topic = et_topic.getText().toString();
                     contact_message = et_message.getText().toString();
 
-                    System.out.println("Contact Message ANDROID ID: " + android_id);
-                    System.out.println("Contact Message TOPIC: " + contact_topic);
-                    System.out.println("Contact Message MESSAGE: " + contact_message);
                     ContactSendToDB contactSendToDB = new ContactSendToDB();
                     contactSendToDB.sendContact(android_id, contact_message, contact_topic);
+
+                        et_message.setText("");
+                        et_topic.setText("");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ContactFragment.this.getActivity());
+                        builder.setTitle("Nachricht abgeschickt!");
+                        builder.setMessage("Deine Nachricht wurde gesendet. Eine Antwort erhälst du in den nächsten Tagen über den Chat.");
+                        builder.setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            ProfileFragment profileFragment = new ProfileFragment();
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                    .replace(R.id.relativelayout_for_fragments,
+                                            profileFragment,
+                                            profileFragment.getTag()
+                                    ).commitAllowingStateLoss();
+                        }
+                    })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
             }
         });

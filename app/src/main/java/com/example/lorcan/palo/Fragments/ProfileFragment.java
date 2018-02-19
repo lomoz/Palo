@@ -42,11 +42,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.ContactSendToDB;
 import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
+import com.example.lorcan.palo.OnClickSendToDB;
 import com.example.lorcan.palo.R;
 import com.example.lorcan.palo.SendEncodedImageToDB;
 import com.example.lorcan.palo.sendStatusToDB;
@@ -482,6 +484,8 @@ public class ProfileFragment extends Fragment {
     public void btnChangeClicked() {
 
         System.out.println("btnChange Clicked");
+        OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
+        onClickSendToDB.sendBtnClick(android_id, "1");
 
         if (etStatus.getText().toString().isEmpty()) {
 
