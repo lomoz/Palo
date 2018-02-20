@@ -48,10 +48,11 @@ class JSONChatDB {
     }
 
     void addNewChatUser(String newUser){
-        String old = getData(MyApplicationContext.getAppContext());
-        if(newUser.substring(0, newUser.length()-1).equals(" ")){
-            newUser = newUser.substring(0, newUser.length()-1);
+        if(newUser.substring(newUser.length() - 1).equals(" ")){
+            newUser = newUser.substring(0, newUser.length() - 1);
         }
+        String old = getData(MyApplicationContext.getAppContext());
+
 
         int intBool = 0;
         System.out.println(old);
@@ -91,6 +92,9 @@ class JSONChatDB {
     }
 
     void deleteUser(String user){
+        if(user.substring(user.length() - 1).equals(" ")){
+            user = user.substring(0, user.length() - 1);
+        }
         String list = JSONChatDB.getData(MyApplicationContext.getAppContext());
         JSONObject jsonObject;
         String data = "";
