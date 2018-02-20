@@ -42,7 +42,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.lorcan.palo.ContactSendToDB;
 import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;

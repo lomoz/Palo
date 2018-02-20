@@ -94,6 +94,7 @@ public class ChatListActivity extends AppCompatActivity {
                             txt1.setPadding(40, 0, 0, 0);
                             linearLayout1.setBackgroundResource(R.color.hue_red);
                             linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
+
                             try {
                                 txt1.setText(listNicknames.get(i).toString());
                                 linearLayout1.addView(txt1);
@@ -113,13 +114,13 @@ public class ChatListActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                } else {
-                Toast.makeText(ChatListActivity.this, "leider hast du noch keine chats. :-(",
-                        Toast.LENGTH_LONG).show();
             }
-            }else{
-            Toast.makeText(ChatListActivity.this, "leider hast du noch keine chats. :-(",
-                    Toast.LENGTH_LONG).show();
+            else {
+                Toast.makeText(ChatListActivity.this, R.string.no_chats, Toast.LENGTH_LONG).show();
+            }
+        }
+        else {
+            Toast.makeText(ChatListActivity.this, R.string.no_chats, Toast.LENGTH_LONG).show();
         }
     }
 }
