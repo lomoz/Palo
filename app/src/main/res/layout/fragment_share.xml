@@ -6,24 +6,13 @@
     tools:context="com.example.lorcan.palo.Fragments.OptionsMenu.ShareFragment"
     android:id="@+id/share_fragment">
 
-    <ImageView
-        android:id="@+id/iv_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/black"
-        app:srcCompat="@android:color/black"
-        android:contentDescription="@string/about_header_image" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/iv_header"
+        android:layout_marginTop="50dp"
         android:background="@color/white"
         android:baselineAligned="false"
         android:orientation="vertical"
@@ -42,6 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:orientation="vertical">
 
             <TextView
