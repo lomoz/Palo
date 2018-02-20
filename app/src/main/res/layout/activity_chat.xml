@@ -58,16 +58,18 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.7"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="LabelFor" />
 
 
         <ImageButton
-            android:id="@+id/sendenBtn1"
+            android:id="@+id/sendBtn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
-            app:srcCompat="@android:drawable/ic_menu_send" />
+            app:srcCompat="@android:drawable/ic_menu_send"
+            android:contentDescription="@string/send_icon" />
 
     </LinearLayout>
 

@@ -193,5 +193,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="alert_contact_send_title">Nachricht abgeschickt!</string>
     <string name="alert_contect_send_message">Deine Nachricht wurde erfolgreich gesendet. Eine Antwort erhälst du über den Chat.</string>
+    <string name="send_icon">send icon</string>
+    <string name="chats">Chats</string>
 
 </resources>

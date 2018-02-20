@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -27,10 +26,8 @@ import java.util.TimerTask;
 public class ChatActivity extends AppCompatActivity {
     String name;
     String nachricht;
-    String answerMessage;
     EditText message;
-    ImageView sendenBtn;
-    RelativeLayout relLayoutChat;
+    ImageView btn_send;
     TelephonyManager telephonyManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
     Timer timer = new Timer();
 
@@ -39,12 +36,10 @@ public class ChatActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        final int width = size.x;
-        final int height = size.y;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         message = (EditText) findViewById(R.id.et_message1);
-        sendenBtn = (ImageView) findViewById(R.id.sendenBtn1);
+        btn_send = (ImageView) findViewById(R.id.sendBtn1);
         Serializable k = getIntent().getSerializableExtra("name");
         name = k.toString();
 
@@ -63,13 +58,13 @@ public class ChatActivity extends AppCompatActivity {
 
         timer.schedule(new checkForMessage(), 0, 5000);
 
-        sendenBtn.setOnClickListener(new View.OnClickListener() {
+        btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nachricht = message.getText().toString();
                 ChatMessage chatMessage = new ChatMessage();
                 chatMessage.sendMessage(name, nachricht);
-                erstelleNachricht();
+                createMessage();
             }
         });
     }
@@ -110,13 +105,12 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-        public void erstelleAntwort(String answerMessage){
+        public void createAnswer(String answerMessage){
 
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            int height = size.y;
             TextView txt1 = new TextView(ChatActivity.this);
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutChat);
             LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -127,17 +121,16 @@ public class ChatActivity extends AppCompatActivity {
             txt1.setText(answerMessage);
             txt1.setBackgroundResource(R.drawable.rounded_corner);
             txt1.setPadding(20,15,20,15);
-            txt1.setGravity(Gravity.LEFT);
+            txt1.setGravity(Gravity.START);
             txt1.setLayoutParams(layoutParams);
             linearLayout.addView(txt1);
-
         }
-        public void erstelleNachricht(){
+
+        public void createMessage(){
             Display display = getWindowManager().getDefaultDisplay();
             Point size = new Point();
             display.getSize(size);
             int width = size.x;
-            int height = size.y;
             TextView txt1 = new TextView(ChatActivity.this);
             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutChat);
             LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -147,15 +140,11 @@ public class ChatActivity extends AppCompatActivity {
             layoutParams.weight = 6;
             txt1.setBackgroundResource(R.drawable.rounded_corner);
             txt1.setPadding(20,15,20,15);
-            txt1.setGravity(Gravity.RIGHT);
+            txt1.setGravity(Gravity.END);
             txt1.setText(nachricht);
             txt1.setLayoutParams(layoutParams);
             linearLayout.addView(txt1);
             message.setText("");
-
-
         }
-
-
 }
 

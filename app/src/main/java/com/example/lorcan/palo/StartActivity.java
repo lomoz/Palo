@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -29,9 +28,7 @@ import java.util.Map;
 
 public class StartActivity extends AppCompatActivity {
 
-    private RequestQueue requestQueue;
     private static final String strUrl = "http://palo.square7.ch/checkIDIsInDB.php";
-    private StringRequest request;
     private String android_id;
     public final int  PERMISSION_READ_PHONE_STATE = 1;
     public final int PERMISSION_INTERNET_STATE = 2;
@@ -96,8 +93,8 @@ public class StartActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-            request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
+            RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            StringRequest request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
@@ -112,7 +109,7 @@ public class StartActivity extends AppCompatActivity {
                 }
             }) {
 
-                // set of parameters in a hashmap, which will be send to the php file (server side)
+                // set of parameters in a HashMap, which will be send to the php file (server side)
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     HashMap<String, String> hashMap = new HashMap<>();

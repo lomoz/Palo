@@ -48,7 +48,7 @@ public class ChatListActivity extends AppCompatActivity {
                 for (int i = 1; i < listNicknames.length(); i++) {
                     try {
                         if (listNicknames.get(i).toString() != "") {
-                            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.chatList);
+                            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayoutChatList);
                             LinearLayout linearLayout1 = new LinearLayout(ChatListActivity.this);
                             final TextView txt1 = new TextView(ChatListActivity.this);
                             ImageView imageView = new ImageView(ChatListActivity.this);
