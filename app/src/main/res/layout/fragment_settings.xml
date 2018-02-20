@@ -1,20 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.Fragments.OptionsMenu.SettingsFragment">
 
-    <ImageView
-        android:id="@+id/iv_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/black"
-        android:contentDescription="@string/settings_header_image"
-        app:srcCompat="@android:drawable/ic_menu_preferences" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +11,7 @@
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/iv_header"
+        android:layout_marginTop="50dp"
         android:baselineAligned="false"
         android:orientation="vertical"
         android:padding="20dp">
@@ -38,50 +27,51 @@
             android:textStyle="bold" />
 
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_change_language"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/change_language"
+                android:textSize="18sp" />
+
+            <RadioGroup
+                android:id="@+id/rg_language"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_change_language"
+                <RadioButton
+                    android:id="@+id/rb_german"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/change_language"
+                    android:layout_height="wrap_content"
+                    android:text="@string/german"
                     android:textSize="18sp" />
 
-                <RadioGroup
-                    android:id="@+id/rg_language"
+                <RadioButton
+                    android:id="@+id/rb_english"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/rb_french"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
+                    android:text="@string/french"
+                    android:textSize="18sp" />
 
-                    <RadioButton
-                        android:id="@+id/rb_german"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/german"
-                        android:textSize="18sp" />
+            </RadioGroup>
 
-                    <RadioButton
-                        android:id="@+id/rb_english"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/english"
-                        android:textSize="18sp" />
-
-                    <RadioButton
-                        android:id="@+id/rb_french"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/french"
-                        android:textSize="18sp"/>
-
-                </RadioGroup>
-
-            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btn_change_language"

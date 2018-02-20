@@ -1,77 +1,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lorcan.palo.Fragments.OptionsMenu.ContactFragment">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tv_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contact"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_send_message"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/contact_us"
+            android:textSize="18sp" />
 
-            <ImageView
-                android:id="@+id/iv_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/black"
-                android:contentDescription="@string/contact_header_image"
-                app:srcCompat="@android:color/black" />
+        <EditText
+            android:id="@+id/et_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/enter_topic"
+            android:inputType="text" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:baselineAligned="false"
-                android:orientation="vertical"
-                android:padding="20dp">
+        <EditText
+            android:id="@+id/et_enter_message_multiline2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="@string/enter_message"
+            android:inputType="textMultiLine" />
 
-                <TextView
-                    android:id="@+id/tv_contact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact"
-                    android:textAlignment="textStart"
-                    android:textColor="@android:color/black"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+        <Button
+            android:id="@+id/btn_send_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/hhu_blue"
+            android:text="@string/send_message"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tv_send_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/contact_us"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/et_topic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:hint="@string/enter_topic"
-                    android:inputType="text" />
-
-                <EditText
-                    android:id="@+id/et_enter_message_multiline2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="@string/enter_message"
-                    android:inputType="textMultiLine" />
-
-                <Button
-                    android:id="@+id/btn_send_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/hhu_blue"
-                    android:text="@string/send_message"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
