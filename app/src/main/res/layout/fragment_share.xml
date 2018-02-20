@@ -55,6 +55,7 @@
                 android:id="@+id/imgBtn_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/cast_expanded_controller_ad_container_white_stripe_color"
                 android:contentDescription="@string/app_icon_share_button"
                 app:srcCompat="@drawable/appicon" />
 
