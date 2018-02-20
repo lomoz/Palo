@@ -495,6 +495,8 @@ public class ProfileFragment extends Fragment {
             builder.show();
         }
 
+        else {
+
             FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
             if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(ProfileFragment.this.getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
@@ -532,6 +534,7 @@ public class ProfileFragment extends Fragment {
                             }
                         }
                     });
+        }
     }
 
     @SuppressLint("HardwareIds")

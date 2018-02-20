@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.os.Build;
-import android.support.annotation.DrawableRes;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.Display;
@@ -112,8 +110,6 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-
-
         public void erstelleAntwort(String answerMessage){
 
             Display display = getWindowManager().getDefaultDisplay();
@@ -129,11 +125,9 @@ public class ChatActivity extends AppCompatActivity {
             layoutParams.weight = 6;
 
             txt1.setText(answerMessage);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                txt1.setBackgroundResource(R.drawable.rounded_corner);
-                txt1.setPadding(20,15,20,15);
-                txt1.setGravity(Gravity.LEFT);
-            }
+            txt1.setBackgroundResource(R.drawable.rounded_corner);
+            txt1.setPadding(20,15,20,15);
+            txt1.setGravity(Gravity.LEFT);
             txt1.setLayoutParams(layoutParams);
             linearLayout.addView(txt1);
 
@@ -151,12 +145,10 @@ public class ChatActivity extends AppCompatActivity {
             layoutParams.width = width - width/3;
             layoutParams.setMargins(width/3, 10, 0, 0);
             layoutParams.weight = 6;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                txt1.setBackgroundResource(R.drawable.rounded_corner);
-                txt1.setPadding(20,15,20,15);
-                txt1.setGravity(Gravity.RIGHT);
-                txt1.setText(nachricht);
-            }
+            txt1.setBackgroundResource(R.drawable.rounded_corner);
+            txt1.setPadding(20,15,20,15);
+            txt1.setGravity(Gravity.RIGHT);
+            txt1.setText(nachricht);
             txt1.setLayoutParams(layoutParams);
             linearLayout.addView(txt1);
             message.setText("");

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linlayoutChat"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
@@ -22,23 +23,24 @@
             android:id="@+id/toolbar_logo"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="15dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="15dp"
             android:background="@android:drawable/ic_menu_myplaces"
-            android:clickable="true"></RelativeLayout>
+            android:clickable="true"
+            android:focusable="true" />
+
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="20">
-
 
         <LinearLayout
             android:id="@+id/linearLayoutChat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -48,7 +50,6 @@
         android:id="@+id/input_bar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:orientation="horizontal">
 
@@ -65,9 +66,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             app:srcCompat="@android:drawable/ic_menu_send" />
 
     </LinearLayout>
+
 </LinearLayout>

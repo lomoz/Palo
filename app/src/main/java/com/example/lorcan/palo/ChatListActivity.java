@@ -2,7 +2,6 @@ package com.example.lorcan.palo;
 
 import android.content.Intent;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
@@ -23,33 +22,32 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-        JSONChatDB jsonChatDB = new JSONChatDB();
-        erstelleListe(JSONChatDB.getData(this));
-
+        new JSONChatDB();
+        createList(JSONChatDB.getData(this));
     }
 
-    public void erstelleListe(String list){
+    public void createList(String list) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        JSONArray listeNicknames = null;
+        JSONArray listNicknames = null;
 
         try {
             JSONObject jsonObject = new JSONObject(list);
-            listeNicknames = jsonObject.getJSONArray("Users");
+            listNicknames = jsonObject.getJSONArray("Users");
             String data = new JSONChatDB().getData(this);
         } catch (JSONException e) {
-            System.out.println("LISTE:" + new JSONChatDB().getData(this));
+            System.out.println("LIST:" + new JSONChatDB().getData(this));
         } catch (NullPointerException ne){
             ne.printStackTrace();
         }
-        if(listeNicknames != null) {
-            if (listeNicknames.length() > 1) {
-                for (int i = 1; i < listeNicknames.length(); i++) {
+        if(listNicknames != null) {
+            if (listNicknames.length() > 1) {
+                for (int i = 1; i < listNicknames.length(); i++) {
                     try {
-                        if (listeNicknames.get(i).toString() != "") {
+                        if (listNicknames.get(i).toString() != "") {
                             LinearLayout linearLayout = (LinearLayout) findViewById(R.id.chatList);
                             LinearLayout linearLayout1 = new LinearLayout(ChatListActivity.this);
                             final TextView txt1 = new TextView(ChatListActivity.this);
@@ -76,12 +74,7 @@ public class ChatListActivity extends AppCompatActivity {
                                 public void onClick(View v) {
                                     JSONChatDB jsonChatDB = new JSONChatDB();
                                     jsonChatDB.deleteUser(txt1.getText().toString());
-                                    if (Build.VERSION.SDK_INT >= 11) {
-                                        ChatListActivity.this.recreate();
-                                    } else {
-                                        ChatListActivity.this.finish();
-                                        ChatListActivity.this.startActivity(ChatListActivity.this.getIntent());
-                                    }
+                                    ChatListActivity.this.recreate();
 
                                 }
                             });
@@ -102,7 +95,7 @@ public class ChatListActivity extends AppCompatActivity {
                             linearLayout1.setBackgroundResource(R.color.hue_red);
                             linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
                             try {
-                                txt1.setText(listeNicknames.get(i).toString());
+                                txt1.setText(listNicknames.get(i).toString());
                                 linearLayout1.addView(txt1);
                                 linearLayout.addView(linearLayout1);
                                 linearLayout1.addView(imageView);
@@ -110,7 +103,7 @@ public class ChatListActivity extends AppCompatActivity {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                System.out.println(listeNicknames);
+                                System.out.println(listNicknames);
                             }
 
 
