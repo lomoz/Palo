@@ -123,11 +123,14 @@ System.out.println("NICKNAME CHAT: " + nickname);
 
 
 
-    public String getMessage(final String android_id, final ChatActivity chatActivity, final String nicknameNutzer1){
-
+    public String getMessage(final String android_id, final ChatActivity chatActivity, String nicknameNutzer1){
+        if(nicknameNutzer1.substring(nicknameNutzer1.length() - 1).equals(" ")){
+            nicknameNutzer1 = nicknameNutzer1.substring(0, nicknameNutzer1.length() - 1);
+        }
         final String[] message = {""};
 
         this.requestQueue2 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+        final String finalNicknameNutzer = nicknameNutzer1;
         this.request2 = new StringRequest(Request.Method.POST, URL2, new Response.Listener<String>() {
 
             @Override
@@ -152,9 +155,9 @@ System.out.println("NICKNAME CHAT: " + nickname);
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<String, String>();
 
-                System.out.println("DIE PARAMETER: " + android_id +", "+ nicknameNutzer1);
+                System.out.println("DIE PARAMETER: " + android_id +", "+ finalNicknameNutzer);
                 hashMap.put("android_id", android_id);
-                hashMap.put("nickname", nicknameNutzer1);
+                hashMap.put("nickname", finalNicknameNutzer);
 
 
                 return hashMap;

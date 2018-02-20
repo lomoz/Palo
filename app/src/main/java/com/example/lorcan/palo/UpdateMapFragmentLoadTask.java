@@ -61,14 +61,7 @@ public class UpdateMapFragmentLoadTask extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    UpdateMapFragment updateMapFragment = new UpdateMapFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                            .replace(R.id.relativelayout_for_fragments,
-                                    updateMapFragment,
-                                    updateMapFragment.getTag()
-                            ).commit();
+                    error.printStackTrace();
                 }
             }) {
 
