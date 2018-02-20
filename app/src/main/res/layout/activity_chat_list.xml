@@ -2,12 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linlayoutChatList"
+    android:id="@+id/linearLayoutChatList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
     tools:context="com.example.lorcan.palo.ChatListActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Chats"
+        app:titleTextColor="@android:color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,43 +28,9 @@
             android:id="@+id/chatList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"></LinearLayout>
 
-            <!--
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/hue_red"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
+    </ScrollView>
 
-                            <TextView
-                                android:id="@+id/textView"
-                                android:layout_width="482dp"
-                                android:layout_height="100dp"
-                                android:background="@color/cast_intro_overlay_button_background_color"
-                                android:clickable="true"
-                                android:gravity="center_vertical"
-                                android:paddingLeft="40dp"
-                                android:text="paul"
-                                android:textColor="?android:attr/colorEdgeEffect"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                tools:targetApi="lollipop" />
-
-                            <ImageView
-                                android:id="@+id/imageView4"
-                                android:layout_width="30dp"
-                                android:layout_height="40dp"
-                                android:layout_weight="1"
-                                android:background="@color/hue_red"
-                                app:srcCompat="@drawable/quantum_ic_clear_white_24" />
-
-
-                        </LinearLayout>
-            -->
-                    </LinearLayout>
-
-                </ScrollView>
-            </LinearLayout>
+</LinearLayout>
 
