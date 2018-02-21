@@ -15,29 +15,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static org.apache.http.protocol.ExecutionContext.HTTP_REQUEST;
-
-/**
- * Created by Win10 Home x64 on 23.11.2017.
- */
 
 public class ChatMessage {
 
@@ -140,7 +120,7 @@ public class ChatMessage {
 
                 System.out.println("RESPONSE:" +response1);
                 if (response1.length() > 0) {
-                    chatActivity.erstelleAntwort(response1);
+                    chatActivity.createAnswer(response1);
 
                 }
             }

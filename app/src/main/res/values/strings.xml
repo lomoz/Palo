@@ -191,5 +191,8 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
+    <string name="send_icon">send icon</string>
+    <string name="chats">Chats</string>
+    <string name="no_chats">unfortunately you don\'t have any chats yet. :-(</string>
 
 </resources>
