@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -41,11 +42,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.haha.perflib.Type;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 
 /**
@@ -75,6 +78,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     Bitmap b;
     Bitmap smallMarker;
+    OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
 
     int cnt_status_map;
 
@@ -112,13 +116,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(MyApplicationContext.getAppContext(), ListActivity.class);
+                onClickSendToDB.sendBtnClick(android_id, "2");
+                Intent i = new Intent(MyApplicationContext.getAppContext(), ChatListActivity.class);
                 startActivity(i);
-
             }
         });
-
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
@@ -182,7 +184,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             public void onClick(View view) {
 
                 // check if status is empty
-
+                onClickSendToDB.sendBtnClick(android_id, "3");
                 if (etStatusInMap.getText().toString().isEmpty()) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -435,11 +437,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void setImageViewVisibility(Boolean isImageVisible) {
 
         if (isImageVisible) {
-            imageView.setBackground((getResources().getDrawable(R.drawable.message)));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground((getResources().getDrawable(R.drawable.message)));
+            }
         }
         else {
-            imageView.setBackground((getResources().getDrawable(R.drawable.nomessage)));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                imageView.setBackground((getResources().getDrawable(R.drawable.nomessage)));
+            }
         }
+
     }
 
     @Override
