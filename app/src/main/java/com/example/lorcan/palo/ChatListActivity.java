@@ -53,20 +53,24 @@ public class ChatListActivity extends AppCompatActivity {
                             final TextView txt1 = new TextView(ChatListActivity.this);
                             ImageView imageView = new ImageView(ChatListActivity.this);
                             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+
                             if ((i % 2) == 0) {
                                 txt1.setBackgroundResource(R.color.hhu_blue);
                                 txt1.setTextColor(txt1.getResources().getColor(R.color.white));
-                            } else {
+                            }
+                            else {
                                 txt1.setBackgroundResource(R.color.white);
                                 txt1.setTextColor(txt1.getResources().getColor(R.color.hhu_blue));
-
                             }
+
                             imageView.setImageResource(R.drawable.quantum_ic_clear_white_24);
                             imageView.setBackgroundResource(R.color.hue_red);
+
                             layoutParams.weight = 1;
                             layoutParams.height = 100;
                             layoutParams.width = 40;
                             layoutParams.gravity = Gravity.CENTER;
+
                             imageView.setLayoutParams(layoutParams);
                             imageView.setMaxWidth(width / 5);
                             imageView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +79,6 @@ public class ChatListActivity extends AppCompatActivity {
                                     JSONChatDB jsonChatDB = new JSONChatDB();
                                     jsonChatDB.deleteUser(txt1.getText().toString());
                                     ChatListActivity.this.recreate();
-
                                 }
                             });
 
@@ -87,27 +90,25 @@ public class ChatListActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                             });
+
                             txt1.setWidth(width - width / 5);
                             txt1.setHeight(height / 8);
                             txt1.setTextSize(20);
                             txt1.setGravity(Gravity.CENTER_VERTICAL);
                             txt1.setPadding(40, 0, 0, 0);
+
                             linearLayout1.setBackgroundResource(R.color.hue_red);
                             linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
 
                             try {
                                 txt1.setText(listNicknames.get(i).toString());
                                 linearLayout1.addView(txt1);
-                                linearLayout.addView(linearLayout1);
                                 linearLayout1.addView(imageView);
-
-
+                                linearLayout.addView(linearLayout1);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 System.out.println(listNicknames);
                             }
-
-
                         }
 
                     } catch (JSONException e) {

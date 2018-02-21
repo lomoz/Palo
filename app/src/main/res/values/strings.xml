@@ -194,5 +194,6 @@
     <string name="send_icon">send icon</string>
     <string name="chats">Chats</string>
     <string name="no_chats">unfortunately you don\'t have any chats yet. :-(</string>
+    <string name="title_activity_list">ListActivity</string>
 
 </resources>
