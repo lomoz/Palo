@@ -78,6 +78,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     Bitmap b;
     Bitmap smallMarker;
+    OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
 
     int cnt_status_map;
 
@@ -115,6 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onClickSendToDB.sendBtnClick(android_id, "2");
                 Intent i = new Intent(MyApplicationContext.getAppContext(), ChatListActivity.class);
                 startActivity(i);
             }
@@ -182,7 +184,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             public void onClick(View view) {
 
                 // check if status is empty
-
+                onClickSendToDB.sendBtnClick(android_id, "3");
                 if (etStatusInMap.getText().toString().isEmpty()) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

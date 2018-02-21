@@ -61,7 +61,9 @@ public class ChatMessage {
     public String responseIsMessage;
 
     public void sendMessage(final String nickname, final String nachricht) {
-System.out.println("NICKNAME CHAT: " + nickname);
+        OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
+        onClickSendToDB.sendBtnClick(android_id, "4");
+        System.out.println("NICKNAME CHAT: " + nickname);
         this.nickname = nickname;
         this.nachricht = nachricht;
         this.requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
