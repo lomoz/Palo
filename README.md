@@ -25,3 +25,5 @@ Gamification Elements in Palo:
 
 
 •	Je höher das Level eines Nutzers, desto länger ist der gepostete Status sichtbar
+
+- weitere Punkte möglich...
