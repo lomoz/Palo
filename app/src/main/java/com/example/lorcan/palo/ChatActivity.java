@@ -48,7 +48,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         message = (EditText) findViewById(R.id.et_message1);
-        btn_send = (ImageView) findViewById(R.id.sendenBtn1);
+        btn_send = (ImageView) findViewById(R.id.sendBtn1);
         Serializable k = getIntent().getSerializableExtra("name");
         name = k.toString();
 
