@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
