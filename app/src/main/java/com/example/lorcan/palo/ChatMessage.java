@@ -309,4 +309,75 @@ public class ChatMessage {
 
         }
     }
+
+    public void isMessageThere2(CheckForMessageService checkForMessageService) {
+        TelephonyManager telephonyManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        final String android_id = telephonyManager.getDeviceId();
+        this.android_id = android_id;
+        new ResponseTask2(checkForMessageService).execute();
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public class ResponseTask2 extends AsyncTask<Void, Void, Void> {
+        CheckForMessageService checkForMessageService;
+        public ResponseTask2(CheckForMessageService checkForMessageService) {
+            this.checkForMessageService = checkForMessageService;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            requestQueue1 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            request1 = new StringRequest(Request.Method.POST, URL1, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    responseIsMessage = response;
+                    System.out.println("RESPONSE CHAT DB:" + response);
+                    handleResponse2(responseIsMessage, checkForMessageService);
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            }) {
+
+                // set of parameters in a hashmap, which will be send to the php file (server side)
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> hashMap = new HashMap<String, String>();
+
+                    hashMap.put("android_id", android_id);
+
+                    System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
+
+                    return hashMap;
+                }
+            };
+
+            requestQueue1.add(request1);
+            return null;
+        }
+    }
+
+    public void handleResponse2(String response, CheckForMessageService checkForMessageService){
+        if(response.contains("tr")) {
+            checkForMessageService.stopRestartAndNotify();
+        }else{
+            checkForMessageService.stopAndRestart();
+        }
+    }
 }

@@ -362,9 +362,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
                 }
 
-                System.out.println("MARKER:" + args.get(i+5));
+
                 String snippet = args.get(i);
-                snippet.replace("\n", "");
                 markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
