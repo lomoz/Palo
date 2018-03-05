@@ -2,6 +2,7 @@ package com.example.lorcan.palo.Fragments;
 
 
 import android.Manifest;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -12,6 +13,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -33,6 +35,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -320,110 +323,220 @@ public class ProfileFragment extends Fragment {
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker1);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker1));
                 marker = 1;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker2);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker2));
                 marker = 2;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker2);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker3);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker3));
                 marker = 3;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker4);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker4));
                 marker = 4;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker5);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker5));
                 marker = 5;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker5);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker6);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker6));
                 marker = 6;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker6);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker7);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker7));
                 marker = 7;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker7);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker8);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker8));
                 marker = 8;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker8);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Integer color = getResources().getColor(R.color.color_marker9);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker9));
                 marker = 9;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker9);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
         fab_marker10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                background.setBackgroundColor(getResources().getColor(R.color.color_marker10));
+                Integer color = getResources().getColor(R.color.color_marker10);
                 marker = 10;
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker10);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
+                System.out.println(background.getBackground());
+                ValueAnimator valueAnimator = ValueAnimator.ofArgb(background.getDrawingCacheBackgroundColor(),color);
+                valueAnimator.setDuration(500);
+                valueAnimator.setInterpolator(new LinearInterpolator());
+                valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        background.setBackgroundColor((Integer)valueAnimator.getAnimatedValue());
+                    }
+                });
+                valueAnimator.start();
             }
         });
 
