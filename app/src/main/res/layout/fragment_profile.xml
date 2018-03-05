@@ -5,6 +5,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relLayProfilFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -81,8 +82,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
-        android:text="@string/active_status"
-        android:layout_marginStart="5dp" />
+        android:layout_marginStart="5dp"
+        android:text="@string/active_status" />
 
     <TextView
         android:id="@+id/tvOldStatus"
@@ -93,8 +94,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="5dp"
-        android:text="@string/old_status"
-        android:layout_marginStart="5dp" />
+        android:layout_marginStart="5dp"
+        android:text="@string/old_status" />
 
     <TextView
         android:id="@+id/tvSelectMarkerColor"
