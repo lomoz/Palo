@@ -121,6 +121,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
+      //  CheckForMessageService checkForMessageService = new CheckForMessageService();
+      //  checkForMessageService.checkForMessageInit();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CheckForMessageService checkForMessageService = new CheckForMessageService();
+        checkForMessageService.checkForMessageInit();
     }
 
     @SuppressLint("HardwareIds")

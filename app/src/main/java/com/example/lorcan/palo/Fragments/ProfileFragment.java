@@ -787,7 +787,7 @@ public class ProfileFragment extends Fragment {
 
             case PERMISSION_ACCESS_FINE_LOCATION:
             {
-                btnChangeClicked();
+
 
 
             }

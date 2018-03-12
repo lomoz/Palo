@@ -14,22 +14,15 @@ import java.util.TimerTask;
  * Created by Win10 Home x64 on 01.03.2018.
  */
 
-public class CheckForMessageService extends Service {
+public class CheckForMessageService {
 
     Timer timer = new Timer();
+    Boolean timerCancelled = true;
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void checkForMessageInit() {
         // do your jobs here
         System.out.println("Start Service");
         timer.schedule(new checkForMessage(), 0, 5000);
-        return super.onStartCommand(intent, flags, startId);
     }
     class checkForMessage extends TimerTask {
         public void run() {
@@ -40,19 +33,27 @@ public class CheckForMessageService extends Service {
     }
 
     public void stopAndRestart(){
-        timer.cancel();
-        timer.schedule(new checkForMessage(),0, 5);
-    }
-    public void stopRestartAndNotify(){
-        timer.cancel();
-        SendNotification sendNotification = new SendNotification();
-        sendNotification.sendNotification();
-        timer.schedule(new checkForMessage(),0, 5);
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        timer.cancel();
+        if(!timerCancelled){
+            timer.schedule(new checkForMessage(),0, 5000);
+        }else{
+            timer.schedule(new checkForMessage(),0, 5000);
+            timerCancelled = false;
+        }
     }
 
+    public void stopTimer(){
+        timer.cancel();
+        timerCancelled = true;
+    }
+    public void stopRestartAndNotify(){
+        SendNotification sendNotification = new SendNotification();
+        sendNotification.sendNotification();
+        if(!timerCancelled){
+            stopTimer();
+            timer.schedule(new checkForMessage(),0, 5000);
+        }else{
+            timer.schedule(new checkForMessage(),0, 5000);
+            timerCancelled = false;
+        }
+    }
 }
