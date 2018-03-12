@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        CheckForMessageService checkForMessageService = new CheckForMessageService();
-        checkForMessageService.checkForMessageInit();
+        //CheckForMessageService checkForMessageService = new CheckForMessageService();
+        //checkForMessageService.checkForMessageInit();
     }
 
     @SuppressLint("HardwareIds")

@@ -622,6 +622,7 @@ public class ProfileFragment extends Fragment {
             }
 
             status = etStatus.getText().toString();
+            etStatus.setFilters(new InputFilter[]{new InputFilter.LengthFilter(30)});
 
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {

@@ -59,6 +59,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.7"
             android:inputType="text"
+            android:digits="0,1,2,3,4,5,6,7,8,9,*,qwertzuiopüasdfghjklöäyxcvbnm,.,,"
+            android:maxLength="500"
             tools:ignore="LabelFor" />
 
 
