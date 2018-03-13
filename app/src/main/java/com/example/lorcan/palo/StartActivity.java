@@ -69,7 +69,7 @@ public class StartActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PERMISSION_INTERNET_STATE);
-
+                    checkID(android_id);
 
                 } else {
 

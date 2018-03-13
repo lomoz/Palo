@@ -414,7 +414,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             boolean success = map.setMapStyle(
 
                     MapStyleOptions.loadRawResourceStyle(
-                            getContext(), R.raw.style_json));
+                            getContext(), R.raw.style1));
 
             if (!success) {
                 Log.e("MapsActivityRaw", "Style parsing failed.");
@@ -439,15 +439,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     public void setImageViewVisibility(Boolean isImageVisible) {
 
         if (isImageVisible) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground((getResources().getDrawable(R.drawable.message)));
-            }
+            imageView.setBackground((getResources().getDrawable(R.drawable.message)));
         }
         else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                imageView.setBackground((getResources().getDrawable(R.drawable.nomessage)));
-            }
-        }
+            imageView.setBackground((getResources().getDrawable(R.drawable.nomessage)));
+         }
 
     }
 

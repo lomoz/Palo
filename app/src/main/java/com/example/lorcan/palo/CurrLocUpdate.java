@@ -4,10 +4,14 @@ package com.example.lorcan.palo;
 
 import android.*;
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -73,12 +77,35 @@ public class CurrLocUpdate extends Fragment  {
 
 
     private void locate() {
+        LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE );
+        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
 
         }else{
+            if(!statusOfGPS){
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MyApplicationContext.getAppContext());
+                alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+                        .setCancelable(false)
+                        .setPositiveButton("Goto Settings Page To Enable GPS",
+                                new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int id){
+                                        Intent callGPSSettingIntent = new Intent(
+                                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                        startActivity(callGPSSettingIntent);
+                                    }
+                                });
+                alertDialogBuilder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener(){
+                            public void onClick(DialogInterface dialog, int id){
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = alertDialogBuilder.create();
+                alert.show();
+            }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MyApplicationContext.getAppContext());
 
         mFusedLocationClient.getLastLocation()
@@ -91,15 +118,15 @@ public class CurrLocUpdate extends Fragment  {
                                 ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
                                 ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
                             }else{
-                                ProfileFragment profileFragment = new ProfileFragment();
-                                FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction()
-                                        .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                                        .replace(R.id.relativelayout_for_fragments,
-                                                profileFragment,
-                                                profileFragment.getTag()
-                                        ).commitAllowingStateLoss();
+
                             }
+                                mFusedLocationClient.getLastLocation()
+                                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                                            @Override
+                                            public void onSuccess(Location location) {
+                                                System.out.println("location: " + location);
+                                            }
+                                        });
                         }
 
                         UpdateMapFragment update = UpdateMapFragment.newInstance("1", "2");
