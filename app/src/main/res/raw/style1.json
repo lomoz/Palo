@@ -1,15 +1,5 @@
 [
   {
-    "stylers": [
-      {
-        "saturation": -45
-      },
-      {
-        "lightness": 13
-      }
-    ]
-  },
-  {
     "featureType": "road.highway",
     "elementType": "geometry.fill",
     "stylers": [
