@@ -200,5 +200,7 @@
     <string name="no_image_selected">Kein Bild ausgewählt.</string>
     <string name="image_upload_success">Bild wurde hochgeladen.</string>
     <string name="image_upload_denied">Das Bild Encoding ist leider fehlgeschlagen..</string>
+    <string name="your_username">Dein Username:</string>
+    <string name="username">Username</string>
 
 </resources>
