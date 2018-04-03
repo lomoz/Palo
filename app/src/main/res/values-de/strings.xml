@@ -197,4 +197,8 @@
     <string name="chats">Chats</string>
     <string name="no_chats">leider hast du noch keine chats. :-(</string>
 
+    <string name="no_image_selected">Kein Bild ausgewählt.</string>
+    <string name="image_upload_success">Bild wurde hochgeladen.</string>
+    <string name="image_upload_denied">Das Bild Encoding ist leider fehlgeschlagen..</string>
+
 </resources>

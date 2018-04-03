@@ -696,7 +696,7 @@ public class ProfileFragment extends Fragment {
     private void uploadImage(String selectedPhoto) {
 
         if (selectedPhoto == null || selectedPhoto.equals("")) {
-            Toast.makeText(ProfileFragment.this.getActivity(), "No image selected.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileFragment.this.getActivity(), R.string.no_image_selected, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -716,10 +716,10 @@ public class ProfileFragment extends Fragment {
 
             cnt_profile_image += 1;
 
-            Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileFragment.this.getActivity(), R.string.image_upload_success, Toast.LENGTH_SHORT).show();
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileFragment.this.getActivity(), R.string.image_upload_denied, Toast.LENGTH_SHORT).show();
         }
     }
 
