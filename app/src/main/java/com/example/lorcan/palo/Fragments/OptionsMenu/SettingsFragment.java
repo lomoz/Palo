@@ -25,7 +25,7 @@ import java.util.Locale;
  */
 public class SettingsFragment extends Fragment {
 
-    RadioButton rb_german, rb_english, rb_french;
+    RadioButton rb_german, rb_english;
     Locale myLocale;
 
     public SettingsFragment() {
@@ -40,7 +40,6 @@ public class SettingsFragment extends Fragment {
 
         rb_german = (RadioButton) view.findViewById(R.id.rb_german);
         rb_english = (RadioButton) view.findViewById(R.id.rb_english);
-        rb_french = (RadioButton) view.findViewById(R.id.rb_french);
         Button btn_change_language = (Button) view.findViewById(R.id.btn_change_language);
 
         Locale current = getResources().getConfiguration().locale;
@@ -55,10 +54,6 @@ public class SettingsFragment extends Fragment {
             case "en":
                 rb_english.setChecked(true);
                 break;
-
-            case "fr":
-                rb_french.setChecked(true);
-                break;
         }
 
         btn_change_language.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +65,6 @@ public class SettingsFragment extends Fragment {
                 }
                 else if (rb_english.isChecked() && !language.equals("en")) {
                     setLocal("en");
-                }
-
-                else if (rb_french.isChecked() && !language.equals("fr")) {
-                    setLocal("fr");
                 }
             }
         });

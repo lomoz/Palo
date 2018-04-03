@@ -13,7 +13,6 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -42,7 +41,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -272,10 +270,6 @@ public class ProfileFragment extends Fragment {
 
             case "en":
                 chose_status = "--- Chose Status --- ";
-                break;
-
-            case "fr":
-                chose_status = "--- Chose Status ---";
                 break;
         }
 
