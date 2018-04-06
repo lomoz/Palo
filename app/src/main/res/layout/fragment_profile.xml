@@ -5,7 +5,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relLayProfilFrag"
+    android:id="@+id/relLayProfileFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -24,7 +24,8 @@
         android:focusable="true"
         app:backgroundTint="@color/hhu_blue"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:ignore="RtlHardcoded" />
 
     <ImageView
         android:id="@+id/ivImage"
@@ -36,6 +37,45 @@
         android:background="@drawable/img"
         android:contentDescription="@string/imageView_profile_picture"
         app:srcCompat="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvYourUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="190dp"
+        android:text="@string/your_username"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvYourUsername"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/username"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/tvActiveStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etStatus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/active_status"
+        tools:ignore="RtlHardcoded" />
 
     <EditText
         android:id="@+id/etStatus"
@@ -50,40 +90,8 @@
         android:ems="10"
         android:hint="@string/set_status"
         android:inputType="textPersonName"
-        android:maxLength="50" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvSelectMarkerColor"
-        android:layout_alignStart="@+id/tvSelectMarkerColor"
-        android:layout_below="@+id/etStatus"
-        android:layout_marginBottom="35dp"
-        android:layout_marginTop="50dp" />
-
-    <Button
-        android:id="@+id/btnChangeInMap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/hhu_blue"
-        android:text="@string/change"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tvActiveStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/etStatus"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:text="@string/active_status" />
+        android:maxLength="50"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/tvOldStatus"
@@ -95,7 +103,19 @@
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
-        android:text="@string/old_status" />
+        android:text="@string/old_status"
+        tools:ignore="RtlHardcoded" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvSelectMarkerColor"
+        android:layout_alignStart="@+id/tvSelectMarkerColor"
+        android:layout_below="@+id/etStatus"
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="50dp"
+        tools:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/tvSelectMarkerColor"
@@ -105,97 +125,19 @@
         android:layout_alignStart="@+id/etStatus"
         android:layout_below="@+id/spinner"
         android:layout_marginBottom="5dp"
-        android:text="@string/select_color" />
+        android:text="@string/select_color"
+        tools:ignore="RtlHardcoded" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvSelectMarkerColor"
         android:layout_marginBottom="15dp"
         android:orientation="horizontal"
-        android:paddingBottom="50dp">
-
-        <ImageButton
-            android:id="@+id/fab_marker8"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker8"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker2"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker2"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker6"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker6"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker10"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker10"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker4"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker4"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker7"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker7"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker5"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker5"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
-
-        <ImageButton
-            android:id="@+id/fab_marker3"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker3"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/markerauswahl" />
+        android:paddingBottom="50dp"
+        tools:ignore="RtlHardcoded">
 
         <ImageButton
             android:id="@+id/fab_marker1"
@@ -205,7 +147,85 @@
             android:background="@color/color_marker1"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/markerauswahl" />
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker1" />
+
+        <ImageButton
+            android:id="@+id/fab_marker2"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker2"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker2" />
+
+        <ImageButton
+            android:id="@+id/fab_marker3"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker3"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker3" />
+
+        <ImageButton
+            android:id="@+id/fab_marker4"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker4"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker4" />
+
+        <ImageButton
+            android:id="@+id/fab_marker5"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker5"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker5" />
+
+        <ImageButton
+            android:id="@+id/fab_marker6"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker6"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker6" />
+
+        <ImageButton
+            android:id="@+id/fab_marker7"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker7"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker7" />
+
+        <ImageButton
+            android:id="@+id/fab_marker8"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker8"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker8" />
 
         <ImageButton
             android:id="@+id/fab_marker9"
@@ -215,9 +235,33 @@
             android:background="@color/color_marker9"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/markerauswahl" />
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker9" />
 
+        <ImageButton
+            android:id="@+id/fab_marker10"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/color_marker10"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker10" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnChangeInMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/hhu_blue"
+        android:text="@string/change"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:ignore="RtlHardcoded" />
 
 </RelativeLayout>

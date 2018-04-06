@@ -13,7 +13,6 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -42,14 +41,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
+import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.OnClickSendToDB;
@@ -126,6 +126,7 @@ public class ProfileFragment extends Fragment {
      * Declare elements here to handle them in the onCreateView method.
      */
 
+    TextView tvUsername;
     EditText etStatus;
     Button btnChange;
     Spinner spinner;
@@ -174,11 +175,12 @@ public class ProfileFragment extends Fragment {
 
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        background = (RelativeLayout) view.findViewById(R.id.relLayProfilFrag);
+        background = (RelativeLayout) view.findViewById(R.id.relLayProfileFrag);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
         fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
 
         // Use the created view to get the elements from the xml file.
+        tvUsername = (TextView) view.findViewById(R.id.tvUsername);
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         etStatus.setFilters(new InputFilter[]{filter});
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
@@ -213,6 +215,10 @@ public class ProfileFragment extends Fragment {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         time = dateFormat.format(date);
+
+        // Receive username from database
+        GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
+        getUsernameFromDB.getUsernameFromDB(android_id, this, tvUsername);
 
         // Receive status from database.
         GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
@@ -272,10 +278,6 @@ public class ProfileFragment extends Fragment {
 
             case "en":
                 chose_status = "--- Chose Status --- ";
-                break;
-
-            case "fr":
-                chose_status = "--- Chose Status ---";
                 break;
         }
 
@@ -696,7 +698,7 @@ public class ProfileFragment extends Fragment {
     private void uploadImage(String selectedPhoto) {
 
         if (selectedPhoto == null || selectedPhoto.equals("")) {
-            Toast.makeText(ProfileFragment.this.getActivity(), "No image selected.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileFragment.this.getActivity(), R.string.no_image_selected, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -716,10 +718,10 @@ public class ProfileFragment extends Fragment {
 
             cnt_profile_image += 1;
 
-            Toast.makeText(ProfileFragment.this.getActivity(), "Image has been uploaded.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileFragment.this.getActivity(), R.string.image_upload_success, Toast.LENGTH_SHORT).show();
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(ProfileFragment.this.getActivity(), "Something wrong while encoding photos.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileFragment.this.getActivity(), R.string.image_upload_denied, Toast.LENGTH_SHORT).show();
         }
     }
 

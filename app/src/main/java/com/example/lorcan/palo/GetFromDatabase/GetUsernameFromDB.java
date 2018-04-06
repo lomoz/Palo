@@ -3,6 +3,7 @@ package com.example.lorcan.palo.GetFromDatabase;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -11,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lorcan.palo.Fragments.ProfileFragment;
 import com.example.lorcan.palo.MainActivity;
 import com.example.lorcan.palo.MyApplicationContext;
 
@@ -22,17 +24,27 @@ public class GetUsernameFromDB {
     private static final String STR_URL = "http://palo.square7.ch/getUsername.php";
     private String android_id;
     private MainActivity mainActivity;
-    public GetUsernameTask getusername;
+    private ProfileFragment profileFragment;
+    private TextView tvUsername;
+    private GetUsernameTask getUsernameAsyncTask;
 
     public GetUsernameFromDB() {
 
     }
 
+    public void getUsernameFromDB(String android_id, ProfileFragment profileFragment, TextView tvUsername) {
+        this.android_id = android_id;
+        this.profileFragment = profileFragment;
+        this.tvUsername = tvUsername;
+        getUsernameAsyncTask = new GetUsernameTask();
+        getUsernameAsyncTask.execute();
+    }
+
     public void getResponseUsername(String android_id, MainActivity mainActivity) {
         this.android_id = android_id;
         this.mainActivity = mainActivity;
-        getusername = new GetUsernameTask();
-        getusername.execute();
+        getUsernameAsyncTask = new GetUsernameTask();
+        getUsernameAsyncTask.execute();
 
     }
 
@@ -46,7 +58,14 @@ public class GetUsernameFromDB {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    handleResponse(response);
+
+                    if (profileFragment != null) {
+                        handleResponseProfile(response);
+                        onPostExecute(null);
+                    }
+                    else {
+                        handleResponse(response);
+                    }
                 }
 
             }, new Response.ErrorListener() {
@@ -74,7 +93,12 @@ public class GetUsernameFromDB {
     }
 
     private void handleResponse(String response) {
-        getusername.cancel(true);
+        getUsernameAsyncTask.cancel(true);
         mainActivity.setUsernameInNav(response);
+    }
+
+    private void handleResponseProfile(String response) {
+        getUsernameAsyncTask.cancel(true);
+        tvUsername.setText(response);
     }
 }
