@@ -15,6 +15,7 @@ import com.example.lorcan.palo.ChatActivity;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.ProfilActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,7 +31,7 @@ public class GetProfilInfoFromDB {
 
 
     public RequestQueue requestQueue;
-    public final String URL = "http://palo.square7.ch/getProfilInfo.php";
+    public final String URL = "http://palo.square7.ch/getProfilInfoGami.php";
     public StringRequest request;
     public ResponseTask1 responseTask1;
     String name;
@@ -57,8 +58,6 @@ public class GetProfilInfoFromDB {
 
                 @Override
                 public void onResponse(String response) {
-                    System.out.println("RESPONSE FROM PHP PROFIL: " + response);
-                    System.out.println(name);
                     handleResponse(response, profilActivity);
                 }
 
@@ -90,14 +89,60 @@ public class GetProfilInfoFromDB {
 
     public void handleResponse(String info, ProfilActivity profilActivity){
         responseTask1.cancel(true);
-        ArrayList<String> list = new ArrayList<>(); //[bild, status, name]
+        ArrayList<String> list = new ArrayList<>(); //[bild, status, icon1, icon2,...,icon22]
         try {
+
             JSONObject jsonObject = new JSONObject(info);
             String bild = jsonObject.get("bild").toString();
             String status = jsonObject.get("status").toString();
             list.add(bild);
             list.add(status);
             list.add(name);
+            String eins = jsonObject.get("1").toString();
+            list.add(String.valueOf(eins));
+            String zwei = jsonObject.get("2").toString();
+            list.add(String.valueOf(zwei));
+            String drei = jsonObject.get("3").toString();
+            list.add(String.valueOf(drei));
+            String vier = jsonObject.get("4").toString();
+            list.add(String.valueOf(vier));
+            String fuenf = jsonObject.get("5").toString();
+            list.add(String.valueOf(fuenf));
+            String sechs = jsonObject.get("6").toString();
+            list.add(String.valueOf(sechs));
+            String sieben = jsonObject.get("7").toString();
+            list.add(String.valueOf(sieben));
+            String acht = jsonObject.get("8").toString();
+            list.add(String.valueOf(acht));
+            String neun = jsonObject.get("9").toString();
+            list.add(String.valueOf(neun));
+            String zehn = jsonObject.get("10").toString();
+            list.add(String.valueOf(zehn));
+            String elf = jsonObject.get("11").toString();
+            list.add(String.valueOf(elf));
+            String zwoelf = jsonObject.get("12").toString();
+            list.add(String.valueOf(zwoelf));
+            String dreizehn = jsonObject.get("13").toString();
+            list.add(String.valueOf(dreizehn));
+            String vierzehn = jsonObject.get("14").toString();
+            list.add(String.valueOf(vierzehn));
+            String fuenfzehn = jsonObject.get("15").toString();
+            list.add(String.valueOf(fuenfzehn));
+            String sechszehn = jsonObject.get("16").toString();
+            list.add(String.valueOf(sechszehn));
+            String siebzehn = jsonObject.get("17").toString();
+            list.add(String.valueOf(siebzehn));
+            String achtzehn = jsonObject.get("18").toString();
+            list.add(String.valueOf(achtzehn));
+            String neunzehn = jsonObject.get("19").toString();
+            list.add(String.valueOf(neunzehn));
+            String zwanzig = jsonObject.get("20").toString();
+            list.add(String.valueOf(zwanzig));
+            String einundzwanzig = jsonObject.get("21").toString();
+            list.add(String.valueOf(einundzwanzig));
+            String zweiundzwanzig = jsonObject.get("22").toString();
+            list.add(String.valueOf(zweiundzwanzig));
+
             profilActivity.setInfoToScreen(list);
         }catch (JSONException e){
             e.printStackTrace();
