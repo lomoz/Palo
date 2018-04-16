@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class GetUsernameFromDB {
 
-    private static final String STR_URL = "http://palo.square7.ch/getUsername.php";
+    private static final String STR_URL = "http://palo.square7.ch/getUsernameGami.php";
     private String android_id;
     private MainActivity mainActivity;
     private ProfileFragment profileFragment;

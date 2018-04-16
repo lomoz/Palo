@@ -22,15 +22,15 @@ import java.util.Map;
 public class ChatMessage {
 
     public RequestQueue requestQueue;
-    public final String URL = "http://palo.square7.ch/insertMessage.php";
+    public final String URL = "http://palo.square7.ch/insertMessageGami.php";
     public StringRequest request;
 
     public RequestQueue requestQueue1;
-    public final String URL1 = "http://palo.square7.ch/isMessage.php";
+    public final String URL1 = "http://palo.square7.ch/isMessageGami.php";
     public StringRequest request1;
 
     public RequestQueue requestQueue2;
-    public final String URL2 = "http://palo.square7.ch/getMessage.php";
+    public final String URL2 = "http://palo.square7.ch/getMessageGami.php";
     public StringRequest request2;
 
 

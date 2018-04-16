@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class SendEncodedImageToDB {
 
-    private static final String STR_URL = "http://palo.square7.ch/setEncodedImage.php";
+    private static final String STR_URL = "http://palo.square7.ch/setEncodedImageGami.php";
 
 
     public SendEncodedImageToDB() {

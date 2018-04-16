@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class GetLocationFromDB {
 
-    private static final String STR_URL = "http://palo.square7.ch/getLocation.php";
+    private static final String STR_URL = "http://palo.square7.ch/getLocationGami.php";
     private ArrayList<String> arrayListOtherUsers = new ArrayList<>();
 
     public GetLocationFromDB() {

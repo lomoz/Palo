@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class UpdateMapFragmentLoadTask extends Fragment {
 
-    private static final String strUrl = "http://palo.square7.ch/getStatus.php";
+    private static final String strUrl = "http://palo.square7.ch/getStatusGami.php";
     public UpdateMapFragment updateMapFragment;
     public LoadDataTask loadData;
     MapFragment mapFragment;

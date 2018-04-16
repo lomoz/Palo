@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class GetStatusFromDB {
 
-    private static final String strUrl = "http://palo.square7.ch/getOneStatus.php";
+    private static final String strUrl = "http://palo.square7.ch/getOneStatusGami.php";
     private String android_id;
     private ProfileFragment profileFragment;
     private MapFragment mapFragment;

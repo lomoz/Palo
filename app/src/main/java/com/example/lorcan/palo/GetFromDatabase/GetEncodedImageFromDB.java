@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class GetEncodedImageFromDB {
 
-    private static final String STR_URL = "http://palo.square7.ch/getEncodedImage.php";
+    private static final String STR_URL = "http://palo.square7.ch/getEncodedImageGami.php";
     private String android_id;
     private ProfileFragment profileFragment;
     private MainActivity mainActivity;

@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class ContactSendToDB {
 
-    private static final String URL = "http://palo.square7.ch/kontakt.php";
+    private static final String URL = "http://palo.square7.ch/kontaktGami.php";
 
     public  void sendContact(final String android_id, final String message, final String topic) {
         RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());

@@ -20,7 +20,7 @@ public class getLocFromDB {
 
     private ArrayList<String> arrayListOtherUsers = new ArrayList<>();
 
-    private static final String URL = "http://palo.square7.ch/getLocation.php";
+    private static final String URL = "http://palo.square7.ch/getLocationGami.php";
     private Context context;
 
     getLocFromDB(Context context){

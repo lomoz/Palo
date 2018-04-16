@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class StartActivity extends AppCompatActivity {
 
-    private static final String strUrl = "http://palo.square7.ch/checkIDIsInDB.php";
+    private static final String strUrl = "http://palo.square7.ch/checkIDIsInDBGami.php";
     private String android_id;
     public final int  PERMISSION_READ_PHONE_STATE = 1;
     public final int PERMISSION_INTERNET_STATE = 2;

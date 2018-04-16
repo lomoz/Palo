@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class sendStatusToDB {
 
-    private static final String URL = "http://palo.square7.ch/setStatus.php";
+    private static final String URL = "http://palo.square7.ch/setStatusGami.php";
 
     protected String status;
     protected String time;

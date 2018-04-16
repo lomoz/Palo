@@ -29,7 +29,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private EditText email, nickname;
     private RequestQueue requestQueue;
-    private static final String URL = "http://palo.square7.ch/control_users.php";
+    private static final String URL = "http://palo.square7.ch/control_usersGami.php";
     private StringRequest request;
 
     private String android_id;

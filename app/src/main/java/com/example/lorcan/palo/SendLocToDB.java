@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class SendLocToDB{
 
-    private static final String URL = "http://palo.square7.ch/setLocation.php";
+    private static final String URL = "http://palo.square7.ch/setLocationGami.php";
     protected String email;
 
     SendLocToDB(){

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class OnClickSendToDB {
 
-    private static final String URL = "http://palo.square7.ch/setOnClickInDB.php";
+    private static final String URL = "http://palo.square7.ch/setOnClickInDBGami.php";
 
     public void sendBtnClick(final String android_id, final String onClickBtnText) {
 
