@@ -118,7 +118,7 @@ public class ChatMessage {
             @Override
             public void onResponse(String response1) {
 
-                System.out.println("RESPONSE:" +response1);
+                System.out.println("RESPONSE FROM CHAT: " +response1);
                 if (response1.length() > 0) {
                     chatActivity.createAnswer(response1);
 
