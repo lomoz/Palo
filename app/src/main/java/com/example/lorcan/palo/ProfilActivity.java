@@ -190,7 +190,6 @@ public class ProfilActivity extends AppCompatActivity {
 
         //----------------
 
-
         scrollView.addView(table);
         iconList.setTextAlignment(LinearLayout.TEXT_ALIGNMENT_CENTER);
         iconList.addView(scrollView);
