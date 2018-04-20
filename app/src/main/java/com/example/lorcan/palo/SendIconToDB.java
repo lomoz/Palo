@@ -16,11 +16,12 @@ public class SendIconToDB {
     private static final String URL = "http://palo.square7.ch/setNewIconGami.php";
     private String iconNum;
     private String android_id;
+
     public SendIconToDB() {
 
     }
 
-    public void sendStatus(final String iconNum, final String android_id) {
+    public void sendIcon(final String iconNum, final String android_id) {
 
 
         this.iconNum = iconNum;
@@ -35,7 +36,6 @@ public class SendIconToDB {
             }
 
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();

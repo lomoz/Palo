@@ -113,26 +113,23 @@ public class ProfilActivity extends AppCompatActivity {
                 ImageView iconIV = new ImageView(this);
                 iconIV.setScaleX(0.50f);
                 iconIV.setScaleY(0.50f);
-                if(i == 2) {
-                    iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
-                }
                 if(i == 3) {
-                    iconIV.setBackgroundResource(R.drawable.chat); //"icon"+ i-1
+                    iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
                 }
                 if(i == 4) {
-                    iconIV.setBackgroundResource(R.drawable.haufen); //"icon"+ i-1
+                    iconIV.setBackgroundResource(R.drawable.chat); //"icon"+ i-1
                 }
                 if(i == 5) {
-                    iconIV.setBackgroundResource(R.drawable.kaffee); //"icon"+ i-1
+                    iconIV.setBackgroundResource(R.drawable.haufen); //"icon"+ i-1
                 }
                 if(i == 6) {
-                    iconIV.setBackgroundResource(R.drawable.kamera); //"icon"+ i-1
+                    iconIV.setBackgroundResource(R.drawable.kaffee); //"icon"+ i-1
                 }
                 if(i == 7) {
-                    iconIV.setBackgroundResource(R.drawable.kreisel); //"icon"+ i-1
+                    iconIV.setBackgroundResource(R.drawable.kamera); //"icon"+ i-1
                 }
                 if(i == 8) {
-                    iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
+                    iconIV.setBackgroundResource(R.drawable.kreisel); //"icon"+ i-1
                 }
                 if(i == 9) {
                     iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
@@ -174,6 +171,9 @@ public class ProfilActivity extends AppCompatActivity {
                     iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
                 }
                 if(i == 22) {
+                    iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
+                }
+                if(i == 23) {
                     iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
                 }
                 tableRow.addView(iconIV);

@@ -5,8 +5,12 @@ public class SQLiteData {
     private int clicks;
 
 
-    public SQLiteData(String lvl, int clicks) {
-        this.id = lvl;
+    public SQLiteData(String id){
+        this.id = id;
+    }
+
+    public SQLiteData(String id, int clicks) {
+        this.id = id;
         this.clicks = clicks;
     }
 

@@ -50,11 +50,15 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
+import com.example.lorcan.palo.JSONClicks;
+import com.example.lorcan.palo.MarkerColorJSON;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.OnClickSendToDB;
 import com.example.lorcan.palo.R;
+import com.example.lorcan.palo.SQLite.SQLiteData;
 import com.example.lorcan.palo.SendEncodedImageToDB;
+import com.example.lorcan.palo.SendIconToDB;
 import com.example.lorcan.palo.sendStatusToDB;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -98,6 +102,7 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @SuppressLint("ValidFragment")
     public ProfileFragment(Double lat, Double lng) {
         this.lat = lat;
         this.lng = lng;
@@ -321,6 +326,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        MarkerColorJSON markerColorJSON = new MarkerColorJSON();
+
+
 
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -541,7 +549,7 @@ public class ProfileFragment extends Fragment {
                 valueAnimator.start();
             }
         });
-
+        markerColorJSON.setActColor(marker);
         return view;
     }
 
@@ -575,11 +583,35 @@ public class ProfileFragment extends Fragment {
                 }
             }
         }
+
     }
 
     public void setEncodedImageAsProfileImage(String image) {
         OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
         onClickSendToDB.sendBtnClick(android_id, "6");
+/*
+        SQLiteData insertPhoto = new SQLiteData("photo");
+        int cnt = insertPhoto.getClicks();
+        if(cnt == 0){
+            insertPhoto.setClicks(1);
+            insertPhoto.setId("photo");
+        }else{
+            insertPhoto.setClicks(cnt+1);
+        }
+
+*/
+        JSONClicks jsonClicks = new JSONClicks();
+        jsonClicks.addNewClick(5);
+        for(int i=0; i<20; i++){
+            System.out.println("CLICK PHOTO: " + jsonClicks.getClickDataByIndex(i) + " = "+ i);
+
+        }
+
+        if(jsonClicks.getClickDataByIndex(4) >= 1){
+            System.out.println("SENDICON!!!");
+            SendIconToDB sendIconToDB = new SendIconToDB();
+            sendIconToDB.sendIcon("5", android_id);
+        }
         try {
             if (image.length() > 0) {
                 byte[] decodedString = Base64.decode(image, Base64.DEFAULT);

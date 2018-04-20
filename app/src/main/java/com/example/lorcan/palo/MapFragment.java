@@ -217,13 +217,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                         android_id = tManager.getDeviceId();
                     }
 
+
                     sendStatusToDB statusToDB = new sendStatusToDB();
                     DateFormat dateFormat = new SimpleDateFormat("HH:mm");
                     Date date = new Date();
                     String time = dateFormat.format(date);
                     double latitude = currLocation.latitude;
                     double longitude = currLocation.longitude;
-                    statusToDB.sendStatus(status, latitude, longitude, time, android_id, 1);
+                    MarkerColorJSON markerColorJSON = new MarkerColorJSON();
+                    int marker = markerColorJSON.getActColor();
+                    statusToDB.sendStatus(status, latitude, longitude, time, android_id, marker);
                     OldStatus oldList = new OldStatus();
                     oldList.addNewEntry(status);
 
