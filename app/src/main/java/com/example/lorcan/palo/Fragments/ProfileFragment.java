@@ -50,6 +50,7 @@ import com.example.lorcan.palo.CurrLocUpdate;
 import com.example.lorcan.palo.GetFromDatabase.GetEncodedImageFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetStatusFromDB;
 import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
+import com.example.lorcan.palo.MarkerColorJSON;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.OnClickSendToDB;
@@ -98,6 +99,7 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @SuppressLint("ValidFragment")
     public ProfileFragment(Double lat, Double lng) {
         this.lat = lat;
         this.lng = lng;
@@ -320,7 +322,7 @@ public class ProfileFragment extends Fragment {
                 // if no item is selected the last used status should stay the active status
             }
         });
-
+        MarkerColorJSON markerColorJSON = new MarkerColorJSON();
 
         fab_marker1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -541,7 +543,7 @@ public class ProfileFragment extends Fragment {
                 valueAnimator.start();
             }
         });
-
+        markerColorJSON.setActColor(marker);
         return view;
     }
 

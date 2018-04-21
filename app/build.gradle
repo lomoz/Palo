@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 26
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.lorcan.palo"
@@ -22,27 +22,27 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:support-vector-drawable:24.2.1'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-vector-drawable:26.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //noinspection GradleCompatible
-    //noinspection GradleCompatible
     //noinspection UseOfBundledGooglePlayServices
-    compile files('libs/PhotoUtil.jar')
-    compile files('libs/GenAsync.1.2.jar')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.google.android.gms:play-services:11.8.0'
-    compile 'com.google.android.gms:play-services-location:11.8.0'
-    compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile 'com.google.android.gms:play-services-maps:11.8.0'
-    compile 'com.github.amigold.fundapter:library:1.0'
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
-    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
-    testCompile 'junit:junit:4.12'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    implementation files('libs/PhotoUtil.jar')
+    implementation files('libs/GenAsync.1.2.jar')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.google.android.gms:play-services-location:12.0.1'
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.google.android.gms:play-services-maps:12.0.1'
+    implementation 'com.github.amigold.fundapter:library:1.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.12'
+    implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    testImplementation 'junit:junit:4.12'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.1'
 }

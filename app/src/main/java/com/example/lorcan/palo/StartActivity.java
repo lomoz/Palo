@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -161,9 +162,11 @@ public class StartActivity extends AppCompatActivity {
     public void handleResponse(String response){
         System.out.println("RESPONSE START:" + response);
         String[] responseArr = response.split("eee");
+        System.out.println("RESPONSEARRAY[0] = "+responseArr[0]);
         final String res = responseArr[0].trim();
 
-        if(responseArr[1].length() > 0 && !responseArr[1].equals(" ")){
+
+        if(responseArr[0].equals("1")){
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
@@ -181,8 +184,19 @@ public class StartActivity extends AppCompatActivity {
                             }
                         }
                     })
+                    .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
+                            startActivity(browserIntent);
+                        }
+
+
+                    })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+        }else{
+            startMain();
         }
 
     }
