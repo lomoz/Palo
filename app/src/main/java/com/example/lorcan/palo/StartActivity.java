@@ -33,13 +33,14 @@ public class StartActivity extends AppCompatActivity {
     private String android_id;
     public final int  PERMISSION_READ_PHONE_STATE = 1;
     public final int PERMISSION_INTERNET_STATE = 2;
+    public VersionControl versionControl = new VersionControl();
 
     @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
+        versionControl.setActVersion("1.0.1");
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -98,8 +99,6 @@ public class StartActivity extends AppCompatActivity {
             StringRequest request = new StringRequest(Request.Method.POST, strUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-
-                    System.out.println("RESPONSE START:" + response);
                     handleResponse(response);
                 }
 
@@ -163,7 +162,13 @@ public class StartActivity extends AppCompatActivity {
         System.out.println("RESPONSE START:" + response);
         String[] responseArr = response.split("eee");
         System.out.println("RESPONSEARRAY[0] = "+responseArr[0]);
+        System.out.println("RESPONSEARRAY[2] = "+responseArr[2]);
+
         final String res = responseArr[0].trim();
+        final String versionDB = responseArr[2].trim();
+
+        String version = versionControl.getActVersion();
+        System.out.println("!= " + version);
 
 
         if(responseArr[0].equals("1")){
@@ -173,28 +178,45 @@ public class StartActivity extends AppCompatActivity {
             } else {
                 builder = new AlertDialog.Builder(this);
             }
-            builder.setTitle("Info")
-                    .setMessage(responseArr[1])
-                    .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            if(res.equals("1")){
-                                startMain();
-                            }else{
-                                start();
+
+            if(!versionDB.equals(version)) {
+                builder.setTitle("Info")
+                        .setMessage(responseArr[1])
+                        .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (res.equals("1")) {
+                                    startMain();
+                                } else {
+                                    start();
+                                }
                             }
-                        }
-                    })
-                    .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
-                            startActivity(browserIntent);
-                        }
+                        })
+                        .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
+                                startActivity(browserIntent);
+                            }
 
 
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }else{
+                builder.setTitle("Info")
+                        .setMessage(responseArr[1])
+                        .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (res.equals("1")) {
+                                    startMain();
+                                } else {
+                                    start();
+                                }
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
         }else{
             startMain();
         }
