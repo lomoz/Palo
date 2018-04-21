@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.iid.InstanceID;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +42,7 @@ public class ChatMessage {
     public String responseIsMessage;
 
     public void sendMessage(final String nickname, final String nachricht) {
-        OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
-        onClickSendToDB.sendBtnClick(android_id, "4");
+
         System.out.println("NICKNAME CHAT: " + nickname);
         this.nickname = nickname;
         this.nachricht = nachricht;
@@ -89,7 +89,8 @@ public class ChatMessage {
                 hashMap.put("android_id", android_id);
 
                 System.out.println("DAS WAS GESENDET WIRD VOM STATUS1: " + hashMap);
-
+                OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
+                onClickSendToDB.sendBtnClick(android_id, "4");
                 return hashMap;
             }
         };
