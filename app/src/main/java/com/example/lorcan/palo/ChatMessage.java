@@ -41,8 +41,7 @@ public class ChatMessage {
     public String responseIsMessage;
 
     public void sendMessage(final String nickname, final String nachricht) {
-        OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
-        onClickSendToDB.sendBtnClick(android_id, "4");
+
         System.out.println("NICKNAME CHAT: " + nickname);
         this.nickname = nickname;
         this.nachricht = nachricht;
@@ -59,7 +58,6 @@ public class ChatMessage {
             return;
         }
         final String android_id = telephonyManager.getDeviceId();
-
         this.request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
             @Override
@@ -88,8 +86,9 @@ public class ChatMessage {
                 hashMap.put("nachricht", nachricht);
                 hashMap.put("android_id", android_id);
 
-                System.out.println("DAS WAS GESENDET WIRD VOM STATUS1: " + hashMap);
-
+                System.out.println("DAS WAS GESENDET WIRD VOM CHAT1: " + hashMap);
+                OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
+                onClickSendToDB.sendBtnClick(android_id, "4");
                 return hashMap;
             }
         };
