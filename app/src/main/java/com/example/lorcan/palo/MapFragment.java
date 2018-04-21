@@ -218,6 +218,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     }
 
 
+
                     sendStatusToDB statusToDB = new sendStatusToDB();
                     DateFormat dateFormat = new SimpleDateFormat("HH:mm");
                     Date date = new Date();

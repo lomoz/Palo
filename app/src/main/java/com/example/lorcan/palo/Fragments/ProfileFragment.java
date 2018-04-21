@@ -178,6 +178,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         // Create and return a new View element here.
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         background = (RelativeLayout) view.findViewById(R.id.relLayProfileFrag);
