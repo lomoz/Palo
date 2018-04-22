@@ -40,7 +40,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        versionControl.setActVersion("1.0.2");
+        versionControl.setActVersion("1.0.2g");
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
@@ -162,99 +162,40 @@ public class StartActivity extends AppCompatActivity {
         System.out.println("RESPONSE START:" + response);
         String[] responseArr = response.split("eee");
         final String res = responseArr[0].trim();
-        System.out.println(responseArr.length);
         String version = versionControl.getActVersion();
+        final String versionDB = responseArr[3].trim();
+        final String url = responseArr[2];
 
-        if(responseArr.length == 2) {
-            final String versionDB = responseArr[1].trim();
-            AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-            } else {
-                builder = new AlertDialog.Builder(this);
-            }
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(this);
+        }
 
-            if (!versionDB.equals(version)) {
-                builder.setTitle("Info")
-                        .setMessage("Version " + responseArr[1] + "ist nun da. Lade dir die neue Version herunter um alle Features weiterhin nutzen zu können.")
-                        .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (res.equals("1")) {
-                                    startMain();
-                                } else {
-                                    start();
-                                }
+        if (!versionDB.equals(version)) {
+            builder.setTitle("Info")
+                    .setMessage("Version " + versionDB + "ist nun da. Lade dir die neue Version herunter um alle Features weiterhin nutzen zu können.")
+                    .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (res.equals("1")) {
+                                startMain();
+                            } else {
+                                start();
                             }
-                        })
-                        .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
-                                startActivity(browserIntent);
-                            }
+                        }
+                    })
+                    .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(browserIntent);
+                        }
 
 
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-        }else if(responseArr.length > 2){
-            System.out.println("RESPONSEARRAY[0] = "+responseArr[0]);
-
-            System.out.println("RESPONSEARRAY[2] = " + responseArr[2]);
-            final String versionDB = responseArr[2].trim();
-
-
-
-
-
-            if(responseArr[0].equals("1")) {
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-                } else {
-                    builder = new AlertDialog.Builder(this);
-                }
-
-                if (!versionDB.equals(version)) {
-                    builder.setTitle("Info")
-                            .setMessage(responseArr[1])
-                            .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (res.equals("1")) {
-                                        startMain();
-                                    } else {
-                                        start();
-                                    }
-                                }
-                            })
-                            .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
-                                    startActivity(browserIntent);
-                                }
-
-
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                } else {
-                    builder.setTitle("Info")
-                            .setMessage(responseArr[1])
-                            .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (res.equals("1")) {
-                                        startMain();
-                                    } else {
-                                        start();
-                                    }
-                                }
-                            })
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }else{
             if (res.equals("1")) {
                 startMain();
@@ -262,6 +203,7 @@ public class StartActivity extends AppCompatActivity {
                 start();
             }
         }
+
     }
 
     @Override
