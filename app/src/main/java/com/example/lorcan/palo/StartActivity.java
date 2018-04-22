@@ -161,64 +161,73 @@ public class StartActivity extends AppCompatActivity {
     public void handleResponse(String response){
         System.out.println("RESPONSE START:" + response);
         String[] responseArr = response.split("eee");
-        System.out.println("RESPONSEARRAY[0] = "+responseArr[0]);
-        System.out.println("RESPONSEARRAY[2] = "+responseArr[2]);
-
         final String res = responseArr[0].trim();
-        final String versionDB = responseArr[2].trim();
 
-        String version = versionControl.getActVersion();
-        System.out.println("!= " + version);
+        if(responseArr.length > 1){
+            System.out.println("RESPONSEARRAY[0] = "+responseArr[0]);
+
+            System.out.println("RESPONSEARRAY[2] = " + responseArr[2]);
+            final String versionDB = responseArr[2].trim();
 
 
-        if(responseArr[0].equals("1")){
-            AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-            } else {
-                builder = new AlertDialog.Builder(this);
-            }
 
-            if(!versionDB.equals(version)) {
-                builder.setTitle("Info")
-                        .setMessage(responseArr[1])
-                        .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (res.equals("1")) {
-                                    startMain();
-                                } else {
-                                    start();
+            String version = versionControl.getActVersion();
+            System.out.println("!= " + version);
+
+
+            if(responseArr[0].equals("1")) {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(this);
+                }
+
+                if (!versionDB.equals(version)) {
+                    builder.setTitle("Info")
+                            .setMessage(responseArr[1])
+                            .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (res.equals("1")) {
+                                        startMain();
+                                    } else {
+                                        start();
+                                    }
                                 }
-                            }
-                        })
-                        .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
-                                startActivity(browserIntent);
-                            }
-
-
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }else{
-                builder.setTitle("Info")
-                        .setMessage(responseArr[1])
-                        .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (res.equals("1")) {
-                                    startMain();
-                                } else {
-                                    start();
+                            })
+                            .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
+                                    startActivity(browserIntent);
                                 }
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+
+
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                } else {
+                    builder.setTitle("Info")
+                            .setMessage(responseArr[1])
+                            .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (res.equals("1")) {
+                                        startMain();
+                                    } else {
+                                        start();
+                                    }
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
         }else{
-            startMain();
+            if (res.equals("1")) {
+                startMain();
+            } else {
+                start();
+            }
         }
 
     }
