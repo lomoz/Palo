@@ -54,8 +54,10 @@ import com.example.lorcan.palo.MarkerColorJSON;
 import com.example.lorcan.palo.MyApplicationContext;
 import com.example.lorcan.palo.OldStatus;
 import com.example.lorcan.palo.OnClickSendToDB;
+import com.example.lorcan.palo.ProfilActivity;
 import com.example.lorcan.palo.R;
 import com.example.lorcan.palo.SendEncodedImageToDB;
+import com.example.lorcan.palo.UsernameJSON;
 import com.example.lorcan.palo.sendStatusToDB;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -151,6 +153,7 @@ public class ProfileFragment extends Fragment {
     ImageView ivImage;
 
     FloatingActionButton fabImageDialog;
+    FloatingActionButton iconListBtn;
 
     final int CAMERA_REQUEST = 1;
     final int GALLERY_REQUEST = 2;
@@ -180,12 +183,14 @@ public class ProfileFragment extends Fragment {
         background = (RelativeLayout) view.findViewById(R.id.relLayProfileFrag);
         ivImage = (ImageView) view.findViewById(R.id.ivImage);
         fabImageDialog = (FloatingActionButton) view.findViewById(R.id.fabImageDialog);
+        iconListBtn = (FloatingActionButton) view.findViewById(R.id.iconList);
 
         // Use the created view to get the elements from the xml file.
         tvUsername = (TextView) view.findViewById(R.id.tvUsername);
         etStatus = (EditText) view.findViewById(R.id.etStatus);
         etStatus.setFilters(new InputFilter[]{filter});
         btnChange = (Button) view.findViewById(R.id.btnChangeInMap);
+
 
 
         fab_marker1 = (ImageButton) view.findViewById(R.id.fab_marker1);
@@ -218,17 +223,27 @@ public class ProfileFragment extends Fragment {
         Date date = new Date();
         time = dateFormat.format(date);
 
-        // Receive username from database
-        GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
-        getUsernameFromDB.getUsernameFromDB(android_id, this, tvUsername);
+        UsernameJSON usernameJSON = new UsernameJSON();
+        final String name = usernameJSON.getUserName();
+        tvUsername.setText(name);
 
         // Receive status from database.
         GetStatusFromDB getStatusFromDB = new GetStatusFromDB();
         getStatusFromDB.getStatus(android_id, this, etStatus);
 
-        GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
+        final GetEncodedImageFromDB getEncodedImageFromDB = new GetEncodedImageFromDB();
         getEncodedImageFromDB.getResponseEncodedImage(android_id, this);
 
+
+        iconListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MyApplicationContext.getAppContext(), ProfilActivity.class);
+
+                intent.putExtra("name", name);
+                startActivity(intent);
+            }
+        });
         fabImageDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

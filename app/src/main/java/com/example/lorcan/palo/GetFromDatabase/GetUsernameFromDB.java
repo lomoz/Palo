@@ -26,6 +26,7 @@ public class GetUsernameFromDB {
     private MainActivity mainActivity;
     private ProfileFragment profileFragment;
     private TextView tvUsername;
+    public String name;
     private GetUsernameTask getUsernameAsyncTask;
 
     public GetUsernameFromDB() {
@@ -38,6 +39,13 @@ public class GetUsernameFromDB {
         this.tvUsername = tvUsername;
         getUsernameAsyncTask = new GetUsernameTask();
         getUsernameAsyncTask.execute();
+    }
+
+    public String getName(){
+        getUsernameAsyncTask = new GetUsernameTask();
+        getUsernameAsyncTask.execute();
+
+        return name;
     }
 
     public void getResponseUsername(String android_id, MainActivity mainActivity) {
@@ -60,6 +68,7 @@ public class GetUsernameFromDB {
                 public void onResponse(String response) {
 
                     if (profileFragment != null) {
+                        name = response;
                         handleResponseProfile(response);
                         onPostExecute(null);
                     }

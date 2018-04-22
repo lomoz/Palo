@@ -38,6 +38,20 @@
         android:contentDescription="@string/imageView_profile_picture"
         app:srcCompat="@drawable/ic_launcher" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/iconList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivImage"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/hhu_blue"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_popup_reminder"
+        tools:ignore="RtlHardcoded" />
+
     <TextView
         android:id="@+id/tvYourUsername"
         android:layout_width="wrap_content"

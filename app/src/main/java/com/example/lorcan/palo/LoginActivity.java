@@ -79,10 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                                     file.write(nameJSON);
                                     file.flush();
                                     file.close();
+
+                                    UsernameJSON usernameJSON = new UsernameJSON();
+                                    usernameJSON.setUserName(nickname.getText().toString());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             } else {
                                 Toast.makeText(getApplicationContext(), "E-Mailadresse oder Nickname schon vorhanden.", Toast.LENGTH_SHORT).show();
