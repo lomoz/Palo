@@ -162,8 +162,43 @@ public class StartActivity extends AppCompatActivity {
         System.out.println("RESPONSE START:" + response);
         String[] responseArr = response.split("eee");
         final String res = responseArr[0].trim();
+        System.out.println(responseArr.length);
+        String version = versionControl.getActVersion();
 
-        if(responseArr.length > 1){
+        if(responseArr.length == 2) {
+            final String versionDB = responseArr[1].trim();
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this);
+            }
+
+            if (!versionDB.equals(version)) {
+                builder.setTitle("Info")
+                        .setMessage("Version " + responseArr[1] + "ist nun da. Lade dir die neue Version herunter um alle Features weiterhin nutzen zu können.")
+                        .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (res.equals("1")) {
+                                    startMain();
+                                } else {
+                                    start();
+                                }
+                            }
+                        })
+                        .setNeutralButton("Download!", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://uni-duesseldorf.sciebo.de/s/hO4Fp19PcNtI5nh"));
+                                startActivity(browserIntent);
+                            }
+
+
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        }else if(responseArr.length > 2){
             System.out.println("RESPONSEARRAY[0] = "+responseArr[0]);
 
             System.out.println("RESPONSEARRAY[2] = " + responseArr[2]);
@@ -171,8 +206,6 @@ public class StartActivity extends AppCompatActivity {
 
 
 
-            String version = versionControl.getActVersion();
-            System.out.println("!= " + version);
 
 
             if(responseArr[0].equals("1")) {
@@ -229,7 +262,6 @@ public class StartActivity extends AppCompatActivity {
                 start();
             }
         }
-
     }
 
     @Override
