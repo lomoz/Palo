@@ -595,8 +595,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setEncodedImageAsProfileImage(String image) {
-        OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
-        onClickSendToDB.sendBtnClick(android_id, "6");
+
         try {
             if (image.length() > 0) {
                 byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
@@ -732,6 +731,9 @@ public class ProfileFragment extends Fragment {
 
             SendEncodedImageToDB sendEncodedImageToDB = new SendEncodedImageToDB();
             sendEncodedImageToDB.sendEncodedImage(encodedImage);
+
+            OnClickSendToDB onClickSendToDB = new OnClickSendToDB();
+            onClickSendToDB.sendBtnClick(android_id, "6");
 
             cnt_profile_image += 1;
 
