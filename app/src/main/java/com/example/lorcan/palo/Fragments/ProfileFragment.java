@@ -343,7 +343,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        MarkerColorJSON markerColorJSON = new MarkerColorJSON();
+        final MarkerColorJSON markerColorJSON = new MarkerColorJSON();
 
 
 
@@ -353,6 +353,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker1);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker1));
                 marker = 1;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -375,6 +376,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker2);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker2));
                 marker = 2;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker2);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -397,6 +399,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker3);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker3));
                 marker = 3;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker3);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -419,6 +422,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker4);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker4));
                 marker = 4;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker4);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -441,6 +445,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker5);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker5));
                 marker = 5;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker5);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -463,6 +468,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker6);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker6));
                 marker = 6;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker6);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -485,6 +491,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker7);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker7));
                 marker = 7;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker7);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -507,6 +514,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker8);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker8));
                 marker = 8;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker8);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -529,6 +537,7 @@ public class ProfileFragment extends Fragment {
                 Integer color = getResources().getColor(R.color.color_marker9);
                 background.setBackgroundColor(getResources().getColor(R.color.color_marker9));
                 marker = 9;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker9);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -550,6 +559,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Integer color = getResources().getColor(R.color.color_marker10);
                 marker = 10;
+                markerColorJSON.setActColor(marker);
                 bitmapDrawableSelectedMarkerColor = (BitmapDrawable) getResources().getDrawable(R.drawable.marker10);
                 bitmapSelectedMarkerColor = createScaledBitmap(bitmapDrawableSelectedMarkerColor.getBitmap(), 170, 125, false);
                 cnt_marker_color += 1;
@@ -566,7 +576,6 @@ public class ProfileFragment extends Fragment {
                 valueAnimator.start();
             }
         });
-        markerColorJSON.setActColor(marker);
         return view;
     }
 
