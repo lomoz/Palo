@@ -116,12 +116,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 onClickSendToDB.sendBtnClick(android_id, "2");
-
-                // ListActivity replaces ChatListActivity because it's able to hold a toolbar.
-                Intent i = new Intent(MyApplicationContext.getAppContext(), ListActivity.class);
-                startActivity(i);
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.isMessageThere3();
             }
         });
         TelephonyManager tManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
