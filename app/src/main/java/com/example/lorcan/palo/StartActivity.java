@@ -40,7 +40,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        versionControl.setActVersion("1.0.3");
+        versionControl.setActVersion("1.0.4");
 
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
