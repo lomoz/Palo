@@ -2,6 +2,7 @@ package com.example.lorcan.palo;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
@@ -17,16 +18,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ChatListActivity extends AppCompatActivity {
-
+    public JSONChatDB jsonChatDB = new JSONChatDB();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-        new JSONChatDB();
-        createList(JSONChatDB.getData(this));
+        createList();
     }
 
-    public void createList(String list) {
+
+    public void createList() {
+        String list = JSONChatDB.getData(this);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -37,7 +39,6 @@ public class ChatListActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(list);
             listNicknames = jsonObject.getJSONArray("Users");
-            String data = new JSONChatDB().getData(this);
         } catch (JSONException e) {
             System.out.println("LIST:" + new JSONChatDB().getData(this));
         } catch (NullPointerException ne){

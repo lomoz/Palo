@@ -47,7 +47,7 @@ class JSONChatDB {
         }
     }
 
-    void addNewChatUser(String newUser){
+    public void addNewChatUser(String newUser){
         if(newUser.substring(newUser.length() - 1).equals(" ")){
             newUser = newUser.substring(0, newUser.length() - 1);
         }

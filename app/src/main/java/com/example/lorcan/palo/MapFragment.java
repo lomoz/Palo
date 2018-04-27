@@ -118,7 +118,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             public void onClick(View v) {
 
                 onClickSendToDB.sendBtnClick(android_id, "2");
-
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.isMessageThere3();
                 // ListActivity replaces ChatListActivity because it's able to hold a toolbar.
                 Intent i = new Intent(MyApplicationContext.getAppContext(), ListActivity.class);
                 startActivity(i);

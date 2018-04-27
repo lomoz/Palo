@@ -2,6 +2,7 @@ package com.example.lorcan.palo;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +16,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.iid.InstanceID;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +39,16 @@ public class ChatMessage {
     public final String URL2 = "http://palo.square7.ch/getMessage.php";
     public StringRequest request2;
 
+    public RequestQueue requestQueue3;
+    public final String URL3 = "http://palo.square7.ch/getMessageForChatList.php";
+    public StringRequest request3;
 
     public String nickname;
     public String nachricht;
     public String android_id;
     public MapFragment mapFragment;
     public String responseIsMessage;
+    public String responseIsMessageJSONForChatList;
 
     public void sendMessage(final String nickname, final String nachricht) {
 
@@ -381,4 +390,106 @@ public class ChatMessage {
             checkForMessageService.stopAndRestart();
         }
     }
+
+    /*
+    *
+    * HIER MUSS NOCH FÜR DIE CHATLIST GEGUCKT WERDEN OB EINE NEUE NACHRICHT VORLIEGT,
+    * DIE ZUR JSONLIST HINZUGEFÜGT WERDEN MUSS
+    *
+    *
+    * */
+
+    /* ALSO DAS GANZE NOCH FÜR CHATLISTACTIVITY
+*/
+    public void isMessageThere3() {
+        System.out.println("res 3 ok");
+        TelephonyManager telephonyManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        final String android_id = telephonyManager.getDeviceId();
+        this.android_id = android_id;
+        new ResponseTask3().execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public class ResponseTask3 extends AsyncTask<Void, Void, Void> {
+
+        public ResponseTask3() {
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            requestQueue3 = Volley.newRequestQueue(MyApplicationContext.getAppContext());
+            request3 = new StringRequest(Request.Method.POST, URL3, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    responseIsMessageJSONForChatList = response;
+                    System.out.println("RESPONSE CHAT DB FOR CHATLIST:" + response);
+                    handleResponse3(responseIsMessageJSONForChatList);
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            }) {
+
+                // set of parameters in a hashmap, which will be send to the php file (server side)
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> hashMap = new HashMap<String, String>();
+
+                    hashMap.put("android_id", android_id);
+
+                    System.out.println("DAS WAS GESENDET WIRD VOM STATUS: " + hashMap);
+
+                    return hashMap;
+                }
+            };
+
+            requestQueue3.add(request3);
+            return null;
+        }
+    }
+
+    public void handleResponse3(String response){
+        JSONArray jsonArray = new JSONArray();
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            jsonArray = jsonObject.getJSONArray("Users");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println("JSONARRAY FROM DB CHAT LIST: " + jsonArray.toString());
+        if(jsonArray.length() > 0 ) {
+            JSONChatDB jsonChatDB = new JSONChatDB();
+
+            for(int i = 0; i < jsonArray.length(); i++) {
+                String name = null;
+                try {
+                    name = jsonArray.getString(i);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                jsonChatDB.addNewChatUser(name);
+
+            }
+
+        }
+        Intent intent = new Intent(MyApplicationContext.getAppContext(), ListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        MyApplicationContext.getAppContext().startActivity(intent);
+    }
+
 }
