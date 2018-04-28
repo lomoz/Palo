@@ -18,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ChatListActivity extends AppCompatActivity {
-    public JSONChatDB jsonChatDB = new JSONChatDB();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
