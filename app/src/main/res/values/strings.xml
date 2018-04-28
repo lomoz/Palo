@@ -26,6 +26,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>
     <string name="title_activity_maps">Map</string>
+    <string name="new_message">(New!)</string>
 
     <!-- Strings related to activity_main_drawer.xml -->
     <string name="profile">Profile</string>

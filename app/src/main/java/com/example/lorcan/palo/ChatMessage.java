@@ -482,7 +482,8 @@ public class ChatMessage {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                jsonChatDB.addNewChatUser(name);
+                jsonChatDB.deleteUser(name);
+                jsonChatDB.addNewChatUser(name + " (Neu!)");
 
             }
 

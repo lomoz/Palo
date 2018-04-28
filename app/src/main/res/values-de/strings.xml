@@ -26,6 +26,7 @@
     <string name="error_field_required">Dieses Feld ist erforderlich</string>
     <string name="permission_rationale">Der Zugriff auf Kontakte wird für die E-Mail_Adresse benötigt</string>
     <string name="title_activity_maps">Karte</string>
+    <string name="new_message">(Neu!)</string>
 
     <!-- Strings aus activity_main_drawer.xml -->
     <string name="profile">Profil</string>

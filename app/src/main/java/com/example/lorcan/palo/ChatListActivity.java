@@ -86,8 +86,16 @@ public class ChatListActivity extends AppCompatActivity {
                             txt1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+
+                                    String name = txt1.getText().toString();
+                                    JSONChatDB jsonChatDB = new JSONChatDB();
+                                    jsonChatDB.deleteUser(name);
+                                    name = name.replace(" (Neu!)", "");
+                                    jsonChatDB.addNewChatUser(name);
+                                    System.out.println("---------------------------------Name: " + name);
+
                                     Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
-                                    intent.putExtra("name", txt1.getText().toString());
+                                    intent.putExtra("name", name);
                                     startActivity(intent);
                                 }
                             });
