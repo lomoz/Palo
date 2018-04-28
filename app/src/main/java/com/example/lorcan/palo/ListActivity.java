@@ -2,6 +2,7 @@ package com.example.lorcan.palo;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -89,9 +90,16 @@ public class ListActivity extends AppCompatActivity {
                             textViewUsername.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intentChat = new Intent(ListActivity.this, ChatActivity.class);
-                                    intentChat.putExtra("name", textViewUsername.getText().toString());
-                                    startActivity(intentChat);
+                                    String name = textViewUsername.getText().toString();
+                                    JSONChatDB jsonChatDB = new JSONChatDB();
+                                    jsonChatDB.deleteUser(name);
+                                    name = name.replace(" (Neu!)", "");
+                                    jsonChatDB.addNewChatUser(name);
+                                    System.out.println("---------------------------------Name: " + name);
+
+                                    Intent intent = new Intent(ListActivity.this, ChatActivity.class);
+                                    intent.putExtra("name", name);
+                                    startActivity(intent);
                                 }
                             });
 
@@ -127,5 +135,18 @@ public class ListActivity extends AppCompatActivity {
         else {
             Toast.makeText(ListActivity.this, R.string.no_chats, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CurrLocUpdate upFragment = new CurrLocUpdate();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                .replace(R.id.relativelayout_for_fragments,
+                        upFragment,
+                        upFragment.getTag()
+                ).commit();
     }
 }
