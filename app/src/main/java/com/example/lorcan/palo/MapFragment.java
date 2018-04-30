@@ -302,7 +302,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
             int height = 125;
             int width = 170;
-            for (int i = 2; i < args.size(); i = i + 6) {
+            for (int i = 2; i < args.size(); i = i + 7) {
             if(args.get(i+5).equals("1")) {
                 BitmapDrawable bitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker1);
 
@@ -368,7 +368,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 markerOptions1 = new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(args.get(i+1)), Double.parseDouble(args.get(i + 2))))
                         .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                        .title(args.get(i+4) + " | " + args.get(i+3))
+                        .title(args.get(i+4) + " | " + args.get(i+3) + " | Lvl: " + args.get(i+6))
                         .snippet(snippet)
                         .anchor(1,1);
 

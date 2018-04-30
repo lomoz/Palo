@@ -113,6 +113,11 @@ public class UpdateMapFragmentLoadTask extends Fragment {
             args.add(jObjStatus.getString("Nickname"));
             args.add(jObjStatus.getString("Marker"));
 
+            LevelPointsConverter levelPointsConverter = new LevelPointsConverter();
+            int points = Integer.parseInt(jObjStatus.getString("Punkte"));
+            args.add(levelPointsConverter.convertPointsToLevel(points));
+
+
 
         }
 
