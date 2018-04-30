@@ -70,6 +70,10 @@ public class PunkteJSON {
 
     public int getPoints(){
         String old = getData(MyApplicationContext.getAppContext());
+        if(old == null){
+            createNewDBDeleteOld("{ \"Points\" : ['1']}");
+            old = getData(MyApplicationContext.getAppContext());
+        }
         int points = 0;
         try {
             JSONObject jsonObject =  new JSONObject(old);

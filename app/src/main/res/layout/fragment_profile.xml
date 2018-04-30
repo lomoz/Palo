@@ -153,67 +153,83 @@
         android:paddingBottom="50dp"
         tools:ignore="RtlHardcoded">
 
-        <ImageButton
-            android:id="@+id/fab_marker1"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker1"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/marker_selection"
-            android:contentDescription="@string/marker1" />
-
-        <ImageButton
-            android:id="@+id/fab_marker2"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker2"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/marker_selection"
-            android:contentDescription="@string/marker2" />
 
         <ImageButton
             android:id="@+id/fab_marker3"
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:background="@color/color_marker3"
+            android:background="@color/no_marker"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/marker_selection"
             android:contentDescription="@string/marker3" />
 
         <ImageButton
-            android:id="@+id/fab_marker4"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker4"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/marker_selection"
-            android:contentDescription="@string/marker4" />
-
-        <ImageButton
             android:id="@+id/fab_marker5"
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:background="@color/color_marker5"
+            android:background="@color/no_marker"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/marker_selection"
             android:contentDescription="@string/marker5" />
 
         <ImageButton
+            android:id="@+id/fab_marker1"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/no_marker"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker1" />
+
+        <ImageButton
+            android:id="@+id/fab_marker9"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/no_marker"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker9" />
+
+        <ImageButton
+            android:id="@+id/fab_marker2"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/no_marker"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker2" />
+
+
+
+        <ImageButton
+            android:id="@+id/fab_marker4"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:background="@color/no_marker"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/marker_selection"
+            android:contentDescription="@string/marker4" />
+
+
+
+        <ImageButton
             android:id="@+id/fab_marker6"
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:background="@color/color_marker6"
+            android:background="@color/no_marker"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/marker_selection"
@@ -224,7 +240,7 @@
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:background="@color/color_marker7"
+            android:background="@color/no_marker"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/marker_selection"
@@ -235,29 +251,20 @@
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:background="@color/color_marker8"
+            android:background="@color/no_marker"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/marker_selection"
             android:contentDescription="@string/marker8" />
 
-        <ImageButton
-            android:id="@+id/fab_marker9"
-            android:layout_width="58dp"
-            android:layout_height="58dp"
-            android:layout_weight="1"
-            android:background="@color/color_marker9"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@drawable/marker_selection"
-            android:contentDescription="@string/marker9" />
+
 
         <ImageButton
             android:id="@+id/fab_marker10"
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_weight="1"
-            android:background="@color/color_marker10"
+            android:background="@color/no_marker"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/marker_selection"

@@ -79,6 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                                     file.write(nameJSON);
                                     file.flush();
                                     file.close();
+
+                                    UsernameJSON usernameJSON = new UsernameJSON();
+                                    usernameJSON.setUserName(nickname.getText().toString());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

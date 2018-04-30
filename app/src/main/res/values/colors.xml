@@ -33,5 +33,6 @@
     <color name="color_marker8">#F9FF00</color>
     <color name="color_marker9">#004B00</color>
     <color name="color_marker10">#D8005F</color>
+    <color name="no_marker">#e29b9b9b</color>
 
 </resources>
