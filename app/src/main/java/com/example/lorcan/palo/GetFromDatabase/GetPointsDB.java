@@ -20,18 +20,20 @@ import java.util.Map;
 public class GetPointsDB {
 
     private static final String STR_URL = "http://palo.square7.ch/getPointsGami.php";
-
+    public int points = 0;
     public GetPointsDB() {
-        getPoints();
     }
 
-    private void getPoints(){
-
+    public int getPoints(final String name){
+        final int[] responseInt = new int[1];
+        System.out.println(name);
         RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                parseResponse(response);
+                response = response.trim();
+                responseInt[0] = Integer.parseInt(response);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -44,21 +46,20 @@ public class GetPointsDB {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<>();
-
-                TelephonyManager telephonyManager = (TelephonyManager) MyApplicationContext.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
-                ActivityCompat.checkSelfPermission(MyApplicationContext.getAppContext(), android.Manifest.permission.READ_PHONE_STATE);
-                final String android_id = telephonyManager.getDeviceId();
-                hashMap.put("android_id", android_id);
-
+                String name1 = "";
+                if(name.substring(name.length() - 1).equals(" ")){
+                    name1 = name.substring(0, name.length() - 1);
+                }else{
+                    name1 = name;
+                }
+                hashMap.put("name", name1);
+                System.out.println("Name to get points from MySQL DB: " + name1);
                 return hashMap;
             }
         };
 
         requestQueue.add(stringRequest);
+        return responseInt[0];
     }
 
-    private void parseResponse(String response){
-        int points = Integer.parseInt(response);
-
-    }
 }

@@ -26,6 +26,7 @@ public class ChatListActivity extends AppCompatActivity {
         createList(JSONChatDB.getData(this));
     }
 
+
     public void createList(String list) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();

@@ -136,17 +136,4 @@ public class ListActivity extends AppCompatActivity {
             Toast.makeText(ListActivity.this, R.string.no_chats, Toast.LENGTH_SHORT).show();
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        CurrLocUpdate upFragment = new CurrLocUpdate();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                .replace(R.id.relativelayout_for_fragments,
-                        upFragment,
-                        upFragment.getTag()
-                ).commit();
-    }
 }

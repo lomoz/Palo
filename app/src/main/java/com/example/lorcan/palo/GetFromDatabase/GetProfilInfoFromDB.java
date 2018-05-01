@@ -138,7 +138,7 @@ public class GetProfilInfoFromDB {
             list.add(String.valueOf(neunzehn));
             String zwanzig = jsonObject.get("20").toString();
             list.add(String.valueOf(zwanzig));
-            
+            System.out.println(list.toString());
 
             profilActivity.setInfoToScreen(list);
         }catch (JSONException e){

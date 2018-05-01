@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -19,6 +23,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lorcan.palo.GetFromDatabase.GetPointsDB;
 import com.example.lorcan.palo.GetFromDatabase.GetProfilInfoFromDB;
 
 import java.io.Serializable;
@@ -29,9 +34,16 @@ import pl.droidsonroids.gif.GifTextView;
 public class ProfilActivity extends AppCompatActivity {
 
     String name;
+    public int points;
+
+    Point size = new Point();
+    int width = size.x;
+    int height = size.y;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Display display = getWindowManager().getDefaultDisplay();
         setContentView(R.layout.activity_profil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,14 +54,19 @@ public class ProfilActivity extends AppCompatActivity {
 
         GetProfilInfoFromDB getProfilInfoFromDB = new GetProfilInfoFromDB();
         getProfilInfoFromDB.getInfo(ProfilActivity.this, name);
+
+        GetPointsDB getPointsDB = new GetPointsDB();
+        points = getPointsDB.getPoints(name);
+
+        display.getSize(size);
+        width = size.x;
+        height = size.y;
+
     }
 
     public void setInfoToScreen(ArrayList<String> list){
 
         RelativeLayout rel = (RelativeLayout) findViewById(R.id.profilLayout);
-
-
-
         GifTextView gif = (GifTextView) findViewById(R.id.imageView2);
         rel.removeView(gif);
 
@@ -91,23 +108,30 @@ public class ProfilActivity extends AppCompatActivity {
 
 
         //---ICON LIST---
-
-        LinearLayout iconList = new LinearLayout(this);
-        LinearLayout.LayoutParams iconListLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 100);
-        iconList.setPadding(0, 700, 0 ,0);
-        iconListLayout.height = LinearLayout.LayoutParams.MATCH_PARENT;
-        iconListLayout.width = LinearLayout.LayoutParams.MATCH_PARENT;
-
-        iconList.setLayoutParams(iconListLayout);
-
-        TableLayout table = new TableLayout(this);
         ScrollView scrollView = new ScrollView(this);
-        TableRow.LayoutParams tableRowLayout = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40);
 
-        //--for schleife--
-        TableRow tableRow = new TableRow(this);
+        RelativeLayout.LayoutParams iconListLayoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        iconListLayoutParams.setMargins(0, 700, 0, 0);
+        iconListLayoutParams.addRule(RelativeLayout.BELOW, statusTextView.getId());
+        iconListLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        scrollView.setLayoutParams(iconListLayoutParams);
+        scrollView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
+        iconListLayoutParams.width = 850;
+        iconListLayoutParams.height = 550;
+        scrollView.setBackgroundColor(Color.LTGRAY);
+
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout linearLayout1 = new LinearLayout(this);
+        linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
+
+
         int cnt = 0;
-        for(int i = 2; i < list.size(); i++){
+        for(int i = 3; i < list.size(); i++){
+            list.get(i).trim();
             if(list.get(i).equals("1")){
                 cnt = cnt +1;
                 ImageView iconIV = new ImageView(this);
@@ -176,29 +200,54 @@ public class ProfilActivity extends AppCompatActivity {
                 if(i == 23) {
                     iconIV.setBackgroundResource(R.drawable.herz); //"icon"+ i-1
                 }
-                tableRow.addView(iconIV);
-                tableRow.setLayoutParams(tableRowLayout);
-                if(cnt == 5){
+                linearLayout1.addView(iconIV);
+                if(cnt == 4){
                     cnt = 0;
-                    table.addView(tableRow);
-                    tableRow = new TableRow(this);
+                    linearLayout.addView(linearLayout1);
+                    linearLayout1 = new LinearLayout(this);
+                    linearLayout1.setOrientation(LinearLayout.HORIZONTAL);
                 }
             }
 
         }
 
 
-        //----------------
+        LevelPointsConverter levelPointsConverter = new LevelPointsConverter();
+        String lvl = levelPointsConverter.convertPointsToLevel(points);
+        TextView txtView = new TextView(this);
+        txtView.setText("  P: " + points);
+        txtView.setPadding(0,8, 0, 0);
+        txtView.setTextColor(Color.WHITE);
 
-        scrollView.addView(table);
-        iconList.setTextAlignment(LinearLayout.TEXT_ALIGNMENT_CENTER);
-        iconList.addView(scrollView);
+
+        RelativeLayout progressBarBox = new RelativeLayout(this);
+        RelativeLayout.LayoutParams progressBarBoxLayout = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 90);
+        progressBarBox.setBackgroundColor(Color.LTGRAY);
+        progressBarBoxLayout.setMargins(0, 450, 0, 0);
+        progressBarBoxLayout.addRule(RelativeLayout.BELOW, ivImage.getId());
+        progressBarBox.setPadding(5, 5, 5, 5);
+        progressBarBox.setLayoutParams(progressBarBoxLayout);
+
+        int progress = Integer.parseInt(lvl) * ((width-10)/10);
+        RelativeLayout progressBar = new RelativeLayout(this);
+        RelativeLayout.LayoutParams progressBarLayout = new RelativeLayout.LayoutParams(progress, 80);
+        progressBar.setBackgroundColor(getResources().getColor(R.color.hhu_blue));
+        progressBar.setLayoutParams(progressBarLayout);
+
+
+
+
+        //----------------
+        scrollView.addView(linearLayout);
+        progressBarBox.addView(progressBar);
+        progressBarBox.addView(txtView);
 
         //---------------
 
         rel.addView(ivImage);
         rel.addView(statusTextView);
-        rel.addView(iconList);
+        rel.addView(scrollView);
+        rel.addView(progressBarBox);
 
 
     }
