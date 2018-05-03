@@ -57,6 +57,7 @@ public class ProfilActivity extends AppCompatActivity {
 
         GetPointsDB getPointsDB = new GetPointsDB();
         points = getPointsDB.getPoints(name);
+        System.out.println(points);
 
         display.getSize(size);
         width = size.x;
