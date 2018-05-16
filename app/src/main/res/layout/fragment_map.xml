@@ -72,7 +72,7 @@
             android:clickable="true"
             app:backgroundTint="@color/hhu_blue"
             app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_menu_edit"
+            app:srcCompat="@drawable/upload"
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded"
             android:focusable="true" />
 
@@ -89,7 +89,7 @@
             android:clickable="true"
             app:fabSize="mini"
             app:backgroundTint="@color/hhu_blue"
-            app:srcCompat="@drawable/cast_ic_notification_forward"
+            app:srcCompat="@drawable/reload"
             tools:ignore="ObsoleteLayoutParam,RelativeOverlap,RtlHardcoded"
             android:focusable="true" />
 

@@ -61,8 +61,8 @@ public class ProfilActivity extends AppCompatActivity {
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 400, 400, false));
         }else{
             Toast.makeText(MyApplicationContext.getAppContext(), "Es ist leider kein Profilbild vorhanden.", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(MyApplicationContext.getAppContext(), ChatListActivity.class);
-            startActivity(i);
+            ProfilActivity profilActivity = this;
+            profilActivity.finish();
         }
 
         TextView statusTextView = new TextView(this);

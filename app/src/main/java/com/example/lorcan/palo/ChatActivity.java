@@ -195,9 +195,8 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(MyApplicationContext.getAppContext(), ListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        MyApplicationContext.getAppContext().startActivity(intent);
+        ChatActivity chatActivity = this;
+        chatActivity.finish();
     }
 }
 
