@@ -14,6 +14,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -80,96 +81,92 @@ public class CurrLocUpdate extends Fragment  {
     private void locate() {
         LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE );
         boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
-
+        if (!statusOfGPS) {
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(getActivity());
+            }
+            builder.setTitle("GPS anschalten")
+                    .setMessage("Bitte schalte dein GPS an, damit Palo reibungslos funktioniert.")
+                    .setCancelable(false)
+                    .setPositiveButton("GPS AN", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent callGPSSettingIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            getActivity().startActivity(callGPSSettingIntent);
+                            locate();
+                        }
+                    });
+            builder.show();
         }else{
-            if(!statusOfGPS){
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MyApplicationContext.getAppContext());
-                alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
-                        .setCancelable(false)
-                        .setPositiveButton("Goto Settings Page To Enable GPS",
-                                new DialogInterface.OnClickListener(){
-                                    public void onClick(DialogInterface dialog, int id){
-                                        Intent callGPSSettingIntent = new Intent(
-                                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                        startActivity(callGPSSettingIntent);
+            if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
+            }else {
+                mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MyApplicationContext.getAppContext());
+
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(this.getActivity(), new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Got last known location. In some rare situations this can be null.
+                                if (location == null) {
+                                    if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
+                                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
+                                    } else {
+                                        mFusedLocationClient.getLastLocation()
+                                                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                                                    @Override
+                                                    public void onSuccess(Location location) {
+                                                        System.out.println("location: " + location);
+                                                    }
+                                                });
                                     }
-                                });
-                alertDialogBuilder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener(){
-                            public void onClick(DialogInterface dialog, int id){
-                                dialog.cancel();
+                                }
+
+                                UpdateMapFragment update = UpdateMapFragment.newInstance("1", "2");
+                                Bundle bundle = new Bundle();
+
+                                // Logic to handle location object
+                                System.out.println("*************************" + location + "*************************");
+
+                                double[] currLoc = new double[2];
+                                if (location != null) {
+                                    lat = location.getLatitude();
+                                    lng = location.getLongitude();
+
+
+                                    currLoc[0] = lat;
+                                    currLoc[1] = lng;
+                                    bundle.putDoubleArray("currLoc", currLoc);
+                                    System.out.println("CURRENT LOCATION CurrLocUpdate: " + currLoc[0]);
+                                    update.setArguments(bundle);
+
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    fragmentManager.beginTransaction()
+                                            .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                            .replace(R.id.relativelayout_for_fragments,
+                                                    update,
+                                                    update.getTag()
+                                            ).commitAllowingStateLoss();
+                                } else {
+                                    if (Build.VERSION.SDK_INT >= 11) {
+                                        CurrLocUpdate.this.getActivity().recreate();
+                                    } else {
+                                        CurrLocUpdate.this.getActivity().finish();
+                                        CurrLocUpdate.this.getActivity().startActivity(CurrLocUpdate.this.getActivity().getIntent());
+                                    }
+
+                                    //open settings to activate GPS
+                                    //displayLocationSettingsRequest(MyApplicationContext.getAppContext());
+                                }
+
+
                             }
                         });
-                AlertDialog alert = alertDialogBuilder.create();
-                alert.show();
             }
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MyApplicationContext.getAppContext());
-
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this.getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if(location == null) {
-                            if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
-                                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
-                            }else{
-
-                            }
-                                mFusedLocationClient.getLastLocation()
-                                        .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                                            @Override
-                                            public void onSuccess(Location location) {
-                                                System.out.println("location: " + location);
-                                            }
-                                        });
-                        }
-
-                        UpdateMapFragment update = UpdateMapFragment.newInstance("1", "2");
-                        Bundle bundle = new Bundle();
-
-                        // Logic to handle location objectg
-                        System.out.println("*************************" + location + "*************************");
-
-                        double[] currLoc = new double[2];
-                        if (location != null) {
-                            lat = location.getLatitude();
-                            lng = location.getLongitude();
-
-                            currLoc[0] = lat;
-                            currLoc[1] = lng;
-                            bundle.putDoubleArray("currLoc", currLoc);
-                            System.out.println("CURRENT LOCATION CurrLocUpdate: " + currLoc[0]);
-
-
-                            update.setArguments(bundle);
-
-                            FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
-                                    .replace(R.id.relativelayout_for_fragments,
-                                            update,
-                                            update.getTag()
-                                    ).commitAllowingStateLoss();
-                        } else {
-                            if (Build.VERSION.SDK_INT >= 11) {
-                                CurrLocUpdate.this.getActivity().recreate();
-                            } else {
-                                CurrLocUpdate.this.getActivity().finish();
-                                CurrLocUpdate.this.getActivity().startActivity(CurrLocUpdate.this.getActivity().getIntent());
-                            }
-                            //open settings to activate GPS
-                            //displayLocationSettingsRequest(MyApplicationContext.getAppContext());
-                        }
-
-
-                    }
-                });
         }
     }
     private void displayLocationSettingsRequest(Context context) {
