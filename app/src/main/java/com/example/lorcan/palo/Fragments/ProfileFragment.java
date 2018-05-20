@@ -17,6 +17,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -765,14 +766,34 @@ public class ProfileFragment extends Fragment {
     }
 
     private void CameraOpen() {
+        try {
+            CameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            file = new File(Environment.getExternalStorageDirectory(),
+                    "file" + String.valueOf(System.currentTimeMillis()) + ".jpeg");
 
-        CameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = new File(Environment.getExternalStorageDirectory(),
-                "file" + String.valueOf(System.currentTimeMillis()) + ".jpeg");
-        uri = Uri.fromFile(file);
-        CameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        CameraIntent.putExtra("return-data", true);
-        startActivityForResult(CameraIntent, 0);
+            uri = Uri.fromFile(file);
+            CameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            CameraIntent.putExtra("return-data", true);
+            startActivityForResult(CameraIntent, 0);
+        }catch(Exception e){
+            final AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(this.getActivity(), android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(this.getActivity());
+            }
+            builder.setIcon(R.drawable.ic_menu_camera)
+                    .setTitle("Kameraproblem")
+                    .setMessage("Hallo " + tvUsername.getText()+", \nleider haben wir derzeit bei den neusten Android-Versionen noch ein Problem mit Bildern aus der Kamera. Bitte nutze, um ein Profilbild einzustellen, deine Galerie. Wir arbeiten an dem Problem und versuchen es so schnell es möglich ist zu lösen. \nVielen Dank für dein Verständnis \n dein Palo-Team. :)")
+                    .setPositiveButton("OK!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.show();
+            e.printStackTrace();
+            System.out.println(uri);
+        }
     }
 
     private void GalleryOpen() {

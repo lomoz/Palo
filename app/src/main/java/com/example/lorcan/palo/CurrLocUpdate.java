@@ -12,6 +12,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -132,7 +133,7 @@ public class CurrLocUpdate extends Fragment  {
                         UpdateMapFragment update = UpdateMapFragment.newInstance("1", "2");
                         Bundle bundle = new Bundle();
 
-                        // Logic to handle location object
+                        // Logic to handle location objectg
                         System.out.println("*************************" + location + "*************************");
 
                         double[] currLoc = new double[2];
@@ -140,11 +141,12 @@ public class CurrLocUpdate extends Fragment  {
                             lat = location.getLatitude();
                             lng = location.getLongitude();
 
-
                             currLoc[0] = lat;
                             currLoc[1] = lng;
                             bundle.putDoubleArray("currLoc", currLoc);
                             System.out.println("CURRENT LOCATION CurrLocUpdate: " + currLoc[0]);
+
+
                             update.setArguments(bundle);
 
                             FragmentManager fragmentManager = getFragmentManager();
@@ -155,8 +157,14 @@ public class CurrLocUpdate extends Fragment  {
                                             update.getTag()
                                     ).commitAllowingStateLoss();
                         } else {
+                            if (Build.VERSION.SDK_INT >= 11) {
+                                CurrLocUpdate.this.getActivity().recreate();
+                            } else {
+                                CurrLocUpdate.this.getActivity().finish();
+                                CurrLocUpdate.this.getActivity().startActivity(CurrLocUpdate.this.getActivity().getIntent());
+                            }
                             //open settings to activate GPS
-                            displayLocationSettingsRequest(MyApplicationContext.getAppContext());
+                            //displayLocationSettingsRequest(MyApplicationContext.getAppContext());
                         }
 
 
@@ -212,15 +220,21 @@ public class CurrLocUpdate extends Fragment  {
         switch (requestCode) {
 
             case PERMISSION_ACCESS_COARSE_LOCATION: {
-
-
-                locate();
+                if (Build.VERSION.SDK_INT >= 11) {
+                    this.getActivity().recreate();
+                } else {
+                    this.getActivity().finish();
+                    this.getActivity().startActivity(this.getActivity().getIntent());
+                }
             }
 
             case PERMISSION_ACCESS_FINE_LOCATION: {
-
-
-                locate();
+                if (Build.VERSION.SDK_INT >= 11) {
+                    this.getActivity().recreate();
+                } else {
+                    this.getActivity().finish();
+                    this.getActivity().startActivity(this.getActivity().getIntent());
+                }
             }
         }
     }
