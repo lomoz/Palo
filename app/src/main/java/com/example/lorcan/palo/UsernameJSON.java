@@ -3,6 +3,8 @@ package com.example.lorcan.palo;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.lorcan.palo.GetFromDatabase.GetUsernameFromDB;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,6 +71,13 @@ public class UsernameJSON {
         String old = getData(MyApplicationContext.getAppContext());
         String username = "";
         try {
+            if(old == null){
+                GetUsernameFromDB getUsernameFromDB = new GetUsernameFromDB();
+                String usernametmp = getUsernameFromDB.getName();
+                createNewDBDeleteOld("{ \"Name\" : ['"+usernametmp+"']}");
+                old = getData(MyApplicationContext.getAppContext());
+                username = usernametmp; //not necessary
+            }
             JSONObject jsonObject =  new JSONObject(old);
 
             JSONArray jsonArray = jsonObject.getJSONArray("Name");
