@@ -262,7 +262,11 @@ public class ChatMessage {
         final String android_id = telephonyManager.getDeviceId();
         this.android_id = android_id;
         this.nickname = nickname;
-        new ResponseTask1(chatActivity).execute();
+        try {
+            new ResponseTask1(chatActivity).execute();
+        }catch(OutOfMemoryError error){
+            chatActivity.recreate();
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
