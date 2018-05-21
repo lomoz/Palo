@@ -700,7 +700,7 @@ public class ProfileFragment extends Fragment {
         sendStatusToDB statusToDB = new sendStatusToDB();
         cnt_status_profile += 1;
 
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yy");
         Date date = new Date();
         time = dateFormat.format(date);
         statusToDB.sendStatus(status, lat, lng, time, android_id, marker);

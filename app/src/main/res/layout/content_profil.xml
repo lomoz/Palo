@@ -13,12 +13,12 @@
 
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/imageView2"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@drawable/ladegif"
-        android:contentDescription="AppIcon"
+        android:contentDescription="@string/appicon"
         android:foregroundGravity="center_vertical|center_horizontal"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"

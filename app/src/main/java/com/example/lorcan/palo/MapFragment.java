@@ -217,7 +217,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     }
 
                     sendStatusToDB statusToDB = new sendStatusToDB();
-                    DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+                    DateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yy");
                     Date date = new Date();
                     String time = dateFormat.format(date);
                     double latitude = currLocation.latitude;

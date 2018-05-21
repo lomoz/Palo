@@ -202,5 +202,6 @@
     <string name="image_upload_denied">Something wrong while encoding photos.</string>
     <string name="your_username">Your Username:</string>
     <string name="username">Username</string>
+    <string name="appicon">AppIcon</string>
 
 </resources>
