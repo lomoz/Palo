@@ -152,12 +152,39 @@ public class CurrLocUpdate extends Fragment  {
                                                     update.getTag()
                                             ).commitAllowingStateLoss();
                                 } else {
-                                    if (Build.VERSION.SDK_INT >= 11) {
-                                        CurrLocUpdate.this.getActivity().recreate();
-                                    } else {
-                                        CurrLocUpdate.this.getActivity().finish();
-                                        CurrLocUpdate.this.getActivity().startActivity(CurrLocUpdate.this.getActivity().getIntent());
-                                    }
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(CurrLocUpdate.this.getActivity());
+                                    builder.setTitle("Kein Standort gefunden");
+                                    builder.setMessage("Es wurde leider kein Standort gefunden. Möchtest du es erneut probieren?");
+
+                                    // Select Camera
+                                    builder.setPositiveButton("Erneut versuchen", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            if (Build.VERSION.SDK_INT >= 11) {
+                                                CurrLocUpdate.this.getActivity().recreate();
+                                            } else {
+                                                CurrLocUpdate.this.getActivity().finish();
+                                                CurrLocUpdate.this.getActivity().startActivity(CurrLocUpdate.this.getActivity().getIntent());
+                                            }
+                                        }
+                                    });
+
+                                    builder.setNeutralButton("Profil", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            ProfileFragment profileFragment = new ProfileFragment();
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            fragmentManager.beginTransaction()
+                                                    .setCustomAnimations(R.anim.anim_slide_in_from_left, R.anim.anim_slide_out_from_left)
+                                                    .replace(R.id.relativelayout_for_fragments,
+                                                            profileFragment,
+                                                            profileFragment.getTag()
+                                                    ).commit();
+                                        }
+                                    });
+
+                                    builder.show();
 
                                     //open settings to activate GPS
                                     //displayLocationSettingsRequest(MyApplicationContext.getAppContext());
