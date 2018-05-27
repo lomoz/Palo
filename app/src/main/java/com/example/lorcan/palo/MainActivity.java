@@ -354,4 +354,6 @@ public class MainActivity extends AppCompatActivity
     public void setUsernameInNav(String username) {
         navTextViewUsername.setText(username);
     }
+
+
 }

@@ -105,19 +105,20 @@ public class CurrLocUpdate extends Fragment  {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
             }else {
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(MyApplicationContext.getAppContext());
-
+                final CurrLocUpdate currLocUpdate = this;
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(this.getActivity(), new OnSuccessListener<Location>() {
+
                             @Override
                             public void onSuccess(Location location) {
                                 // Got last known location. In some rare situations this can be null.
                                 if (location == null) {
-                                    if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
-                                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
+                                    if (ActivityCompat.checkSelfPermission(currLocUpdate.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(currLocUpdate.getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                        ActivityCompat.requestPermissions(currLocUpdate.getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_ACCESS_FINE_LOCATION);
+                                        ActivityCompat.requestPermissions(currLocUpdate.getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_ACCESS_COARSE_LOCATION);
                                     } else {
                                         mFusedLocationClient.getLastLocation()
-                                                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                                                .addOnSuccessListener(currLocUpdate.getActivity(), new OnSuccessListener<Location>() {
                                                     @Override
                                                     public void onSuccess(Location location) {
                                                         System.out.println("location: " + location);
@@ -172,7 +173,7 @@ public class CurrLocUpdate extends Fragment  {
                                     builder.setNeutralButton("Profil", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                                            dialogInterface.dismiss();
                                             ProfileFragment profileFragment = new ProfileFragment();
                                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                             fragmentManager.beginTransaction()
@@ -181,10 +182,12 @@ public class CurrLocUpdate extends Fragment  {
                                                             profileFragment,
                                                             profileFragment.getTag()
                                                     ).commit();
+
                                         }
                                     });
 
                                     builder.show();
+
 
                                     //open settings to activate GPS
                                     //displayLocationSettingsRequest(MyApplicationContext.getAppContext());

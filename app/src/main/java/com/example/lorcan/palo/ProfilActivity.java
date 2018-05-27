@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -60,9 +61,8 @@ public class ProfilActivity extends AppCompatActivity {
             ivImage.setRotation(90);
             ivImage.setImageBitmap(Bitmap.createScaledBitmap(decodedByte, 400, 400, false));
         }else{
-            Toast.makeText(MyApplicationContext.getAppContext(), "Es ist leider kein Profilbild vorhanden.", Toast.LENGTH_SHORT).show();
-            ProfilActivity profilActivity = this;
-            profilActivity.finish();
+            ivImage.setImageDrawable(getResources().getDrawable(R.drawable.profil));
+            ivImage.setBackgroundColor(getResources().getColor(R.color.hhu_blue));
         }
 
         TextView statusTextView = new TextView(this);
