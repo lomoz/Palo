@@ -1,7 +1,6 @@
 package com.example.lorcan.palo;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +34,6 @@ public class StartActivity extends AppCompatActivity {
     public final int PERMISSION_INTERNET_STATE = 2;
     public VersionControl versionControl = new VersionControl();
 
-    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +94,6 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     public class isIDTask extends AsyncTask<Void, Void, Void>{
 
         @Override

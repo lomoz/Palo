@@ -1,7 +1,6 @@
 package com.example.lorcan.palo;
 
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -99,7 +98,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         }
     };
 
-    @SuppressLint("HardwareIds")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -181,7 +179,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
         btnChangeInMap = (FloatingActionButton) view.findViewById(R.id.btnChangeInMap);
         btnChangeInMap.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("HardwareIds")
+
             @Override
             public void onClick(View view) {
 
@@ -405,10 +403,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 }
             });
         }
-        //------------------------------- 
-
-        Toast.makeText(getContext(), getString(R.string.current_location) + " " + currLocation, Toast.LENGTH_LONG).show();
-
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.

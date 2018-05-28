@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,7 +38,6 @@ public class UpdateMapFragmentLoadTask extends Fragment {
         loadData.execute();
     }
 
-    @SuppressLint("StaticFieldLeak")
     public class LoadDataTask extends AsyncTask<Void, Void, Void>{
 
         @Override

@@ -26,6 +26,7 @@ public class SendLocToDB{
 
 
     void sendLocation(final String email, final Double lat, final Double lng) {
+
         // using volley lib to create request
         this.email = email;
         RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());

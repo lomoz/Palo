@@ -36,7 +36,6 @@ public class ChatActivity extends AppCompatActivity {
     public final int  PERMISSION_READ_PHONE_STATE = 1;
     public final int PERMISSION_INTERNET_STATE = 2;
 
-    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Display display = getWindowManager().getDefaultDisplay();

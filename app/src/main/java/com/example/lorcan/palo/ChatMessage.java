@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,7 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.iid.InstanceID;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +49,7 @@ public class ChatMessage {
     public String responseIsMessageJSONForChatList;
 
     public void sendMessage(final String nickname, final String nachricht) {
+        MyApplicationContext myApplicationContext = new MyApplicationContext();
 
         System.out.println("NICKNAME CHAT: " + nickname);
         this.nickname = nickname;
@@ -184,11 +183,10 @@ public class ChatMessage {
 
 
     public void isMessageThere() {
-        new ResponseTask().execute();
+        new isMessageTask1().execute();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    public class ResponseTask extends AsyncTask<Void, Void, Void> {
+    public class isMessageTask1 extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -269,7 +267,6 @@ public class ChatMessage {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     public class ResponseTask1 extends AsyncTask<Void, Void, Void> {
         ChatActivity chatActivity;
         public ResponseTask1(ChatActivity chatActivity) {
@@ -342,7 +339,6 @@ public class ChatMessage {
     }
 
 
-    @SuppressLint("StaticFieldLeak")
     public class ResponseTask2 extends AsyncTask<Void, Void, Void> {
         CheckForMessageService checkForMessageService;
         public ResponseTask2(CheckForMessageService checkForMessageService) {
@@ -423,7 +419,6 @@ public class ChatMessage {
         new ResponseTask3().execute();
     }
 
-    @SuppressLint("StaticFieldLeak")
     public class ResponseTask3 extends AsyncTask<Void, Void, Void> {
 
         public ResponseTask3() {

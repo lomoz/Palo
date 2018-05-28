@@ -21,6 +21,7 @@ public class sendStatusToDB {
     protected String android_id;
     protected int marker;
 
+
     public sendStatusToDB() {
 
     }

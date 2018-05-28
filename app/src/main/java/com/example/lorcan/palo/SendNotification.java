@@ -13,6 +13,7 @@ import android.view.View;
 public class SendNotification {
 
     public void sendNotification (){
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplicationContext.getAppContext());
         builder.setSmallIcon(R.drawable.appicon);
         builder.setContentTitle("Palo: Nachricht");

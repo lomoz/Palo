@@ -34,12 +34,10 @@ public class ContactFragment extends Fragment {
     EditText et_topic, et_message;
     Button btn_contact;
     String contact_topic, contact_message;
-
     public ContactFragment() {
         // Required empty public constructor
     }
 
-    @SuppressLint("HardwareIds")
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {

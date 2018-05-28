@@ -79,6 +79,7 @@ public class CurrLocUpdate extends Fragment  {
 
 
     private void locate() {
+
         LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE );
         boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!statusOfGPS) {
@@ -142,7 +143,6 @@ public class CurrLocUpdate extends Fragment  {
                                     currLoc[0] = lat;
                                     currLoc[1] = lng;
                                     bundle.putDoubleArray("currLoc", currLoc);
-                                    System.out.println("CURRENT LOCATION CurrLocUpdate: " + currLoc[0]);
                                     update.setArguments(bundle);
 
                                     FragmentManager fragmentManager = getFragmentManager();

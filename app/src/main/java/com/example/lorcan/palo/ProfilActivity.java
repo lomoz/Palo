@@ -13,7 +13,6 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lorcan.palo.GetFromDatabase.GetProfilInfoFromDB;
 

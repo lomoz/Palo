@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -49,7 +48,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, UpdateMapFragment.OnFragmentInteractionListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
-    @SuppressLint("StaticFieldLeak")
     static getLocFromDB locationsFromDB;
     protected static ArrayList<String> arrayListOtherUsers = new ArrayList<>();
     public final int REQUEST_READ_PHONE_STATE = 1;
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity
     ImageView navImageViewProfile;
     TextView navTextViewUsername;
 
-    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +145,6 @@ public class MainActivity extends AppCompatActivity
         //checkForMessageService.checkForMessageInit();
     }
 
-    @SuppressLint("HardwareIds")
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {

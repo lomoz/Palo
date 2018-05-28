@@ -1,6 +1,5 @@
 package com.example.lorcan.palo;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private String android_id;
 
-    @SuppressLint("HardwareIds")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -37,7 +37,7 @@ public class GetUsernameFromDB {
         this.android_id = android_id;
         this.profileFragment = profileFragment;
         this.tvUsername = tvUsername;
-        getUsernameAsyncTask = new GetUsernameTask();
+        getUsernameAsyncTask = new GetUsernameTask(android_id, profileFragment, tvUsername);
         getUsernameAsyncTask.execute();
     }
 
@@ -51,63 +51,8 @@ public class GetUsernameFromDB {
     public void getResponseUsername(String android_id, MainActivity mainActivity) {
         this.android_id = android_id;
         this.mainActivity = mainActivity;
-        getUsernameAsyncTask = new GetUsernameTask();
+        getUsernameAsyncTask = new GetUsernameTask(android_id, mainActivity);
         getUsernameAsyncTask.execute();
 
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public class GetUsernameTask extends AsyncTask<Void, Void, Void>{
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            final RequestQueue requestQueue = Volley.newRequestQueue(MyApplicationContext.getAppContext());
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, STR_URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-
-                    if (profileFragment != null) {
-                        name = response;
-                        handleResponseProfile(response);
-                        onPostExecute(null);
-                    }
-                    else {
-                        handleResponse(response);
-                    }
-                }
-
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                }
-            }) {
-
-                // set of parameters in a HashMap, which will be send to the php file (server side)
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("android_id", android_id);
-
-                    return hashMap;
-                }
-            };
-
-            requestQueue.add(stringRequest);
-            return null;
-        }
-    }
-
-    private void handleResponse(String response) {
-        getUsernameAsyncTask.cancel(true);
-        mainActivity.setUsernameInNav(response);
-    }
-
-    private void handleResponseProfile(String response) {
-        getUsernameAsyncTask.cancel(true);
-        tvUsername.setText(response);
     }
 }
