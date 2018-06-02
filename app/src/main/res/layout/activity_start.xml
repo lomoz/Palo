@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#006AB3"
-    tools:context="com.example.lorcan.palo.StartActivity"
+    tools:context="de.app.classic.palo.StartActivity"
     tools:layout_editor_absoluteY="25dp"
     tools:layout_editor_absoluteX="0dp">
 

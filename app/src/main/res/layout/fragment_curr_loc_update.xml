@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context="com.example.lorcan.palo.UpdateMapFragment">
+    tools:context="de.app.classic.palo.UpdateMapFragment">
 <!--
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/imageView2"

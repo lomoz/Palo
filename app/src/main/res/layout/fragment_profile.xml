@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example.lorcan.palo.Fragments.ProfileFragment">
+    tools:context="de.app.classic.palo.Fragments.ProfileFragment">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabImageDialog"

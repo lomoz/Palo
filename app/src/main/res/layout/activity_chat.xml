@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context="com.example.lorcan.palo.ChatActivity">
+    tools:context="de.app.classic.palo.ChatActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"

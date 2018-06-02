@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFFFF"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.lorcan.palo.ProfilActivity"
+    tools:context="de.app.classic.palo.ProfilActivity"
     tools:showIn="@layout/activity_profil">
 
 
