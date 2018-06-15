@@ -1,7 +1,7 @@
 <resources>
 
     <!-- App name -->
-    <string name="app_name">Palo</string>
+    <string name="app_name">Palo Classic</string>
 
     <!-- Google Maps API access token -->
     <string name="access_token">"pk.eyJ1IjoicGFsb2hodSIsImEiOiJjajQ4cDdmb2MwZjgyMnFxb2hrMnludTJkIn0.Giac8tbDSxxOu_ivc2PaUg"</string>
